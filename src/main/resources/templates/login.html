@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8"/>
+  <title>面向软件工程的毕业论文管理平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Loading Bootstrap -->
+  <link th:href="@{/css/vendor/bootstrap/css/bootstrap.min.css}" href="../static/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Loading Flat UI -->
+  <link th:href="@{/css/flat-ui.min.css}" href="../static/css/flat-ui.min.css" rel="stylesheet"/>
+   <link th:href="@{/css/demo.css}" href="../static/css/demo.css" rel="stylesheet"/>
+  <link th:href="@{/img/favicon.ico}" rel="shortcut icon" href="../static/img/favicon.ico"/>
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script th:href="@{vendor/html5shiv.js}" src="../static/js/vendor/html5shiv.js"></script>
+      <script th:href="@{js/vendor/respond.min.js}" src="../static/js/vendor/respond.min.js"></script>
+      <![endif]-->
+    </head>
+    <body>
+      <div class="container">
+        <h1 class="demo-headline">面向软件工程的毕业论文管理平台</h1>
+
+
+
+        <div class="login">
+          <div class="login-screen">
+            <div class="login-icon">
+              <img th:src="@{img/icons/png/Book.png}" src="../static/img/icons/png/Book.png" alt="Welcome to Mail App" />
+              <h4 align="center"><b>Welcome!</b></h4>
+            </div>
+
+            <form th:action="@{/login}" action="/login"  method="post">
+            <div class="login-form">
+              <div class="form-group">
+                <input type="text" class="form-control login-field" name="username" placeholder="用户名" id="login-name" required/>
+                <label class="login-field-icon fui-user" for="login-name"></label>
+              </div>
+
+              <div class="form-group">
+                <input type="password" class="form-control login-field" name="password" placeholder="密码" id="login-pass" required/>
+                <label class="login-field-icon fui-lock" for="login-pass"></label>
+              </div>
+
+
+              <div th:if="${param.error}" style="color: red">
+               <p>*用户名或密码错误</p>
+                <!--th:text="${'*' + session.SPRING_SECURITY_LAST_EXCEPTION.message}"-->
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg btn-block">登录</button>
+            </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+      <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+      <script th:src="@{/js/jquery.min.js}" src="../static/js/vendor/jquery.min.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script th:src="@{/js/video.js}" src="../static/js/vendor/video.js"></script>
+      <script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
+      <script th:src="@{/js/jquery.validate.min.js}" src="../static/js/jquery.validate.min.js"></script>
+
+    </body>
+    </html>

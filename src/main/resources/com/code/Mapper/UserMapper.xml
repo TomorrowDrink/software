@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.Mapper.UserMapper">
+
+    <resultMap id="userMap" type="com.code.Entity.User">
+        <id property="id" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
+            <!--<result column="rolename" property="rolename"/>-->
+        <!--</collection>-->
+    </resultMap>
+
+    <select id="findByUsername" parameterType="String" resultMap="userMap">
+         select u.*  from user u
+        where username= #{username}
+    </select>
+
+    <select id="findById" parameterType="Integer" resultMap="userMap">
+        select u.*  from user u
+        where id= #{id}
+    </select>
+
+    <select id="findRolesByUsername" parameterType="String" resultType="com.code.Entity.Role">
+        select r.rolename
+        from user u
+        LEFT JOIN user_roles ur on u.id = ur.user_id
+        LEFT JOIN role r on r.rid = ur.role_id
+        where u.username= #{username}
+    </select>
+
+    <select id="getAll" parameterType="String" resultMap="userMap">
+        select u.*  from user u
+    </select>
+
+    <insert id="insertUser" parameterType="com.code.Entity.User" >
+        INSERT INTO
+        user
+        (id,name,password,username)
+        VALUES
+        (#{id}, #{name}, #{password},#{username})
+    </insert>
+
+    <insert id="insertSrole" parameterType="Integer" >
+        INSERT INTO
+        user_roles
+        (user_id,role_id)
+        VALUES
+        (#{user_id}, 1)
+    </insert>
+
+    <insert id="insertTrole" parameterType="Integer" >
+        INSERT INTO
+        user_roles
+        (user_id,role_id)
+        VALUES
+        (#{user_id}, 2)
+    </insert>
+
+    <insert id="insertArole" parameterType="Integer" >
+        INSERT INTO
+        user_roles
+        (user_id,role_id)
+        VALUES
+        (#{user_id}, 3)
+    </insert>
+
+    <update id="updatePwd" parameterType="String" >
+        UPDATE
+        user
+        SET
+        password = #{newpwd}
+        WHERE
+        password = #{pwd}
+    </update>
+
+</mapper>

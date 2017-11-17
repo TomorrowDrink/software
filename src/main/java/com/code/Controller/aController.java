@@ -1,0 +1,97 @@
+package com.code.Controller;
+
+import com.code.Entity.User;
+import com.code.Service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
+
+/**
+ * Created by alison on 17-10-29.
+ */
+@Controller
+@RequestMapping("/admin")
+public class aController {
+
+    @Autowired
+    private UserService userService;
+
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping("")
+    public String admin(){
+               return "admin";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/newstudent")
+    public String newstudent(){
+        return "newstudent";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/newstudent")
+    public String addnewstudent(@RequestParam("id") Integer id,
+                                @RequestParam("name") String name,
+                                @RequestParam("password") String password){
+        User user = new User();
+        password = new BCryptPasswordEncoder().encode(password);
+
+        user.setId(id);
+        user.setName(name);
+        user.setPassword(password);
+        user.setUsername(String.valueOf(id));
+
+        userService.insertUser(user);
+        userService.insertSrole(id);
+
+        return "redirect:/admin";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/newteacher")
+    public String newteacher(){
+        return "newteacher";
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/newteacher")
+    public String addnewteacher(@RequestParam("id") Integer id,
+                                @RequestParam("name") String name,
+                                @RequestParam("password") String password,
+                                @RequestParam("isAdmin") String isAdmin){
+        User user = new User();
+        password = new BCryptPasswordEncoder().encode(password);
+
+        user.setId(id);
+        user.setName(name);
+        user.setPassword(password);
+        user.setUsername(String.valueOf(id));
+
+        userService.insertUser(user);
+        userService.insertTrole(id);
+
+        if (isAdmin.equals("1"))
+        {
+            userService.insertArole(id);
+        }
+        return "redirect:/admin";
+    }
+
+
+
+
+
+
+
+
+
+
+}

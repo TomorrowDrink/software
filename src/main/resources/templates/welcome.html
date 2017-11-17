@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+    <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+
+    <title>Welcome</title>
+</head>
+<body>
+
+<style>
+    body {
+        min-height: 2000px;
+        padding-top: 70px;
+        background-color: #F6F6F6;
+        color: #555;
+    }
+</style>
+        <h1 style="text-align: center">Welcome</h1>
+<div class="container">
+    <!-- Main component for a primary marketing message or call to action -->
+    <div >
+        <p sec:authentication="name"></p>
+
+        <br>
+        <div sec:authorize="hasRole('ROLE_STUDENT')">
+            进入学生页面：<a th:href="@{/student}" class="btn btn-info  ">学生</a>
+        </div>
+        <br>
+        <div sec:authorize="hasRole('ROLE_TEACHER')">
+            进入教师页面：<a th:href="@{/teacher}" class="btn btn-info  ">老师</a>
+        </div>
+        <br>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            进入管理员页面：<a th:href="@{/admin}" class="btn btn-info  ">管理员</a>
+        </div>
+    </div>
+
+
+
+
+</div> <!-- /container -->
+
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
+
+<script th:src="@{/js/application.js}" src="../static/js/application.js"></script>
+
+</body>
+</html>

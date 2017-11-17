@@ -1,0 +1,148 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta charset="UTF-8">
+<head>
+    <title>文献综述评阅</title>
+</head>
+<!--<link th:href="@{css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">
+<link th:href="@{css/ui.jqgrid.css}" href="../static/css/ui.jqgrid.css" rel="stylesheet">
+<link th:href="@{js/jquery.min.js}" href="../static/js/jquery.min.js" rel="stylesheet">
+<link th:href="@{js/i18n/grid.locale-en.js}" href="../static/js/i18n/grid.locale-en.js" rel="stylesheet">
+<link th:href="@{js/jquery.jqGrid.min.js}" href="../static/js/jquery.jqGrid.min.js" rel="stylesheet">
+<link th:href="@{css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+<link th:href="@{css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+<link th:href="@{css/signin.css}" href="../static/css/signin.css" rel="stylesheet">-->
+
+<link href="//cdn.bootcss.com/jqueryui/1.12.0-rc.2/jquery-ui.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/jqgrid/4.6.0/css/ui.jqgrid.css" rel="stylesheet">
+<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>
+<link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+<link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+<link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">-->
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container" >
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only"> 文献综述评阅</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">文献综述评阅</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!--             <li><a href="../navbar/">用户信息</a></li>
+                 -->      <li> <form action="/logout" method="post" name="form1" th:action="@{/logout}">
+                <!--<input type="submit" value="logout">-->
+            </form>
+                <a href="javascript:document.form1.submit();">退出登录</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- select表单 -->
+<br><br><br><br>
+<!--<form  class="form-horizontal" id="Form"  action="" method="post">
+    <div class="row">
+        <div class="col-md-3 col-sm-6">
+            <div class="form-group">
+                <div class="col-sm-8" id="searchForm">
+                    <select name="searchForm" id="searchForm1" class="form-control chosen-select">
+                        <option value="select" selected="selected">&#45;&#45;论文状态&#45;&#45;</option>
+                        <option value="待评阅" >待评阅</option>
+                        <option value="已通过" >已通过</option>
+                        <option value="未通过">未通过</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-sm btn-default">查询</button>
+            </div>
+        </div>
+    </div>
+</form>-->
+
+<!-- jqGridTable -->
+<div>
+    <table id="jqTable"></table>
+    <div id="pager"></div>
+</div>
+<!-- jqGridTable_Script -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#jqTable").jqGrid({
+             url:'/teacher/data',
+            /* datatype:"json", */
+            datatype:"json",
+            colNames:["编号","课题名称","姓名","状态"/*,"编辑"*/],
+            colModel:[
+                {name:'id',index:'id',label:'编号',width:60,hidden:true,},
+                {name:'taskname',index:'taskname',label:'课题名称',width:500,align:'center'},
+                {name:'stuname',index:'stuname',label:'姓名',width:120,align:'center'},
+                {name:'state',index:'state',label:'状态',width:150,align:'center',
+                    stype: "select",
+                    multiple:true,
+                    searchoptions: { multiple:true, value: ":[All];ALFKI:已通过;ALFKI:待评阅;ANATR:未通过" }}
+                /*{name:'edit',index:'edit',label:'编辑',width:120, align:'center',formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}
+                }*/],
+            sortname:"id",sortorder:"desc",viewrecords:true,
+            rownumbers:true,autowidth:true,height:100,
+            shrinkToFit:true,
+            toolbar: [true, "top"],
+ /*           height: $('.content-pager').height(),*/
+            prmNames : {
+                page : 'currentPage',
+                rows : 'showCount',
+                sort : 'sortField',
+                order : 'order'
+            },
+            jsonReader : {
+                root : "rows",
+                page : "page",
+                total : "total",
+                records : "records",
+                repeatitems : false,
+                cell : "cell",
+                id : "id"
+            }, pager:"#pager",
+        });;
+        jQuery("#jqTable")
+            .jqGrid('navGrid',"#pager",{edit:false}); ;
+
+
+        /* 		for (var i=0;i<rows.length;i++)
+                    jQuery("#jqTable").jqGrid('addRowData',i+1,rows[i]); */
+/*        var rows = [{
+            "id":"1","taskname":"毕业设计管理系统","stuname":"张三","state":"已通过","edit":"编辑"
+        },{
+            "id":"2","taskname":"教学管理日历","stuname":"李四","state":"待评阅","edit":"编辑"
+        },{
+            "id":"3","taskname":"教学管理日历","stuname":"王五","state":"未通过","edit":"编辑"
+        },{
+            "id":"4","taskname":"毕业设计管理系统","stuname":"李华","state":"待评阅","edit":"编辑"
+        }];
+        for (var i=0;i<rows.length;i++)
+            jQuery("#jqTable").jqGrid('addRowData',i+1,rows[i]);*/
+    });
+    /* 	给单元格添加链接
+        function processGridValue(){
+            var cell;
+            var array=gridTable.getDataIDs();
+            for ( var i = 0; i < array.length; i++) {
+                var rowarray=jqTable.getRowData(array[i])
+                for ( var rowname in rowarray) {
+                    if(rowname.indexOf("编辑")>-1){
+                        cell=jqTable.getCell(i+1,rowname);
+                        jqTable.setCell(i+1,rowname,'<a href="#">编辑'+cell+'</a>');
+                    }
+                }
+            }
+        } */
+</script>
+
+</body>
+</html>

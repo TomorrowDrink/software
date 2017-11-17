@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.Mapper.PaperInfoMapper">
+
+    <resultMap id="paperInfoMap" type="com.code.Entity.PaperInfo">
+        <id property="id" column="id"/>
+        <result property="taskname" column="taskname"/>
+        <result property="stuname" column="stuname"/>
+        <result property="state" column="state"/>
+        <result property="tutorname" column="tutorname"/>
+        <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
+            <!--<result column="rolename" property="rolename"/>-->
+        <!--</collection>-->
+    </resultMap>
+
+    <select id="findByTaskname" parameterType="String" resultMap="paperInfoMap">
+         select p.*  from paperinfo p
+        where taskname= #{taskname}
+    </select>
+
+    <select id="findById" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where id= #{id}
+    </select>
+
+    <select id="findByTutorname" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where tutorname= #{tutorname}
+    </select>
+
+    <select id="findByStuname" parameterType="String" resultMap="paperInfoMap">
+       select p.*  from paperinfo p
+        where stuname= #{stuname}
+    </select>
+
+    <select id="findByState" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where state= #{state}
+    </select>
+
+    <select id="getAll" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+    </select>
+
+</mapper>

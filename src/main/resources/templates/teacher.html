@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher</title>
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+    <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+
+    <title>Teacher</title>
+</head>
+<body>
+
+<style>
+    body {
+        min-height: 2000px;
+        padding-top: 70px;
+    }
+</style>
+
+<!-- Static navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <p class="navbar-brand" >教师</p>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">课题管理 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">提交课题</a></li>
+                        <li><a href="#">修改课题</a></li>
+                        <li><a href="#">查看课题</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">论文评审 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/teacher/review" th:href="@{/teacher/review}">文献综述评阅</a></li>
+                        <li><a href="#">文献翻译评阅</a></li>
+                        <li><a href="#">开题报告评阅</a></li>
+                        <li><a href="#">开题交叉评阅</a></li>
+                        <li><a href="#">中期检查</a></li>
+                        <li><a href="#">毕业论文评阅</a></li>
+                        <li><a href="#">论文交叉评阅</a></li>
+                        <li><a href="#">论文答辩评阅</a></li>
+                        <li><a href="#">推优意见</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="">修改密码</a></li>
+                <li> <form action="/logout" method="post" name="form1" th:action="@{/logout}">
+                    <!--<input type="submit" value="logout">-->
+                </form>
+                    <a href="javascript:document.form1.submit();">退出登录</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+
+
+
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
+
+<script th:src="@{/js/application.js}" src="../static/js/application.js"></script>
+
+</body>
+</html>
