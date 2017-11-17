@@ -19,6 +19,7 @@ import java.util.List;
  * Created by alison on 17-10-29.
  */
 @Controller
+@PreAuthorize("hasRole('ROLE_TEACHER')")
 @RequestMapping("/teacher")
 public class tController {
 
@@ -27,7 +28,6 @@ public class tController {
 
 
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("")
     public String teacher(){
                return "teacher";
@@ -39,14 +39,14 @@ public class tController {
 /*    @Autowired
     private PageInfo pageInfo;*/
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
+//    @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("/review")
     public String literatureReview(){
         return "LiteratureReview";
     }
 
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
+//    @PreAuthorize("hasRole('ROLE_TEACHER')")
     @ResponseBody
     @RequestMapping("/data")
     public JsonResponse<PaperInfo> getData(PageInfo pageInfo) {
