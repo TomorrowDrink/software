@@ -2,6 +2,8 @@ package com.code.Controller;
 
 import com.code.Entity.User;
 import com.code.Service.UserService;
+import org.gitlab4j.api.GitLabApi;
+import org.gitlab4j.api.GitLabApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.security.Principal;
 
 /**
  * Created by alison on 17-10-29.
@@ -51,6 +51,18 @@ public class aController {
 
         userService.insertUser(user);
         userService.insertSrole(id);
+
+        org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
+        String email = id + "@pop.zjgsu.edu.cn";
+        gitUser.setEmail(email);
+        gitUser.setName(name);
+        gitUser.setUsername(String.valueOf(id));
+        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com", "iUtVKCxSA2sSpDwsjtTE");
+        try {
+            gitLabApi.getUserApi().createUser(gitUser,"123456",1);
+        } catch (GitLabApiException e) {
+            e.printStackTrace();
+        }
 
         return "redirect:/admin";
     }
