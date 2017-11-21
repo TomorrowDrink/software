@@ -57,9 +57,10 @@ public class aController {
         gitUser.setEmail(email);
         gitUser.setName(name);
         gitUser.setUsername(String.valueOf(id));
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com", "iUtVKCxSA2sSpDwsjtTE");
+        
+        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
         try {
-            gitLabApi.getUserApi().createUser(gitUser,"123456",1);
+            gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
         } catch (GitLabApiException e) {
             e.printStackTrace();
         }

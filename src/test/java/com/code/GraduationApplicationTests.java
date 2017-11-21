@@ -7,12 +7,15 @@ import com.code.Service.UserService;
 import junit.framework.Assert;
 import org.gitlab4j.api.GitLabApi;
 import org.gitlab4j.api.GitLabApiException;
+import org.gitlab4j.api.models.Project;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -52,12 +55,9 @@ public class GraduationApplicationTests {
 		gitUser.setEmail(email);
 		gitUser.setName(name);
 		gitUser.setUsername(String.valueOf(id));
-
-
-//		GitLabApi gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
-
+		//		GitLabApi gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
 		try {
-			gitLabApi.getUserApi().createUser(gitUser,"123456",1);
+			gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
 		} catch (GitLabApiException e) {
 			e.printStackTrace();
 		}
