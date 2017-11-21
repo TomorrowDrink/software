@@ -7,7 +7,7 @@
     <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
     <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
 
-    <title>Student</title>
+    <title>Git</title>
 </head>
 <body>
 
@@ -56,9 +56,9 @@
             </ul>
 
             <ul class="nav navbar-nav">
-            <li>
-                <a href="/student/gitlab" th:href="@{/student/gitlab}">源代码管理</a>
-            </li>
+                <li>
+                    <a href="/student/gitlab" th:href="@{/student/gitlab}">源代码管理</a>
+                </li>
             </ul>
 
             <ul class="nav navbar-nav">
@@ -84,6 +84,22 @@
         </div><!--/.nav-collapse -->
     </div>
 </div>
+
+<br><br>
+<div class="container">
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <h2>gitlab基本信息</h2>
+        <p>用户名:<span sec:authentication="name"></span></p>
+        <p>密码:123456789</p>
+        <p>邮箱:<span sec:authentication="name"></span>@pop.zjgsu.edu.cn</p>
+        <p>
+            <a class="btn btn-lg btn-primary" href="" th:target="_blank" th:href="@{http://gitlab.example.com:30080}" role="button">点击跳转 &raquo;</a>
+        </p>
+    </div>
+
+</div> <!-- /container -->
 
 
 

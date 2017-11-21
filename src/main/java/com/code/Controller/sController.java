@@ -63,6 +63,10 @@ public class sController {
     }
 
 
+    @GetMapping("/gitlab")
+    public String gitlab(){
+        return "git";
+    }
 
 
 
