@@ -13,11 +13,12 @@ public interface PaperInfoMapper {
      PaperInfo findPaperInfoByTaskname(@Param("taskname")String taskname);*/
     List<PaperInfo> getAll(/*@Param("page") *//*PageInfo page*/);
 
-    PaperInfo findByTaskname(@Param("taskname") String taskname);
-    PaperInfo findByTutorname(@Param("tutorname") String tutorname);
-    PaperInfo findById(@Param("id") String id);
-    PaperInfo findByStuname(@Param("stuname") String stuname);
-    PaperInfo findByState(@Param("state") String state);
+    List<PaperInfo> findByTaskname(@Param("taskname") String taskname);
+    List<PaperInfo> findByTutorname(@Param("tutorname") String tutorname);
+    List<PaperInfo> findById(@Param("id") String id);
+    List<PaperInfo> findByStuname(@Param("stuname") String stuname);
+    List<PaperInfo> findByState(@Param("state") String state);
+    List<PaperInfo> findByTaskAndState(@Param("taskname") String taskname,@Param("state") String state);
 
 
 }
