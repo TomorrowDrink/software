@@ -102,14 +102,15 @@
             url: '/teacher/data',
             /* datatype:"json", */
             datatype: "json",
-            colNames: ["编号", "课题名称", "姓名", "状态","编辑"],
+            colNames: ["编号", "课题名称", "姓名", "状态","修改","下载"],
             colModel: [
                 {name: 'id', index: 'id', label: '编号', width: 60, hidden: true,},
                 {name: 'taskname', index: 'taskname', label: '课题名称', width: 500, align: 'center'/*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*/},
-                {name: 'stuname', index: 'stuname', label: '姓名', width: 120, align: 'center'},
-                {name: 'state', index: 'state', label: '状态', width: 150, align: 'center',},
-                {name:'operate',index:'operate',label:'编辑',width:120, align:'center'/*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*/
-                }],
+                {name: 'stuname', index: 'stuname', label: '姓名', width: 100, align: 'center'},
+                {name: 'state', index: 'state', label: '状态', width: 100, align: 'center',},
+                {name:'operate',index:'operate',label:'修改',width:100, align:'center'/*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*/
+                },
+                {name: 'download', index: 'download', label: '下载', width: 100, align: 'center',},],
             caption:'文献综述评阅查询记录',
             sortname: "id", sortorder: "desc", viewrecords: true,
             rownumbers: true, autowidth: true, height: 100,
@@ -134,8 +135,9 @@
                 var ids = jQuery("#jqTable").jqGrid('getDataIDs');
                 for(i=0;i<ids.length;i++){
                     var id=ids[i];
-                    operate = "<a href='#' style='#f60' onclick='Operate("+id+")'>编辑</a>";
-                    jQuery("#jqTable").jqGrid('setRowData',ids[i],{operate:operate});
+                    operate = "<a href='#' style='#f60'/* onclick='Operate("+id+")'*/>编辑</a>";
+                    download = "<a href='#' style='#f60'/* onclick='Download("+id+")'*/>下载</a>"
+                    jQuery("#jqTable").jqGrid('setRowData',ids[i],{'operate':operate,'download':download});
 
                 }
             }

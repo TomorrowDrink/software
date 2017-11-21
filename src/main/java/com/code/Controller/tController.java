@@ -79,9 +79,8 @@ public class tController {
         * 1.目前实现的第一个select的value并不是用的taskname 而是id
         * 2.list3这里的参数checkvalue1改成checkvalue3=taskname
         * 3.select option动态获取
-        * 4.table中的操作栏---编辑--超链接
-        * 5.一旦添加操作的colname json就传不到jqgrid中或数据库转换为json数据有问题？倾向第一个
-        * 6.如果不添加操作直接在课题名称上添加超链接呢------------------------------------------------------------丑死了
+        * 4.文献综述评阅界面UI设计
+        * 5.jqTable page 参数
         * 7.目前文献综述评阅界面还缺少 应该从若雯的登录界面获取教师姓名和ID 从而直接得到和该教师直接相关的jqgrid表
         * */
     }
