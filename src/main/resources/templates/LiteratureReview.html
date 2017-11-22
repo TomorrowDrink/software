@@ -1,17 +1,16 @@
-
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <meta charset="UTF-8">
 <head>
     <title>文献综述评阅</title>
 </head>
-<!--<link th:href="@{css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">
-<link th:href="@{css/ui.jqgrid.css}" href="../static/css/ui.jqgrid.css" rel="stylesheet">
-<link th:href="@{js/jquery.min.js}" href="../static/js/jquery.min.js" rel="stylesheet">
-<link th:href="@{js/i18n/grid.locale-en.js}" href="../static/js/i18n/grid.locale-en.js" rel="stylesheet">
-<link th:href="@{js/jquery.jqGrid.min.js}" href="../static/js/jquery.jqGrid.min.js" rel="stylesheet">
-<link th:href="@{css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
-<link th:href="@{css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
-<link th:href="@{css/signin.css}" href="../static/css/signin.css" rel="stylesheet">-->
+<!--<link th:href="@{/css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">
+<link th:href="@{/css/ui.jqgrid-bootstrap.css}" href="../static/css/ui.jqgrid-bootstrap.css" rel="stylesheet">
+<link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+<link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+<link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+<script th:src="@{/js/jquery.jqGrid.min.js}" src="../static/js/jquery.jqGrid.min.js"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+<script th:src="@{/js/i18n/grid.locale-en.js}" src="../static/js/i18n/grid.locale-en.js"></script>-->
 
 <link href="//cdn.bootcss.com/jqueryui/1.12.0-rc.2/jquery-ui.min.css" rel="stylesheet">
 <link href="//cdn.bootcss.com/jqgrid/4.6.0/css/ui.jqgrid.css" rel="stylesheet">
@@ -43,53 +42,47 @@
                 <a href="javascript:document.form1.submit();">退出登录</a></li>
             </ul>
         </div>
+        <p sec:authentication="name"></p>
 
         <div class="panel panel-default">
             <div class="panel-heading">
                 <!-- 增删改查 -->
-                <!--<div id="opt" >
-                    <div id="query">
-                        <label>论题 </label>
-                        <input type="text" style="text-align:left; vertical-align:middle" id="taskname"/>
-                        <label>学生姓名 </label>
-                        <input type="text" style="text-align:left; vertical-align:middle" id="stuname"/>
-                        <label>评阅状态 </label>
-                        <input type="text" style="text-align:left; vertical-align:middle" id="state">
-                        <div class="panel-body">
-                            <button type="button" id="find_btn" class="btn btn-primary" >查询</button>
-                            <button type="button" id="add_find_btn" class="btn btn-primary">新增</button>
-                            <button type="button" id="del_btn" class="btn btn-primary">删除</button>
-                        </div>
-                    </div>
-                </div>-->
-                    <div >
-                            <label for class="col-sm-4 control-label">课题名称：</label>
-                        <div >
+                    <div class="form-inline">
+                            <label>课题名称：</label>
                             <select id="tasknameSelection" class="form-control">
-                                <!--<option selected>课题名称</option>-->
-                                <option value="1" selected>毕业设计管理系统</option>
-                                <option value="2">教学管理系统</option>
-                                <option value="3">日历</option>
-                                <option value="4">毕业设计管理系统2</option>
+                                <option value="all1"selected>--全部--</option>
+                                <option value="毕业设计管理系统" selected>毕业设计管理系统</option>
+                                <option value="教学管理日历">教学管理日历</option>
+                                <option value="学校综合管理系统">学校综合管理系统</option>
+                                <option value="企业管理信息系统">企业管理信息系统</option>
+                                <option value="企业管理信息系统">机关办公自动化系统</option>
+                                <option value="企业管理信息系统">交通管理系统</option>
                             </select>
+                            <label>评阅状态：</label>
                             <select id="stateSelection" class="form-control">
+                                <option value="all2"selected>--全部--</option>
                                 <option value="待评阅" selected>待评阅</option>
                                 <option value="已通过">已通过</option>
                                 <option value="未通过">未通过</option>
                             </select>
-                            <button type="button" id="find_btn" class="btn btn-primary" >查询</button>
-                        </div>
+                            <label>学生姓名：</label>
+                            <input type="text" class="form-control" id="stuname"/>
                     </div>
             </div>
-            <!-- jqGridTable -->
             <div class="panel-body">
-                <div>
+                <div class="form-inline">
+                    <button type="button" id="find_btn" class="btn btn-primary" style="float: right" >查询</button>
+                </div>
+            </div>
+        </div>
+            <!-- jqGridTable -->
+            <div class="panel panel-default">
+                <div class="panel-body">
                     <table id="jqTable"></table>
                     <div id="pager"></div>
                 </div>
             </div>
         </div>
-    </div>
 </div>
 
 <br><br><br><br>
@@ -98,30 +91,33 @@
 <!-- jqGridTable_Script -->
 <script type="text/javascript">
     $(document).ready(function() {
+        $.jgrid.defaults.styleUI = "Bootstrap";
+        var name = $("#name").val();
+        /*window.parent.$("#").val();*/
         $("#jqTable").jqGrid({
             url: '/teacher/data',
             /* datatype:"json", */
             datatype: "json",
-            colNames: ["编号", "课题名称", "姓名", "状态","修改","下载"],
+            colNames: ["编号", "课题名称", "姓名", "状态","修改","操作"],
             colModel: [
                 {name: 'id', index: 'id', label: '编号', width: 60, hidden: true,},
                 {name: 'taskname', index: 'taskname', label: '课题名称', width: 500, align: 'center'/*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*/},
                 {name: 'stuname', index: 'stuname', label: '姓名', width: 100, align: 'center'},
                 {name: 'state', index: 'state', label: '状态', width: 100, align: 'center',},
-                {name:'operate',index:'operate',label:'修改',width:100, align:'center'/*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*/
+                {name:'edit',index:'edit',label:'修改',width:100, align:'center'/*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*/
                 },
-                {name: 'download', index: 'download', label: '下载', width: 100, align: 'center',},],
+                {name: 'operate', index: 'operate', label: '操作', width: 100, align: 'center',},],
             caption:'文献综述评阅查询记录',
-            sortname: "id", sortorder: "desc", viewrecords: true,
-            rownumbers: true, autowidth: true, height: 100,
+            sortname: "id", sortorder: "desc", viewrecords: true,page:1,
+            rownumbers: true, autowidth: true, height: 100,rowNum:10,
             shrinkToFit: true,
-            /*           height: $('.content-pager').height(),*/
-            prmNames: {
-                page: 'currentPage',
-                rows: 'showCount',
-                sort: 'sortField',
-                order: 'order'
-            },
+                       /*height: $('.content-pager').height(),*/
+//            prmNames: {
+//                page: 'currentPage',
+//                rows: 'showCount',
+//                sort: 'sortField',
+//                order: 'order'
+//            },
             jsonReader: {
                 root: "rows",
                 page: "page",
@@ -135,9 +131,9 @@
                 var ids = jQuery("#jqTable").jqGrid('getDataIDs');
                 for(i=0;i<ids.length;i++){
                     var id=ids[i];
-                    operate = "<a href='#' style='#f60'/* onclick='Operate("+id+")'*/>编辑</a>";
-                    download = "<a href='#' style='#f60'/* onclick='Download("+id+")'*/>下载</a>"
-                    jQuery("#jqTable").jqGrid('setRowData',ids[i],{'operate':operate,'download':download});
+                    edit = "<a href='#' style='#f60'/* onclick='Edit("+id+")'*/>编辑</a>";
+                    operate = "<a href='#' style='#f60'/* onclick='Operate("+id+")'*/>下载</a>"
+                    jQuery("#jqTable").jqGrid('setRowData',ids[i],{'operate':operate,'edit':edit});
 
                 }
             }

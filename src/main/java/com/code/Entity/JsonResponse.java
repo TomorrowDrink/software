@@ -28,11 +28,11 @@ public class JsonResponse<T extends Serializable> {
 
     }
 
-    public JsonResponse(List<T> rows, PageInfo page) {
+    public JsonResponse(List<T> rows) {
         this.rows = rows;
-        this.total = page.getTotalPage();
-        this.records = page.getTotalResult();
-        this.page = page.getCurrentPage();
+        this.total = (int)((rows.size()/10)+1);
+        this.records = rows.size();
+        this.page = page;
     }
 
     public int getPage() {
