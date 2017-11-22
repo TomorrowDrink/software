@@ -90,16 +90,15 @@ public class tController {
         JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list3);
         return response;
         /*
-        * 1.目前实现的第一个select的value并不是用的taskname 而是id
-        * 2.list3这里的参数checkvalue1改成checkvalue3=taskname
+        * 1.html界面复用思路
+        * 2.页面垂直滚动条不见了
         * 3.select option动态获取
         * 4.文献综述评阅界面UI设计
-        * 5.jqTable page 参数
-        * 6.前台分页
-        * 7.目前文献综述评阅界面还缺少 应该从若雯的登录界面获取教师姓名和ID 从而直接得到和该教师直接相关的jqgrid表
-        * 8.不联网还是获取不到jqgrid
-        * 9.pdfcontainer 是如何实现iframe就可以缩放等的
-        * 10.把操作data的函数移到java文件中调用
+        * 5.review界面还没获取用户信息 没和list界面连接起来
+        * 6.前台分页  page参数获取不到
+        * 7.review界面PDF的插件都无法显示？ 暂时用了iframe
+        * 8.静态资源拦截造成pdf无法显示  pdf放在templates下404  路径变为../file/1.pdf就找得到？
+        * 9.把操作data的函数移到java文件中调用
         * */
     }
 
