@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    html{overflow-y: visible}
+    body{overflow:scroll}
+</style>
+<link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+<link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+<link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+<!--<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>-->
+<script th:src="@{/js/jquery-3.1.1.min.js}" src="../js/jquery-3.1.1.min.js"></script>
+<!--<script th:src="@{/js/jquery.media.js}" src="../js/jquery.media.js"></script>-->
+<script th:src="@{/js/pdfobject.js}" src="../js/pdfobject.js"></script>
+<script th:src="@{/js/nicEdit.js}" src="../js/nicEdit.js"></script>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container" >
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only"> 文献综述评阅</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">文献综述评阅</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!--             <li><a href="../navbar/">用户信息</a></li>
+                 -->      <li> <form action="/logout" method="post" name="form1" th:action="@{/logout}">
+                <!--<input type="submit" value="logout">-->
+            </form>
+                <a href="javascript:document.form1.submit();">退出登录</a></li>
+            </ul>
+        </div>
+        <p></p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="form-inline">
+                    <div class="form-group-sm">
+                        <label>课题名称：</label>
+                        <label></label>
+                    </div>
+                    <div class="form-group-lg">
+                        <label>学生姓名：</label>
+                        <label></label>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-default">
+                <a class="media" href="../file/sample.pdf">PDF File</a>
+                <p>文献综述预览</p>
+                <!--<div id="pdfContainer"></div>-->
+                <!--<iframe height="600px" width="100%" src="../file/sample.pdf"></iframe>-->
+                <p></p>
+                <div class="form-inline">
+                    <p style="float: left">评阅栏：</p>
+                    <form id="form1" method="post" style="float: right">
+                        <input name="state" type="radio" id="passed" class="radio-inline" />通过
+                        <input name="state" type="radio" id="failed" class="radio-inline" />未通过
+                    </form>
+                </div>
+                <!--<input type="text" class="form-control" width="100%" height="300px"/>-->
+                <textarea name="area2" style="width: 100%; height: 300px"></textarea><br>
+                <p></p>
+                <button class="btn btn-primary" id="sub_btn" style="float: right">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--<script type="text/javascript">
+    $(function() {
+        $('a.media').media({width:800, height:500});
+    });
+</script>-->
+<script type="text/javascript">
+    //<![CDATA[
+    bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+//]]>
+</script>
+<!--<script type="text/javascript">
+
+    window.onload = function (){
+        var myPDF = new PDFObject({ url: "../file/sample.pdf" }).embed("#pdfContainer");
+    };
+
+</script>-->
+</html>
+
