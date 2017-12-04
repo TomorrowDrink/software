@@ -21,6 +21,7 @@ public class PaperInfoServicelmpl implements PaperInfoService{
         return paperInfoMapper.getAll();
     }
 
+
     @Override
     public PaperInfo findPaperInfoById(String id) {
         return paperInfoMapper.findById(id);

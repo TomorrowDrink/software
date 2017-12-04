@@ -5,6 +5,7 @@ import com.code.Entity.PageInfo;
 import com.code.Entity.PaperInfo;
 import com.code.Entity.User;
 import com.code.Service.PaperInfoService;
+import com.code.Service.TaskService;
 import com.code.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,6 +54,16 @@ public class tController {
         List<PaperInfo> list = paperInfoService.getAll();
         JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list, pageInfo);
         return response;
+    }
+
+
+    @Autowired
+    private TaskService taskService;
+
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @RequestMapping("/show")
+    public String TaskShow(){
+        return "TaskShow";
     }
 
 
