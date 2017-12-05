@@ -14,4 +14,6 @@ public interface PaperInfoService {
     public List<PaperInfo> findPaperInfoByState(String state);
     public List<PaperInfo> findPaperInfoByTaskAndState(String taskname,String state);
 
+    public List<PaperInfo> findPaperInfoByMaxId();
+    public void addRecord(PaperInfo paperInfo);
 }

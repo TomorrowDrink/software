@@ -21,10 +21,21 @@
 <script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>
 <script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>-->
 
-<body>
+<body onload="init()">
+<style>
+    body {
+        min-height: 2000px;
+        padding-top: 70px;
+    }
+</style>
+<script>
+    function init() {
+        initSelectinData();
+    }
+</script>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container" >
-        <div class="navbar-header">
+<!--        <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only"> 文献综述评阅</span>
                 <span class="icon-bar"></span>
@@ -35,13 +46,13 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <!--             <li><a href="../navbar/">用户信息</a></li>
-                 -->      <li> <form action="/logout" method="post" name="form1" th:action="@{/logout}">
-                <!--<input type="submit" value="logout">-->
+                &lt;!&ndash;             <li><a href="../navbar/">用户信息</a></li>
+                 &ndash;&gt;      <li> <form action="/logout" method="post" name="form1" th:action="@{/logout}">
+                &lt;!&ndash;<input type="submit" value="logout">&ndash;&gt;
             </form>
                 <a href="javascript:document.form1.submit();">退出登录</a></li>
             </ul>
-        </div>
+        </div>-->
         <p sec:authentication="name"></p>
 
         <div class="panel panel-default">
@@ -49,17 +60,17 @@
                 <!-- 增删改查 -->
                     <div class="form-inline">
                             <label>课题名称：</label>
-                            <select id="tasknameSelection" class="form-control">
+                            <select id="tasknameSelection" name="TasknameSelection"class="form-control" onclick="getTasknames()">
                                 <option value="all1"selected>--全部--</option>
                                 <option value="毕业设计管理系统" selected>毕业设计管理系统</option>
                                 <option value="教学管理日历">教学管理日历</option>
                                 <option value="学校综合管理系统">学校综合管理系统</option>
                                 <option value="企业管理信息系统">企业管理信息系统</option>
-                                <option value="企业管理信息系统">机关办公自动化系统</option>
-                                <option value="企业管理信息系统">交通管理系统</option>
+                                <option value="机关办公自动化系统">机关办公自动化系统</option>
+                                <option value="交通管理系统">交通管理系统</option>
                             </select>
                             <label>评阅状态：</label>
-                            <select id="stateSelection" class="form-control">
+                            <select id="stateSelection" name="StateSelection"class="form-control" onclick="getStates()">
                                 <option value="all2"selected>--全部--</option>
                                 <option value="待评阅" selected>待评阅</option>
                                 <option value="已通过">已通过</option>
@@ -169,6 +180,20 @@
 
 </script>
 
+<script>
+    function initSelectionData(){
+        var optionsId = "<option value =''></option>";
+        data.nType = "view";
+        data.name = "GROUP";
+        var taskId = new Array();
+        var taskName = new Array();
+
+        var stateId = new Array();
+        var stateName = new Array();
+
+
+    }
+</script>
 </body>
 </html>
 

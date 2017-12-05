@@ -48,7 +48,11 @@ public class tController {
     public String review(){
         return "review";
     }
-
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @RequestMapping("/test")
+    public String test(){
+        return "test";
+    }
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @ResponseBody
@@ -91,7 +95,6 @@ public class tController {
         return response;
         /*
         * 1.html界面复用思路
-        * 2.页面垂直滚动条不见了
         * 3.select option动态获取
         * 4.文献综述评阅界面UI设计
         * 5.review界面还没获取用户信息 没和list界面连接起来
@@ -99,6 +102,7 @@ public class tController {
         * 7.review界面PDF的插件都无法显示？ 暂时用了iframe
         * 8.静态资源拦截造成pdf无法显示  pdf放在templates下404  路径变为../file/1.pdf就找得到？
         * 9.把操作data的函数移到java文件中调用
+        * 10.ajax+jq+jqgrid
         * */
     }
 

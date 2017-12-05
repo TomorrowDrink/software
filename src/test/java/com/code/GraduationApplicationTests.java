@@ -5,9 +5,9 @@ import com.code.Entity.User;
 import com.code.Mapper.UserMapper;
 import com.code.Service.UserService;
 import junit.framework.Assert;
-import org.gitlab4j.api.GitLabApi;
-import org.gitlab4j.api.GitLabApiException;
-import org.gitlab4j.api.models.Project;
+//import org.gitlab4j.api.GitLabApi;
+//import org.gitlab4j.api.GitLabApiException;
+//import org.gitlab4j.api.models.Project;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,20 +47,20 @@ public class GraduationApplicationTests {
 //
 //	}
 	public void git() throws Exception {
-		GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
-		Integer id = 1512190408;
-		String name = "奚子璇";
-		org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
-		String email = id + "@pop.zjgsu.edu.cn";
-		gitUser.setEmail(email);
-		gitUser.setName(name);
-		gitUser.setUsername(String.valueOf(id));
-		//		GitLabApi gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
-		try {
-			gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
-		} catch (GitLabApiException e) {
-			e.printStackTrace();
-		}
+//		GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
+//		Integer id = 1512190408;
+//		String name = "奚子璇";
+//		org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
+//		String email = id + "@pop.zjgsu.edu.cn";
+//		gitUser.setEmail(email);
+//		gitUser.setName(name);
+//		gitUser.setUsername(String.valueOf(id));
+//		//		GitLabApi gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+//		try {
+//			gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
+//		} catch (GitLabApiException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 

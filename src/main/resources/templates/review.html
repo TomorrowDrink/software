@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<style>
-    html{overflow-y: visible}
-    body{overflow:scroll}
-</style>
+
 <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
 <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
-<link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+<!--<link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">-->
 <!--<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>-->
 <script th:src="@{/js/jquery-3.1.1.min.js}" src="../js/jquery-3.1.1.min.js"></script>
 <!--<script th:src="@{/js/jquery.media.js}" src="../js/jquery.media.js"></script>-->
@@ -18,6 +15,14 @@
 <script th:src="@{/js/nicEdit.js}" src="../js/nicEdit.js"></script>
 
 <body>
+
+<style>
+    body {
+        min-height: 2000px;
+        padding-top: 70px;
+    }
+</style>
+
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container" >
         <div class="navbar-header">
@@ -53,10 +58,10 @@
                 </div>
             </div>
             <div class="panel-default">
-                <a class="media" href="../file/sample.pdf">PDF File</a>
+                <!--<a class="media" href="../file/sample.pdf">PDF File</a>-->
                 <p>文献综述预览</p>
-                <!--<div id="pdfContainer"></div>-->
-                <!--<iframe height="600px" width="100%" src="../file/sample.pdf"></iframe>-->
+                <div id="pdfContainer"></div>
+                <iframe min-height="600px" width="100%" src="../file/sample.pdf"></iframe>
                 <p></p>
                 <div class="form-inline">
                     <p style="float: left">评阅栏：</p>

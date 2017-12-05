@@ -46,4 +46,17 @@
         select p.*  from paperinfo p
         where state= #{state} and taskname= #{taskname}
     </select>
+
+    <insert id="addRecord" parameterType="com.code.Entity.PaperInfo" >
+        INSERT INTO
+        paperinfo
+        (id,taskname,stuname,state,tutorname)
+        VALUES
+        (#{id}, #{taskname}, #{stuname},#{state},#{tutorname})
+    </insert>
+    <select id="findByMaxId" parameterType="String" resultMap="paperInfoMap">
+        select p.* from paperinfo p
+        where id = (select max(id) from paperinfo)
+    </select>
+
 </mapper>

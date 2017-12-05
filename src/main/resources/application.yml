@@ -16,7 +16,7 @@ spring:
     cache: false
     enabled: true
 server:
-  port: 8082
+  port: 8081
 mybatis:
   type-aliases-package: com.code.Entity
   mapper-locations: classpath:Mapper/*.xml
