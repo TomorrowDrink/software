@@ -7,10 +7,11 @@ import java.util.List;
 public interface PaperInfoService {
 
     public List<PaperInfo> getAll();
-    public PaperInfo findPaperInfoById(String id);
-    public PaperInfo findPaperInfoByTaskname(String taskname);
-    public PaperInfo findPaperInfoByStuname(String stuname);
-    public PaperInfo findPaperInfoByTutorname(String tutorname);
-    public PaperInfo findPaperInfoByState(String state);
+    public List<PaperInfo> findPaperInfoById(String id);
+    public List<PaperInfo> findPaperInfoByTaskname(String taskname);
+    public List<PaperInfo> findPaperInfoByStuname(String stuname);
+    public List<PaperInfo> findPaperInfoByTutorname(String tutorname);
+    public List<PaperInfo> findPaperInfoByState(String state);
+    public List<PaperInfo> findPaperInfoByTaskAndState(String taskname,String state);
 
 }

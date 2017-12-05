@@ -79,7 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public void configure(WebSecurity web) throws Exception {
         //解决静态资源被拦截的问题
-        web.ignoring().antMatchers("/js/**", "/css/**", "/img/**", "/**/favicon.ico", "/resources/**", "/fonts/**");
+        web.ignoring().antMatchers("/js/**", "/css/**", "/img/**", "/**/favicon.ico", "/resources/**", "/fonts/**","/**/sample.pdf");
     }
 
 

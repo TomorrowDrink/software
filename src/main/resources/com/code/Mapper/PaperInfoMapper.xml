@@ -42,4 +42,8 @@
         select p.*  from paperinfo p
     </select>
 
+    <select id="findByTaskAndState" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where state= #{state} and taskname= #{taskname}
+    </select>
 </mapper>

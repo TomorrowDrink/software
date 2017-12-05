@@ -17,6 +17,7 @@ import java.security.Principal;
  * Created by alison on 17-10-29.
  */
 @Controller
+@PreAuthorize("hasRole('ROLE_STUDENT')")
 @RequestMapping("/student")
 public class sController {
 
@@ -25,19 +26,18 @@ public class sController {
 
 
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @RequestMapping("")
     public String student(){
               return "student";
     }
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
+//    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/password")
     public String password(){
         return "changepassword";
     }
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
+//    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/password")
     public String uppassword(@RequestParam("pwd") String pwd,
                              @RequestParam("newpwd") String newpwd,
@@ -63,6 +63,10 @@ public class sController {
     }
 
 
+//    @GetMapping("/gitlab")
+//    public String gitlab(){
+//        return "git";
+//    }
 
 
 

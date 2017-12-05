@@ -2,6 +2,8 @@ package com.code.Controller;
 
 import com.code.Entity.User;
 import com.code.Service.UserService;
+//import org.gitlab4j.api.GitLabApi;
+//import org.gitlab4j.api.GitLabApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,12 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
-
 /**
  * Created by alison on 17-10-29.
  */
 @Controller
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/admin")
 public class aController {
 
@@ -24,19 +25,19 @@ public class aController {
     private UserService userService;
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping("")
     public String admin(){
                return "admin";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/newstudent")
     public String newstudent(){
         return "newstudent";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+/*
     @PostMapping("/newstudent")
     public String addnewstudent(@RequestParam("id") Integer id,
                                 @RequestParam("name") String name,
@@ -52,16 +53,30 @@ public class aController {
         userService.insertUser(user);
         userService.insertSrole(id);
 
+//        org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
+//        String email = id + "@pop.zjgsu.edu.cn";
+//        gitUser.setEmail(email);
+//        gitUser.setName(name);
+//        gitUser.setUsername(String.valueOf(id));
+//
+//        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
+//        try {
+//            gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
+//        } catch (GitLabApiException e) {
+//            e.printStackTrace();
+//        }
+
         return "redirect:/admin";
     }
+*/
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/newteacher")
     public String newteacher(){
         return "newteacher";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/newteacher")
     public String addnewteacher(@RequestParam("id") Integer id,
                                 @RequestParam("name") String name,

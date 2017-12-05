@@ -83,6 +83,18 @@
 			<!--<artifactId>shiro-spring-boot-starter</artifactId>-->
 			<!--<version>1.4.0</version>-->
 		<!--</dependency>-->
+		<!-- https://mvnrepository.com/artifact/org.gitlab/java-gitlab-api -->
+		<!--<dependency>-->
+			<!--<groupId>org.gitlab</groupId>-->
+			<!--<artifactId>java-gitlab-api</artifactId>-->
+			<!--<version>1.2.8</version>-->
+		<!--</dependency>-->
+		<dependency>
+			<groupId>org.gitlab4j</groupId>
+			<artifactId>gitlab4j-api</artifactId>
+			<version>4.6.9</version>
+		</dependency>
+
 
 	</dependencies>
 

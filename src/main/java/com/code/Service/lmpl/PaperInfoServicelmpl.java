@@ -23,25 +23,30 @@ public class PaperInfoServicelmpl implements PaperInfoService{
 
 
     @Override
-    public PaperInfo findPaperInfoById(String id) {
+    public List<PaperInfo> findPaperInfoById(String id) {
         return paperInfoMapper.findById(id);
     }
 
     @Override
-    public PaperInfo findPaperInfoByTaskname(String taskname) {
+    public List<PaperInfo> findPaperInfoByTaskname(String taskname) {
         return paperInfoMapper.findByTaskname(taskname);
     }
 
     @Override
-    public PaperInfo findPaperInfoByStuname(String stuname) {
+    public List<PaperInfo> findPaperInfoByStuname(String stuname) {
         return paperInfoMapper.findByStuname(stuname);
     }
 
     @Override
-    public PaperInfo findPaperInfoByTutorname(String tutorname) { return paperInfoMapper.findByTutorname(tutorname); }
+    public List<PaperInfo> findPaperInfoByTutorname(String tutorname) { return paperInfoMapper.findByTutorname(tutorname); }
 
     @Override
-    public PaperInfo findPaperInfoByState(String state) {
+    public List<PaperInfo> findPaperInfoByState(String state) {
         return paperInfoMapper.findByState(state);
+    }
+
+    @Override
+    public List<PaperInfo> findPaperInfoByTaskAndState(String taskname, String state) {
+        return paperInfoMapper.findByTaskAndState(taskname,state);
     }
 }
