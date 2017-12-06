@@ -7,93 +7,52 @@
 	<link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet" />
 	<link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet" />
 
+	<!--<link th:href="@{/css/ui.jqgrid.css}" href="../static/css/ui.jqgrid.css" rel="stylesheet" />-->
+	<!--<link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet" />-->
+	<!--<link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet" />-->
+	<!--<link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet" />-->
+
 	<title>Student</title>
 </head>
 <body>
-	<style>
-		body {
-			min-height: 2000px;
-			padding-top: 70px;
-		}
-	</style>
-<!-- Static navbar -->
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="sr-only">Toggle navigation</span>
-			</button>
-			<p class="navbar-brand" >学生</p>
+<div th:include="s-head :: s-head"></div>
+
+
+<div class="container">
+	<div class="col-md-8 column">
+		<h5>任务书管理</h5>
+	<!--<div>-->
+		<!--<table id="jqTable"></table>-->
+		<!--<div id="pager"></div>-->
+	<!--</div>-->
+	</div>
+	<div class="col-md-4 column">
+		<h5>文件上传下载</h5>
+		<div>
+			<h6>上传</h6>
+			<form th:action="@{/student/renwushu}" action="/student/renwushu" method="POST" enctype="multipart/form-data">
+				<div style="text-align: center">
+					<input style="text-align: center" type="file" name="file" />
+					<!--<input type="submit" value="确认上传" />-->
+					<button type="submit" class="btn btn-primary btn-lg btn-block">确认上传</button>
+				</div>
+				<div th:if="${message}">
+					<h7 th:text="${message}"/>
+				</div>
+			</form>
 		</div>
-		<div class="navbar-collapse collapse">
 
-			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">课题选择 <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">选择课题</a></li>
-						<li><a href="#">已选课题</a></li>
-					</ul>
-				</li>
-			</ul>
-
-
-			<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown">成果物管理 <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="/student/renwushu">任务书管理</a></li>
-						<li><a href="/student/wenxian">文献综述管理</a></li>
-						<li><a href="#">文献翻译管理</a></li>
-						<li><a href="#">开题报告管理</a></li>
-						<li><a href="#">中期检查结果管理</a></li>
-						<li><a href="#">过程记录管理</a></li>
-						<li><a href="#">毕业论文管理</a></li>
-					</ul>
-				</li>
-			</ul>
-
-
-
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<a href="/student/password" th:action="@{/student/password}">修改密码</a>
-				</li>
-				<li>
-					<form action="/logout" method="post" name="form1" th:action="@{/logout}"></form>
-					<a href="javascript:document.form1.submit();">退出登录</a>
-				</li>
-			</ul>
-		</div><!--/.nav-collapse -->
-	</div>
+		<div>
+			<h6>下载</h6><br>
+				<!--<a href="renwushu.html"><h7>点击显示可下载文件</h7></a>-->
+				<ul>
+					<li th:each="file : ${files}">
+						<a th:href="${file}" th:text="${file}" />
+						<!--<a th:href="${file}" th:text="assignment" />-->
+					</li>
+				</ul>
+		</div>
 </div>
-
-<div class="col-md-8 column">
-	<h5>任务书管理</h5>
-</div>
-<div class="col-md-4 column">
-	<h6>文件上传下载</h6>
-	<div>
-		<h7>上传</h7>
-		<form action="/uploadForm" method="POST" enctype="multipart/form-data">
-			<table>
-				<tr><td></td><td><input type="file" name="file" /></td></tr>
-				<tr><td></td><td><input type="submit" value="确认上传" /></td></tr>
-			</table>
-			<div th:if="${message}">
-				<h7 th:text="${message}"/>
-			</div>
-		</form>
-	</div>
-
-	<div>
-		<h7>下载</h7>
-		<ul>
-			<li th:each="file : ${files}">
-				<a th:href="${file}" th:text="${file}" />
-			</li>
-		</ul>
-	</div>
 </div>
 
 <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
@@ -104,5 +63,58 @@
 
 <script th:src="@{/js/application.js}" src="../static/js/application.js"></script>
 
+<!--<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>-->
+<!--<script th:src="@{/js/jquery.min.js}" src="../static/js/jquery.min.js"></script>-->
+
+<!--<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>-->
+<!--&lt;!&ndash; jQuery (necessary for Bootstrap's JavaScript plugins) &ndash;&gt;-->
+<!--&lt;!&ndash; Include all compiled plugins (below), or include individual files as needed &ndash;&gt;-->
+<!--<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>-->
+<!--<script th:src="@{/js/application.js}" src="../static/js/application.js"></script>-->
+<!--<script th:src="@{/js/i18n/grid.locale-cn.js}" src="../static/js/i18n/grid.locale-cn.js"></script>-->
+<!--<script th:src="@{/js/jquery.jqGrid.min.js}" src="../static/js/jquery.jqGrid.min.js"></script>-->
+<!--<script th:src="@{/js/JqGridTable.js}" src="../static/js/JqGridTable.js"></script>-->
+<!--&lt;!&ndash; jqGridTable_Script &ndash;&gt;-->
+<!--<script type="text/javascript">-->
+    <!--$(document).ready(function(){-->
+        <!--$("#jqTable").jqGrid({-->
+            <!--url:'/student/data',-->
+            <!--/* datatype:"json", */-->
+            <!--datatype:"json",-->
+            <!--colNames:["文件名","课题名称","姓名","状态"/],-->
+            <!--colModel:[-->
+                <!--{name:'filename',index:'filename',label:'文件名',width:60,hidden:true,},-->
+                <!--{name:'taskname',index:'taskname',label:'课题名称',width:500,align:'center'},-->
+                <!--{name:'stuname',index:'stuname',label:'姓名',width:120,align:'center'},-->
+                <!--{name:'state',index:'state',label:'状态',width:150,align:'center',-->
+                    <!--stype: "select",-->
+                    <!--multiple:true,-->
+                    <!--searchoptions: { multiple:true, value: ":[All];ALFKI:已通过;ALFKI:待评阅;ANATR:未通过" }}-->
+                <!--],-->
+            <!--sortname:"filename",sortorder:"desc",viewrecords:true,-->
+            <!--rownumbers:true,autowidth:true,height:100,-->
+            <!--shrinkToFit:true,-->
+            <!--toolbar: [true, "top"],-->
+            <!--/*           height: $('.content-pager').height(),*/-->
+            <!--prmNames : {-->
+                <!--page : 'currentPage',-->
+                <!--rows : 'showCount',-->
+                <!--sort : 'sortField',-->
+                <!--order : 'order'-->
+            <!--},-->
+            <!--jsonReader : {-->
+                <!--root : "rows",-->
+                <!--page : "page",-->
+                <!--total : "total",-->
+                <!--records : "records",-->
+                <!--repeatitems : false,-->
+                <!--cell : "cell",-->
+                <!--id : "id"-->
+            <!--}, pager:"#pager",-->
+        <!--});;-->
+        <!--jQuery("#jqTable")-->
+            <!--.jqGrid('navGrid',"#pager",{edit:false}); ;-->
+    <!--});-->
+<!--</script>-->
 </body>
 </html>
