@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+
+
+<!-- Static navbar -->
+<header th:fragment="s-head">
+<div class="navbar navbar-default navbar-fixed-top" role="navigation" >
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <p class="navbar-brand" >学生</p>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">课题选择 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">选择课题</a></li>
+                        <li><a href="#">已选课题</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">成果物管理 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">任务书管理</a></li>
+                        <li><a href="#">文献综述管理</a></li>
+                        <li><a href="#">文献翻译管理</a></li>
+                        <li><a href="#">开题报告管理</a></li>
+                        <li><a href="#">中期检查结果管理</a></li>
+                        <li><a href="#">过程记录管理</a></li>
+                        <li><a href="#">毕业论文管理</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">源代码管理 <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/student/gitlab" th:href="@{/student/gitlab}">基本信息</a></li>
+                        <li><a href="/student/newproject" th:href="@{/student/newproject}">创建项目</a></li>
+                        <li><a href="/student/gitproject" th:href="@{/student/gitproject}">显示项目</a></li>
+                        <li><a href="/student/ssh" th:href="@{/student/ssh}">SSH KEY</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">运行演示<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">基本镜像</a></li>
+                        <!--<li><a href="#">已选课题</a></li>-->
+                    </ul>
+                </li>
+            </ul>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/student/password" th:action="@{/student/password}">修改密码</a>
+                </li>
+                <li>
+                    <form action="/logout" method="post" name="form1" th:action="@{/logout}"></form>
+                    <a href="javascript:document.form1.submit();">退出登录</a>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+    <br><br>
+</header>
+</body>
+</html>

@@ -41,31 +41,37 @@ public class aController {
     public String addnewstudent(@RequestParam("id") Integer id,
                                 @RequestParam("name") String name,
                                 @RequestParam("password") String password){
-        User user = new User();
-        password = new BCryptPasswordEncoder().encode(password);
+        if(userService.findUserById(id) != null){
+            return "redirect:/admin/newstudent?error";
+        }
+        else {
+            User user = new User();
+            password = new BCryptPasswordEncoder().encode(password);
 
-        user.setId(id);
-        user.setName(name);
-        user.setPassword(password);
-        user.setUsername(String.valueOf(id));
+            user.setId(id);
+            user.setName(name);
+            user.setPassword(password);
+            user.setUsername(String.valueOf(id));
 
-        userService.insertUser(user);
-        userService.insertSrole(id);
+            userService.insertUser(user);
+            userService.insertSrole(id);
 
-        org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
-        String email = id + "@pop.zjgsu.edu.cn";
-        gitUser.setEmail(email);
-        gitUser.setName(name);
-        gitUser.setUsername(String.valueOf(id));
-        
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
-        try {
-            gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
-        } catch (GitLabApiException e) {
-            e.printStackTrace();
+            org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
+            String email = id + "@pop.zjgsu.edu.cn";
+            gitUser.setEmail(email);
+            gitUser.setName(name);
+            gitUser.setUsername(String.valueOf(id));
+
+            GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
+            try {
+                gitLabApi.getUserApi().createUser(gitUser,"123456789",1);
+            } catch (GitLabApiException e) {
+                e.printStackTrace();
+            }
+
+            return "redirect:/admin";
         }
 
-        return "redirect:/admin";
     }
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
