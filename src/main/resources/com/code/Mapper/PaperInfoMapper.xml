@@ -54,9 +54,24 @@
         VALUES
         (#{id}, #{taskname}, #{stuname},#{state},#{tutorname})
     </insert>
+
     <select id="findByMaxId" parameterType="String" resultMap="paperInfoMap">
         select p.* from paperinfo p
         where id = (select max(id) from paperinfo)
     </select>
 
+    <delete id="delRecord" parameterType="String">
+        delete p.* from paperinfo p
+        where stuname=#{stuname}
+    </delete>
+
+    <update id="editRecord" parameterType="String" >
+        UPDATE
+        paperinfo
+        SET
+        state = #{newstate},
+        tutorname = #{newtutorname}
+        WHERE
+        stuname = #{stuname}
+    </update>
 </mapper>

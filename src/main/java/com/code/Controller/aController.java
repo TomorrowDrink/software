@@ -12,11 +12,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -108,15 +110,18 @@ public class aController {
     }
 
 //    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @GetMapping("/aReview")
-    public String aReview(){
-        return "aReview";
+//    @GetMapping("/aReview")
+@RequestMapping(value = {"/areview"}, method = {RequestMethod.POST,RequestMethod.GET})
+    public String areview(@ModelAttribute PaperInfo paperInfo, Model model){
+        List<PaperInfo> list = paperInfoService.getAll();
+        model.addAttribute("initdata",list);
+        return "areview";
     }
 
 //    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @ResponseBody
-    @RequestMapping("/data")
-    public JsonResponse<PaperInfo> getData() {
+//    @ResponseBody
+    @GetMapping("/data")
+    public JsonResponse<PaperInfo> getData(Model model) {
         List<PaperInfo> list = paperInfoService.getAll();
         JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list);
         return response;
@@ -148,10 +153,9 @@ public class aController {
         return response;
     }
 
-    @PostMapping("/addRecord")
+    @PostMapping("/addrecord")
     public String addData(@RequestParam("txt_taskname") String taskname,
                                            @RequestParam("txt_stuname") String stuname,
-                                           @RequestParam("txt_state") String state,
                                            @RequestParam("txt_tutorname") String tutorname){
 
         List<PaperInfo> list = paperInfoService.findPaperInfoByMaxId();
@@ -167,10 +171,23 @@ public class aController {
 
         paperInfoService.addRecord(paperInfo);
 
-        return "redirect:/admin/aReview";
+        return "redirect:/admin/areview";
     }
 
+    @PostMapping("/delrecord")
+    public String delData(@RequestParam("del_stuname") String stuname){
+        paperInfoService.delRecord(stuname);
+        return "redirect:/admin/areview";
 
+    }
 
+    @PostMapping("/editrecord")
+    public String editData(@RequestParam("edit_stuname1") String stuname,
+                           @RequestParam("edit_tutorname") String newtutorname,
+                           @RequestParam("edit_state1") String newstate){
+        paperInfoService.editRecord(stuname,newtutorname,newstate);
+        return "redirect:/admin/areview";
+
+    }
 
 }

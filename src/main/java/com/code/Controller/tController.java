@@ -40,7 +40,7 @@ public class tController {
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("/review")
     public String literatureReview(){
-        return "LiteratureReview";
+        return "literatureReview";
     }
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")

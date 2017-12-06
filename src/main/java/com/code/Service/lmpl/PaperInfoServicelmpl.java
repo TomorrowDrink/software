@@ -57,4 +57,14 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     public void addRecord(PaperInfo paperInfo) {
         paperInfoMapper.addRecord(paperInfo);
     }
+
+    @Override
+    public void delRecord(String stuname) {
+        paperInfoMapper.delRecord(stuname);
+    }
+
+    @Override
+    public void editRecord(String stuname, String newtutorname, String newstate) {
+        paperInfoMapper.editRecord(stuname,newtutorname,newstate);
+    }
 }

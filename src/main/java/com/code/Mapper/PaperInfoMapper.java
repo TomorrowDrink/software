@@ -12,7 +12,7 @@ public interface PaperInfoMapper {
 /*    @Select("select * from PaperInfo where taskname = #{taskname}")
      PaperInfo findPaperInfoByTaskname(@Param("taskname")String taskname);*/
 
-    /*按条件查询*/
+    /*查询记录*/
     List<PaperInfo> getAll(/*@Param("page") *//*PageInfo page*/);
     List<PaperInfo> findByTaskname(@Param("taskname") String taskname);
     List<PaperInfo> findByTutorname(@Param("tutorname") String tutorname);
@@ -23,5 +23,9 @@ public interface PaperInfoMapper {
     List<PaperInfo> findByMaxId();
     /*新增记录*/
     void addRecord(PaperInfo paperInfo);
+    /*删除记录*/
+    void delRecord(@Param("stuname") String stuname);
+    /*更新记录*/
+    void editRecord(String s, String newtutorname, @Param("stuname") String stuname);
 
 }

@@ -16,4 +16,6 @@ public interface PaperInfoService {
 
     public List<PaperInfo> findPaperInfoByMaxId();
     public void addRecord(PaperInfo paperInfo);
+    public void delRecord(String stuname);
+    public void editRecord(String stuname,String newtutorname,String newstate);
 }

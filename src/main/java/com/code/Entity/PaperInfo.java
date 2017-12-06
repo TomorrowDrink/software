@@ -56,10 +56,10 @@ public class PaperInfo implements Serializable {
     @Override
     public String toString() {
         return "PaperInfo{" +
-                "taskName='" + taskname + '\'' +
-                ", stuName='" + stuname + '\'' +
+                "taskname='" + taskname + '\'' +
+                ", stuname='" + stuname + '\'' +
                 ", state='" + state + '\'' +
-                ", tutorName='" + tutorname + '\'' +
+                ", tutorname='" + tutorname + '\'' +
                 ", id='" + id + '\'' +
                 '}';
     }
