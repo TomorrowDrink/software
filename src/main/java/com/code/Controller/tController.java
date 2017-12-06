@@ -5,6 +5,7 @@ import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -183,6 +184,34 @@ public class tController {
     }
 
 
+    /**
+     * 教师课题编辑
+     */
+    @GetMapping("/edittask")
+    public String edittask(){return "EditTask";}
+    @PostMapping("/edittask")
+    public String editoldtask(
+        @RequestParam("newtaskname")String newtaskname,
+        @RequestParam("newtasktype")String newtasktype,
+        @RequestParam("newtaskrate")String newtaskrate,
+        @RequestParam("newtaskmaxchoose")Integer newtaskmaxchoose,
+        @RequestParam("newtaskdescrib")String newtaskdescrib,
+        @RequestParam("newtutorname")String newtutorname,
+        @RequestParam("newtaskid")Integer newtaskid
+    ){
+        Task task =new Task();
+        task.setTaskid(newtaskid);
+        task.setTaskname(newtaskname);
+        task.setTaskrate(newtaskrate);
+        task.setTasktype(newtasktype);
+        task.setTaskdescrib(newtaskdescrib);
+        task.setTaskmaxchoose(newtaskmaxchoose);
+        task.setTutorname(newtutorname);
+        task.setTaskstate("待审核");
+
+        taskService.updataTask(task);
+        return "redirect:/teacher/show";
+    }
 
 
 
