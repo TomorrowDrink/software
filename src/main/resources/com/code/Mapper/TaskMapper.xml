@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.Mapper.TaskMapper">
+
+    <resultMap id="TaskMap" type="com.code.Entity.Task">
+        <id property="taskid" column="taskid"/>
+        <result property="taskname" column="taskname"/>
+        <result property="tutorname" column="tutorname"/>
+        <result property="tasktype" column="tasktype"/>
+        <result property="taskrate" column="taskrate"/>
+
+
+
+        <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
+            <!--<result column="rolename" property="rolename"/>-->
+        <!--</collection>-->
+    </resultMap>
+
+    <select id="findByTaskname" parameterType="String" resultMap="TaskMap">
+         select t.*  from task t
+        where taskname= #{taskname}
+    </select>
+
+    <select id="findByTaskstate" parameterType="String" resultMap="TaskMap">
+        select t.*  from task t
+        where taskstate= #{taskstate}
+    </select>
+
+    <select id="findByTaskId" parameterType="String" resultMap="TaskMap">
+         select t.*  from task t
+        where taskid= #{taskid}
+    </select>
+
+    <select id="findByTasktype" parameterType="String" resultMap="TaskMap">
+         select t.*  from task t
+        where tasktype= #{tasktype}
+    </select>
+
+    <select id="findByTaskrate" parameterType="String" resultMap="TaskMap">
+         select t.*  from task t
+        where taskrate= #{taskrate}
+    </select>
+
+    <select id="findByTutorname" parameterType="String" resultMap="TaskMap">
+         select t.*  from task t
+        where tutorname= #{tutorname}
+    </select>
+
+    <select id="getAll" parameterType="String" resultMap="TaskMap">
+        select t.*  from task t
+    </select>
+
+    <!--<select id="findByTasknameAndstate" parameterType="String" resultMap="TaskMap">-->
+        <!--select .*  from task t-->
+        <!--where taskstate= #{taskstate} and taskname= #{taskname}-->
+    <!--</select>-->
+
+    <insert id="insertTask" parameterType="com.code.Entity.Task">
+        INSERT INTO
+        task
+        (taskid,taskname,tasktype,taskrate,taskdescrib,tutorname,taskmaxchoose,taskstate)
+        VALUES
+        (#{taskid},#{taskname},#{tasktype},#{taskrate},#{taskdescrib},#{tutorname},#{taskmaxchoose},#{taskstate})
+    </insert>
+
+    <update id="updataTask" parameterType="com.code.Entity.Task">
+        UPDATE
+        task
+        SET
+        taskname=#{taskname},
+        tasktype=#{tasktype},
+        taskrate=#{taskrate},
+        taskdescrib=#{taskdescrib},
+        tutorname=#{tutorname},
+        taskmaxchoose=#{taskmaxchoose},
+        taskstate=#{taskstate}
+        WHERE
+        taskid=#{taskid}
+    </update>
+
+</mapper>

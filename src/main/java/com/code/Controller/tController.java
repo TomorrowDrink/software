@@ -142,9 +142,12 @@ public class tController {
 
         List<Task> list1, list2, list3;
         list1 = (List<Task>) taskService.findTaskByTaskname(checkValue1);
-        list2 = (List<Task>) taskService.findTaskByTaskrate(checkValue2);
+        list2 = (List<Task>) taskService.findTaskByTaskstate(checkValue2);
+//        list3 = (List<Task>) taskService.findTaskByTasknameAndstate(checkValue1, checkValue2);
         JsonResponse<Task> response = new JsonResponse<Task>(list1);
         JsonResponse<Task> response1 = new JsonResponse<Task>(list2);
+//        JsonResponse<Task> response2= new JsonResponse<Task>(list3);
+
         return response;
     }
 
