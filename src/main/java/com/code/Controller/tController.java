@@ -1,10 +1,8 @@
 package com.code.Controller;
 
-import com.code.Entity.JsonResponse;
-import com.code.Entity.PageInfo;
-import com.code.Entity.PaperInfo;
-import com.code.Entity.User;
+import com.code.Entity.*;
 import com.code.Service.PaperInfoService;
+import com.code.Service.TaskService;
 import com.code.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -104,6 +102,119 @@ public class tController {
         * 9.把操作data的函数移到java文件中调用
         * 10.ajax+jq+jqgrid
         * */
+    }
+
+    /**
+     * 教师课题查询
+     */
+    @Autowired
+    private TaskService taskService;
+
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @RequestMapping("/show")
+    public String TaskShow() {
+        return "TaskShow";
+    }
+
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @ResponseBody
+    @RequestMapping("/taskdata")
+    public JsonResponse<Task> getTaskData() {
+        Object username = SecurityContextHolder.getContext().getAuthentication().getName();
+        int tutorid = Integer.parseInt(String.valueOf(username));
+        System.out.println(tutorid);
+        User user = userService.findUserById(tutorid);
+        List<Task> list = taskService.findTaskByTutorname(user.getName());
+        JsonResponse<Task> response = new JsonResponse<Task>(list);
+        return response;
+    }
+
+    @ResponseBody
+    @RequestMapping("/searchtaskdata")
+    public JsonResponse<Task> getSearchTaskData() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String checkValue1 = request.getParameter("checkValue1");
+        String checkValue2 = request.getParameter("checkValue2");
+        //  String tutorname = request.getParameter("tutorname");
+
+        //  if (!tutorname.trim().equals(""))System.out.println(tutorname);
+        System.out.println(checkValue1);
+        System.out.println(checkValue2);
+
+        List<Task> list1, list2, list3;
+        list1 = (List<Task>) taskService.findTaskByTaskname(checkValue1);
+        list2 = (List<Task>) taskService.findTaskByTaskstate(checkValue2);
+//        list3 = (List<Task>) taskService.findTaskByTasknameAndstate(checkValue1, checkValue2);
+        JsonResponse<Task> response = new JsonResponse<Task>(list1);
+        JsonResponse<Task> response1 = new JsonResponse<Task>(list2);
+//        JsonResponse<Task> response2= new JsonResponse<Task>(list3);
+
+        return response;
+    }
+
+    /**
+     * 教师新课题提交
+     */
+    @GetMapping("/addtask")
+    public String addtask() {
+        return "AddTask";
+    }
+
+    @PostMapping("/addtask")
+    public String addnewtask(
+            @RequestParam("taskid") Integer taskid,
+            @RequestParam("taskname") String taskname,
+            @RequestParam("tasktype") String taskType,
+            @RequestParam("taskrate") String taskrate,
+            @RequestParam("taskdescrib") String taskdecrib,
+            @RequestParam("tutorname") String tutorname,
+            @RequestParam("taskmaxchoose") Integer taskmaxchoose
+//          @RequestParam("taskstate") String taskstate
+    ){
+
+        Task task = new Task();
+        task.setTaskid(taskid);
+        task.setTaskname(taskname);
+        task.setTaskdescrib(taskdecrib);
+        task.setTasktype(taskType);
+        task.setTaskrate(taskrate);
+        task.setTaskmaxchoose(taskmaxchoose);
+        task.setTutorname(tutorname);
+        task.setTaskstate("待审核");
+
+        taskService.insertTask(task);
+
+        return "redirect:/teacher";
+    }
+
+
+    /**
+     * 教师课题编辑
+     */
+    @GetMapping("/edittask")
+    public String edittask(){return "EditTask";}
+    @PostMapping("/edittask")
+    public String editoldtask(
+            @RequestParam("newtaskname")String newtaskname,
+            @RequestParam("newtasktype")String newtasktype,
+            @RequestParam("newtaskrate")String newtaskrate,
+            @RequestParam("newtaskmaxchoose")Integer newtaskmaxchoose,
+            @RequestParam("newtaskdescrib")String newtaskdescrib,
+            @RequestParam("newtutorname")String newtutorname,
+            @RequestParam("newtaskid")Integer newtaskid
+    ){
+        Task task =new Task();
+        task.setTaskid(newtaskid);
+        task.setTaskname(newtaskname);
+        task.setTaskrate(newtaskrate);
+        task.setTasktype(newtasktype);
+        task.setTaskdescrib(newtaskdescrib);
+        task.setTaskmaxchoose(newtaskmaxchoose);
+        task.setTutorname(newtutorname);
+        task.setTaskstate("待审核");
+
+        taskService.updataTask(task);
+        return "redirect:/teacher/show";
     }
 
 

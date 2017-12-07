@@ -1,0 +1,151 @@
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<meta charset="UTF-8">
+<head>
+    <title>课题管理</title>
+</head>
+
+<link href="//cdn.bootcss.com/jqueryui/1.12.0-rc.2/jquery-ui.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/jqgrid/4.6.0/css/ui.jqgrid.css" rel="stylesheet">
+<link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+<link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+<link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>
+<body>
+<style>
+    body {
+        min-height: 2000px;
+        padding-top: 70px;
+    }
+</style>
+
+<div th:include="s-head :: s-head"></div>
+
+<!-- select表单 -->
+<h6 class="form-signin-heading">课题管理</h6>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <!-- 增删改查 -->
+            <div class="form-inline">
+                <label>课题名称：</label>
+                <select id="tasknameSelection" class="form-control">
+                    <option value="all1"selected>--全部--</option>
+                    <option value="毕业设计管理系统" selected>毕业设计管理系统</option>
+                    <option value="教学管理日历">教学管理日历</option>
+                    <option value="学校综合管理系统">学校综合管理系统</option>
+                    <option value="企业管理信息系统">企业管理信息系统</option>
+                    <option value="企业管理信息系统">机关办公自动化系统</option>
+                    <option value="企业管理信息系统">交通管理系统</option>
+                </select>
+                <label>评阅状态：</label>
+                <select id="stateSelection" class="form-control">
+                    <option value="all2"selected>--全部--</option>
+                    <option value="待审查" selected>待审核</option>
+                    <option value="已通过">已通过</option>
+                    <option value="未通过">未通过</option>
+                </select>
+                <a href="/teacher/addtask"th:href="@{/teacher/addtask}" 　id="find_btn1" class="btn btn-primary" style="float:right"  >提交新课题 </a>
+                <button type= "button" id="find_btn" class="btn btn-primary"  >查询</button>
+                <!--<label>学生姓名：</label>-->
+                <!--<input type="text" class="form-control" id="stuname"/>-->
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-inline">
+
+            </div>
+        </div>
+    </div>
+<div>
+    <table id="jqTable"></table>
+    <div id="pager"></div>
+</div>
+<!-- jqGridTable_Script -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.jgrid.defaults.styleUI = "Bootstrap";
+        $("#jqTable").jqGrid({
+            url:'/teacher/taskdata',
+            datatype:"json",
+            colNames:["编号","课题名称","提交人","课题类型","课题难度","最大选择人数","状态","操作"],
+            colModel:[
+                {name:'taskid',index:'taskid',label:'编号',width:60,/*hidden:true,*/},
+                {name:'taskname',index:'taskname',label:'课题名称',width:200,align:'center'},
+                {name:'tutorname',index:'tutorname',label:'提交人',width:100,align:'center'},
+                {name:'tasktype',index:'tasktype',label:'课题类型',width:60,align:'center'},
+                {name:'taskrate',index:'taskrate',label:'课题难度',width:60,align:'center'},
+                {name:'taskmaxchoose',index:'taskmaxchoose',label:'最大选择人数',width:60,align:'center'},
+                {name:'taskstate',index:'taskstate',label:'状态',width:40,align:'center',
+                    stype: "select",
+                    multiple:true,
+                    searchoptions: { multiple:true, value: ":[All];ALFKI:已通过;ANATR:未通过" }},
+                {name:'edit',index:'edit',label:'编辑',width:120, align:'center',/*formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*/
+                }],
+            caption:'课题查看记录',
+            sortname:"id",sortorder:"desc",viewrecords:true,page:1,
+            rownumbers:true,autowidth:true,height:120,rowNum:10,
+            shrinkToFit:true,
+//            toolbar: [true, "top"],
+                       height: $('.content-pager').height(),
+//            prmNames : {
+//                page : 'currentPage',
+//                rows : 'showCount',
+//                sort : 'sortField',
+//                order : 'order'
+//            },
+            jsonReader : {
+                root : "rows",
+                page : "page",
+                total : "total",
+                records : "records",
+                repeatitems : false,
+                cell : "cell",
+                id : "id"
+            }, pager:"#pager",
+            gridComplete:function(){
+                var ids = jQuery("#jqTable").jqGrid('getDataIDs');
+                for(i=0;i<ids.length;i++){
+                    var id=ids[i];
+                      edit = "<a href='/teacher/edittask' style='#f60' onclick='Edit("+id+")'>编辑</a>";
+//                    edit = "<a href='#' style='#f60'/* onclick='Edit("+id+")'*/>编辑</a>";
+                    jQuery("#jqTable").jqGrid('setRowData',ids[i],{'edit':edit});
+                  }
+             }
+        }).jqGrid('navGrid', "#pager", {edit: false,add:false,del:false,search:false});
+
+    });
+
+    $(function () {
+        $("#find_btn").click(function () {
+
+//            var stuname = $("#stuname").val();
+            var checkValue1 = $("#tasknameSelection").val();
+            var checkValue2 = $("#stateSelection").val();
+
+            $("#jqTable").jqGrid('setGridParam', {
+                url: "searchtaskdata",
+                postData: {
+//                    'stuname': stuname,
+                    'checkValue1': checkValue1,
+                    'checkValue2': checkValue2
+                },
+                page: 1
+            }).trigger("reloadGrid");
+        });
+    });
+
+    $(function(){
+        $(window).resize(function(){
+            $("#jqTable").setGridWidth($(window).width());
+        });
+    });
+
+
+
+
+</script>
+
+</body>
+</html>

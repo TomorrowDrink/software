@@ -71,10 +71,10 @@ public class sController {
     }
 
 
-//    @GetMapping("/gitlab")
-//    public String gitlab(){
-//        return "git";
-//    }
+    @GetMapping("/gitlab")
+    public String gitlab(){
+        return "git";
+    }
 
     @GetMapping("/newproject")
     public String newproject(){
