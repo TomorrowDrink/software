@@ -9,11 +9,10 @@
     <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
     <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
     <link th:href="@{/css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">
-    <script th:src="@{/js/jquery.jqGrid.min.js}" src="../js/jquery.jqGrid.min.js"></script>
-    <script th:src="@{/js/jquery-3.1.1.min.js}" src="../js/jquery-3.1.1.min.js"></script>
-    <script th:src="@{/js/i18n/grid.locale-en.js}" src="../js/i18n/grid.locale-en.js"></script>
+    <!--<script th:src="@{/js/jquery.jqGrid.min.js}" src="../js/jquery.jqGrid.min.js"></script>-->
+    <!--<script th:src="@{/js/jquery-3.1.1.min.js}" src="../js/jquery-3.1.1.min.js"></script>-->
+    <!--<script th:src="@{/js/i18n/grid.locale-en.js}" src="../js/i18n/grid.locale-en.js"></script>-->
 </head>
-<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
 <body th:inline="text">
 
@@ -211,9 +210,9 @@ height: 800px;
 </div>
 
 <script type="text/javascript">
-    $(function () { $('#myModal').modal({
-        keyboard: true
-    })});
+//    $(function () { $('#myModal').modal({
+//        keyboard: true
+//    })});
     $('#delete').on('click', function() {
         var del_stuname = $(this).parents("tr").find("#table_stuname").text();
         document.getElementById("del_stuname").value= del_stuname;
@@ -236,71 +235,10 @@ height: 800px;
 //        $("edit_taskname").text(be_taskname);
 //        $("edit_stuname").text(be_stuname);
     });
-//    $(document).ready(function() {
-//        $.jgrid.defaults.styleUI = "Bootstrap";
-//        $("#aTable").jqGrid({
-//            url: '/admin/data',
-//            datatype: "json",
-//            colNames: ["编号", "课题名称", "姓名", "状态","修改","操作","删除"],
-//            colModel: [
-//                {name: 'id', index: 'id', label: '编号', width: 60, hidden: true,},
-//                {name: 'taskname', index: 'taskname', label: '课题名称', width: 500, align: 'center'/!*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*!/},
-//                {name: 'stuname', index: 'stuname', label: '姓名', width: 100, align: 'center'},
-//                {name: 'state', index: 'state', label: '状态', width: 100, align: 'center',},
-//                {name:'edit',index:'edit',label:'修改',width:100, align:'center'/!*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*!/
-//                },
-//                {name: 'operate', index: 'operate', label: '操作', width: 100, align: 'center',},
-//                {name: 'del', index: 'del', label: '删除', width: 100, align: 'center',}],
-//            caption:'开题报告目录',
-//            sortname: "id", sortorder: "desc", viewrecords: true,page:1,
-//            rownumbers: true, autowidth: true, height: 100,rowNum:10,
-//            shrinkToFit: true,
-//            height: $('.content-pager').height()/2,
-////            prmNames: {
-////                page: 'currentPage',
-////                rows: 'showCount',
-////                sort: 'sortField',
-////                order: 'order'
-////            },
-//            jsonReader: {
-//                root: "rows",
-//                page: "page",
-//                total: "total",
-//                records: "records",
-//                repeatitems: false,
-//                cell: "cell",
-//                id: "id"
-//            }, pager: "#aPager",
-//            gridComplete:function(){
-//                var ids = jQuery("#aTable").jqGrid('getDataIDs');
-//                for(i=0;i<ids.length;i++){
-//                    var id=ids[i];
-//                    edit = "<a href='#' style='#f60'>编辑</a>";
-//                    operate = "<a href='#' style='#f60'>下载</a>";
-//                    del = "<button class='btn btn-link' data-toggle='modal' data-target='#myModal'>删除</button>";
-//                    jQuery("#aTable").jqGrid('setRowData',ids[i],{'operate':operate,'edit':edit,'del':del});
-//                }
-//            }
-//        }).jqGrid('navGrid', "#aPager", {edit: false,add:false,del:false,search:false});
-//    });
+
 /!*查询记录*!/
         $("#find_btn").click(function () {
 
-            var stuname = $("#stuname").val();
-            var tutorname = $("#tutorname").val();
-            var checkValue1 = $("#tasknameSelection").val();
-            var checkValue2 = $("#stateSelection").val();
-
-            $("#aTable").jqGrid('setGridParam', {
-                url: "searchdata",
-                postData: {
-                    'tutorname':tutorname,
-                    'stuname': stuname,
-                    'checkValue1': checkValue1,
-                    'checkValue2': checkValue2
-                },
-                page: 1
-            }).trigger("reloadGrid");
         });
 
     $("#add_btn").click(function () {
@@ -319,6 +257,6 @@ height: 800px;
 </body>
 </html>
 <!--<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>-->
-<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>
-<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>
+<!--<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>-->
+<!--<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>-->
+<!--<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>-->
