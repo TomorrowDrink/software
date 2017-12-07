@@ -6,11 +6,7 @@
 	<link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet" />
 	<link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet" />
 	<link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet" />
-
-	<!--<link th:href="@{/css/ui.jqgrid.css}" href="../static/css/ui.jqgrid.css" rel="stylesheet" />-->
-	<!--<link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet" />-->
-	<!--<link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet" />-->
-	<!--<link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet" />-->
+	<link th:href="@{/css/file.css}" href="../static/css/file.css" rel="stylesheet" />
 
 	<title>Student</title>
 </head>
@@ -27,32 +23,40 @@
 	<!--</div>-->
 	</div>
 	<div class="col-md-4 column">
-		<h5>文件上传下载</h5>
-		<div>
-			<h6>上传</h6>
+		<div class="title"><h5>文件上传下载</h5></div>
+
+		<div class="upload">
+			<div class="title">
+				<img th:src="@{/img/book1.jpg}" src="../static/img/book1.jpg"  class="img-circle" />
+				<!--<img src="img/book1.jpg" class="img-circle" />-->
+				<div class="smallTitle"><h6>上传</h6></div>
+			</div>
 			<form th:action="@{/student/renwushu}" action="/student/renwushu" method="POST" enctype="multipart/form-data">
 				<div style="text-align: center">
-					<input style="text-align: center" type="file" name="file" />
-					<!--<input type="submit" value="确认上传" />-->
-					<button type="submit" class="btn btn-primary btn-lg btn-block">确认上传</button>
-				</div>
-				<div th:if="${message}">
-					<h7 th:text="${message}"/>
-				</div>
-			</form>
-		</div>
+					<!--<a href=" " class="file" style="margin-top: 5%;">选择文件</a>-->
+					<input type="file" name="file" id="file" />
 
-		<div>
-			<h6>下载</h6><br>
-				<!--<a href="renwushu.html"><h7>点击显示可下载文件</h7></a>-->
-				<ul>
-					<li th:each="file : ${files}">
-						<a th:href="${file}" th:text="${file}" />
-						<!--<a th:href="${file}" th:text="assignment" />-->
-					</li>
-				</ul>
+				<button type="submit" class="btn btn-primary  btn-block" id="yes">确认上传</button>
 		</div>
-</div>
+		<div th:if="${message}">
+			<h7 th:text="${message}"/>
+		</div>
+		</form>
+	</div>
+
+	<div class="download">
+		<div class="title">
+			<img th:src="@{/img/book2.jpg}" src="../static/img/book2.jpg"  class="img-circle" />
+			<h6 class="smallTitle">下载</h6><br></div>
+		<!--< a href="renwushu.html"><h7>点击显示可下载文件</h7></ a>-->
+		<ul style="margin-top: 5%;">
+			<li th:each="file : ${files}">
+				<!--<a th:href="${file}" th:text="${file}" />-->
+				<a th:href="${file}" th:text="Assignment" />
+			</li>
+		</ul>
+	</div>
+	</div>
 </div>
 
 <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
