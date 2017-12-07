@@ -8,43 +8,50 @@
     <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
 
 
-<<<<<<< HEAD
-    <title>Admin</title>
-</head>
-<body>
-<div th:include="s-head :: s-head"></div>
-=======
     <title>newproject</title>
 </head>
 <body>
 <div th:include="s-head :: s-head"></div>
->>>>>>> srw
 
 
 <br><br>
 <div class="container" >
-<form th:action="@{/student/newproject}" action="/student/newproject"  method="post">
+<form th:action="@{/student/ssh}" action="/student/ssh"  method="post">
     <div class="login-form">
         <div class="form-group">
-            <input type="text" class="form-control login-field" name="pname" placeholder="项目名称"  required/>
+            <input type="text" class="form-control login-field" name="sshname" placeholder="SSH KEY名称"  required/>
             <!--<label class="login-field-icon fui-user" for="login-id"></label>-->
         </div>
 
         <div class="form-group">
-            <input type="text" class="form-control login-field" name="pdes" placeholder="项目描述"  required/>
-            <!--<label class="login-field-icon fui-user" for="login-name"></label>-->
+            <input type="text" class="form-control login-field" name="ssh" placeholder="SSH KEY内容"  required/>
+            <!--<label class="login-field-icon fui-user" for="login-id"></label>-->
         </div>
-
-
 
         <div th:if="${param.error}" style="color: red">
-            <p>*只能创建一个项目</p>
+            <p>*添加失败，请注意格式</p>
+        </div>
+        <div th:if="${param.success}" style="color: red">
+            <p>*添加成功</p>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-lg">添加</button>
+        <button type="submit" class="btn btn-primary btn-lg">添加SSH KEY</button>
     </div>
 </form>
+    <br><br>
+
+    <div class="jumbotron">
+
+        <table>
+            <caption>已有key</caption>
+            <tr th:each="key : ${keys}">
+                <td style="word-wrap:break-word;word-break:break-all;" th:text="${key.getKey()}"></td>
+            </tr>
+        </table>
+
+    </div>
 </div>
+
 
 
 <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>

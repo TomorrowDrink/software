@@ -1,25 +1,17 @@
 package com.code.Controller;
 
-import com.code.Entity.JsonResponse;
-import com.code.Entity.PaperInfo;
 import com.code.Entity.User;
-import com.code.Service.PaperInfoService;
 import com.code.Service.UserService;
-//import org.gitlab4j.api.GitLabApi;
-//import org.gitlab4j.api.GitLabApiException;
+import org.gitlab4j.api.GitLabApi;
+import org.gitlab4j.api.GitLabApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by alison on 17-10-29.
@@ -52,8 +44,12 @@ public class aController {
     public String addnewstudent(@RequestParam("id") Integer id,
                                 @RequestParam("name") String name,
                                 @RequestParam("password") String password){
-        User user = new User();
-        password = new BCryptPasswordEncoder().encode(password);
+        if(userService.findUserById(id) != null){
+            return "redirect:/admin/newstudent?error";
+        }
+        else {
+            User user = new User();
+            password = new BCryptPasswordEncoder().encode(password);
 
         user.setId(id);
         user.setName(name);
@@ -63,20 +59,22 @@ public class aController {
         userService.insertUser(user);
         userService.insertSrole(id);
 
-//        org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
-//        String email = id + "@pop.zjgsu.edu.cn";
-//        gitUser.setEmail(email);
-//        gitUser.setName(name);
-//        gitUser.setUsername(String.valueOf(id));
-//
-//        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
-//        try {
-//            gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
-//        } catch (GitLabApiException e) {
-//            e.printStackTrace();
-//        }
+        org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
+        String email = id + "@pop.zjgsu.edu.cn";
+        gitUser.setEmail(email);
+        gitUser.setName(name);
+        gitUser.setUsername(String.valueOf(id));
+        
+        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
+        try {
+            gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
+        } catch (GitLabApiException e) {
+            e.printStackTrace();
+        }
 
         return "redirect:/admin";
+    }
+
     }
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
