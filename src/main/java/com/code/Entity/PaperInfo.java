@@ -8,6 +8,24 @@ public class PaperInfo implements Serializable {
     private String stuname;
     private String state;
     private String tutorname;
+    private String type;
+    private String crosstutor;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getCrosstutor() {
+        return crosstutor;
+    }
+
+    public void setCrosstutor(String crosstutor) {
+        this.crosstutor = crosstutor;
+    }
 
     public String getTutorname() {
         return tutorname;

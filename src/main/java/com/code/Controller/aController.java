@@ -194,4 +194,9 @@ public class aController {
 
     }
 
+    @GetMapping("/crossproposal")
+    public String crossproposal(){
+        return "crossproposal";
+    }
+
 }

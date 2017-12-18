@@ -8,6 +8,8 @@
         <result property="stuname" column="stuname"/>
         <result property="state" column="state"/>
         <result property="tutorname" column="tutorname"/>
+        <result property="type" column="type"/>
+        <result property="crosstutor" column="crosstutor"/>
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
             <!--<result column="rolename" property="rolename"/>-->
         <!--</collection>-->
