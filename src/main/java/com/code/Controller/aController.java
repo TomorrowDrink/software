@@ -2,6 +2,9 @@ package com.code.Controller;
 
 import com.code.Entity.User;
 import com.code.Service.UserService;
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.PumpStreamHandler;
 import org.gitlab4j.api.GitLabApi;
 import org.gitlab4j.api.GitLabApiException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by alison on 17-10-29.
@@ -103,6 +110,7 @@ public class aController {
         }
         return "redirect:/admin";
     }
+
 
 
 
