@@ -22,6 +22,16 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     }
 
     @Override
+    public List<PaperInfo> findByCrosstutor(String crosstutor) {
+        return paperInfoMapper.findByCrosstutor(crosstutor);
+    }
+
+    @Override
+    public List<PaperInfo> getAlllunwen() {
+        return paperInfoMapper.getAlllunwen();
+    }
+
+    @Override
     public List<PaperInfo> findPaperInfoById(String id) {
         return paperInfoMapper.findById(id);
     }

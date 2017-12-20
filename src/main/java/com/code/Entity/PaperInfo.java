@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class PaperInfo implements Serializable {
 
+    private Integer id;
     private String taskname;
     private String stuname;
     private String state;
@@ -35,7 +36,6 @@ public class PaperInfo implements Serializable {
         this.tutorname = tutorname;
     }
 
-    private String id;
 
     public PaperInfo() { }
 
@@ -63,22 +63,11 @@ public class PaperInfo implements Serializable {
         this.state = state;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "PaperInfo{" +
-                "taskname='" + taskname + '\'' +
-                ", stuname='" + stuname + '\'' +
-                ", state='" + state + '\'' +
-                ", tutorname='" + tutorname + '\'' +
-                ", id='" + id + '\'' +
-                '}';
     }
 }
