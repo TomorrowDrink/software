@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -58,7 +59,7 @@ public class FileSystemStorageServicelmpl implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public void store(MultipartFile file,Principal principal) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
@@ -78,13 +79,13 @@ public class FileSystemStorageServicelmpl implements StorageService {
             String dir = simpleDateFormat.format(date);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
-            if(filename.matches(".*assignment.*")){ filename ="a" + dateFormat.format(date) + "_" + file.getOriginalFilename(); }
-            if(filename.matches(".*review.*")){ filename ="b" + dateFormat.format(date) + "_" + file.getOriginalFilename();}
-            if(filename.matches(".*literature.*")){ filename ="c" + dateFormat.format(date) + "_" + file.getOriginalFilename();}
-            if(filename.matches(".*openingReport.*")){ filename ="d" + dateFormat.format(date) + "_" + file.getOriginalFilename();}
-            if(filename.matches(".*midterm.*")){ filename ="e" + dateFormat.format(date) + "_" + file.getOriginalFilename();}
-            if(filename.matches(".*process.*")){ filename ="f" + dateFormat.format(date) + "_" + file.getOriginalFilename();}
-            if(filename.matches(".*paper.*")){ filename ="g" + dateFormat.format(date) + "_" + file.getOriginalFilename();}
+            if(filename.matches(".*assignment.*")){ filename ="a" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename() ; }
+            if(filename.matches(".*review.*")){ filename ="b" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
+            if(filename.matches(".*literature.*")){ filename ="c" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
+            if(filename.matches(".*openingReport.*")){ filename ="d" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
+            if(filename.matches(".*midterm.*")){ filename ="e" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
+            if(filename.matches(".*process.*")){ filename ="f" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
+            if(filename.matches(".*paper.*")){ filename ="g" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
 
             Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
@@ -96,9 +97,11 @@ public class FileSystemStorageServicelmpl implements StorageService {
     }
 
     @Override
-    public Stream<Path> loadAllAssignment() {
+    public Stream<Path> loadAllAssignment(Principal principal) {
         try {
-            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(".*assignment.*"));
+            String str = ".*"+principal.getName()+"assignment.*";
+//            System.out.println(str);
+            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
 //                    .filter(path -> !path.equals(this.rootLocation))
 //                    .map(path -> this.rootLocation.relativize(path)).sorted().limit(countA);
         }
@@ -108,9 +111,10 @@ public class FileSystemStorageServicelmpl implements StorageService {
     }
 
     @Override
-    public Stream<Path> loadAllReview() {
+    public Stream<Path> loadAllReview(Principal principal) {
         try {
-            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(".*review.*"));
+            String str = ".*"+principal.getName()+"review.*";
+            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
@@ -118,9 +122,10 @@ public class FileSystemStorageServicelmpl implements StorageService {
     }
 
     @Override
-    public Stream<Path> loadAllLiterature() {
+    public Stream<Path> loadAllLiterature(Principal principal) {
         try {
-            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(".*literature.*"));
+            String str = ".*"+principal.getName()+"literature.*";
+            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
@@ -128,9 +133,10 @@ public class FileSystemStorageServicelmpl implements StorageService {
     }
 
     @Override
-    public Stream<Path> loadAllOpeningReport() {
+    public Stream<Path> loadAllOpeningReport(Principal principal) {
         try {
-            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(".*openingReport.*"));
+            String str = ".*"+principal.getName()+"openingreport.*";
+            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
@@ -138,9 +144,10 @@ public class FileSystemStorageServicelmpl implements StorageService {
     }
 
     @Override
-    public Stream<Path> loadAllMidterm() {
+    public Stream<Path> loadAllMidterm(Principal principal) {
         try {
-            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(".*midterm.*"));
+            String str = ".*"+principal.getName()+"midterm.*";
+            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
@@ -148,9 +155,10 @@ public class FileSystemStorageServicelmpl implements StorageService {
     }
 
     @Override
-    public Stream<Path> loadAllProcess() {
+    public Stream<Path> loadAllProcess(Principal principal) {
         try {
-            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(".*process.*"));
+            String str = ".*"+principal.getName()+"process.*";
+            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
@@ -158,9 +166,10 @@ public class FileSystemStorageServicelmpl implements StorageService {
     }
 
     @Override
-    public Stream<Path> loadAllPaper() {
+    public Stream<Path> loadAllPaper(Principal principal) {
         try {
-            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(".*paper.*"));
+            String str = ".*"+principal.getName()+"paper.*";
+            return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);

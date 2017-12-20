@@ -66,3 +66,35 @@
     color: #004974;
     text-decoration: none;
 }
+th{
+	
+	width: 95px;
+
+	text-align: center;
+
+	color:#337ab7;
+
+	font-weight: normal;
+}
+
+td{
+
+	text-align: center;
+
+	color: gray;
+}
+
+.table-responsive{
+
+	border: 1px solid #E4E4E4;
+}
+
+.result{
+
+	display: block;
+
+	text-align: center;
+
+	margin-bottom: 2%;
+
+}
