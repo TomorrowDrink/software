@@ -1,6 +1,7 @@
 package com.code.Service;
 
 import com.code.Entity.Task;
+import com.code.Entity.Task_s;
 
 import java.security.PublicKey;
 import java.util.List;
@@ -17,4 +18,10 @@ public interface TaskService {
 
     public void  insertTask(Task task);
     public void updataTask(Task task);
+    public void delTask(String taskid);
+    public void chooseTask(int stu_id, String stu_name,int task_id,String task_name);
+//    public List<Task_s> findTaskidBysid(int stu_id);
+//    public int findTaskidBysid(int stu_id);
+    public List<Task_s> findbystuid(int stu_id);
+
 }
