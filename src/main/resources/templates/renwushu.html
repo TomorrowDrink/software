@@ -12,15 +12,23 @@
 </head>
 <body>
 <div th:include="s-head :: s-head"></div>
-
-
 <div class="container">
 	<div class="col-md-8 column">
 		<h5>任务书管理</h5>
-	<!--<div>-->
-		<!--<table id="jqTable"></table>-->
-		<!--<div id="pager"></div>-->
-	<!--</div>-->
+		<div class="result">老师评阅结果</div>
+		<div class="table-responsive">
+			<table class="table table-striped table-hover table-bordered" id="myRTable">
+				<thead>
+				<tr>
+					<th>filename</th>
+					<th>astype</th>
+					<th>state</th>
+					<th>taskname</th>
+				</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
 	</div>
 	<div class="col-md-4 column">
 		<div class="title"><h5>文件上传下载</h5></div>
@@ -67,58 +75,7 @@
 
 <script th:src="@{/js/application.js}" src="../static/js/application.js"></script>
 
-<!--<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>-->
-<!--<script th:src="@{/js/jquery.min.js}" src="../static/js/jquery.min.js"></script>-->
+<script th:src="@{/js/Stu.js}" src="../static/js/Stu.js"></script>
 
-<!--<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>-->
-<!--&lt;!&ndash; jQuery (necessary for Bootstrap's JavaScript plugins) &ndash;&gt;-->
-<!--&lt;!&ndash; Include all compiled plugins (below), or include individual files as needed &ndash;&gt;-->
-<!--<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>-->
-<!--<script th:src="@{/js/application.js}" src="../static/js/application.js"></script>-->
-<!--<script th:src="@{/js/i18n/grid.locale-cn.js}" src="../static/js/i18n/grid.locale-cn.js"></script>-->
-<!--<script th:src="@{/js/jquery.jqGrid.min.js}" src="../static/js/jquery.jqGrid.min.js"></script>-->
-<!--<script th:src="@{/js/JqGridTable.js}" src="../static/js/JqGridTable.js"></script>-->
-<!--&lt;!&ndash; jqGridTable_Script &ndash;&gt;-->
-<!--<script type="text/javascript">-->
-    <!--$(document).ready(function(){-->
-        <!--$("#jqTable").jqGrid({-->
-            <!--url:'/student/data',-->
-            <!--/* datatype:"json", */-->
-            <!--datatype:"json",-->
-            <!--colNames:["文件名","课题名称","姓名","状态"/],-->
-            <!--colModel:[-->
-                <!--{name:'filename',index:'filename',label:'文件名',width:60,hidden:true,},-->
-                <!--{name:'taskname',index:'taskname',label:'课题名称',width:500,align:'center'},-->
-                <!--{name:'stuname',index:'stuname',label:'姓名',width:120,align:'center'},-->
-                <!--{name:'state',index:'state',label:'状态',width:150,align:'center',-->
-                    <!--stype: "select",-->
-                    <!--multiple:true,-->
-                    <!--searchoptions: { multiple:true, value: ":[All];ALFKI:已通过;ALFKI:待评阅;ANATR:未通过" }}-->
-                <!--],-->
-            <!--sortname:"filename",sortorder:"desc",viewrecords:true,-->
-            <!--rownumbers:true,autowidth:true,height:100,-->
-            <!--shrinkToFit:true,-->
-            <!--toolbar: [true, "top"],-->
-            <!--/*           height: $('.content-pager').height(),*/-->
-            <!--prmNames : {-->
-                <!--page : 'currentPage',-->
-                <!--rows : 'showCount',-->
-                <!--sort : 'sortField',-->
-                <!--order : 'order'-->
-            <!--},-->
-            <!--jsonReader : {-->
-                <!--root : "rows",-->
-                <!--page : "page",-->
-                <!--total : "total",-->
-                <!--records : "records",-->
-                <!--repeatitems : false,-->
-                <!--cell : "cell",-->
-                <!--id : "id"-->
-            <!--}, pager:"#pager",-->
-        <!--});;-->
-        <!--jQuery("#jqTable")-->
-            <!--.jqGrid('navGrid',"#pager",{edit:false}); ;-->
-    <!--});-->
-<!--</script>-->
 </body>
 </html>
