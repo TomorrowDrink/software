@@ -174,7 +174,7 @@ public class aController {
 
         int newId = Integer.parseInt(list.get(0).getId().toString())+1;
 
-        paperInfo.setId(Integer.toString(newId));
+        paperInfo.setId(newId);
         paperInfo.setState("待评阅");
         paperInfo.setTaskname(taskname);
         paperInfo.setStuname(stuname);
@@ -201,5 +201,24 @@ public class aController {
 
     }
 
+    @GetMapping("/crossproposal")
+    public String crossproposal(Model model){
+        List<User> user = userService.findUsernameByRole(2);
+        for(User users:user){
+            System.out.println(users.getName());
+        }
+        List<PaperInfo> list = paperInfoService.getAlllunwen();
+        model.addAttribute("initdata",list);
+        model.addAttribute("teacher",user);
+        return "crossproposal";
+    }
+
+    @PostMapping("/crossproposal")
+    public String crosstutor(@RequestParam("tname") String tname,
+                             @RequestParam("pid") String pid){
+        System.out.println(tname +"------------------------"+ pid);
+        return "redirect:/admin/crossproposal";
+
+    }
 
 }

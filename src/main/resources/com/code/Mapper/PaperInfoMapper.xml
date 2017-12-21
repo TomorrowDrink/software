@@ -8,6 +8,8 @@
         <result property="stuname" column="stuname"/>
         <result property="state" column="state"/>
         <result property="tutorname" column="tutorname"/>
+        <result property="type" column="type"/>
+        <result property="crosstutor" column="crosstutor"/>
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
             <!--<result column="rolename" property="rolename"/>-->
         <!--</collection>-->
@@ -16,6 +18,11 @@
     <select id="findByTaskname" parameterType="String" resultMap="paperInfoMap">
          select p.*  from paperinfo p
         where taskname= #{taskname}
+    </select>
+
+    <select id="findByCrosstutor" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where crosstutor= #{crosstutor}
     </select>
 
     <select id="findById" parameterType="String" resultMap="paperInfoMap">
@@ -40,6 +47,13 @@
 
     <select id="getAll" parameterType="String" resultMap="paperInfoMap">
         select p.*  from paperinfo p
+    </select>
+
+
+
+
+    <select id="getAlllunwen"  resultMap="paperInfoMap">
+        select p.*  from paperinfo p WHERE type = "论文"
     </select>
 
     <select id="findByTaskAndState" parameterType="String" resultMap="paperInfoMap">
@@ -74,4 +88,15 @@
         WHERE
         stuname = #{stuname}
     </update>
+
+    <update id="editCrosstutor" parameterType="String" >
+        UPDATE
+        paperinfo
+        SET
+        crosstutor = #{tname}
+        WHERE
+        stuname = #{stuname}
+    </update>
+
+
 </mapper>

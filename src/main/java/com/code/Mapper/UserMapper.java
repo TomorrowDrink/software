@@ -20,6 +20,8 @@ public interface UserMapper {
 
     User findById(@Param("id") Integer id);
 
+    List<User> findUsernameByRole(@Param("rid") Integer rid);
+
     List<Role> findRolesByUsername(@Param("username") String username);
 
     void insertUser(User user);

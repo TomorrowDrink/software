@@ -4,15 +4,18 @@ import com.code.Entity.*;
 import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -218,6 +221,15 @@ public class tController {
     }
 
 
+    @GetMapping("/tcross")
+    public String tcross(Principal principal,
+                         Model model) {
+                User user = userService.findUserByUsername(principal.getName());
+                List<PaperInfo> lunwen = paperInfoService.findByCrosstutor(user.getName());
+
+        model.addAttribute("initdata",lunwen);
+                return "tcross";
+    }
 
 
 

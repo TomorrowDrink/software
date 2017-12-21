@@ -16,6 +16,7 @@ public interface PaperInfoMapper {
     List<PaperInfo> getAll(/*@Param("page") *//*PageInfo page*/);
     List<PaperInfo> findByTaskname(@Param("taskname") String taskname);
     List<PaperInfo> findByTutorname(@Param("tutorname") String tutorname);
+    List<PaperInfo> findByCrosstutor(@Param("crosstutor") String crosstutor);
     List<PaperInfo> findById(@Param("id") String id);
     List<PaperInfo> findByStuname(@Param("stuname") String stuname);
     List<PaperInfo> findByState(@Param("state") String state);
@@ -28,4 +29,5 @@ public interface PaperInfoMapper {
     /*更新记录*/
     void editRecord(String s, String newtutorname, @Param("stuname") String stuname);
 
+    List<PaperInfo> getAlllunwen();
 }

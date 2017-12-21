@@ -34,6 +34,11 @@ public class UserServicelmpl implements UserService{
     }
 
     @Override
+    public List<User> findUsernameByRole(Integer rid) {
+        return userMapper.findUsernameByRole(rid);
+    }
+
+    @Override
     public void insertUser(User user) {
         userMapper.insertUser(user);
     }
