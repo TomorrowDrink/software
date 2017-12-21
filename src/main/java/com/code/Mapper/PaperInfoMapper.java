@@ -14,6 +14,7 @@ public interface PaperInfoMapper {
 
     /*查询记录*/
     List<PaperInfo> getAll(/*@Param("page") *//*PageInfo page*/);
+
     List<PaperInfo> findByTaskname(@Param("taskname") String taskname);
     List<PaperInfo> findByTutorname(@Param("tutorname") String tutorname);
     List<PaperInfo> findByCrosstutor(@Param("crosstutor") String crosstutor);

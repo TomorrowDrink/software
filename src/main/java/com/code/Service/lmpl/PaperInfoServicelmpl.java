@@ -21,6 +21,7 @@ public class PaperInfoServicelmpl implements PaperInfoService{
         return paperInfoMapper.getAll();
     }
 
+
     @Override
     public List<PaperInfo> findByCrosstutor(String crosstutor) {
         return paperInfoMapper.findByCrosstutor(crosstutor);

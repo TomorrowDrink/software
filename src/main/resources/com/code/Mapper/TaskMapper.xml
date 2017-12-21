@@ -26,7 +26,7 @@
         where taskstate= #{taskstate}
     </select>
 
-    <select id="findByTaskId" parameterType="String" resultMap="TaskMap">
+    <select id="findByTaskid" parameterType="int" resultMap="TaskMap">
          select t.*  from task t
         where taskid= #{taskid}
     </select>
@@ -39,6 +39,16 @@
     <select id="findByTaskrate" parameterType="String" resultMap="TaskMap">
          select t.*  from task t
         where taskrate= #{taskrate}
+    </select>
+
+    <!--<select id="findTaskidBysid" parameterType="int" resultMap="TaskMap">-->
+          <!--select taskid  from stu_task t-->
+        <!--where stuid= #{stu_id}-->
+    <!--</select>-->
+
+    <select id="findbystuid" parameterType="int" resultMap="TaskMap">
+        select t.*  from stu_task t
+        where stuid= #{stu_id}
     </select>
 
     <select id="findByTutorname" parameterType="String" resultMap="TaskMap">
@@ -77,5 +87,26 @@
         WHERE
         taskid=#{taskid}
     </update>
+
+    <delete id="delTask" parameterType="String">
+        DELETE t.* FROM  task t
+        WHERE taskid =#{taskid}
+    </delete>
+
+    <update id="chooseTask" >
+        UPDATE
+        stu_task
+        SET
+        taskid=#{task_id},
+        stuname=#{stu_name},
+        taskname=#{task_name}
+        WHERE
+        stuid=#{stu_id}
+
+
+    </update>
+
+
+
 
 </mapper>

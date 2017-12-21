@@ -2,9 +2,14 @@ package com.code.Controller;
 
 import com.code.Config.StorageFileNotFoundException;
 import com.code.Entity.Filesss;
+import ch.qos.logback.core.net.SyslogOutputStream;
+import com.code.Entity.JsonResponse;
+import com.code.Entity.Task;
+import com.code.Entity.Task_s;
 import com.code.Entity.User;
 import com.code.Service.FilesssService;
 import com.code.Service.StorageService;
+import com.code.Service.TaskService;
 import com.code.Service.UserService;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
@@ -20,12 +25,16 @@ import org.gitlab4j.api.models.Commit;
 import org.gitlab4j.api.models.Project;
 import org.gitlab4j.api.models.SshKey;
 import org.omg.CosNaming.BindingIteratorHelper;
+import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.TinyBitSet;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,18 +47,23 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.security.Key;
 import java.io.IOException;
+import javax.net.ssl.SSLEngine;
+import javax.servlet.http.HttpSessionEvent;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.List;
 
 /**
  * Created by alison on 17-10-29.
@@ -62,21 +76,23 @@ public class sController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TaskService taskService;
 
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
+
     @RequestMapping("")
     public String student(){
               return "student";
     }
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
+//    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/password")
     public String password(){
         return "changepassword";
     }
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
+//    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/password")
     public String uppassword(@RequestParam("pwd") String pwd,
                              @RequestParam("newpwd") String newpwd,
@@ -103,6 +119,26 @@ public class sController {
 
     @Autowired
     private  StorageService storageService;
+    /**
+     *学生课题显示
+     */
+    @RequestMapping(value = {"/s_TaskShow"},method = {RequestMethod.POST,RequestMethod.GET})
+    public String s_TaskShow(@ModelAttribute Task task, Model model){
+//        List<Task> list = taskService.getAll();
+        String taskrate ="已通过";
+        List<Task> list = taskService.findTaskByTaskstate(taskrate);
+        System.out.println("111");
+        model.addAttribute("initdata",list);
+        return  "s_TaskShow";
+    }
+    @GetMapping("/taskdata")
+    public JsonResponse<Task> get_sTaskData(Model model){
+//        List<Task> list = taskService.getAll();已通过
+        String taskrate ="已通过";
+        List<Task> list = taskService.findTaskByTaskstate(taskrate);
+        JsonResponse<Task> response = new JsonResponse<Task>(list);
+        return response;
+    }
 
     @GetMapping("/gitlab")
     public String gitlab(){
@@ -130,6 +166,36 @@ public class sController {
                         "serveFile", path.getFileName().toString()).build().toString())
                 .collect(Collectors.toList()));
         return "wenxian";
+    }
+
+
+
+
+    /**
+     * 选课
+     */
+    @PostMapping("/addtomy")
+    public String addtomyTask(@RequestParam("addtomy_taskid") String taskid,
+                              @RequestParam("addtomy_taskname") String task_name,
+                              Principal principal){
+        String stuid= principal.getName();
+        int stu_id =new Integer(stuid).intValue();
+        int task_id=new Integer(taskid).intValue();
+        System.out.println(stu_id);
+
+        User user =userService.findUserById(stu_id);
+        String stu_name =user.getName();
+        taskService.chooseTask(stu_id,stu_name,task_id,task_name);
+
+        return "redirect:/student/s_TaskShow";
+    }
+    /**
+     * 查询课题
+     */
+    @PostMapping("/findtask")
+    public String findTask(@RequestParam("find_tasktype")String tasktype){
+        taskService.findTaskByTasktype(tasktype);
+        return "redirect:/student/s_TaskShow";
     }
 
     @PreAuthorize("hasRole('ROLE_STUDENT')")

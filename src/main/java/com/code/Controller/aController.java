@@ -2,8 +2,10 @@ package com.code.Controller;
 
 import com.code.Entity.JsonResponse;
 import com.code.Entity.PaperInfo;
+import com.code.Entity.Task;
 import com.code.Entity.User;
 import com.code.Service.PaperInfoService;
+import com.code.Service.TaskService;
 import com.code.Service.UserService;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
@@ -12,6 +14,7 @@ import org.gitlab4j.api.GitLabApi;
 import org.gitlab4j.api.GitLabApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +23,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 import java.io.*;
@@ -39,6 +43,9 @@ public class aController {
 
     @Autowired
     private PaperInfoService paperInfoService;
+
+    @Autowired
+    private TaskService taskService;
 
 
     @RequestMapping("")
@@ -77,7 +84,7 @@ public class aController {
         gitUser.setEmail(email);
         gitUser.setName(name);
         gitUser.setUsername(String.valueOf(id));
-        
+
         GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
         try {
             gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
@@ -86,8 +93,6 @@ public class aController {
         }
 
         return "redirect:/admin";
-    }
-
     }
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -174,7 +179,7 @@ public class aController {
 
         int newId = Integer.parseInt(list.get(0).getId().toString())+1;
 
-        paperInfo.setId(newId);
+        paperInfo.setId(Integer.toString(newId));
         paperInfo.setState("待评阅");
         paperInfo.setTaskname(taskname);
         paperInfo.setStuname(stuname);
@@ -200,6 +205,24 @@ public class aController {
         return "redirect:/admin/areview";
 
     }
+    /**
+     * 管理员课题操作
+     */
+    /**
+     *显示课题
+     */
+    @RequestMapping(value = {"/a_TaskShow"},method = {RequestMethod.POST,RequestMethod.GET})
+        public String a_TaskShow(@ModelAttribute Task task,Model model){
+        List<Task> list = taskService.getAll();
+        model.addAttribute("initdata",list);
+        return  "a_TaskShow";
+    }
+    @GetMapping("/taskdata")
+    public JsonResponse<Task> getTaskData(Model model){
+            List<Task> list = taskService.getAll();
+            JsonResponse<Task> response = new JsonResponse<Task>(list);
+            return response;
+    }
 
     @GetMapping("/crossproposal")
     public String crossproposal(Model model){
@@ -221,4 +244,31 @@ public class aController {
 
     }
 
+
+    /***
+     * 删除课题记录
+     */
+    @PostMapping("/deltask")
+    public String delTaskData(@RequestParam("del_taskid")String taskid){
+        taskService.delTask(taskid);
+        System.out.println(taskid);
+        return "redirect:/admin/a_TaskShow";
+    }
+
+//    @ResponseBody
+//    @RequestMapping("/searchtaskdata")
+//    public JsonResponse<Task> getSearchTaskData(){
+//        HttpServletRequest request =((ServletRequestAttributes)RequestContextHolder
+//         .getRequestAttributes()).getRequest();
+//
+//    }
+    /**
+     * 查询课题详细
+     */
+    @PostMapping("/checktask")
+    public String checkTask(@RequestParam("edit_task")int  taskid){
+        taskService.findTaskByTaskid(taskid);
+        System.out.println(taskid);
+        return "redirect:/admin/a_TaskShow";
+    }
 }

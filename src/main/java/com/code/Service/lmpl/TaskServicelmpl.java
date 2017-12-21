@@ -2,6 +2,7 @@ package com.code.Service.lmpl;
 
 import com.code.Entity.PaperInfo;
 import com.code.Entity.Task;
+import com.code.Entity.Task_s;
 import com.code.Entity.User;
 import com.code.Mapper.TaskMapper;
 import com.code.Service.TaskService;
@@ -46,13 +47,24 @@ public class TaskServicelmpl implements TaskService {
 //    public List<Task> findTaskByTasknameAndstate(String taskname, String taskstate) {
 //        return taskMapper.fingByTasknameAndstate(taskname,taskstate);
 //    }
-
-
     public void  insertTask(Task task){
         taskMapper.insertTask(task);
     }
     public void  updataTask(Task task){ taskMapper.updataTask(task); }
+    @Override
+    public void delTask(String taskid){
+        taskMapper.delTask(taskid);
+    }
+    public void chooseTask(int stu_id,String stu_name,int task_id,String task_name  ){taskMapper.chooseTask(stu_id,stu_name,task_id,task_name);}
+
+//    @Override
+//    public List<Task_s> findTaskidBysid(int stu_id){return taskMapper.findTaskidBysid(stu_id);}
+//    public int findTaskidBysid(int stu_id){return taskMapper.findTaskidBysid(stu_id);}
 
 
+    @Override
+    public List<Task_s> findbystuid(int stu_id) {
+        return taskMapper.findbystuid(stu_id);
+    }
 }
 

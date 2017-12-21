@@ -6,6 +6,7 @@ import com.code.Service.TaskService;
 import com.code.Service.UserService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -30,8 +31,8 @@ public class tController {
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("")
-    public String teacher(){
-               return "teacher";
+    public String teacher() {
+        return "teacher";
     }
 
 
@@ -40,20 +41,16 @@ public class tController {
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("/review")
-    public String literatureReview(){
-        return "literatureReview";
+    public String literatureReview() {
+        return "LiteratureReview";
     }
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("/reviewshow")
-    public String review(){
+    public String review() {
         return "review";
     }
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @RequestMapping("/test")
-    public String test(){
-        return "test";
-    }
+
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @ResponseBody
@@ -85,13 +82,14 @@ public class tController {
         /*if(checkValue1.equals("all1")&&checkValue2.equals("all2")&&stuname.trim().equals("")){ getData(); }*/
         /*else if(checkValue1.equals("all1")&&!checkValue2.equals("all2")&&!stuname.equals(null)){}*/
 
-        if(!stuname.trim().equals(""))System.out.println(stuname);
-        System.out.println(checkValue1);System.out.println(checkValue2);
+        if (!stuname.trim().equals("")) System.out.println(stuname);
+        System.out.println(checkValue1);
+        System.out.println(checkValue2);
 
-        List<PaperInfo> list1,list2,list3;
-            list1 = (List<PaperInfo>) paperInfoService.findPaperInfoById(checkValue1);
-            list2 = (List<PaperInfo>) paperInfoService.findPaperInfoByState(checkValue2);
-            list3 = (List<PaperInfo>) paperInfoService.findPaperInfoByTaskAndState(checkValue1,checkValue2);
+        List<PaperInfo> list1, list2, list3;
+        list1 = (List<PaperInfo>) paperInfoService.findPaperInfoById(checkValue1);
+        list2 = (List<PaperInfo>) paperInfoService.findPaperInfoByState(checkValue2);
+        list3 = (List<PaperInfo>) paperInfoService.findPaperInfoByTaskAndState(checkValue1, checkValue2);
         JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list3);
         return response;
         /*

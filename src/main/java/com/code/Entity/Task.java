@@ -62,6 +62,10 @@ public class Task implements Serializable {
     public void setTaskid(int taskid) {
         this.taskid = taskid;
     }
+
+    public int getTaskid() {
+        return taskid;
+    }
     public String getTaskstate() {
         return taskstate;
     }
