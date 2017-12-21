@@ -5,6 +5,9 @@ import com.code.Entity.PaperInfo;
 import com.code.Entity.User;
 import com.code.Service.PaperInfoService;
 import com.code.Service.UserService;
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.PumpStreamHandler;
 import org.gitlab4j.api.GitLabApi;
 import org.gitlab4j.api.GitLabApiException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by alison on 17-10-29.
@@ -193,5 +200,6 @@ public class aController {
         return "redirect:/admin/areview";
 
     }
+
 
 }
