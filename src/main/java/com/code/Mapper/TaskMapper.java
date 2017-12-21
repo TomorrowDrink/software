@@ -28,6 +28,7 @@ public interface TaskMapper {
 
     List<Task_s> findbystuid(@Param("stu_id") int stu_id);
 
+
     void chooseTask(@Param("stu_id") int stuid,
                     @Param("stu_name") String stuname,
                     @Param("task_id") int taskid,
@@ -35,13 +36,6 @@ public interface TaskMapper {
 
 
     void updataTask(Task task);
-//    void updataTask(@Param("taskname")Task taskname,@Param("newtaskname")Task newtaskname,
-//                    @Param("taskrate")Task taskrate,@Param("newtaskrate")Task newtaskrate,
-//                    @Param("tasktype")Task tasktype,@Param("newtasktype")Task newtasktype,
-//                    @Param("tutorname")Task tutorname,@Param("newtutorname")Task newtutorname,
-//                    @Param("taskdescrib")Task taskdescrib,@Param("newtaskdescrib")Task newtaskdescrib,
-//                    @Param("taskstate")Task taskstate,@Param("newtaskrate")Task newtaskstate);
-
 
 
 }

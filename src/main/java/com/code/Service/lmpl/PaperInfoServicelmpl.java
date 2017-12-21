@@ -49,4 +49,23 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     public List<PaperInfo> findPaperInfoByTaskAndState(String taskname, String state) {
         return paperInfoMapper.findByTaskAndState(taskname,state);
     }
+    @Override
+    public List<PaperInfo> findPaperInfoByMaxId(){
+        return paperInfoMapper.findByMaxId();
+    }
+
+    @Override
+    public void addRecord(PaperInfo paperInfo) {
+        paperInfoMapper.addRecord(paperInfo);
+    }
+
+    @Override
+    public void delRecord(String stuname) {
+        paperInfoMapper.delRecord(stuname);
+    }
+
+    @Override
+    public void editRecord(String stuname, String newtutorname, String newstate) {
+        paperInfoMapper.editRecord(stuname,newtutorname,newstate);
+    }
 }

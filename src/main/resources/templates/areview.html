@@ -291,16 +291,7 @@ height: 800px;
             var checkValue1 = $("#tasknameSelection").val();
             var checkValue2 = $("#stateSelection").val();
 
-            $("#aTable").jqGrid('setGridParam', {
-                url: "searchdata",
-                postData: {
-                    'tutorname':tutorname,
-                    'stuname': stuname,
-                    'checkValue1': checkValue1,
-                    'checkValue2': checkValue2
-                },
-                page: 1
-            }).trigger("reloadGrid");
+
         });
 
     $("#add_btn").click(function () {
