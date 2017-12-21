@@ -132,10 +132,6 @@ public class sController {
         return "wenxian";
     }
 
-    @PostMapping("/newproject")
-    public String createproject(@RequestParam("pname") String pname,
-                                @RequestParam("pdes") String pdes,
-                                Principal principal){
     @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/fanyi")
     public String flistUploadedFiles(Model model,Principal principal) throws IOException {
@@ -145,6 +141,12 @@ public class sController {
                 .collect(Collectors.toList()));
         return "fanyi";
     }
+
+    @PostMapping("/newproject")
+    public String createproject(@RequestParam("pname") String pname,
+                                @RequestParam("pdes") String pdes,
+                                Principal principal){
+
 
         GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
