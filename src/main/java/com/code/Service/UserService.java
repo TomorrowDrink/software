@@ -14,6 +14,7 @@ public interface UserService  {
     public List<User> getUserList();
     public User findUserById(Integer id);
     public User findUserByUsername(String username);
+    public User findUserByName(String name);
     public List<User> findUsernameByRole(Integer rid);
     public void insertUser(User user);
     public List<Role> findRolesByUsername(String username);

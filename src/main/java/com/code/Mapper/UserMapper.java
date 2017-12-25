@@ -18,6 +18,8 @@ public interface UserMapper {
 
     User findByUsername(@Param("username") String username);
 
+    User findByname(@Param("name") String name);
+
     User findById(@Param("id") Integer id);
 
     List<User> findUsernameByRole(@Param("rid") Integer rid);

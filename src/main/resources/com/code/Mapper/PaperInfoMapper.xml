@@ -8,6 +8,7 @@
         <result property="stuname" column="stuname"/>
         <result property="state" column="state"/>
         <result property="tutorname" column="tutorname"/>
+        <result property="tutorid" column="tutorid"/>
         <result property="type" column="type"/>
         <result property="crosstutor" column="crosstutor"/>
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
@@ -45,11 +46,18 @@
         where state= #{state}
     </select>
 
+    <select id="findByStunameAndType" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where stuname= #{stuname} and type = #{type}
+    </select>
+
     <select id="getAll" parameterType="String" resultMap="paperInfoMap">
         select p.*  from paperinfo p
     </select>
 
-
+    <select id="getAllkt"  resultMap="paperInfoMap">
+        select p.*  from paperinfo p WHERE type = "开题报告"
+    </select>
 
 
     <select id="getAlllunwen"  resultMap="paperInfoMap">
@@ -64,9 +72,9 @@
     <insert id="addRecord" parameterType="com.code.Entity.PaperInfo" >
         INSERT INTO
         paperinfo
-        (id,taskname,stuname,state,tutorname)
+        (id,taskname,stuname,state,tutorname,tutorid,type)
         VALUES
-        (#{id}, #{taskname}, #{stuname},#{state},#{tutorname})
+        (#{id}, #{taskname}, #{stuname},#{state},#{tutorname},#{tutorid},#{type})
     </insert>
 
     <select id="findByMaxId" parameterType="String" resultMap="paperInfoMap">
@@ -79,14 +87,15 @@
         where stuname=#{stuname}
     </delete>
 
-    <update id="editRecord" parameterType="String" >
+    <update id="editRecord">
         UPDATE
         paperinfo
         SET
-        state = #{newstate},
-        tutorname = #{newtutorname}
+        state = #{state,jdbcType=VARCHAR},
+        tutorname = #{tutorname,jdbcType=VARCHAR},
+        tutorid = #{tutorid,jdbcType=INTEGER}
         WHERE
-        stuname = #{stuname}
+        stuname = #{stuname,jdbcType=VARCHAR} and type=#{type,jdbcType=VARCHAR}
     </update>
 
     <update id="editCrosstutor" parameterType="String" >

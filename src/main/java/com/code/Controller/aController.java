@@ -5,8 +5,8 @@ import com.code.Entity.PaperInfo;
 import com.code.Entity.User;
 import com.code.Service.PaperInfoService;
 import com.code.Service.UserService;
-import org.gitlab4j.api.GitLabApi;
-import org.gitlab4j.api.GitLabApiException;
+/*import org.gitlab4j.api.GitLabApi;
+import org.gitlab4j.api.GitLabApiException;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -66,7 +66,7 @@ public class aController {
         userService.insertUser(user);
         userService.insertSrole(id);
 
-        org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
+     /*   org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
         String email = id + "@pop.zjgsu.edu.cn";
         gitUser.setEmail(email);
         gitUser.setName(name);
@@ -77,7 +77,7 @@ public class aController {
             gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
         } catch (GitLabApiException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return "redirect:/admin";
     }
@@ -115,10 +115,9 @@ public class aController {
     }
 
 //    @PreAuthorize("hasRole('ROLE_TEACHER')")
-//    @GetMapping("/aReview")
-@RequestMapping(value = {"/areview"}, method = {RequestMethod.POST,RequestMethod.GET})
+    @GetMapping("/areview")
     public String areview(@ModelAttribute PaperInfo paperInfo, Model model){
-        List<PaperInfo> list = paperInfoService.getAll();
+        List<PaperInfo> list = paperInfoService.getAllkt();
         model.addAttribute("initdata",list);
         return "areview";
     }
@@ -161,19 +160,21 @@ public class aController {
     @PostMapping("/addrecord")
     public String addData(@RequestParam("txt_taskname") String taskname,
                                            @RequestParam("txt_stuname") String stuname,
-                                           @RequestParam("txt_tutorname") String tutorname){
+                                           @RequestParam("txt_tutorname") String tutorname,
+                                           @RequestParam("txt_tutorid") String tutorid){
 
         List<PaperInfo> list = paperInfoService.findPaperInfoByMaxId();
         PaperInfo paperInfo = new PaperInfo();
 
         int newId = Integer.parseInt(list.get(0).getId().toString())+1;
-
+        int tutorId = Integer.parseInt(tutorid);
         paperInfo.setId(newId);
         paperInfo.setState("待评阅");
         paperInfo.setTaskname(taskname);
         paperInfo.setStuname(stuname);
         paperInfo.setTutorname(tutorname);
-
+        paperInfo.setTutorid(tutorId);
+        paperInfo.setType("开题报告");
         paperInfoService.addRecord(paperInfo);
 
         return "redirect:/admin/areview";
@@ -189,8 +190,22 @@ public class aController {
     @PostMapping("/editrecord")
     public String editData(@RequestParam("edit_stuname1") String stuname,
                            @RequestParam("edit_tutorname") String newtutorname,
-                           @RequestParam("edit_state1") String newstate){
-        paperInfoService.editRecord(stuname,newtutorname,newstate);
+                           @RequestParam("edit_state") String newstate){
+        System.out.println("stuname"+stuname);
+        System.out.println("tutorname"+newtutorname);
+        System.out.println("state"+newstate);
+
+        User user = userService.findUserByName(newtutorname);
+        int tutorid = user.getId();
+        System.out.println("tutorid"+tutorid);
+        String type = "开题报告";
+        paperInfoService.editRecord(newstate,newtutorname,tutorid,type,stuname);
+//        List<PaperInfo> list = paperInfoService.findPaperInfoByStunameAndType(stuname,"开题报告");
+//        for(PaperInfo paperInfo: list){
+//            paperInfo.setTutorname(newtutorname);
+//            paperInfo.setState(newstate);
+//        }
+
         return "redirect:/admin/areview";
 
     }

@@ -65,4 +65,9 @@ public class UserServicelmpl implements UserService{
     public void updatePwd(String pwd, String newpwd) {
         userMapper.updatePwd(pwd,newpwd);
     }
+
+    @Override
+    public User findUserByName(String name) {
+        return userMapper.findByname(name);
+    }
 }

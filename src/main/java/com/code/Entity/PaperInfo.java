@@ -9,6 +9,7 @@ public class PaperInfo implements Serializable {
     private String stuname;
     private String state;
     private String tutorname;
+    private Integer tutorid;
     private String type;
     private String crosstutor;
 
@@ -69,5 +70,13 @@ public class PaperInfo implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getTutorid() {
+        return tutorid;
+    }
+
+    public void setTutorid(Integer tutorid) {
+        this.tutorid = tutorid;
     }
 }

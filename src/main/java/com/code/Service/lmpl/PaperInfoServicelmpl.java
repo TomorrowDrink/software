@@ -32,6 +32,16 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     }
 
     @Override
+    public List<PaperInfo> getAllkt() {
+        return paperInfoMapper.getAllkt();
+    }
+
+    @Override
+    public List<PaperInfo> findPaperInfoByStunameAndType(String stuname, String type) {
+        return paperInfoMapper.findByStunameAndType(stuname,type);
+    }
+
+    @Override
     public List<PaperInfo> findPaperInfoById(String id) {
         return paperInfoMapper.findById(id);
     }
@@ -74,7 +84,7 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     }
 
     @Override
-    public void editRecord(String stuname, String newtutorname, String newstate) {
-        paperInfoMapper.editRecord(stuname,newtutorname,newstate);
+    public void editRecord(String state, String tutorname, int tutorid, String type, String stuname) {
+        paperInfoMapper.editRecord(state,tutorname,tutorid,type,stuname);
     }
 }

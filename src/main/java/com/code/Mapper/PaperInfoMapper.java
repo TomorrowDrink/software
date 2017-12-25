@@ -22,12 +22,16 @@ public interface PaperInfoMapper {
     List<PaperInfo> findByState(@Param("state") String state);
     List<PaperInfo> findByTaskAndState(@Param("taskname") String taskname,@Param("state") String state);
     List<PaperInfo> findByMaxId();
+    List<PaperInfo> findByStunameAndType(@Param("stuname") String stuname,@Param("type") String type);
+
     /*新增记录*/
     void addRecord(PaperInfo paperInfo);
     /*删除记录*/
     void delRecord(@Param("stuname") String stuname);
     /*更新记录*/
-    void editRecord(String s, String newtutorname, @Param("stuname") String stuname);
+    void editRecord(@Param("state") String state, @Param("tutorname") String tutorname,@Param("tutorid") Integer tutorid,@Param("type") String type, @Param("stuname") String stuname);
 
     List<PaperInfo> getAlllunwen();
+    List<PaperInfo> getAllkt();
+
 }

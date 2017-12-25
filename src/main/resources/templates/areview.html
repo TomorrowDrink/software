@@ -90,6 +90,10 @@ height: 800px;
                                         <input type="text" name="txt_tutorname" class="form-control" id="txt_tutorname" placeholder="导师姓名">
                                     </div>
                                     <div class="form-group form-inline">
+                                        <label for="txt_tutorid">导师id</label>
+                                        <input type="text" name="txt_tutorid" class="form-control" id="txt_tutorid" placeholder="导师id">
+                                    </div>
+                                    <div class="form-group form-inline">
                                         <input type="text" name="txt_filename" class="form-control" id="txt_filename" placeholder="文件命名">
                                         <button type="button" id="upload_btn" class="btn btn-primary" >文件上传</button>
                                     </div>
@@ -143,11 +147,13 @@ height: 800px;
                             <div class="form-group form-inline">
                                 <label for="edit_taskname">课题名称</label>
                                 <label id="edit_taskname"></label>
+                                <!--<input type="text" name="edit_taskname"id ="edit_taskname" value="" readonly="readonly">-->
                             </div>
                             <div class="form-group form-inline">
                                 <label for="edit_stuname">学生姓名</label>
                                 <label id="edit_stuname"></label>
-                                <!--<input type="hidden" id="edit_stuname1" name="edit_stuname1"/>-->
+                                <!--<input type="text" name="edit_stuname"id ="edit_stuname" value="" readonly="readonly">-->
+                                <input type="hidden" id="edit_stuname1" name="edit_stuname1"/>
                             </div>
                             <div class="form-group form-inline">
                                 <label for="edit_tutorname">导师姓名</label>
@@ -190,9 +196,9 @@ height: 800px;
             <td id="table_stuname" th:text="${paperinfo.stuname}"></td>
             <td id="table_state" th:text="${paperinfo.state}"></td>
             <td id="table_tutorname" th:text="${paperinfo.tutorname}"></td>
-            <td><button id="edit" class='btn btn-link' data-toggle='modal' data-target='#editModal'>编辑</button></td>
+            <td><button id="edit" class='btn btn-link' data-toggle='modal' data-target='#editModal' onclick="edit(this)">编辑</button></td>
             <td><button id="download" class='btn btn-link' data-toggle='modal'data-target='#downModal'>下载</button></td>
-            <td><button id="delete" class='btn btn-link' data-toggle='modal' data-target='#delModal'>删除</button></td>
+            <td><button id="delete" class='btn btn-link' data-toggle='modal' data-target='#delModal' onclick="del(this)">删除</button></td>
         </tr>
     </table>
     </center>
@@ -213,28 +219,30 @@ height: 800px;
 //    $(function () { $('#myModal').modal({
 //        keyboard: true
 //    })});
-    $('#delete').on('click', function() {
-        var del_stuname = $(this).parents("tr").find("#table_stuname").text();
+    function del(obj) {
+        var del_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        //alert(del_stuname);
         document.getElementById("del_stuname").value= del_stuname;
-    });
-    $('#edit').on('click', function() {
-//        显示默认值
-        var be_taskname = $(this).parents("tr").find("#table_taskname").text();
-        var be_stuname = $(this).parents("tr").find("#table_stuname").text();
-        var be_state = $(this).parents("tr").find("#table_state").text();
-        var be_filename = $(this).parents("tr").find("#table_filename").text();
-        var be_tutorname = $(this).parents("tr").find("#table_tutorname").text();
+    }
+
+    function edit(obj){
+        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        var be_state = $(obj).parents("tr").find("#table_state").text();
+        var be_filename = $(obj).parents("tr").find("#table_filename").text();
+        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
         document.getElementById("edit_taskname").innerHTML= be_taskname;
         document.getElementById("edit_stuname").innerHTML= be_stuname;
-//        document.getElementById("edit_stuname1").innerHTML= be_stuname;
-        document.getElementById("edit_state").innerHTML= be_state;
+        document.getElementById("edit_stuname1").value= be_stuname;
+        document.getElementById("edit_state").value= be_state;
 //        document.getElementById("edit_state1").innerHTML= be_state;
-        document.getElementById("edit_tutorname").innerHTML= be_tutorname;
+        document.getElementById("edit_tutorname").value= be_tutorname;
 //        document.getElementById("edit_tutorname1").innerHTML= be_tutorname;
         document.getElementById("edit_filename").innerHTML= be_filename;
 //        $("edit_taskname").text(be_taskname);
 //        $("edit_stuname").text(be_stuname);
-    });
+    }
+
 
 /!*查询记录*!/
         $("#find_btn").click(function () {
@@ -244,11 +252,7 @@ height: 800px;
     $("#add_btn").click(function () {
 
     });
-    $(function(){
-        $(window).resize(function(){
-            $("#aTable").setGridWidth($(window).width());
-        });
-});
+
 </script>
 <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
 <script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
