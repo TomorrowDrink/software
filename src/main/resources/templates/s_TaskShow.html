@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>A_TaskShow</title>
-    <link th:href="@{/css/ui.jqgrid.css}" href="../static/css/ui.jqgrid.css" rel="stylesheet">
+    <!--<link th:href="@{/css/ui.jqgrid.css}" href="../static/css/ui.jqgrid.css" rel="stylesheet">-->
     <link th:href="@{/css/ugly-table.css}" href="../static/css/ugly-table.css" rel="stylesheet">
     <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
     <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
     <link th:href="@{/css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">
-    <script th:src="@{/js/jquery.jqGrid.min.js}" src="../js/jquery.jqGrid.min.js"></script>
-    <script th:src="@{/js/jquery-3.1.1.min.js}" src="../js/jquery-3.1.1.min.js"></script>
-    <script th:src="@{/js/i18n/grid.locale-en.js}" src="../js/i18n/grid.locale-en.js"></script>
+    <!--<script th:src="@{/js/jquery.jqGrid.min.js}" src="../js/jquery.jqGrid.min.js"></script>-->
+    <!--<script th:src="@{/js/jquery-3.1.1.min.js}" src="../js/jquery-3.1.1.min.js"></script>-->
+    <!--<script th:src="@{/js/i18n/grid.locale-en.js}" src="../js/i18n/grid.locale-en.js"></script>-->
 </head>
 <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
@@ -106,30 +106,31 @@
                     </div><!-- /.modal -->
                 </div>
             </div>
+
             <div>
-                <!--删除模态框-->
-                <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true">×
-                                </button>
-                                <h7 class="modal-title" id="myModalLabel">删除记录</h7>
-                            </div>
-                            <div class="modal-body">
-                                <h7>您要从数据库中删除该课题吗？</h7>
-                                <form th:action="@{/admin/deltask}" action="/admin/deltask"  method="post">
-                                    <input type="hidden" id="del_taskid" name="del_taskid" value="555"/>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
-                                    <button type="submit" class="btn btn-primary" >确认</button>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                            </div>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
+                <!--&lt;!&ndash;删除模态框&ndash;&gt;-->
+                <!--<div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+                    <!--<div class="modal-dialog">-->
+                        <!--<div class="modal-content">-->
+                            <!--<div class="modal-header">-->
+                                <!--<button type="button" class="close" data-dismiss="modal"-->
+                                        <!--aria-hidden="true">×-->
+                                <!--</button>-->
+                                <!--<h7 class="modal-title" id="myModalLabel">删除记录</h7>-->
+                            <!--</div>-->
+                            <!--<div class="modal-body">-->
+                                <!--<h7>您要从数据库中删除该课题吗？</h7>-->
+                                <!--<form th:action="@{/admin/deltask}" action="/admin/deltask"  method="post">-->
+                                    <!--<input type="hidden" id="del_taskid" name="del_taskid" value="555"/>-->
+                                    <!--<button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>-->
+                                    <!--<button type="submit" class="btn btn-primary" >确认</button>-->
+                                <!--</form>-->
+                            <!--</div>-->
+                            <!--<div class="modal-footer">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+                <!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
 
 
                <!--选课模态框-->
@@ -257,14 +258,14 @@
 </div>
 
 <script type="text/javascript">
-    $(function () { $('#myModal').modal({
-        keyboard: true
-    })});
+//    $(function () { $('#myModal').modal({
+//        keyboard: true
+//    })});
 
-    function del(obj) {
-        task = $(obj).parents("tr").find("#table_taskid").text();
-        document.getElementById("del_taskid").value= task;
-    }
+//    function del(obj) {
+//        task = $(obj).parents("tr").find("#table_taskid").text();
+//        document.getElementById("del_taskid").value= task;
+//    }
 
     function add(obj) {
         document.getElementById("addtomy_taskid").value=$(obj).parents("tr").find("#table_taskid").text();
@@ -283,113 +284,16 @@
         document.getElementById("show_taskdescrib").value=$(obj).parents("tr").find("#table_taskdescrib").text();
 
     }
-//    function find() {
-//        document.getElementById("find_tasktype").value=$("stateSelection").val();
-//
-//        $.ajax({
-//            type:"post",
-//            url:"findtaskdata",
-//            data:$("stateSelection").val()
-//        })
-//
-//
-//
-//    }
 
-
-
-
-    //    $('#edit').on('click', function() {
-    ////        显示默认值
-    //        var be_taskname = $(this).parents("tr").find("#table_taskname").text();
-    //        var be_stuname = $(this).parents("tr").find("#table_stuname").text();
-    //        var be_state = $(this).parents("tr").find("#table_state").text();
-    //        var be_filename = $(this).parents("tr").find("#table_filename").text();
-    //        var be_tutorname = $(this).parents("tr").find("#table_tutorname").text();
-    //        document.getElementById("edit_taskname").innerHTML= be_taskname;
-    //        document.getElementById("edit_stuname").innerHTML= be_stuname;
-    //
-    //        document.getElementById("edit_state").innerHTML= be_state;
-    //
-    //        document.getElementById("edit_tutorname").innerHTML= be_tutorname;
-    //
-    //        document.getElementById("edit_filename").innerHTML= be_filename;
-    //
-    //    });
-    //    $(document).ready(function() {
-    //        $.jgrid.defaults.styleUI = "Bootstrap";
-    //        $("#aTable").jqGrid({
-    //            url: '/admin/data',
-    //            datatype: "json",
-    //            colNames: ["编号", "课题名称", "姓名", "状态","修改","操作","删除"],
-    //            colModel: [
-    //                {name: 'id', index: 'id', label: '编号', width: 60, hidden: true,},
-    //                {name: 'taskname', index: 'taskname', label: '课题名称', width: 500, align: 'center'/!*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*!/},
-    //                {name: 'stuname', index: 'stuname', label: '姓名', width: 100, align: 'center'},
-    //                {name: 'state', index: 'state', label: '状态', width: 100, align: 'center',},
-    //                {name:'edit',index:'edit',label:'修改',width:100, align:'center'/!*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*!/
-    //                },
-    //                {name: 'operate', index: 'operate', label: '操作', width: 100, align: 'center',},
-    //                {name: 'del', index: 'del', label: '删除', width: 100, align: 'center',}],
-    //            caption:'开题报告目录',
-    //            sortname: "id", sortorder: "desc", viewrecords: true,page:1,
-    //            rownumbers: true, autowidth: true, height: 100,rowNum:10,
-    //            shrinkToFit: true,
-    //            height: $('.content-pager').height()/2,
-    ////            prmNames: {
-    ////                page: 'currentPage',
-    ////                rows: 'showCount',
-    ////                sort: 'sortField',
-    ////                order: 'order'
-    ////            },
-    //            jsonReader: {
-    //                root: "rows",
-    //                page: "page",
-    //                total: "total",
-    //                records: "records",
-    //                repeatitems: false,
-    //                cell: "cell",
-    //                id: "id"
-    //            }, pager: "#aPager",
-    //            gridComplete:function(){
-    //                var ids = jQuery("#aTable").jqGrid('getDataIDs');
-    //                for(i=0;i<ids.length;i++){
-    //                    var id=ids[i];
-    //                    edit = "<a href='#' style='#f60'>编辑</a>";
-    //                    operate = "<a href='#' style='#f60'>下载</a>";
-    //                    del = "<button class='btn btn-link' data-toggle='modal' data-target='#myModal'>删除</button>";
-    //                    jQuery("#aTable").jqGrid('setRowData',ids[i],{'operate':operate,'edit':edit,'del':del});
-    //                }
-    //            }
-    //        }).jqGrid('navGrid', "#aPager", {edit: false,add:false,del:false,search:false});
-    //    });
-    /!*查询记录*!/
-    //    $("#find_btn").click(function () {
-    //
-    //        var stuname = $("#stuname").val();
-    //        var tutorname = $("#tutorname").val();
-    //        var checkValue1 = $("#tasknameSelection").val();
-    //        var checkValue2 = $("#stateSelection").val();
-    //
-    //
-    //    });
-
-    $("#add_btn").click(function () {
-
-    });
-    $(function(){
-        $(window).resize(function(){
-            $("#aTable").setGridWidth($(window).width());
-        });
-    });
 </script>
-<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+
 <script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
 </body>
 </html>
 <!--<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>-->
-<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>
-<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>
+<!--<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>-->
+<!--<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>-->
+<!--<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>-->

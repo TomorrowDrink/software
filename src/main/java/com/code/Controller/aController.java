@@ -71,25 +71,26 @@ public class aController {
             User user = new User();
             password = new BCryptPasswordEncoder().encode(password);
 
-        user.setId(id);
-        user.setName(name);
-        user.setPassword(password);
-        user.setUsername(String.valueOf(id));
+            user.setId(id);
+            user.setName(name);
+            user.setPassword(password);
+            user.setUsername(String.valueOf(id));
 
-        userService.insertUser(user);
-        userService.insertSrole(id);
+            userService.insertUser(user);
+            userService.insertSrole(id);
 
-        org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
-        String email = id + "@pop.zjgsu.edu.cn";
-        gitUser.setEmail(email);
-        gitUser.setName(name);
-        gitUser.setUsername(String.valueOf(id));
+            org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
+            String email = id + "@pop.zjgsu.edu.cn";
+            gitUser.setEmail(email);
+            gitUser.setName(name);
+            gitUser.setUsername(String.valueOf(id));
 
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
-        try {
-            gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
-        } catch (GitLabApiException e) {
-            e.printStackTrace();
+            GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
+            try {
+                gitLabApi.getUserApi().createUser(gitUser, "123456789", 10);
+            } catch (GitLabApiException e) {
+                e.printStackTrace();
+            }
         }
 
         return "redirect:/admin";
@@ -179,7 +180,7 @@ public class aController {
 
         int newId = Integer.parseInt(list.get(0).getId().toString())+1;
 
-        paperInfo.setId(Integer.toString(newId));
+        paperInfo.setId(newId);
         paperInfo.setState("待评阅");
         paperInfo.setTaskname(taskname);
         paperInfo.setStuname(stuname);
