@@ -38,9 +38,21 @@ public class tController {
     @Autowired
     private PaperInfoService paperInfoService;
 
+    /**
+     * 教师评阅界面
+     */
     @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @RequestMapping("/review")
-    public String literatureReview(){
+    @GetMapping("/review")
+    public String literatureReview(Model model){
+
+        List<PaperInfo> list = paperInfoService.getAllwx();
+        model.addAttribute("initdata",list);
+
+//        List<Task> task = taskService.findTaskByTaskstate("已通过");
+//        for(Task tasks:task){
+//            System.out.println(tasks.getTaskname());
+//        }
+//        model.addAttribute("tasklist",task);
         return "literatureReview";
     }
 
@@ -49,63 +61,33 @@ public class tController {
     public String review(){
         return "review";
     }
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @RequestMapping("/test")
-    public String test(){
-        return "test";
+
+    /**
+     *教师评阅状态查询
+     */
+
+    @RequestMapping("/selstate")
+    public String selState(@RequestParam ("stateSelection") String state,
+                           Model model,Principal principal){
+        System.out.println("selectstate"+state);
+        List<PaperInfo> list ;
+        String type = "文献综述";
+        int tutorid = new Integer(principal.getName()).intValue();
+        list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
+        model.addAttribute("initdata", list);
+
+//        if (state.equals("allstate")){
+//            model.addAttribute("stateSelectionValue1",type);
+        /*}else if*/ if(state.equals("待评阅")){
+            model.addAttribute("stateSelectionValue2",type);
+        }else if (state.equals("已通过")){
+            model.addAttribute("stateSelectionValue3",type);
+        }else{
+            model.addAttribute("stateSelectionValue4",type);
+        }
+        return  "literatureReview";
     }
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @ResponseBody
-    @RequestMapping("/data")
-    public JsonResponse<PaperInfo> getData() {
-        /*HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
-                .getRequestAttributes()).getRequest();*/
-        /*System.out.println("Username:"
-                + securityContextImpl.getAuthentication().getName());*/
-        Object username = SecurityContextHolder.getContext().getAuthentication().getName();
-        int tutorid = Integer.parseInt(String.valueOf(username));
-        System.out.println(tutorid);
-        User user = userService.findUserById(tutorid);
-        /*List<PaperInfo> list = paperInfoService.getAll();*/
-        List<PaperInfo> list = paperInfoService.findPaperInfoByTutorname(user.getName());
-        JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list);
-        return response;
-    }
-
-    @ResponseBody
-    @RequestMapping("/searchdata")
-    public JsonResponse<PaperInfo> getSearchData() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
-                .getRequestAttributes()).getRequest();
-        String checkValue1 = request.getParameter("checkValue1");
-        String checkValue2 = request.getParameter("checkValue2");
-        String stuname = request.getParameter("stuname");
-
-        /*if(checkValue1.equals("all1")&&checkValue2.equals("all2")&&stuname.trim().equals("")){ getData(); }*/
-        /*else if(checkValue1.equals("all1")&&!checkValue2.equals("all2")&&!stuname.equals(null)){}*/
-
-        if(!stuname.trim().equals(""))System.out.println(stuname);
-        System.out.println(checkValue1);System.out.println(checkValue2);
-
-        List<PaperInfo> list1,list2,list3;
-            list1 = (List<PaperInfo>) paperInfoService.findPaperInfoById(checkValue1);
-            list2 = (List<PaperInfo>) paperInfoService.findPaperInfoByState(checkValue2);
-            list3 = (List<PaperInfo>) paperInfoService.findPaperInfoByTaskAndState(checkValue1,checkValue2);
-        JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list3);
-        return response;
-        /*
-        * 1.html界面复用思路
-        * 3.select option动态获取
-        * 4.文献综述评阅界面UI设计
-        * 5.review界面还没获取用户信息 没和list界面连接起来
-        * 6.前台分页  page参数获取不到
-        * 7.review界面PDF的插件都无法显示？ 暂时用了iframe
-        * 8.静态资源拦截造成pdf无法显示  pdf放在templates下404  路径变为../file/1.pdf就找得到？
-        * 9.把操作data的函数移到java文件中调用
-        * 10.ajax+jq+jqgrid
-        * */
-    }
 
     /**
      * 教师课题查询
@@ -117,42 +99,6 @@ public class tController {
     @RequestMapping("/show")
     public String TaskShow() {
         return "TaskShow";
-    }
-
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @ResponseBody
-    @RequestMapping("/taskdata")
-    public JsonResponse<Task> getTaskData() {
-        Object username = SecurityContextHolder.getContext().getAuthentication().getName();
-        int tutorid = Integer.parseInt(String.valueOf(username));
-        System.out.println(tutorid);
-        User user = userService.findUserById(tutorid);
-        List<Task> list = taskService.findTaskByTutorname(user.getName());
-        JsonResponse<Task> response = new JsonResponse<Task>(list);
-        return response;
-    }
-
-    @ResponseBody
-    @RequestMapping("/searchtaskdata")
-    public JsonResponse<Task> getSearchTaskData() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String checkValue1 = request.getParameter("checkValue1");
-        String checkValue2 = request.getParameter("checkValue2");
-        //  String tutorname = request.getParameter("tutorname");
-
-        //  if (!tutorname.trim().equals(""))System.out.println(tutorname);
-        System.out.println(checkValue1);
-        System.out.println(checkValue2);
-
-        List<Task> list1, list2, list3;
-        list1 = (List<Task>) taskService.findTaskByTaskname(checkValue1);
-        list2 = (List<Task>) taskService.findTaskByTaskstate(checkValue2);
-//        list3 = (List<Task>) taskService.findTaskByTasknameAndstate(checkValue1, checkValue2);
-        JsonResponse<Task> response = new JsonResponse<Task>(list1);
-        JsonResponse<Task> response1 = new JsonResponse<Task>(list2);
-//        JsonResponse<Task> response2= new JsonResponse<Task>(list3);
-
-        return response;
     }
 
     /**
@@ -219,8 +165,9 @@ public class tController {
         taskService.updataTask(task);
         return "redirect:/teacher/show";
     }
-
-
+    /**
+     *教师交叉评阅列表
+     */
     @GetMapping("/tcross")
     public String tcross(Principal principal,
                          Model model) {
@@ -230,6 +177,7 @@ public class tController {
         model.addAttribute("initdata",lunwen);
                 return "tcross";
     }
+
 
 
 

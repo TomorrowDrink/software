@@ -2,8 +2,10 @@ package com.code.Controller;
 
 import com.code.Entity.JsonResponse;
 import com.code.Entity.PaperInfo;
+import com.code.Entity.Task;
 import com.code.Entity.User;
 import com.code.Service.PaperInfoService;
+import com.code.Service.TaskService;
 import com.code.Service.UserService;
 /*import org.gitlab4j.api.GitLabApi;
 import org.gitlab4j.api.GitLabApiException;*/
@@ -34,6 +36,8 @@ public class aController {
     @Autowired
     private PaperInfoService paperInfoService;
 
+    @Autowired
+    private TaskService taskService;
 
     @RequestMapping("")
     public String admin(){
@@ -114,49 +118,26 @@ public class aController {
         return "redirect:/admin";
     }
 
-//    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    /**
+     * 管理员安排交叉评阅
+     */
     @GetMapping("/areview")
     public String areview(@ModelAttribute PaperInfo paperInfo, Model model){
         List<PaperInfo> list = paperInfoService.getAllkt();
         model.addAttribute("initdata",list);
+
+        List<Task> task = taskService.findTaskByTaskstate("已通过");
+        for(Task tasks:task){
+            System.out.println(tasks.getTaskname());
+        }
+        model.addAttribute("tasklist",task);
+
         return "areview";
     }
 
-//    @PreAuthorize("hasRole('ROLE_TEACHER')")
-//    @ResponseBody
-    @GetMapping("/data")
-    public JsonResponse<PaperInfo> getData(Model model) {
-        List<PaperInfo> list = paperInfoService.getAll();
-        JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list);
-        return response;
-    }
-
-    @ResponseBody
-    @RequestMapping("/searchdata")
-    public JsonResponse<PaperInfo> getSearchData() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
-                .getRequestAttributes()).getRequest();
-        String checkValue1 = request.getParameter("checkValue1");
-        String checkValue2 = request.getParameter("checkValue2");
-        String stuname = request.getParameter("stuname");
-        String tutorname = request.getParameter("tutorname");
-
-        /*if(checkValue1.equals("all1")&&checkValue2.equals("all2")&&stuname.trim().equals("")){ getData(); }*/
-        /*else if(checkValue1.equals("all1")&&!checkValue2.equals("all2")&&!stuname.equals(null)){}*/
-
-        if(!stuname.trim().equals(""))System.out.println(stuname);
-        if(!tutorname.trim().equals(""))System.out.println(tutorname);
-
-        System.out.println(checkValue1);System.out.println(checkValue2);
-
-        List<PaperInfo> list1,list2,list3;
-        list1 = (List<PaperInfo>) paperInfoService.findPaperInfoById(checkValue1);
-        list2 = (List<PaperInfo>) paperInfoService.findPaperInfoByState(checkValue2);
-        list3 = (List<PaperInfo>) paperInfoService.findPaperInfoByTaskAndState(checkValue1,checkValue2);
-        JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list3);
-        return response;
-    }
-
+    /**
+     * 管理员添加论文记录
+     */
     @PostMapping("/addrecord")
     public String addData(@RequestParam("txt_taskname") String taskname,
                                            @RequestParam("txt_stuname") String stuname,
@@ -179,7 +160,9 @@ public class aController {
 
         return "redirect:/admin/areview";
     }
-
+    /**
+     * 管理员删除论文记录
+     */
     @PostMapping("/delrecord")
     public String delData(@RequestParam("del_stuname") String stuname){
         paperInfoService.delRecord(stuname);
@@ -187,17 +170,17 @@ public class aController {
 
     }
 
+    /**
+     * 管理员编辑论文记录
+     */
     @PostMapping("/editrecord")
     public String editData(@RequestParam("edit_stuname1") String stuname,
                            @RequestParam("edit_tutorname") String newtutorname,
                            @RequestParam("edit_state") String newstate){
-        System.out.println("stuname"+stuname);
-        System.out.println("tutorname"+newtutorname);
-        System.out.println("state"+newstate);
 
         User user = userService.findUserByName(newtutorname);
         int tutorid = user.getId();
-        System.out.println("tutorid"+tutorid);
+//        System.out.println("tutorid"+tutorid);
         String type = "开题报告";
         paperInfoService.editRecord(newstate,newtutorname,tutorid,type,stuname);
 //        List<PaperInfo> list = paperInfoService.findPaperInfoByStunameAndType(stuname,"开题报告");
@@ -205,9 +188,103 @@ public class aController {
 //            paperInfo.setTutorname(newtutorname);
 //            paperInfo.setState(newstate);
 //        }
-
         return "redirect:/admin/areview";
+    }
+    /**
+     * 管理员查询论文记录
+     */
+    @PostMapping("/selrecord")
+    public void selData(@ModelAttribute  Model model
+                            )
+    {
+        List<Task> task = taskService.findTaskByTaskstate("已通过");
+        for(Task tasks:task){
+            System.out.println(tasks.getTaskname());
+        }
+        model.addAttribute("tasklist",task);
+//        return "redirect:/admin/areview";
 
+    }
+
+    /**
+     * 管理员查询论文记录
+     */
+    @RequestMapping("/seltaskname")
+    public String selTaskname(@RequestParam ("tasknameSelection") String taskname,
+                              @RequestParam("ftype") String ftype,
+                              Model model){
+        System.out.println("selectstate"+taskname);
+        List<PaperInfo> list ;
+        String type = ftype;
+        list = paperInfoService.findPaperInfoByTasknameAndType(taskname,type);
+        model.addAttribute("initdata", list);
+
+        List<Task> task = taskService.findTaskByTaskstate("已通过");
+        for(Task tasks:task){
+            System.out.println(tasks.getTaskname());
+        }
+        List<User> user = userService.findUsernameByRole(2);
+        for(User users:user){
+            System.out.println(users.getName());
+        }
+        model.addAttribute("teacher",user);
+        model.addAttribute("tasklist",task);
+        model.addAttribute("tasknameSelectionValue",taskname);
+        if(ftype.equals("开题报告")){        return  "areview";
+        }else{
+            return "crossproposal";
+        }
+    }
+
+    @RequestMapping("/selstate")
+    public String selState(@RequestParam ("stateSelection") String state,
+                           @RequestParam("ftype1") String ftype1,
+                           Model model){
+        System.out.println("selectstate"+state);
+        List<PaperInfo> list ;
+        String type = ftype1;
+        list = paperInfoService.findPaperInfoByStateAndType(state,type);
+        model.addAttribute("initdata", list);
+
+        List<Task> task = taskService.findTaskByTaskstate("已通过");
+        for(Task tasks:task){
+            System.out.println(tasks.getTaskname());
+        }
+        List<User> user = userService.findUsernameByRole(2);
+        for(User users:user){
+            System.out.println(users.getName());
+        }
+        model.addAttribute("teacher",user);
+        model.addAttribute("tasklist",task);
+        if(state.equals("待评阅")){
+            model.addAttribute("stateSelectionValue2",state);
+        }else if (state.equals("已通过")){
+            model.addAttribute("stateSelectionValue3",state);
+        }else{
+            model.addAttribute("stateSelectionValue4",state);
+        }
+        if(ftype1.equals("开题报告")){        return  "areview";
+        }else{
+            return "crossproposal";
+        }
+    }
+
+    @RequestMapping("/seltype")
+    public String selType(@RequestParam ("tasknameSelection") String taskname,
+                           Model model){
+        System.out.println("selectstate"+taskname);
+        List<PaperInfo> list ;
+        String type = "开题报告";
+        list = paperInfoService.findPaperInfoByTasknameAndType(taskname,type);
+        model.addAttribute("initdata", list);
+
+        List<Task> task = taskService.findTaskByTaskstate("已通过");
+        for(Task tasks:task){
+            System.out.println(tasks.getTaskname());
+        }
+        model.addAttribute("tasklist",task);
+        model.addAttribute("tasknameSelectionValue",taskname);
+        return  "areview";
     }
 
     @GetMapping("/crossproposal")
@@ -218,16 +295,24 @@ public class aController {
         }
         List<PaperInfo> list = paperInfoService.getAlllunwen();
         model.addAttribute("initdata",list);
+        List<Task> task = taskService.findTaskByTaskstate("已通过");
+        for(Task tasks:task){
+            System.out.println(tasks.getTaskname());
+        }
+        model.addAttribute("tasklist",task);
+
         model.addAttribute("teacher",user);
         return "crossproposal";
     }
 
-    @PostMapping("/crossproposal")
+    @RequestMapping("/crossproposal")
     public String crosstutor(@RequestParam("tname") String tname,
                              @RequestParam("pid") String pid){
         System.out.println(tname +"------------------------"+ pid);
+        User user = userService.findUserByUsername(tname);
+        String crosstutor = user.getName();
+        paperInfoService.editCrosstutor(crosstutor,Integer.parseInt(pid));
         return "redirect:/admin/crossproposal";
-
     }
 
 }

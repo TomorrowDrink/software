@@ -64,9 +64,28 @@
         select p.*  from paperinfo p WHERE type = "论文"
     </select>
 
+    <select id="getAllwx"  resultMap="paperInfoMap">
+        select p.*  from paperinfo p WHERE type = "文献综述"
+    </select>
+
     <select id="findByTaskAndState" parameterType="String" resultMap="paperInfoMap">
         select p.*  from paperinfo p
         where state= #{state} and taskname= #{taskname}
+    </select>
+
+    <select id="findByTutoridStateType" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where tutorid = #{tutorid,jdbcType=INTEGER} and state= #{state,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByTasknameAndType" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where taskname= #{taskname} and type= #{type}
+    </select>
+
+    <select id="findByStateAndType" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where state= #{state} and type= #{type}
     </select>
 
     <insert id="addRecord" parameterType="com.code.Entity.PaperInfo" >
@@ -98,13 +117,13 @@
         stuname = #{stuname,jdbcType=VARCHAR} and type=#{type,jdbcType=VARCHAR}
     </update>
 
-    <update id="editCrosstutor" parameterType="String" >
+    <update id="editCrosstutor">
         UPDATE
         paperinfo
         SET
-        crosstutor = #{tname}
+        crosstutor = #{crosstutor,jdbcType=VARCHAR}
         WHERE
-        stuname = #{stuname}
+        id= #{id,jdbcType=INTEGER}
     </update>
 
 

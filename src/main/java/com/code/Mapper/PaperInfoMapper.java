@@ -23,6 +23,9 @@ public interface PaperInfoMapper {
     List<PaperInfo> findByTaskAndState(@Param("taskname") String taskname,@Param("state") String state);
     List<PaperInfo> findByMaxId();
     List<PaperInfo> findByStunameAndType(@Param("stuname") String stuname,@Param("type") String type);
+    List<PaperInfo> findByTasknameAndType(@Param("taskname") String taskname,@Param("type") String type);
+    List<PaperInfo> findByTutoridStateType(@Param("tutorid") Integer tutorid,@Param("state") String state,@Param("type") String type);
+    List<PaperInfo> findByStateAndType(@Param("state") String state,@Param("type") String type);
 
     /*新增记录*/
     void addRecord(PaperInfo paperInfo);
@@ -30,8 +33,11 @@ public interface PaperInfoMapper {
     void delRecord(@Param("stuname") String stuname);
     /*更新记录*/
     void editRecord(@Param("state") String state, @Param("tutorname") String tutorname,@Param("tutorid") Integer tutorid,@Param("type") String type, @Param("stuname") String stuname);
+    void editCrosstutor(@Param("crosstutor") String crosstutor, @Param("id") int id);
 
     List<PaperInfo> getAlllunwen();
     List<PaperInfo> getAllkt();
+    List<PaperInfo> getAllwx();
+
 
 }
