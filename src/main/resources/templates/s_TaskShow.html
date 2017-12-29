@@ -8,10 +8,11 @@
     <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
     <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
-    <link th:href="@{/css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">
-    <script th:src="@{/js/jquery.jqGrid.min.js}" src="../js/jquery.jqGrid.min.js"></script>
-    <script th:src="@{/js/jquery-3.1.1.min.js}" src="../js/jquery-3.1.1.min.js"></script>
-    <script th:src="@{/js/i18n/grid.locale-en.js}" src="../js/i18n/grid.locale-en.js"></script>
+    <!--<link th:href="@{/css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">-->
+    <!--<script th:src="@{/js/jquery.jqGrid.min.js}" src="../js/jquery.jqGrid.min.js"></script>-->
+    <!--<script th:src="@{/js/jquery-3.1.1.min.js}" src="../js/jquery-3.1.1.min.js"></script>-->
+    <!--<script th:src="@{/js/i18n/grid.locale-en.js}" src="../js/i18n/grid.locale-en.js"></script>-->
+
 </head>
 <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
@@ -29,83 +30,38 @@
 </style>
 <!--顶部导航栏-->
 <div th:include="s-head :: s-head"></div>
+
 <!--中间主体-->
 <div class="pageContainer">
     <!--正文内容-->
     <div class="pageContent">
         <h4>选择课题</h4>
-        <p id="stuid" value="${sec:authentication='name'}" sec:authentication="name">
+        <p  sec:authentication="name">
         <div class="panel panel-default">
+
+        <!--查找筛选栏-->
             <div class="panel-heading">
-                <!-- 增删改查 -->
                 <div class="form-inline">
-                    <label>课题名称：</label>
-                    <select id="tasknameSelection" name="TasknameSelection"class="form-control" onclick="getTasknames()">
-                        <option value="all1"selected>--全部--</option>
-                        <option value="毕业设计管理系统" selected>毕业设计管理系统</option>
-                        <option value="教学管理日历">教学管理日历</option>
-                        <option value="学校综合管理系统">学校综合管理系统</option>
-                        <option value="企业管理信息系统">企业管理信息系统</option>
-                        <option value="机关办公自动化系统">机关办公自动化系统</option>
-                        <option value="交通管理系统">交通管理系统</option>
-                    </select>
-                    <label>课题类型：</label>
-                    <select id="typeSelection" name="typeSelection"class="form-control" onclick="getStates()">
-                        <option value="all2"selected>--全部--</option>
-                        <option value="系统设计" selected>系统设计</option>
-                        <option value="软件开发">软件开发</option>
-                    </select>
-
-                        <!--<form th:action="@{/admin/deltask}" action="/admin/deltask"  method="post">-->
-                            <!--<input type="hidden" id="find_Taskname" name="del_taskid" value="555"/>-->
-                            <!--<input type="hidden" id="find_Tasktype" name="del_taskid" value="66"/>-->
-                            <!--<button  type="submit" id="find_btn"  class="btn btn-primary" onclick="find()">查询</button>-->
-                        <!--</form>-->
+                    <form  th:action="@{/student/findtask}" action="/student/findtask"  method="post">
+                        <!--<label>课题难度：</label>-->
+                        <!--<select id="taskrateSelection" name="taskrateSelection"class="form-control">-->
+                            <!--<option value="全部">&#45;&#45;全部&#45;&#45;</option>-->
+                            <!--<option value="较易" >较易</option>-->
+                            <!--<option value="中等">中等</option>-->
+                            <!--<option value="较难">较难</option>-->
+                        <!--</select>-->
+                        <label>课题类型：</label>
+                        <select id="tasktypeSelection" name="tasktypeSelection"class="form-control" >
+                            <option value="全部"th:selected="${tasktypeSelection_D1}">--全部--</option>
+                            <option value="系统设计"th:selected="${tasktypeSelection_D2}" >系统设计</option>
+                            <option value="算法设计"th:selected="${tasktypeSelection_D3}" >算法设计</option>
+                            <option value="软件开发"th:selected="${tasktypeSelection_D4}"　>软件开发</option>
+                        </select>
                         <button  type="submit" id="find_btn"  class="btn btn-primary" onclick="find()">查询</button>
+                    </form>
                 </div>
             </div>
-            <div class="panel-body">
-                <div class="form-inline">
-                    <!-- 新增模态框 -->
-                    <!--<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">新增</button>-->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"
-                                            aria-hidden="true">×
-                                    </button>
-                                    <h7 class="modal-title" id="myModalLabel">新增记录</h7>
-                                </div>
-                                <div class="modal-body">
-                                    <form th:action="@{/admin/addrecord}" action="/admin/addrecord"  method="post">
-                                        <div class="form-group form-inline">
-                                            <label for="txt_taskname">课题名称</label>
-                                            <input type="text" name="txt_taskname" class="form-control" id="txt_taskname" placeholder="课题名称">
-                                        </div>
 
-                                        <div class="form-group form-inline">
-                                            <label for="txt_stuname">学生姓名</label>
-                                            <input type="text" name="txt_stuname" class="form-control" id="txt_stuname" placeholder="学生姓名">
-                                        </div>
-                                        <div class="form-group form-inline">
-                                            <label for="txt_tutorname">导师姓名</label>
-                                            <input type="text" name="txt_tutorname" class="form-control" id="txt_tutorname" placeholder="导师姓名">
-                                        </div>
-                                        <div class="form-group form-inline">
-                                            <input type="text" name="txt_filename" class="form-control" id="txt_filename" placeholder="文件命名">
-                                            <button type="button" id="upload_btn" class="btn btn-primary" >文件上传</button>
-                                        </div>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
-                                        <button type="submit" class="btn btn-primary" >提交更改</button>
-                                    </form>
-                                </div>
-                                <div class="modal-footer"></div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-                </div>
-            </div>
             <div>
                 <!--删除模态框-->
                 <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -130,7 +86,6 @@
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
-
 
                <!--选课模态框-->
                 <div class="modal fade" id="addtomyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -204,7 +159,9 @@
                                     </div>
 
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
-                                    <button type="submit" class="btn btn-primary" >选课</button>
+
+                                    <!--<button type="submit" class="btn btn-primary" >选课</button>-->
+                                    <!--<button type="button" id="addTask" class="btn btn-primary" data-toggle='modal' data-target='#addtomyModal'onclick="add(this)">选课</button>-->
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -213,7 +170,7 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
 
-
+                <!--主表格-->
                 <center>
                     <table id="mainTable" border="1" data-toggle="table" class="bordered">
                         <tr>
@@ -237,35 +194,41 @@
                             <td style="display:none" id="table_taskrate" th:text="${task.taskrate}"></td>
                             <td style="display:none" id="table_taskdescrib" th:text="${task.taskdescrib}"></td>
                             <td style="display:none" id="table_taskmaxchoose" th:text="${task.taskmaxchoose}"></td>
-                            <td><button id="edit" class='btn btn-link' data-toggle='modal' data-target='#showModal' onclick="edi(this)">查看</button></td>
-                            <td><button id="addtomy" class='btn btn-link' data-toggle='modal'data-target='#addtomyModal' onclick="add(this)">选课</button></td>                          <!--<td><button id="delete" class='btn btn-link'  data-toggle='modal' data-target='#delModal' >删除</button></td>-->
+                            <td><button id="edit" class='btn btn-link' data-toggle='modal'  data-target='#showModal' onclick="show(this)">查看详情</button></td>
+                            <td><button id="addtomy" class='btn btn-link' data-toggle='modal' data-target='#addtomyModal' onclick="add(this)">选课</button></td>                          <!--<td><button id="delete" class='btn btn-link'  data-toggle='modal' data-target='#delModal' >删除</button></td>-->
                             <!--<td><button id="delete" class='btn btn-link'  data-toggle='modal' data-target='#delModal' onclick="del(this)" >删除</button></td>-->
                         </tr>
                     </table>
                 </center>
+
             </div>
         </div>
     </div>
 </div>
 </div>
+
 <!--底部页脚部分 -->
 <div class="footer">
-    <!--<p class="text-center">
-    2017 &copy; 浙江工商大学
-    </p>-->
 </div>
 </div>
 
 <script type="text/javascript">
-    $(function () { $('#myModal').modal({
-        keyboard: true
-    })});
+//    $(function () { $('#myModal').modal({
+//        keyboard: true
+//    })});
 
+
+    /**
+     * 删除选课
+     */
     function del(obj) {
         task = $(obj).parents("tr").find("#table_taskid").text();
         document.getElementById("del_taskid").value= task;
     }
 
+    /**
+     * 选课
+     */
     function add(obj) {
         document.getElementById("addtomy_taskid").value=$(obj).parents("tr").find("#table_taskid").text();
         document.getElementById("addtomy_taskname").value=$(obj).parents("tr").find("#table_taskname").text();
@@ -273,7 +236,10 @@
 
     }
 
-    function edi(obj) {
+    /**
+     * 查看课题详情
+     */
+    function show(obj) {
         document.getElementById("edit_task").value=$(obj).parents("tr").find("#table_taskid").text();
         document.getElementById("show_taskid").value=$(obj).parents("tr").find("#table_taskid").text();
         document.getElementById("show_taskname").value=$(obj).parents("tr").find("#table_taskname").text();
@@ -283,96 +249,7 @@
         document.getElementById("show_taskdescrib").value=$(obj).parents("tr").find("#table_taskdescrib").text();
 
     }
-//    function find() {
-//        document.getElementById("find_tasktype").value=$("stateSelection").val();
-//
-//        $.ajax({
-//            type:"post",
-//            url:"findtaskdata",
-//            data:$("stateSelection").val()
-//        })
-//
-//
-//
-//    }
 
-
-
-
-    //    $('#edit').on('click', function() {
-    ////        显示默认值
-    //        var be_taskname = $(this).parents("tr").find("#table_taskname").text();
-    //        var be_stuname = $(this).parents("tr").find("#table_stuname").text();
-    //        var be_state = $(this).parents("tr").find("#table_state").text();
-    //        var be_filename = $(this).parents("tr").find("#table_filename").text();
-    //        var be_tutorname = $(this).parents("tr").find("#table_tutorname").text();
-    //        document.getElementById("edit_taskname").innerHTML= be_taskname;
-    //        document.getElementById("edit_stuname").innerHTML= be_stuname;
-    //
-    //        document.getElementById("edit_state").innerHTML= be_state;
-    //
-    //        document.getElementById("edit_tutorname").innerHTML= be_tutorname;
-    //
-    //        document.getElementById("edit_filename").innerHTML= be_filename;
-    //
-    //    });
-    //    $(document).ready(function() {
-    //        $.jgrid.defaults.styleUI = "Bootstrap";
-    //        $("#aTable").jqGrid({
-    //            url: '/admin/data',
-    //            datatype: "json",
-    //            colNames: ["编号", "课题名称", "姓名", "状态","修改","操作","删除"],
-    //            colModel: [
-    //                {name: 'id', index: 'id', label: '编号', width: 60, hidden: true,},
-    //                {name: 'taskname', index: 'taskname', label: '课题名称', width: 500, align: 'center'/!*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*!/},
-    //                {name: 'stuname', index: 'stuname', label: '姓名', width: 100, align: 'center'},
-    //                {name: 'state', index: 'state', label: '状态', width: 100, align: 'center',},
-    //                {name:'edit',index:'edit',label:'修改',width:100, align:'center'/!*,formatter:'showlink', formatoptions:{baseLinkUrl:'https://www.baidu.com/', addParam: '&action=edit'}*!/
-    //                },
-    //                {name: 'operate', index: 'operate', label: '操作', width: 100, align: 'center',},
-    //                {name: 'del', index: 'del', label: '删除', width: 100, align: 'center',}],
-    //            caption:'开题报告目录',
-    //            sortname: "id", sortorder: "desc", viewrecords: true,page:1,
-    //            rownumbers: true, autowidth: true, height: 100,rowNum:10,
-    //            shrinkToFit: true,
-    //            height: $('.content-pager').height()/2,
-    ////            prmNames: {
-    ////                page: 'currentPage',
-    ////                rows: 'showCount',
-    ////                sort: 'sortField',
-    ////                order: 'order'
-    ////            },
-    //            jsonReader: {
-    //                root: "rows",
-    //                page: "page",
-    //                total: "total",
-    //                records: "records",
-    //                repeatitems: false,
-    //                cell: "cell",
-    //                id: "id"
-    //            }, pager: "#aPager",
-    //            gridComplete:function(){
-    //                var ids = jQuery("#aTable").jqGrid('getDataIDs');
-    //                for(i=0;i<ids.length;i++){
-    //                    var id=ids[i];
-    //                    edit = "<a href='#' style='#f60'>编辑</a>";
-    //                    operate = "<a href='#' style='#f60'>下载</a>";
-    //                    del = "<button class='btn btn-link' data-toggle='modal' data-target='#myModal'>删除</button>";
-    //                    jQuery("#aTable").jqGrid('setRowData',ids[i],{'operate':operate,'edit':edit,'del':del});
-    //                }
-    //            }
-    //        }).jqGrid('navGrid', "#aPager", {edit: false,add:false,del:false,search:false});
-    //    });
-    /!*查询记录*!/
-    //    $("#find_btn").click(function () {
-    //
-    //        var stuname = $("#stuname").val();
-    //        var tutorname = $("#tutorname").val();
-    //        var checkValue1 = $("#tasknameSelection").val();
-    //        var checkValue2 = $("#stateSelection").val();
-    //
-    //
-    //    });
 
     $("#add_btn").click(function () {
 
