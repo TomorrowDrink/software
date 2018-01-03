@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>A_TaskReview</title>
+    <link th:href="@{/css/ui.jqgrid.css}" href="../static/css/ui.jqgrid.css" rel="stylesheet">
+    <link th:href="@{/css/ugly-table.css}" href="../static/css/ugly-table.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+    <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+    <!--<link th:href="@{/css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">-->
+    <!--<script th:src="@{/js/jquery.jqGrid.min.js}" src="../js/jquery.jqGrid.min.js"></script>-->
+    <!--<script th:src="@{/js/jquery-3.1.1.min.js}" src="../js/jquery-3.1.1.min.js"></script>-->
+    <!--<script th:src="@{/js/i18n/grid.locale-en.js}" src="../js/i18n/grid.locale-en.js"></script>-->
+</head>
+<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+
+<body th:inline="text">
+
+<div th:include="a-head :: a-head"></div>
+<style>
+    body {
+        min-height: 2000px;
+        padding-top: 70px;
+    }
+    .pageContent{
+        width: auto;
+        height: 800px;
+    }
+</style>
+<!--顶部导航栏-->
+<!--主体-->
+<div class="pageContainer">
+    <!--正文内容-->
+    <div class="pageContent">
+        <h4>课题审核</h4>
+        <p sec:authentication="name"></p>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <form  th:action="@{/admin/findtaskR}" action="/admin/findtaskR"  method="post">
+                    <div class="form-inline">
+                        <label>课题类型：</label>
+                        <select id="tasktypeSelection" name="tasktypeSelection"class="form-control" >
+                            <option value="全部" th:selected="${tasktypeSelection_D1}">--全部--</option>
+                            <option value="系统设计" th:selected="${tasktypeSelection_D2}">系统设计</option>
+                            <option value="算法设计" th:selected="${tasktypeSelection_D3}">算法设计</option>
+                            <option value="软件开发" th:selected="${tasktypeSelection_D4}">软件开发</option>
+                        </select>
+                        <!--<label>课题状态：</label>-->
+                        <!--<select id="taskstateSelection" name="taskstateSelection"class="form-control" >-->
+                            <!--<option value="全部" th:selected="${taskstateSelection_C1}">&#45;&#45;全部&#45;&#45;</option>-->
+                            <!--<option value="待审核" th:selected="${taskstateSelection_C2}">待审核</option>-->
+                            <!--<option value="已通过"th:selected="${taskstateSelection_C3}">已通过</option>-->
+                            <!--<option value="未通过"th:selected="${taskstateSelection_C4}">未通过</option>-->
+                        <!--</select>-->
+                        <button  type="submit" id="find_btn" class="btn btn-primary">查询</button>
+                    </div>
+                </form>
+            </div>
+
+            <!--模态框-->
+            <div>
+                <!--确认审核模态框-->
+                <div class="modal fade" id="passModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">×
+                                </button>
+                                <h7 class="modal-title" id="myModalLabel">确认课题通过</h7>
+                            </div>
+                            <div class="modal-body">
+                                <h7>您确定该课题通过审核吗？</h7>
+                                <form th:action="@{/admin/passtask}" action="/admin/passtask"  method="post">
+                                    <input type="hidden" id="del_taskid" name="pass_taskid" value="pass_taskid"/>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary" >确认</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+
+                <!--查看详情模态框-->
+                <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">×
+                                </button>
+                                <h7 class="modal-title" id="myModalLabel">查看课题详情</h7>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{/admin/showdetail}" action="/admin/showdetail"  method="post">
+                                    <input type="hidden" id="edit_task" name="edit_task" value=""/>
+                                    <div class="form-group form-inline">
+                                        <label for="show_taskid">课题编号</label>
+                                        <input type="text" id ="show_taskid" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_taskname">课题名称</label>
+                                        <input type="text" id ="show_taskname" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_tutorname">课题导师</label>
+                                        <input type="text" id ="show_tutorname" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_tasktype">课题类型</label>
+                                        <input type="text" id ="show_tasktype" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_taskrate">课题级别</label>
+                                        <input type="text" id ="show_taskrate" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_taskrate">可选人数</label>
+                                        <input type="text" id ="show_taskmaxchoose" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_taskdescrib">课题描述</label>
+                                        <input type="text" id ="show_taskdescrib" value="" readonly="readonly">
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+
+                                    <button type="submit" class="btn btn-primary" >确认</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+                <center>
+                    <table id="mainTable" border="1" data-toggle="table" class="bordered">
+                        <tr>
+                            <!--<th>ID</th>-->
+                            <th>课题编号</th>
+                            <th>课题名称</th>
+                            <th>导师姓名</th>
+                            <th>状态</th>
+                            <th>查看</th>
+                            <th>审核通过</th>
+                        </tr>
+                        <tr id ="task_tr" th:each="task,list:${initdata}">
+                            <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                            <td id="table_taskid" th:text="${task.taskid}" class="table_taskid" ></td>
+                            <td id="table_taskname" th:text="${task.taskname}"></td>
+                            <td id="table_tutorname" th:text="${task.tutorname}"></td>
+                            <td id="table_taskstate" th:text="${task.taskstate}"></td>
+                            <td style="display:none" id="table_tasktype" th:text="${task.tasktype}"></td>
+                            <td style="display:none" id="table_taskrate" th:text="${task.taskrate}"></td>
+                            <td style="display:none" id="table_taskdescrib" th:text="${task.taskdescrib}"></td>
+                            <td style="display:none" id="table_taskmaxchoose" th:text="${task.taskmaxchoose}"></td>
+                            <td><button id="show" class='btn btn-link' data-toggle='modal'  data-target='#showModal' onclick="show(this)">查看详情</button></td>
+                            <td><button id="pass" class='btn btn-link'  data-toggle='modal' data-target='#passModal' onclick="pass(this)" >通过</button></td>
+                        </tr>
+                    </table>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--底部页脚部分 -->
+<div class="footer">
+    <!--<p class="text-center">
+    2017 &copy; 浙江工商大学
+    </p>-->
+</div>
+</div>
+
+<script type="text/javascript">
+    //    $(function () { $('#myModal').modal({
+    //        keyboard: true
+    //    })});
+
+
+    /**
+     * 删除选课
+     */
+    function pass(obj) {
+        task = $(obj).parents("tr").find("#table_taskid").text();
+        document.getElementById("del_taskid").value= task;
+    }
+
+    /**
+     * 选课
+     */
+    function add(obj) {
+        document.getElementById("addtomy_taskid").value=$(obj).parents("tr").find("#table_taskid").text();
+        document.getElementById("addtomy_taskname").value=$(obj).parents("tr").find("#table_taskname").text();
+        document.getElementById("student_id").value =$("#author").name;
+
+    }
+
+    /**
+     * 查看课题详情
+     */
+    function show(obj) {
+        document.getElementById("edit_task").value=$(obj).parents("tr").find("#table_taskid").text();
+        document.getElementById("show_taskid").value=$(obj).parents("tr").find("#table_taskid").text();
+        document.getElementById("show_taskname").value=$(obj).parents("tr").find("#table_taskname").text();
+        document.getElementById("show_tasktype").value=$(obj).parents("tr").find("#table_tasktype").text();
+        document.getElementById("show_taskrate").value=$(obj).parents("tr").find("#table_taskrate").text();
+        document.getElementById("show_tutorname").value=$(obj).parents("tr").find("#table_tutorname").text();
+        document.getElementById("show_taskdescrib").value=$(obj).parents("tr").find("#table_taskdescrib").text();
+        document.getElementById("show_taskmaxchoose").value=$(obj).parents("tr").find("#table_taskmaxchoose").text();
+
+
+    }
+
+
+    $("#add_btn").click(function () {
+
+    });
+    $(function(){
+        $(window).resize(function(){
+            $("#aTable").setGridWidth($(window).width());
+        });
+    });
+</script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>
