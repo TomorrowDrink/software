@@ -165,7 +165,23 @@
         tasktype=#{task_type} AND taskstate='已通过'
     </select>
 
+    <select id ="a_findTaskByTypeState" parameterType="com.code.Entity.Task" resultType="com.code.Entity.Task">
+        SELECT t.* FROM  task t
+        WHERE
+        tasktype =#{task_type} AND taskstate=#{task_state}
+    </select>
 
+    <select id ="a_findTaskByState" parameterType="com.code.Entity.Task" resultType="com.code.Entity.Task">
+        SELECT t.* FROM  task t
+        WHERE
+        taskstate=#{task_state}
+    </select>
+
+    <select id ="a_findTaskByType" parameterType="com.code.Entity.Task" resultType="com.code.Entity.Task">
+        SELECT t.* FROM  task t
+        WHERE
+        tasktype =#{task_type}
+    </select>
 
 
 </mapper>

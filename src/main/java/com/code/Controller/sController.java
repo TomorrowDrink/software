@@ -8,6 +8,7 @@ import com.code.Entity.User;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
 import org.apache.catalina.Session;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.net.ssl.SSLEngine;
 import javax.servlet.http.HttpSessionEvent;
 import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -75,8 +77,10 @@ public class sController {
         }
     }
 
+
+
     /**
-     *学生课题显示
+     *学生选题显示
      */
     @RequestMapping(value = {"/s_TaskShow"},method = {RequestMethod.POST,RequestMethod.GET})
     public String s_TaskShow(@ModelAttribute Task task, Model model){
@@ -90,53 +94,62 @@ public class sController {
     @GetMapping("/taskdata")
     public JsonResponse<Task> get_sTaskData(Model model){
 //        List<Task> list = taskService.getAll();已通过
-        String taskrate ="已通过";
-        List<Task> list = taskService.findTaskByTaskstate(taskrate);
+        String taskstate ="已通过";
+        List<Task> list = taskService.findTaskByTaskstate(taskstate);
         JsonResponse<Task> response = new JsonResponse<Task>(list);
         return response;
     }
 
-//    @PostMapping()
-//    @RequestMapping(value = {"/s_TaskEdit"},method = {RequestMethod.POST,RequestMethod.GET})
-//    public String s_TaskEdit(@ModelAttribute Task task, Model model,
-//                            Principal principal ){
-//
-//        String stuid= principal.getName();
+    /**
+     *学生MyTask显示
+     */
+
+    @PostMapping()
+    @RequestMapping(value = {"/s_MyTask"},method = {RequestMethod.POST,RequestMethod.GET})
+    public String s_TaskEdit(@ModelAttribute Task task, Model model,
+                            Principal principal ){
+        String stuid= principal.getName();
+
+        int stu_id =new Integer(stuid).intValue();
+        List<Task_s> s_list =taskService.findbystuid(stu_id);
+        int task_id;
+        if (s_list.isEmpty()){
+            task_id=0;
+        }
+        else {
+            task_id = s_list.get(0).getTaskid();
+            System.out.println("课题id" + task_id);
+        }
 //        int stu_id =new Integer(stuid).intValue();
 //        List<Task_s> s_list =taskService.findbystuid(stu_id);
-//        System.out.println(s_list);
-//        Task_s s = s_list.get(1);
-//        int id =s.getTaskid();
-//        System.out.println(id);
-//
-//        int task_id =2;
-//        List<Task> list = taskService.findTaskByTaskid(task_id);
-//        model.addAttribute("initdata",list);
-//        return  "s_TaskEdit";
-//    }
-//    @GetMapping("/staskdata")
-//    public JsonResponse<Task> get_mTaskData(Model model,Principal principal){
-//
-//        String stuid= principal.getName();
-//        int stu_id =new Integer(stuid).intValue();
-//        List<Task_s> s_list =taskService.findbystuid(stu_id);
-//        System.out.println(s_list);
-//        Task_s s = s_list.get(0);
-//        int id =s.getTaskid();
-//        System.out.println(id);
-//        int task_id =2;
-//        List<Task> list = taskService.findTaskByTaskid(task_id);
-//        JsonResponse<Task> response = new JsonResponse<Task>(list);
-//        return response;
-//    }
-//
+//        int task_id =s_list.get(0).getTaskid();
+
+
+        List<Task> list = taskService.findTaskByTaskid(task_id);
+        model.addAttribute("initdata",list);
+        return  "s_MyTask";
+    }
+    @GetMapping("/staskdata")
+    public JsonResponse<Task> get_mTaskData(Model model,Principal principal){
+
+        String stuid= principal.getName();
+
+        int stu_id =new Integer(stuid).intValue();
+        List<Task_s> s_list =taskService.findbystuid(stu_id);
+        int task_id =s_list.get(0).getTaskid();
+
+        List<Task> list = taskService.findTaskByTaskid(task_id);
+        JsonResponse<Task> response = new JsonResponse<Task>(list);
+        return response;
+    }
+
 
 
 
 
 
     /**
-     * 选课
+     * 选题addtomy
      */
     @PostMapping("/addtomy")
     public String addtomyTask(@RequestParam("addtomy_taskid") String taskid,
@@ -145,25 +158,53 @@ public class sController {
         String stuid= principal.getName();
         int stu_id =new Integer(stuid).intValue();
         int task_id=new Integer(taskid).intValue();
-        System.out.println(stu_id);
-
         User user =userService.findUserById(stu_id);
         String stu_name =user.getName();
+        System.out.println("学生:"+stu_id+"\n姓名:"+stu_name+"\n课题id:"+task_id+"\n课题名称:"+task_name);
         taskService.chooseTask(stu_id,stu_name,task_id,task_name);
 
-        return "redirect:/student/s_TaskShow";
+        return "redirect:/student/s_MyTask";
     }
+
     /**
-     * 查询课题
+     *学生取消选题
      */
-    @PostMapping("/findtask")
-    public String findTask(@RequestParam("find_tasktype")String tasktype){
-        taskService.findTaskByTasktype(tasktype);
-        return "redirect:/student/s_TaskShow";
+    @PostMapping("/del_MyTask")
+    public  String del_MyTaskData(@RequestParam("del_taskid")String task_id){
+        taskService.s_delMyTask(task_id);
+        System.out.println("取消选课的课程标号"+task_id);
+        return "redirect:/student/s_MyTask";
     }
 
 
+    /**
+     * 查询课题findtask
+     */
+    @RequestMapping(value = {"/findtask"}, method = {RequestMethod.POST, RequestMethod.GET})
+    public String t_findTask(@ModelAttribute Task task, Model model,
+                             @RequestParam("tasktypeSelection") String task_type,
+                             Principal principle) {
+        int tutor_id = new Integer(principle.getName()).intValue();
+        List<Task> list;
 
+        if (task_type.equals("全部")){
+            String taskstate ="已通过";
+            list = taskService.findTaskByTaskstate(taskstate);
+            System.out.println(list);
+            model.addAttribute("tasktypeSelection_D1",task_type);
+        }else if (task_type.equals("系统设计")){
+            list =taskService.s_findTask(task_type);
+            model.addAttribute("tasktypeSelection_D2",task_type);
+        }else if(task_type.equals("算法设计")){
+            list = taskService.s_findTask(task_type);
+            model.addAttribute("tasktypeSelection_D3",task_type);
+        }else{
+            list = taskService.s_findTask(task_type);
+            model.addAttribute("tasktypeSelection_D4",task_type);
+        }
+        model.addAttribute("initdata", list);
+        return "s_TaskShow";
+    }
 
 
 
