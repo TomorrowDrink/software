@@ -23,8 +23,6 @@ public interface TaskMapper {
     List<Task_s> findbystuid(@Param("stu_id") int stu_id);
 
 
-
-
     List<Task> findTaskBytutorid(@Param("tutor_id") int tutor_id);
 
 

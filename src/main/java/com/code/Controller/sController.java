@@ -120,15 +120,12 @@ public class sController {
             task_id = s_list.get(0).getTaskid();
             System.out.println("课题id" + task_id);
         }
-//        int stu_id =new Integer(stuid).intValue();
-//        List<Task_s> s_list =taskService.findbystuid(stu_id);
-//        int task_id =s_list.get(0).getTaskid();
-
 
         List<Task> list = taskService.findTaskByTaskid(task_id);
         model.addAttribute("initdata",list);
         return  "s_MyTask";
     }
+
     @GetMapping("/staskdata")
     public JsonResponse<Task> get_mTaskData(Model model,Principal principal){
 
@@ -180,8 +177,8 @@ public class sController {
     /**
      * 查询课题findtask
      */
-    @RequestMapping(value = {"/findtask"}, method = {RequestMethod.POST, RequestMethod.GET})
-    public String t_findTask(@ModelAttribute Task task, Model model,
+    @RequestMapping(value = {"/s_FindTask"}, method = {RequestMethod.POST, RequestMethod.GET})
+    public String s_FindTask(@ModelAttribute Task task, Model model,
                              @RequestParam("tasktypeSelection") String task_type,
                              Principal principle) {
         int tutor_id = new Integer(principle.getName()).intValue();

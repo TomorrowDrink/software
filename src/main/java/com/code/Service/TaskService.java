@@ -14,7 +14,7 @@ public interface TaskService {
     public List<Task> findTaskByTutorname(String tutorname);
     public List<Task> findTaskByTaskid(int taskid);
     public List<Task> findTaskByTaskstate(String taskstate);
-//    public List<Task> findTaskByTasknameAndstate(String taskname,String taskstate);
+//     public List<Task> findTaskByTasknameAndstate(String taskname,String taskstate);
 
     public void  insertTask(Task task);
     public void updataTask(Task task);

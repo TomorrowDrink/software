@@ -126,8 +126,8 @@ public class tController {
      * 编辑课题edittask
      */
 
-    @PostMapping("/edittask")
-    public String editTaskData(
+    @PostMapping("/t_TaskEdit")
+    public String t_TaskEdit(
             @RequestParam("edit_taskid") int taskid,
             @RequestParam("edit_taskname") String taskname,
             @RequestParam("edit_tutorname") String tutorname,
@@ -158,8 +158,8 @@ public class tController {
     /***
      * 删除课题记录deltask
      */
-    @PostMapping("/deltask")
-    public String delTaskData(@RequestParam("del_taskid") String taskid) {
+    @PostMapping("/t_TaskDelete")
+    public String t_TaskDelete(@RequestParam("del_taskid") String taskid) {
         taskService.delTask(taskid);
         System.out.println(taskid);
         return "redirect:/teacher/t_TaskShow";
@@ -168,8 +168,8 @@ public class tController {
     /**
      * 查询课题详细
      */
-    @PostMapping("/showdetail")
-    public String checkTask(@RequestParam("detail_task") int taskid) {
+    @PostMapping("/t_ShowTaskDetail")
+    public String t_ShowTaskDetail(@RequestParam("detail_task") int taskid) {
         taskService.findTaskByTaskid(taskid);
         System.out.println(taskid);
         return "redirect:/teacher/t_TaskShow";
@@ -178,8 +178,8 @@ public class tController {
     /**
      * 筛选课题findtask
      */
-    @RequestMapping(value = {"/findtask"}, method = {RequestMethod.POST, RequestMethod.GET})
-    public String t_findTask(@ModelAttribute Task task, Model model,
+    @RequestMapping(value = {"/t_FindTask"}, method = {RequestMethod.POST, RequestMethod.GET})
+    public String t_FindTask(@ModelAttribute Task task, Model model,
                              @RequestParam("tasktypeSelection") String task_type,
                              @RequestParam ("taskstateSelection") String task_state,
 //                             @PathVariable("tasktypeSelection") String searchtask_type,
@@ -226,13 +226,13 @@ public class tController {
     /**
      * 教师新课题提交
      */
-    @GetMapping("/addtask")
-    public String addtask() {
+    @GetMapping("/t_AddTask")
+    public String t_AddTask() {
         return "t_AddTask";
     }
 
-    @PostMapping("/addtask")
-    public String addnewtask(
+    @PostMapping("/t_AddTask")
+    public String t_AddNewTask(
             @RequestParam("taskid") Integer taskid,
             @RequestParam("taskname") String taskname,
             @RequestParam("tasktype") String taskType,

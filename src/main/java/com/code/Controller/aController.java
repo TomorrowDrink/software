@@ -224,8 +224,8 @@ public class aController {
     /***
      * 删除课题记录
      */
-    @PostMapping("/deltask")
-    public String delTaskData(@RequestParam("del_taskid")String taskid){
+    @PostMapping("/a_TaskDelete")
+    public String a_TaskDelete(@RequestParam("del_taskid")String taskid){
         taskService.delTask(taskid);
         System.out.println(taskid);
         return "redirect:/admin/a_TaskShow";
@@ -234,8 +234,8 @@ public class aController {
     /**
      * 审核通过课题
      */
-    @PostMapping("/passtask")
-    public  String passTaskData(@RequestParam("pass_taskid") String passtaskid){
+    @PostMapping("/a_TaskPass")
+    public  String a_TaskPass(@RequestParam("pass_taskid") String passtaskid){
         taskService.updataTaskState(passtaskid);
         System.out.println(passtaskid);
         return "redirect:/admin/a_TaskReview";
@@ -250,8 +250,8 @@ public class aController {
     /**
      * 查询课题详细
      */
-    @PostMapping("/showdetail")
-    public String checkTask(@RequestParam("detail_task")int  taskid){
+    @PostMapping("/a_ShowTaskDetail")
+    public String a_ShowTaskDetail(@RequestParam("detail_task")int  taskid){
         taskService.findTaskByTaskid(taskid);
         System.out.println(taskid);
         return "redirect:/admin/a_TaskShow";
@@ -260,7 +260,7 @@ public class aController {
     /**
      * 审核界面筛选课题findtask
      */
-    @RequestMapping(value = {"/findtaskR"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = {"/a_FindTaskR"}, method = {RequestMethod.POST, RequestMethod.GET})
     public String t_findTaskR(@ModelAttribute Task task, Model model,
                              @RequestParam("tasktypeSelection") String task_type
                               ) {
@@ -285,9 +285,12 @@ public class aController {
         return "a_TaskReview";
     }
 
+    /**
+     * 课题管理界面课题查询
+     */
 
-    @RequestMapping(value = {"/findtask"}, method = {RequestMethod.POST, RequestMethod.GET})
-    public String t_findTask(@ModelAttribute Task task, Model model,
+    @RequestMapping(value = {"/a_FindTask"}, method = {RequestMethod.POST, RequestMethod.GET})
+    public String a_TaskFind(@ModelAttribute Task task, Model model,
                              @RequestParam("tasktypeSelection") String task_type,
                              @RequestParam("taskstateSelection") String task_state
                              ) {

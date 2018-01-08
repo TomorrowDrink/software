@@ -39,7 +39,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <form  th:action="@{/admin/findtaskR}" action="/admin/findtaskR"  method="post">
+                <form  th:action="@{/admin/a_FindTaskR}" action="/admin/a_FindTaskR"  method="post">
                     <div class="form-inline">
                         <label>课题类型：</label>
                         <select id="tasktypeSelection" name="tasktypeSelection"class="form-control" >
@@ -74,7 +74,7 @@
                             </div>
                             <div class="modal-body">
                                 <h7>您确定该课题通过审核吗？</h7>
-                                <form th:action="@{/admin/passtask}" action="/admin/passtask"  method="post">
+                                <form th:action="@{/admin/a_TaskPass}" action="/admin/a_TaskPass"  method="post">
                                     <input type="hidden" id="del_taskid" name="pass_taskid" value="pass_taskid"/>
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
                                     <button type="submit" class="btn btn-primary" >确认</button>
@@ -97,7 +97,7 @@
                                 <h7 class="modal-title" id="myModalLabel">查看课题详情</h7>
                             </div>
                             <div class="modal-body">
-                                <form th:action="@{/admin/showdetail}" action="/admin/showdetail"  method="post">
+                                <form th:action="@{/admin/a_ShowTaskDetail}" action="/admin/a_ShowTaskDetail"  method="post">
                                     <input type="hidden" id="edit_task" name="edit_task" value=""/>
                                     <div class="form-group form-inline">
                                         <label for="show_taskid">课题编号</label>
@@ -136,7 +136,7 @@
 
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
 
-                                    <button type="submit" class="btn btn-primary" >确认</button>
+                                    <!--<button type="submit" class="btn btn-primary" >确认</button>-->
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -144,6 +144,7 @@
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
+
                 <center>
                     <table id="mainTable" border="1" data-toggle="table" class="bordered">
                         <tr>

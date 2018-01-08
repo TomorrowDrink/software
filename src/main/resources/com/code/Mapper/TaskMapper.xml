@@ -46,7 +46,7 @@
     <!--</select>-->
 
 
-    <select id="findByTutorname" parameterType="String" resultMap="TaskMap">
+    <select  id="findByTutorname" parameterType="String" resultMap="TaskMap">
          select t.*  from task t
         where tutorname= #{tutorname}
     </select>
