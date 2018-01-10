@@ -226,7 +226,7 @@ public class sController {
                 String url =  projects.get(0).getHttpUrlToRepo();/*http下载地址*/
                 gitLabApi.unsudo();
 
-                String localPath = "/home/alison/Documents/allgit/"+ projects.get(0).getName();
+                String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" +projects.get(0).getName();
 
                 File file = new File(localPath);
 
@@ -296,6 +296,7 @@ public class sController {
                     String error = errorStream.toString("utf-8");
                     System.out.println(error);
 
+                    model.addAttribute("newLineChar", '\n');
                     model.addAttribute("out",out);
                 } catch (IOException e) {
                     e.printStackTrace();

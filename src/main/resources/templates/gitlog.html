@@ -18,7 +18,7 @@
     <div th:if="${flag == '1'}">
 
         <div class="jumbotron">
-            <p th:text="${out}"></p>
+            <p th:utext="${#strings.replace(out, newLineChar, '&lt;br /&gt;')}"></p>
         </div>
     </div>
 
