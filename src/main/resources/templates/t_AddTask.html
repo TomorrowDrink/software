@@ -13,6 +13,7 @@
     <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
     <title>AddTask</title>
 </head>
+
 <body>
 
 <style>
@@ -21,6 +22,7 @@
         padding-top: 70px;
     }
 </style>
+
 <div th:include="t-head :: t-head"></div>
 
 
@@ -33,7 +35,7 @@
 </div>
 
 <div class="container" >
-    <form  th:action="@{/teacher/addtask}" action="/teacher/addtask"  method="post">
+    <form  th:action="@{/teacher/t_AddTask}" action="/teacher/t_AddTask"  method="post">
     <h6 class="form-signin-heading">提交课题</h6>
 
         <div class="login-form">
@@ -47,20 +49,30 @@
                 <label class="login-field-icon " for="taskname"></label>
             </div>
 
+
             <div class="form-group">
-                <input type="text" class="form-control login-field" name="tasktype" placeholder="课题类型" id="tasktype" required/>
-                <label class="login-field-icon " for="tasktype"></label>
+                <select id="tasktype" name="tasktype"class="form-control" >
+                    <option value="软件设计"selected>软件设计</option>
+                    <option value="系统开发">系统开发</option>
+                    <option value="算法设计">算法设计</option>
+                </select>
             </div>
+
+
+            <!--<div class="form-group">-->
+                <!--<input type="text" class="form-control login-field" name="tasktype" placeholder="课题类型" id="tasktype" required/>-->
+                <!--<label class="login-field-icon " for="tasktype"></label>-->
+            <!--</div>-->
 
             <div class="form-group">
                 <input type="text" class="form-control login-field" name="taskrate" placeholder="课题等级" id="taskrate" required/>
                 <label class="login-field-icon " for="taskrate"></label>
             </div>
 
-            <div class="form-group">
-                <input type="text" class="form-control login-field" name="tutorname" placeholder="提交人" id="tutorname" required/>
-                <label class="login-field-icon " for="tutorname"></label>
-            </div>
+            <!--<div class="form-group">-->
+                <!--<input type="text" class="form-control login-field" name="tutorname" placeholder="提交人" id="tutorname" required/>-->
+                <!--<label class="login-field-icon " for="tutorname"></label>-->
+            <!--</div>-->
 
             <div class="form-group">
                 <input type="text" class="form-control login-field" name="taskmaxchoose" placeholder="最大选择人数" id="taskmaxchoose" required/>
@@ -72,14 +84,6 @@
                 <label class="login-field-icon " for="taskdescrib"></label>
             </div>
 
-<!--
-            <div class="form-group">
-                <label class="checkbox" for="checkbox1">
-                    <input type="checkbox" data-toggle="checkbox" name="isAdmin" value="1" id="checkbox1" required>
-                    添加为管理员
-                </label>
-            </div>
-            -->
             <div class="form-group" style="text-align: center">
                 <button type="submit" class="btn btn-primary btn-lg">提交</button>
           </div>

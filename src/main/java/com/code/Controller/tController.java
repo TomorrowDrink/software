@@ -29,6 +29,7 @@ public class tController {
     @Autowired
     private UserService userService;
 
+
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("")
     public String teacher() {
@@ -92,8 +93,10 @@ public class tController {
         list3 = (List<PaperInfo>) paperInfoService.findPaperInfoByTaskAndState(checkValue1, checkValue2);
         JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list3);
         return response;
+
         /*
         * 1.html界面复用思路
+        * 2.页面垂直滚动条不见了
         * 3.select option动态获取
         * 4.文献综述评阅界面UI设计
         * 5.review界面还没获取用户信息 没和list界面连接起来
@@ -101,91 +104,162 @@ public class tController {
         * 7.review界面PDF的插件都无法显示？ 暂时用了iframe
         * 8.静态资源拦截造成pdf无法显示  pdf放在templates下404  路径变为../file/1.pdf就找得到？
         * 9.把操作data的函数移到java文件中调用
-        * 10.ajax+jq+jqgrid
         * */
     }
 
-    /**
-     * 教师课题查询
-     */
     @Autowired
     private TaskService taskService;
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @RequestMapping("/show")
-    public String TaskShow() {
-        return "TaskShow";
+    /**
+     * 教师课题显示
+     */
+    @RequestMapping(value = {"/t_TaskShow"}, method = {RequestMethod.POST, RequestMethod.GET})
+    public String t_TaskShow(@ModelAttribute Task task, Model model,
+                             Principal principle) {
+        int tutor_id = new Integer(principle.getName()).intValue();
+        System.out.println(tutor_id);
+        List<Task> list = taskService.findTaskBytutorid(tutor_id);
+        model.addAttribute("initdata", list);
+        return "t_TaskShow";
     }
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @ResponseBody
-    @RequestMapping("/taskdata")
-    public JsonResponse<Task> getTaskData() {
-        Object username = SecurityContextHolder.getContext().getAuthentication().getName();
-        int tutorid = Integer.parseInt(String.valueOf(username));
-        System.out.println(tutorid);
-        User user = userService.findUserById(tutorid);
-        List<Task> list = taskService.findTaskByTutorname(user.getName());
-        JsonResponse<Task> response = new JsonResponse<Task>(list);
-        return response;
+    /**
+     * 编辑课题edittask
+     */
+
+    @PostMapping("/t_TaskEdit")
+    public String t_TaskEdit(
+            @RequestParam("edit_taskid") int taskid,
+            @RequestParam("edit_taskname") String taskname,
+            @RequestParam("edit_tutorname") String tutorname,
+            @RequestParam("edit_tasktype") String tasktype,
+            @RequestParam("edit_taskrate") String taskrate,
+            @RequestParam("edit_taskmaxchoose") int taskmaxchoose,
+            @RequestParam("edit_taskdescrib") String taskdescrib,
+            Principal principal) {
+        int tutorid = new Integer(principal.getName());
+        System.out.println("编辑" + tutorid + "\n" + taskid);
+
+        System.out.println(taskid + taskname + tutorname + tasktype + taskrate + taskmaxchoose + taskdescrib + tutorid);
+        Task task = new Task();
+        task.setTaskid(taskid);
+        task.setTaskname(taskname);
+        task.setTaskrate(taskrate);
+        task.setTasktype(tasktype);
+        task.setTaskdescrib(taskdescrib);
+        task.setTaskmaxchoose(taskmaxchoose);
+        task.setTutorname(tutorname);
+        task.setTutorid(tutorid);
+        task.setTaskstate("待审核");
+        taskService.updataTask(task);
+        return "redirect:/teacher/t_TaskShow";
     }
 
-    @ResponseBody
-    @RequestMapping("/searchtaskdata")
-    public JsonResponse<Task> getSearchTaskData() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String checkValue1 = request.getParameter("checkValue1");
-        String checkValue2 = request.getParameter("checkValue2");
-        //  String tutorname = request.getParameter("tutorname");
 
-        //  if (!tutorname.trim().equals(""))System.out.println(tutorname);
-        System.out.println(checkValue1);
-        System.out.println(checkValue2);
-
-        List<Task> list1, list2, list3;
-        list1 = (List<Task>) taskService.findTaskByTaskname(checkValue1);
-        list2 = (List<Task>) taskService.findTaskByTaskstate(checkValue2);
-//        list3 = (List<Task>) taskService.findTaskByTasknameAndstate(checkValue1, checkValue2);
-        JsonResponse<Task> response = new JsonResponse<Task>(list1);
-        JsonResponse<Task> response1 = new JsonResponse<Task>(list2);
-//        JsonResponse<Task> response2= new JsonResponse<Task>(list3);
-
-        return response;
+    /***
+     * 删除课题记录deltask
+     */
+    @PostMapping("/t_TaskDelete")
+    public String t_TaskDelete(@RequestParam("del_taskid") String taskid) {
+        taskService.delTask(taskid);
+        System.out.println(taskid);
+        return "redirect:/teacher/t_TaskShow";
     }
+
+    /**
+     * 查询课题详细
+     */
+    @PostMapping("/t_ShowTaskDetail")
+    public String t_ShowTaskDetail(@RequestParam("detail_task") int taskid) {
+        taskService.findTaskByTaskid(taskid);
+        System.out.println(taskid);
+        return "redirect:/teacher/t_TaskShow";
+    }
+
+    /**
+     * 筛选课题findtask
+     */
+    @RequestMapping(value = {"/t_FindTask"}, method = {RequestMethod.POST, RequestMethod.GET})
+    public String t_FindTask(@ModelAttribute Task task, Model model,
+                             @RequestParam("tasktypeSelection") String task_type,
+                             @RequestParam ("taskstateSelection") String task_state,
+//                             @PathVariable("tasktypeSelection") String searchtask_type,
+                             Principal principle) {
+        int tutor_id = new Integer(principle.getName()).intValue();
+
+        List<Task> list;
+
+        if (task_type.equals("全部")&& !task_state.equals("全部")){
+            list =taskService.findstateTaskFor(tutor_id,task_state);
+        }else if (task_state.equals("全部")&&!task_type.equals("全部")){
+            list =taskService.findtypeTaskFor(tutor_id,task_type);
+        }else if(task_state.equals("全部")&& task_type.equals("全部")){
+            System.out.println("全部");
+            list = taskService.findTaskBytutorid(tutor_id);
+        }else{
+            list = taskService.findTaskFor(tutor_id,task_type,task_state);
+        }
+        if (task_type.equals("全部")){
+            model.addAttribute("tasktypeSelection_A1",task_type);
+        }else if (task_type.equals("系统设计")){
+            model.addAttribute("tasktypeSelection_A2",task_type);
+        }else if (task_type.equals("算法设计")){
+            model.addAttribute("tasktypeSelection_A3",task_type);
+        }else {
+            model.addAttribute("tasktypeSelection_A4",task_type);
+        }
+
+        if (task_state.equals("全部")){
+            model.addAttribute("taskstateSelection_B1",task_type);
+        }else if (task_state.equals("待审核")){
+            model.addAttribute("taskstateSelection_B2",task_type);
+        }else if (task_state.equals("已通过")){
+            model.addAttribute("taskstateSelection_B3",task_type);
+        }else{
+            model.addAttribute("taskstateSelection_B4",task_type);
+        }
+
+        model.addAttribute("initdata", list);
+        return "t_TaskShow";
+    }
+
 
     /**
      * 教师新课题提交
      */
-    @GetMapping("/addtask")
-    public String addtask() {
-        return "AddTask";
+    @GetMapping("/t_AddTask")
+    public String t_AddTask() {
+        return "t_AddTask";
     }
 
-    @PostMapping("/addtask")
-    public String addnewtask(
+    @PostMapping("/t_AddTask")
+    public String t_AddNewTask(
             @RequestParam("taskid") Integer taskid,
             @RequestParam("taskname") String taskname,
             @RequestParam("tasktype") String taskType,
             @RequestParam("taskrate") String taskrate,
             @RequestParam("taskdescrib") String taskdecrib,
-            @RequestParam("tutorname") String tutorname,
-            @RequestParam("taskmaxchoose") Integer taskmaxchoose
-//          @RequestParam("taskstate") String taskstate
-    ){
+            @RequestParam("taskmaxchoose") Integer taskmaxchoose,
+            Principal principal) {
 
+        User user =userService.findUserById(new Integer(principal.getName()));
+        String tutorname=user.getName();
         Task task = new Task();
+        int tutorid =new Integer(principal.getName());
         task.setTaskid(taskid);
         task.setTaskname(taskname);
         task.setTaskdescrib(taskdecrib);
         task.setTasktype(taskType);
         task.setTaskrate(taskrate);
         task.setTaskmaxchoose(taskmaxchoose);
+        task.setTutorid(tutorid);
         task.setTutorname(tutorname);
         task.setTaskstate("待审核");
+        System.out.println("看一看"+tutorid);
 
         taskService.insertTask(task);
 
-        return "redirect:/teacher";
+        return "redirect:/teacher/t_TaskShow";
     }
 
 
