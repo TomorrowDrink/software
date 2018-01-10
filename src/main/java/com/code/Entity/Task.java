@@ -11,6 +11,7 @@ public class Task implements Serializable {
     private String tasktype;
     private int taskid;
     private String taskstate;
+    private int tutorid;
 
     public String getTaskname() {
         return taskname;
@@ -62,12 +63,24 @@ public class Task implements Serializable {
     public void setTaskid(int taskid) {
         this.taskid = taskid;
     }
+
+    public int getTaskid() {
+        return taskid;
+    }
     public String getTaskstate() {
         return taskstate;
     }
 
     public void setTaskstate(String taskstate) {
         this.taskstate = taskstate;
+    }
+
+    public int getTutorid() {
+        return tutorid;
+    }
+
+    public void setTutorid(int tutorid) {
+        this.tutorid = tutorid;
     }
 
     public Task(){}

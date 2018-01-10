@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>s_MyTask</title>
+    <link th:href="@{/css/ui.jqgrid.css}" href="../static/css/ui.jqgrid.css" rel="stylesheet">
+    <link th:href="@{/css/ugly-table.css}" href="../static/css/ugly-table.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+    <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+    <!--<link th:href="@{/css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">-->
+    <!--<script th:src="@{/js/jquery.jqGrid.min.js}" src="../js/jquery.jqGrid.min.js"></script>-->
+    <!--<script th:src="@{/js/jquery-3.1.1.min.js}" src="../js/jquery-3.1.1.min.js"></script>-->
+    <!--<script th:src="@{/js/i18n/grid.locale-en.js}" src="../js/i18n/grid.locale-en.js"></script>-->
+</head>
+<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+<body th:inline="text">
+
+<style>
+    body {
+        min-height: 2000px;
+        padding-top: 70px;
+    }
+    .pageContent{
+        width: auto;
+        height: 800px;
+    }
+</style>
+<!--顶部导航栏-->
+<div th:include="s-head :: s-head"></div>
+<!--中间主体-->
+<div class="pageContainer">
+    <!--正文内容-->
+    <div class="pageContent">
+        <h4>我的课题</h4>
+        <p sec:authentication="name"></p>
+        <div class="panel panel-default">
+
+            <!--题筛选栏-->
+            <!--<div class="panel-heading">-->
+                <!--<div class="form-inline">-->
+                    <!--<label>课题名称：</label>-->
+                    <!--<select id="tasknameSelection" name="TasknameSelection"class="form-control" onclick="getTasknames()">-->
+                        <!--<option value="all1"selected>&#45;&#45;全部&#45;&#45;</option>-->
+                        <!--<option value="毕业设计管理系统" selected>毕业设计管理系统</option>-->
+                        <!--<option value="教学管理日历">教学管理日历</option>-->
+                        <!--<option value="学校综合管理系统">学校综合管理系统</option>-->
+                        <!--<option value="企业管理信息系统">企业管理信息系统</option>-->
+                        <!--<option value="机关办公自动化系统">机关办公自动化系统</option>-->
+                        <!--<option value="交通管理系统">交通管理系统</option>-->
+                    <!--</select>-->
+                    <!--<label>课题类型：</label>-->
+                    <!--<select id="typeSelection" name="typeSelection"class="form-control" onclick="getStates()">-->
+                        <!--<option value="all2"selected>&#45;&#45;全部&#45;&#45;</option>-->
+                        <!--<option value="系统设计" selected>系统设计</option>-->
+                        <!--<option value="软件开发">软件开发</option>-->
+                    <!--</select>-->
+                    <!--<button  type="button" id="find_btn" class="btn btn-primary" onclick="find()">查询</button>-->
+                <!--</div>-->
+            <!--</div>-->
+
+
+            <div>
+                <!--删除模态框-->
+                <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">×
+                                </button>
+                                <h7 class="modal-title" id="myModalLabel">删除记录</h7>
+                            </div>
+                            <div class="modal-body">
+                                <h7>您确定要取消该选课吗？</h7>
+                                <form th:action="@{/student/del_MyTask}" action="/student/del_MyTask"  method="post">
+                                    <input type="hidden" id="del_taskid" name="del_taskid" value="del_taskid"/>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary" >确认</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+
+                <!--查看详情模态框-->
+                <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">×
+                                </button>
+                                <h7 class="modal-title" id="myModalLabel">编辑课题</h7>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{/admin/checktask}" action="/admin/checktask"  method="post">
+                                    <input type="hidden" id="edit_task" name="edit_task" value="stu_myTaskShow"/>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_taskid">课题编号</label>
+                                        <input type="text" id ="show_taskid" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_taskname">课题名称</label>
+                                        <input type="text" id ="show_taskname" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_tutorname">课题导师</label>
+                                        <input type="text" id ="show_tutorname" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_tasktype">课题类型</label>
+                                        <input type="text" id ="show_tasktype" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_taskrate">课题级别</label>
+                                        <input type="text" id ="show_taskrate" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_taskdescrib">课题描述</label>
+                                        <input type="text" id ="show_taskdescrib" value="" readonly="readonly">
+                                    </div>
+
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+
+                <!--主表格-->
+                <center>
+                    <table id="mainTable" border="1" data-toggle="table" class="bordered">
+                        <tr>
+                            <!--<th>ID</th>-->
+                            <th>课题编号</th>
+                            <th>课题名称</th>
+                            <th>导师姓名</th>
+                            <th>查看</th>
+                            <th>删除</th>
+                        </tr>
+                        <tr id ="task_tr" th:each="task,list:${initdata}">
+                            <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                            <td id="table_taskid" th:text="${task.taskid}" class="table_taskid" ></td>
+                            <td id="table_taskname" th:text="${task.taskname}"></td>
+                            <td id="table_tutorname" th:text="${task.tutorname}"></td>
+                            <td style="display:none" id="table_tasktype" th:text="${task.tasktype}"></td>
+                            <td style="display:none" id="table_taskrate" th:text="${task.taskrate}"></td>
+                            <td style="display:none" id="table_taskdescrib" th:text="${task.taskdescrib}"></td>
+                            <td style="display:none" id="table_taskmaxchoose" th:text="${task.taskmaxchoose}"></td>
+                            <td><button id="edit" class='btn btn-link' data-toggle='modal' data-target='#showModal' onclick="show(this)">查看详情</button></td>
+                            <td><button id="delete" class='btn btn-link'  data-toggle='modal' data-target='#delModal' onclick="del(this)" >取消选课</button></td>
+                        </tr>
+                    </table>
+                </center>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--底部页脚部分 -->
+<div class="footer">
+</div>
+</div>
+
+<script type="text/javascript">
+    $(function () { $('#myModal').modal({
+        keyboard: true
+    })});
+
+    function del(obj) {
+        task = $(obj).parents("tr").find("#table_taskid").text();
+        document.getElementById("del_taskid").value= task;
+    }
+
+    function show(obj) {
+        document.getElementById("edit_task").value=$(obj).parents("tr").find("#table_taskid").text();
+        document.getElementById("show_taskid").value=$(obj).parents("tr").find("#table_taskid").text();
+        document.getElementById("show_taskname").value=$(obj).parents("tr").find("#table_taskname").text();
+        document.getElementById("show_tasktype").value=$(obj).parents("tr").find("#table_tasktype").text();
+        document.getElementById("show_taskrate").value=$(obj).parents("tr").find("#table_taskrate").text();
+        document.getElementById("show_tutorname").value=$(obj).parents("tr").find("#table_tutorname").text();
+        document.getElementById("show_taskdescrib").value=$(obj).parents("tr").find("#table_taskdescrib").text();
+
+    }
+//    function find() {
+//        taskstate =$("stateSelection").val();
+//
+//        $.ajax({
+//            type:"post",
+//            url:"findtaskdata",
+//            data:$("stateSelection").val()
+//        })
+//    }
+//
+//
+    $(function(){
+        $(window).resize(function(){
+            $("#aTable").setGridWidth($(window).width());
+        });
+    });
+</script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
+</body>
+</html>
+<!--<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>-->
+<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>

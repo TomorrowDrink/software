@@ -58,7 +58,14 @@ public class tController {
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("/reviewshow")
-    public String review(){
+    public String review(@RequestParam("stuname") String stuname,
+                         @RequestParam("taskname") String taskname,
+                         @RequestParam("type") String type,
+                         Model model){
+        model.addAttribute("stuname",stuname);
+        model.addAttribute("taskname",taskname);
+        model.addAttribute("type",type);
+        model.addAttribute("path","/static/file/sample.pdf");
         return "review";
     }
 
@@ -87,7 +94,6 @@ public class tController {
         }
         return  "literatureReview";
     }
-
 
     /**
      * 教师课题查询

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>文献综述评阅列表</title>
+    <title>开题报告评阅列表</title>
     <link th:href="@{/css/ugly-table.css}" href="../static/css/ugly-table.css" rel="stylesheet">
     <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
@@ -67,7 +67,7 @@
                             <th>状态</th>
                             <th>交叉导师</th>
                             <th>编辑</th>
-                            <!--<th>下载</th>-->
+                            <th>下载</th>
                             <!--<th>删除</th>-->
                         </tr>
                         <tr th:each="paperinfo,list:${initdata}">
@@ -76,15 +76,8 @@
                             <td id="table_stuname" th:text="${paperinfo.stuname}"></td>
                             <td id="table_state" th:text="${paperinfo.state}"></td>
                             <td id="table_tutorname" th:text="${paperinfo.crosstutor}">未安排</td>
-                            <td>
-                                <form action="" th:action="@{/teacher/reviewshow}">
-                                    <input type="hidden" th:value="${paperinfo.stuname}"  name="stuname">
-                                    <input type="hidden" th:value="${paperinfo.taskname}" name="taskname">
-                                    <input type="hidden" th:value="文献综述" name="type">
-                                    <button type="submit" class="btn btn-primary" >编辑</button>
-                                </form>
-                            </td>
-                            <!--<td><button id="download" class='btn btn-link' data-toggle='modal'data-target='#downModal'>下载</button></td>-->
+                            <td><button id="edit" class='btn btn-link' data-toggle='modal' data-target='#editModal' onclick="edit(this)">编辑</button></td>
+                            <td><button id="download" class='btn btn-link' data-toggle='modal'data-target='#downModal'>下载</button></td>
                             <!--<td><button id="delete" class='btn btn-link' data-toggle='modal' data-target='#delModal' onclick="del(this)">删除</button></td>-->
                         </tr>
                     </table>
@@ -113,34 +106,34 @@
         document.getElementById("del_stuname").value= del_stuname;
     }
     /*更新记录*/
-//    function edit(obj){
-//        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
-//        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
-//        var be_state = $(obj).parents("tr").find("#table_state").text();
-//        var be_filename = $(obj).parents("tr").find("#table_filename").text();
-//        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
-//        document.getElementById("edit_taskname").innerHTML= be_taskname;
-//        document.getElementById("edit_stuname").innerHTML= be_stuname;
-//        document.getElementById("edit_stuname1").value= be_stuname;
-//        document.getElementById("edit_state").value= be_state;
-//        document.getElementById("edit_tutorname").value= be_tutorname;
-//        document.getElementById("edit_filename").innerHTML= be_filename;
-//    }
+    function edit(obj){
+        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        var be_state = $(obj).parents("tr").find("#table_state").text();
+        var be_filename = $(obj).parents("tr").find("#table_filename").text();
+        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+        document.getElementById("edit_taskname").innerHTML= be_taskname;
+        document.getElementById("edit_stuname").innerHTML= be_stuname;
+        document.getElementById("edit_stuname1").value= be_stuname;
+        document.getElementById("edit_state").value= be_state;
+        document.getElementById("edit_tutorname").value= be_tutorname;
+        document.getElementById("edit_filename").innerHTML= be_filename;
+    }
 
     /*查询记录*/
-//    function search(obj){
-//        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
-//        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
-//        var be_state = $(obj).parents("tr").find("#table_state").text();
-//        var be_filename = $(obj).parents("tr").find("#table_filename").text();
-//        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
-//        document.getElementById("edit_taskname").innerHTML= be_taskname;
-//        document.getElementById("edit_stuname").innerHTML= be_stuname;
-//        document.getElementById("edit_stuname1").value= be_stuname;
-//        document.getElementById("edit_state").value= be_state;
-//        document.getElementById("edit_tutorname").value= be_tutorname;
-//        document.getElementById("edit_filename").innerHTML= be_filename;
-//    }
+    function search(obj){
+        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        var be_state = $(obj).parents("tr").find("#table_state").text();
+        var be_filename = $(obj).parents("tr").find("#table_filename").text();
+        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+        document.getElementById("edit_taskname").innerHTML= be_taskname;
+        document.getElementById("edit_stuname").innerHTML= be_stuname;
+        document.getElementById("edit_stuname1").value= be_stuname;
+        document.getElementById("edit_state").value= be_state;
+        document.getElementById("edit_tutorname").value= be_tutorname;
+        document.getElementById("edit_filename").innerHTML= be_filename;
+    }
 </script>
 <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
 <script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>

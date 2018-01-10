@@ -2,11 +2,11 @@ package com.code.Controller;
 
 import com.code.Entity.User;
 import com.code.Service.UserService;
-import org.gitlab4j.api.GitLabApi;
+/*import org.gitlab4j.api.GitLabApi;
 import org.gitlab4j.api.GitLabApiException;
 import org.gitlab4j.api.models.Commit;
 import org.gitlab4j.api.models.Project;
-import org.gitlab4j.api.models.SshKey;
+import org.gitlab4j.api.models.SshKey;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -81,7 +81,7 @@ public class sController {
         return "newproject";
     }
 
-    @PostMapping("/newproject")
+    /*@PostMapping("/newproject")
     public String createproject(@RequestParam("pname") String pname,
                                 @RequestParam("pdes") String pdes,
                                 Principal principal){
@@ -187,7 +187,7 @@ public class sController {
             return "redirect:/student/ssh?error";
         }
         return "redirect:/student/ssh?success";
-    }
+    }*/
 
 
 
