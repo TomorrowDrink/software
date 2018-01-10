@@ -51,20 +51,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.security.Key;
 import java.io.IOException;
 import javax.net.ssl.SSLEngine;
 import javax.servlet.http.HttpSessionEvent;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.List;
@@ -418,7 +412,7 @@ public class sController {
                 String url =  projects.get(0).getHttpUrlToRepo();/*http下载地址*/
                 gitLabApi.unsudo();
 
-                String localPath = "/home/alison/Documents/allgit/"+ projects.get(0).getName();
+                String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + projects.get(0).getName();
 
                 File file = new File(localPath);
 
@@ -484,11 +478,24 @@ public class sController {
                 try {
                     executor.execute(cmdLine);
                     String out = outputStream.toString("utf-8");//获取程序外部程序执行结果
-                    System.out.println(out);
+//                    System.out.println(out);
                     String error = errorStream.toString("utf-8");
-                    System.out.println(error);
+//                    System.out.println(error);
 
+//                    String results = "";
+//                    Reader reader = new InputStreamReader(new ByteArrayInputStream(outputStream.toByteArray()));
+//                    BufferedReader r = new BufferedReader(reader);
+//                    String tmp = null;
+//                    while ((tmp = r.readLine()) != null)
+//                    {
+//                        results += tmp+"\n";
+//                    }
+//
+//
+//                    System.out.println(results);
+                    model.addAttribute("newLineChar", '\n');
                     model.addAttribute("out",out);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
