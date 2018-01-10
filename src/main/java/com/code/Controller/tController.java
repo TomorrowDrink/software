@@ -29,7 +29,6 @@ public class tController {
     @Autowired
     private UserService userService;
 
-
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("")
     public String teacher() {
@@ -40,73 +39,94 @@ public class tController {
     @Autowired
     private PaperInfoService paperInfoService;
 
+    /**
+     * 教师评阅界面
+     */
     @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @RequestMapping("/review")
-    public String literatureReview() {
-        return "LiteratureReview";
+    @GetMapping("/review")
+    public String literatureReview(Model model,Principal principal){
+
+        int tutorid = new Integer(principal.getName()).intValue();
+        List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"文献综述");
+        model.addAttribute("initdata",list);
+
+//        List<Task> task = taskService.findTaskByTaskstate("已通过");
+//        for(Task tasks:task){
+//            System.out.println(tasks.getTaskname());
+//        }
+//        model.addAttribute("tasklist",task);
+        return "literatureReview";
+    }
+
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @GetMapping("/ktreview")
+    public String ktreview(Model model,Principal principal){
+
+        int tutorid = new Integer(principal.getName()).intValue();
+        List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"开题报告");
+        model.addAttribute("initdata",list);
+        return "ktreview";
+    }
+
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @GetMapping("/lunwenreview")
+    public String lunwenreview(Model model,Principal principal){
+
+        int tutorid = new Integer(principal.getName()).intValue();
+        List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"论文");
+        model.addAttribute("initdata",list);
+        return "lunwenreview";
     }
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("/reviewshow")
-    public String review() {
+    public String review(@RequestParam("stuname") String stuname,
+                         @RequestParam("taskname") String taskname,
+                         @RequestParam("type") String type,
+                         Model model){
+        model.addAttribute("stuname",stuname);
+        model.addAttribute("taskname",taskname);
+        model.addAttribute("type",type);
+        model.addAttribute("path","/static/file/sample.pdf");
         return "review";
     }
 
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
-    @ResponseBody
-    @RequestMapping("/data")
-    public JsonResponse<PaperInfo> getData() {
-        /*HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
-                .getRequestAttributes()).getRequest();*/
-        /*System.out.println("Username:"
-                + securityContextImpl.getAuthentication().getName());*/
-        Object username = SecurityContextHolder.getContext().getAuthentication().getName();
-        int tutorid = Integer.parseInt(String.valueOf(username));
-        System.out.println(tutorid);
-        User user = userService.findUserById(tutorid);
-        /*List<PaperInfo> list = paperInfoService.getAll();*/
-        List<PaperInfo> list = paperInfoService.findPaperInfoByTutorname(user.getName());
-        JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list);
-        return response;
+    @RequestMapping("/test")
+    public String test(){
+        return "test";
     }
 
-    @ResponseBody
-    @RequestMapping("/searchdata")
-    public JsonResponse<PaperInfo> getSearchData() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
-                .getRequestAttributes()).getRequest();
-        String checkValue1 = request.getParameter("checkValue1");
-        String checkValue2 = request.getParameter("checkValue2");
-        String stuname = request.getParameter("stuname");
+    /**
+     *教师评阅状态查询
+     */
 
-        /*if(checkValue1.equals("all1")&&checkValue2.equals("all2")&&stuname.trim().equals("")){ getData(); }*/
-        /*else if(checkValue1.equals("all1")&&!checkValue2.equals("all2")&&!stuname.equals(null)){}*/
+    @RequestMapping("/selstate")
+    public String selState(@RequestParam ("stateSelection") String state,
+                           @RequestParam ("type") String type,
+                           Model model,Principal principal){
+        System.out.println("selectstate"+state);
+        List<PaperInfo> list ;
+        int tutorid = new Integer(principal.getName()).intValue();
+        list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
+        model.addAttribute("initdata", list);
 
-        if (!stuname.trim().equals("")) System.out.println(stuname);
-        System.out.println(checkValue1);
-        System.out.println(checkValue2);
-
-        List<PaperInfo> list1, list2, list3;
-        list1 = (List<PaperInfo>) paperInfoService.findPaperInfoById(checkValue1);
-        list2 = (List<PaperInfo>) paperInfoService.findPaperInfoByState(checkValue2);
-        list3 = (List<PaperInfo>) paperInfoService.findPaperInfoByTaskAndState(checkValue1, checkValue2);
-        JsonResponse<PaperInfo> response = new JsonResponse<PaperInfo>(list3);
-        return response;
-
-        /*
-        * 1.html界面复用思路
-        * 2.页面垂直滚动条不见了
-        * 3.select option动态获取
-        * 4.文献综述评阅界面UI设计
-        * 5.review界面还没获取用户信息 没和list界面连接起来
-        * 6.前台分页  page参数获取不到
-        * 7.review界面PDF的插件都无法显示？ 暂时用了iframe
-        * 8.静态资源拦截造成pdf无法显示  pdf放在templates下404  路径变为../file/1.pdf就找得到？
-        * 9.把操作data的函数移到java文件中调用
-        * */
+//        if (state.equals("allstate")){
+//            model.addAttribute("stateSelectionValue1",type);
+        /*}else if*/ if(state.equals("待评阅")){
+            model.addAttribute("stateSelectionValue2",type);
+        }else if (state.equals("已通过")){
+            model.addAttribute("stateSelectionValue3",type);
+        }else{
+            model.addAttribute("stateSelectionValue4",type);
+        }
+        return  "literatureReview";
     }
 
+    /**
+     * 教师课题查询
+     */
     @Autowired
     private TaskService taskService;
 
@@ -291,8 +311,9 @@ public class tController {
         taskService.updataTask(task);
         return "redirect:/teacher/show";
     }
-
-
+    /**
+     *教师交叉评阅列表
+     */
     @GetMapping("/tcross")
     public String tcross(Principal principal,
                          Model model) {

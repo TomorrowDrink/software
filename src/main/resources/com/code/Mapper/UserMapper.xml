@@ -3,7 +3,7 @@
 <mapper namespace="com.code.Mapper.UserMapper">
 
     <resultMap id="userMap" type="com.code.Entity.User">
-        <id property="id" column="user_id"/>
+        <id property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
         <result property="name" column="name"/>
@@ -15,6 +15,11 @@
     <select id="findByUsername" parameterType="String" resultMap="userMap">
          select u.*  from user u
         where username= #{username}
+    </select>
+
+    <select id="findByname" parameterType="String" resultMap="userMap">
+        select u.*  from user u
+        where name= #{name}
     </select>
 
     <select id="findById" parameterType="Integer" resultMap="userMap">

@@ -9,8 +9,11 @@ public class PaperInfo implements Serializable {
     private String stuname;
     private String state;
     private String tutorname;
+    private Integer tutorid;
     private String type;
     private String crosstutor;
+    private String ktgroup;
+    private String lwgroup;
 
     public String getType() {
         return type;
@@ -69,5 +72,29 @@ public class PaperInfo implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getTutorid() {
+        return tutorid;
+    }
+
+    public void setTutorid(Integer tutorid) {
+        this.tutorid = tutorid;
+    }
+
+    public String getKrgroup() {
+        return ktgroup;
+    }
+
+    public void setKrgroup(String ktgroup) {
+        this.ktgroup = ktgroup;
+    }
+
+    public String getLwgroup() {
+        return lwgroup;
+    }
+
+    public void setLwgroup(String lwgroup) {
+        this.lwgroup = lwgroup;
     }
 }

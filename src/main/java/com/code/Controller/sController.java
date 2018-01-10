@@ -124,7 +124,7 @@ public class sController {
     @Autowired
     private  StorageService storageService;
     /**
-     *学生选题显示
+     *学生课题显示
      */
     @RequestMapping(value = {"/s_TaskShow"},method = {RequestMethod.POST,RequestMethod.GET})
     public String s_TaskShow(@ModelAttribute Task task, Model model){
@@ -138,8 +138,8 @@ public class sController {
     @GetMapping("/taskdata")
     public JsonResponse<Task> get_sTaskData(Model model){
 //        List<Task> list = taskService.getAll();已通过
-        String taskstate ="已通过";
-        List<Task> list = taskService.findTaskByTaskstate(taskstate);
+        String taskrate ="已通过";
+        List<Task> list = taskService.findTaskByTaskstate(taskrate);
         JsonResponse<Task> response = new JsonResponse<Task>(list);
         return response;
     }
@@ -217,7 +217,7 @@ public class sController {
 
 
     /**
-     * 选题addtomy
+     * 选课
      */
     @PostMapping("/addtomy")
     public String addtomyTask(@RequestParam("addtomy_taskid") String taskid,
@@ -564,14 +564,10 @@ public class sController {
     @PostMapping("/renwushu")
     public String rhandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
-        storageService.storeAssignment(file,principal);
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
-        String dir = simpleDateFormat.format(date);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        storageService.store(file,principal);
         Filesss filesss1 = new Filesss();
         filesss1.setId(Integer.valueOf(principal.getName()));
-        filesss1.setFilename(dateFormat.format(date) + "_" + "assignment"+ principal.getName() + file.getOriginalFilename());
+        filesss1.setFilename(file.getOriginalFilename());
         filesss1.setAstype("Assignment");
         filesss1.setState("未审核");
         filesss1.setTaskname("rrr");

@@ -8,8 +8,12 @@
         <result property="stuname" column="stuname"/>
         <result property="state" column="state"/>
         <result property="tutorname" column="tutorname"/>
+        <result property="tutorid" column="tutorid"/>
         <result property="type" column="type"/>
         <result property="crosstutor" column="crosstutor"/>
+        <result property="ktgroup" column="ktgroup"/>
+        <result property="lwgroup" column="lwgroup"/>
+
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
             <!--<result column="rolename" property="rolename"/>-->
         <!--</collection>-->
@@ -45,15 +49,26 @@
         where state= #{state}
     </select>
 
+    <select id="findByStunameAndType" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where stuname= #{stuname} and type = #{type}
+    </select>
+
     <select id="getAll" parameterType="String" resultMap="paperInfoMap">
         select p.*  from paperinfo p
     </select>
 
-
+    <select id="getAllkt"  resultMap="paperInfoMap">
+        select p.*  from paperinfo p WHERE type = "开题报告"
+    </select>
 
 
     <select id="getAlllunwen"  resultMap="paperInfoMap">
         select p.*  from paperinfo p WHERE type = "论文"
+    </select>
+
+    <select id="getAllwx"  resultMap="paperInfoMap">
+        select p.*  from paperinfo p WHERE type = "文献综述"
     </select>
 
     <select id="findByTaskAndState" parameterType="String" resultMap="paperInfoMap">
@@ -61,12 +76,32 @@
         where state= #{state} and taskname= #{taskname}
     </select>
 
+    <select id="findByTutoridStateType" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where tutorid = #{tutorid,jdbcType=INTEGER} and state= #{state,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByTutoridAndType" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where tutorid = #{tutorid,jdbcType=INTEGER} and type = #{type,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByTasknameAndType" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where taskname= #{taskname} and type= #{type}
+    </select>
+
+    <select id="findByStateAndType" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where state= #{state} and type= #{type}
+    </select>
+
     <insert id="addRecord" parameterType="com.code.Entity.PaperInfo" >
         INSERT INTO
         paperinfo
-        (id,taskname,stuname,state,tutorname)
+        (id,taskname,stuname,state,tutorname,tutorid,type)
         VALUES
-        (#{id}, #{taskname}, #{stuname},#{state},#{tutorname})
+        (#{id}, #{taskname}, #{stuname},#{state},#{tutorname},#{tutorid},#{type})
     </insert>
 
     <select id="findByMaxId" parameterType="String" resultMap="paperInfoMap">
@@ -79,24 +114,33 @@
         where stuname=#{stuname}
     </delete>
 
-    <update id="editRecord" parameterType="String" >
+    <update id="editRecord">
         UPDATE
         paperinfo
         SET
-        state = #{newstate},
-        tutorname = #{newtutorname}
+        state = #{state,jdbcType=VARCHAR},
+        tutorname = #{tutorname,jdbcType=VARCHAR},
+        tutorid = #{tutorid,jdbcType=INTEGER}
         WHERE
-        stuname = #{stuname}
+        stuname = #{stuname,jdbcType=VARCHAR} and type=#{type,jdbcType=VARCHAR}
     </update>
 
-    <update id="editCrosstutor" parameterType="String" >
+    <update id="editCrosstutor">
         UPDATE
         paperinfo
         SET
-        crosstutor = #{tname}
+        crosstutor = #{crosstutor,jdbcType=VARCHAR}
         WHERE
-        stuname = #{stuname}
+        id= #{id,jdbcType=INTEGER}
     </update>
 
+    <update id="editKtgroup">
+        UPDATE
+        paperinfo
+        SET
+        ktgroup = #{ktgroup,jdbcType=VARCHAR}
+        WHERE
+        id= #{id,jdbcType=INTEGER}
+    </update>
 
 </mapper>

@@ -33,6 +33,31 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     }
 
     @Override
+    public List<PaperInfo> getAllkt() {
+        return paperInfoMapper.getAllkt();
+    }
+
+    @Override
+    public List<PaperInfo> getAllwx() {
+        return paperInfoMapper.getAllwx();
+    }
+
+    @Override
+    public List<PaperInfo> findPaperInfoByStunameAndType(String stuname, String type) {
+        return paperInfoMapper.findByStunameAndType(stuname,type);
+    }
+
+    @Override
+    public List<PaperInfo> findPaperInfoByTasknameAndType(String taskname, String type) {
+        return paperInfoMapper.findByTasknameAndType(taskname,type);
+    }
+
+    @Override
+    public List<PaperInfo> findPaperInfoByStateAndType(String state, String type) {
+        return paperInfoMapper.findByStateAndType(state,type);
+    }
+
+    @Override
     public List<PaperInfo> findPaperInfoById(String id) {
         return paperInfoMapper.findById(id);
     }
@@ -59,6 +84,17 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     public List<PaperInfo> findPaperInfoByTaskAndState(String taskname, String state) {
         return paperInfoMapper.findByTaskAndState(taskname,state);
     }
+
+    @Override
+    public List<PaperInfo> findPaperInfoByTutoridTypeState(int tutorid, String state,String type) {
+        return paperInfoMapper.findByTutoridStateType(tutorid,state,type);
+    }
+
+    @Override
+    public List<PaperInfo> findPaperInfoByTutoridAndType(int tutorid, String type) {
+        return paperInfoMapper.findByTutoridAndType(tutorid,type);
+    }
+
     @Override
     public List<PaperInfo> findPaperInfoByMaxId(){
         return paperInfoMapper.findByMaxId();
@@ -75,7 +111,17 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     }
 
     @Override
-    public void editRecord(String stuname, String newtutorname, String newstate) {
-        paperInfoMapper.editRecord(stuname,newtutorname,newstate);
+    public void editRecord(String state, String tutorname, int tutorid, String type, String stuname) {
+        paperInfoMapper.editRecord(state,tutorname,tutorid,type,stuname);
+    }
+
+    @Override
+    public void editCrosstutor(String crosstutor, int id) {
+        paperInfoMapper.editCrosstutor(crosstutor,id);
+    }
+
+    @Override
+    public void editKtgroup(String ktgroup, int id) {
+        paperInfoMapper.editKtgroup(ktgroup,id);
     }
 }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>crossproposal</title>
+    <title>开题论证分组</title>
     <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
     <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
@@ -17,15 +17,6 @@
     <div class="panel-heading">
         <!-- 增删改查 -->
         <div class="form-inline">
-            <!--<form th:action="@{/admin/seltype}" action="/admin/seltype" method="post">
-                <label for="typeSelection">文件类型：</label>
-                <select id="typeSelection" name="typeSelection"class="form-control">
-                    <option value="文献综述" th:selected="${typeSelectionValue1}">文献综述</option>
-                    <option value="开题报告" th:selected="${typeSelectionValue2}">开题报告</option>
-                    <option value="论文" th:selected="${typeSelectionValue3}">论文</option>
-                </select>
-                <button type="submit" class="btn btn-primary">查询</button>
-            </form>-->
             <form th:action="@{/admin/seltaskname}" action="/admin/seltaskname" method="post">
                 <label>课题名称：</label>
                 <select id="tasknameSelection" class="form-control" name="tasknameSelection" >
@@ -60,7 +51,8 @@
                 <th>文件类型</th>
                 <th>导师姓名</th>
                 <th>评阅人</th>
-                <th>更改评阅人</th>
+                <th>分组</th>
+                <th>开题分组</th>
             </tr>
             <tr th:each="paperinfo,list:${initdata}">
                 <!--<td id="table_id" th:text="${list.size+1}"></td>-->
@@ -70,15 +62,13 @@
                 <td  th:text="${paperinfo.state}"></td>
                 <td  th:text="${paperinfo.type}"></td>
                 <td  th:text="${paperinfo.tutorname}" ></td>
-                <td th:text="${paperinfo.crosstutor}">未安排</td>
+                <td  th:text="${paperinfo.crosstutor}">未安排</td>
+                <td  th:text="${paperinfo.crosstutor}"></td>
                 <td>
                     <div class="form-inline">
-                        <form action="" th:action="@{/admin/crossproposal}" method="post">
-                            <select id="tname" class="form-control" name="tname" >
-                                <option th:each="user,list:${teacher}" th:value="${user.username}" th:text="${user.name}"><!--<span ></span>-->
-                                </option>
-                            </select>
-                            <input type="hidden" name="pid" th:value="${paperinfo.id}">
+                        <form action="" th:action="@{/admin/editktgroup}" method="post">
+                            <input type="text" name="group" id="group" />
+                            <input type="hidden" name="pid" th:value="${paperinfo.id}"/>
                             <button type="submit" class="btn btn-primary" >编辑</button>
                         </form>
                     </div>
