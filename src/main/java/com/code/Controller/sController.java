@@ -162,7 +162,7 @@ public class sController {
     @PostMapping()
     @RequestMapping(value = {"/s_MyTask"},method = {RequestMethod.POST,RequestMethod.GET})
     public String s_TaskEdit(@ModelAttribute Task task, Model model,
-                            Principal principal ){
+                             Principal principal ){
         String stuid= principal.getName();
 
         int stu_id =new Integer(stuid).intValue();
@@ -194,6 +194,7 @@ public class sController {
         JsonResponse<Task> response = new JsonResponse<Task>(list);
         return response;
     }
+
 
 
     @GetMapping("/newproject")
@@ -251,10 +252,6 @@ public class sController {
         return "fanyi";
     }
 
-    @PostMapping("/newproject")
-    public String createproject(@RequestParam("pname") String pname,
-                                @RequestParam("pdes") String pdes,
-                                Principal principal){
     /**
      * 查询课题findtask
      */
@@ -283,6 +280,15 @@ public class sController {
         model.addAttribute("initdata", list);
         return "s_TaskShow";
     }
+
+    @PostMapping("/newproject")
+    public String createproject(@RequestParam("pname") String pname,
+                                @RequestParam("pdes") String pdes,
+                                Principal principal){
+    /**
+     * 查询课题findtask
+     */
+
 
         GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 

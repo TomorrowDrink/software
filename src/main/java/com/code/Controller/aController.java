@@ -96,7 +96,7 @@ public class aController {
 
         return "redirect:/admin";
     }
-*/
+
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/newteacher")
@@ -216,7 +216,7 @@ public class aController {
      *显示全部课题
      */
     @RequestMapping(value = {"/a_TaskShow"},method = {RequestMethod.POST,RequestMethod.GET})
-        public String a_TaskShow(@ModelAttribute Task task,Model model){
+    public String a_TaskShow(@ModelAttribute Task task,Model model){
         List<Task> list = taskService.getAll();
         model.addAttribute("initdata",list);
         return  "a_TaskShow";
@@ -231,26 +231,6 @@ public class aController {
         List<Task> list = taskService.findTaskByTaskstate("待审核");
         model.addAttribute("initdata",list);
         return  "a_TaskReview";
-    }
-
-    @GetMapping("/crossproposal")
-    public String crossproposal(Model model){
-        List<User> user = userService.findUsernameByRole(2);
-        for(User users:user){
-            System.out.println(users.getName());
-        }
-        List<PaperInfo> list = paperInfoService.getAlllunwen();
-        model.addAttribute("initdata",list);
-        model.addAttribute("teacher",user);
-        return "crossproposal";
-    }
-
-    @PostMapping("/crossproposal")
-    public String crosstutor(@RequestParam("tname") String tname,
-                             @RequestParam("pid") String pid){
-        System.out.println(tname +"------------------------"+ pid);
-        return "redirect:/admin/crossproposal";
-
     }
 
 
@@ -295,8 +275,8 @@ public class aController {
      */
     @RequestMapping(value = {"/a_FindTaskR"}, method = {RequestMethod.POST, RequestMethod.GET})
     public String t_findTaskR(@ModelAttribute Task task, Model model,
-                             @RequestParam("tasktypeSelection") String task_type
-                              ) {
+                              @RequestParam("tasktypeSelection") String task_type
+    ) {
         String task_state ="待审核";
 
         List<Task> list;
@@ -326,7 +306,7 @@ public class aController {
     public String a_TaskFind(@ModelAttribute Task task, Model model,
                              @RequestParam("tasktypeSelection") String task_type,
                              @RequestParam("taskstateSelection") String task_state
-                             ) {
+    ) {
 
         System.out.println(task_type+task_state);
 

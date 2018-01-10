@@ -20,22 +20,22 @@ public interface TaskService {
     public void updataTask(Task task);
     public void delTask(String taskid);
     public void s_delMyTask(String task_id);
-    public void chooseTask(int stu_id, String stu_name,int task_id,String task_name);
+    public void chooseTask(int stu_id, String stu_name, int task_id, String task_name);
 //    public List<Task_s> findTaskidBysid(int stu_id);
 //    public int findTaskidBysid(int stu_id);
     public List<Task_s> findbystuid(int stu_id);
-    public void updataTaskState(String passtaskid );
+    public void updataTaskState(String passtaskid);
 
     public  List<Task> findTaskBytutorid(int tutor_id);
 //    教师课题查询
-    public List<Task> findTaskFor(int tutor_id,String task_type,String task_state);
-    public List<Task> findtypeTaskFor(int tutor_id,String task_typ );
-    public List<Task> findstateTaskFor(int tutor_id,String task_state);
+    public List<Task> findTaskFor(int tutor_id, String task_type, String task_state);
+    public List<Task> findtypeTaskFor(int tutor_id, String task_typ);
+    public List<Task> findstateTaskFor(int tutor_id, String task_state);
     public List<Task> findmyallTaskFor(int tutor_id);
 //    学生课题查询
     public List<Task> s_findTask(String task_type);
 
-    public List<Task> a_findTaskByTypeState(String task_type,String task_state);
+    public List<Task> a_findTaskByTypeState(String task_type, String task_state);
     public List<Task> a_findTaskByType(String task_type);
     public List<Task> a_findTaskByState(String task_state);
 }
