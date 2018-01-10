@@ -14,6 +14,7 @@ public interface PaperInfoMapper {
 
     /*查询记录*/
     List<PaperInfo> getAll(/*@Param("page") *//*PageInfo page*/);
+
     List<PaperInfo> findByTaskname(@Param("taskname") String taskname);
     List<PaperInfo> findByTutorname(@Param("tutorname") String tutorname);
     List<PaperInfo> findByCrosstutor(@Param("crosstutor") String crosstutor);
@@ -25,6 +26,7 @@ public interface PaperInfoMapper {
     List<PaperInfo> findByStunameAndType(@Param("stuname") String stuname,@Param("type") String type);
     List<PaperInfo> findByTasknameAndType(@Param("taskname") String taskname,@Param("type") String type);
     List<PaperInfo> findByTutoridStateType(@Param("tutorid") Integer tutorid,@Param("state") String state,@Param("type") String type);
+    List<PaperInfo> findByTutoridAndType(@Param("tutorid") Integer tutorid,@Param("type") String type);
     List<PaperInfo> findByStateAndType(@Param("state") String state,@Param("type") String type);
 
     /*新增记录*/
@@ -34,6 +36,7 @@ public interface PaperInfoMapper {
     /*更新记录*/
     void editRecord(@Param("state") String state, @Param("tutorname") String tutorname,@Param("tutorid") Integer tutorid,@Param("type") String type, @Param("stuname") String stuname);
     void editCrosstutor(@Param("crosstutor") String crosstutor, @Param("id") int id);
+    void editKtgroup(@Param("ktgroup") String ktgroup, @Param("id") int id);
 
     List<PaperInfo> getAlllunwen();
     List<PaperInfo> getAllkt();

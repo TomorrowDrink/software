@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>文献综述评阅列表</title>
+    <link th:href="@{/css/ugly-table.css}" href="../static/css/ugly-table.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+    <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+    <link th:href="@{/css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">
+</head>
+
+<body th:inline="text">
+
+<style>
+    body {
+        min-height: 2000px;
+        padding-top: 70px;
+    }
+    .pageContent{
+        width: auto;
+        height: 800px;
+    }
+</style>
+<!--顶部导航栏-->
+<div th:include="t-head :: t-head"></div>
+<!--中间主体-->
+<div class="pageContainer">
+    <!--正文内容-->
+    <div class="pageContent">
+
+        <p sec:authentication="name"></p>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <!-- 增删改查 -->
+                <div class="form-inline">
+                    <form th:action="@{/teacher/selstate}" action="/teacher/selstate" method="post">
+                        <label for="stateSelection">评阅状态：</label>
+                        <select id="stateSelection" name="stateSelection"class="form-control">
+                            <!--<option value="allstate" th:selected="${stateSelectionValue1}">&#45;&#45;全部&#45;&#45;</option>-->
+                            <option value="待评阅" th:selected="${stateSelectionValue2}">待评阅</option>
+                            <option value="已通过" th:selected="${stateSelectionValue3}">已通过</option>
+                            <option value="未通过" th:selected="${stateSelectionValue4}">未通过</option>
+                            <input type="hidden" th:value="文献综述" name="type">
+                        </select>
+                        <button type="submit" class="btn btn-primary" onclick="search_state(obj)">查询</button>
+                    </form>
+                    <!--<form th:action="@{/admin/stuname}" action="/admin/state" method="post">-->
+                        <!--<label for="stunameSelection">学生姓名：</label>-->
+
+                        <!--<button type="submit" class="btn btn-primary" onclick="search_stuname(obj)">查询</button>-->
+                    <!--</form>-->
+
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="form-inline">
+                </div>
+            </div>
+            <div>
+                <center>
+                    <table id="mainTable" border="1" data-toggle="table" class="bordered">
+                        <tr>
+                            <!--<th>ID</th>-->
+                            <th>课题名称</th>
+                            <th>学生姓名</th>
+                            <th>状态</th>
+                            <!--<th>交叉导师</th>-->
+                            <th>编辑</th>
+                            <!--<th>下载</th>-->
+                            <!--<th>删除</th>-->
+                        </tr>
+                        <tr th:each="paperinfo,list:${initdata}">
+                            <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                            <td id="table_taskname" th:text="${paperinfo.taskname}"></td>
+                            <td id="table_stuname" th:text="${paperinfo.stuname}"></td>
+                            <td id="table_state" th:text="${paperinfo.state}"></td>
+                            <!--<td id="table_tutorname" th:text="${paperinfo.crosstutor}">未安排</td>-->
+                            <td>
+                                <form action="" th:action="@{/teacher/reviewshow}">
+                                    <input type="hidden" th:value="${paperinfo.stuname}"  name="stuname">
+                                    <input type="hidden" th:value="${paperinfo.taskname}" name="taskname">
+                                    <input type="hidden" th:value="文献综述" name="type">
+                                    <button type="submit" class="btn btn-link" >编辑</button>
+                                </form>
+                            </td>
+                            <!--<td><button id="download" class='btn btn-link' data-toggle='modal'data-target='#downModal'>下载</button></td>-->
+                            <!--<td><button id="delete" class='btn btn-link' data-toggle='modal' data-target='#delModal' onclick="del(this)">删除</button></td>-->
+                        </tr>
+                    </table>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--底部页脚部分 -->
+<div class="footer">
+    <!--<p class="text-center">
+    2017 &copy; 浙江工商大学
+    </p>-->
+</div>
+</div>
+
+<script type="text/javascript">
+    //    $(function () { $('#myModal').modal({
+    //        keyboard: true
+    //    })});
+    /*删除记录*/
+    function del(obj) {
+        var del_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        //alert(del_stuname);
+        document.getElementById("del_stuname").value= del_stuname;
+    }
+    /*更新记录*/
+//    function edit(obj){
+//        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+//        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+//        var be_state = $(obj).parents("tr").find("#table_state").text();
+//        var be_filename = $(obj).parents("tr").find("#table_filename").text();
+//        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+//        document.getElementById("edit_taskname").innerHTML= be_taskname;
+//        document.getElementById("edit_stuname").innerHTML= be_stuname;
+//        document.getElementById("edit_stuname1").value= be_stuname;
+//        document.getElementById("edit_state").value= be_state;
+//        document.getElementById("edit_tutorname").value= be_tutorname;
+//        document.getElementById("edit_filename").innerHTML= be_filename;
+//    }
+
+    /*查询记录*/
+//    function search(obj){
+//        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+//        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+//        var be_state = $(obj).parents("tr").find("#table_state").text();
+//        var be_filename = $(obj).parents("tr").find("#table_filename").text();
+//        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+//        document.getElementById("edit_taskname").innerHTML= be_taskname;
+//        document.getElementById("edit_stuname").innerHTML= be_stuname;
+//        document.getElementById("edit_stuname1").value= be_stuname;
+//        document.getElementById("edit_state").value= be_state;
+//        document.getElementById("edit_tutorname").value= be_tutorname;
+//        document.getElementById("edit_filename").innerHTML= be_filename;
+//    }
+</script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
+</body>
+</html>
+

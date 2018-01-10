@@ -11,6 +11,7 @@ import com.code.Service.UserService;
 import org.gitlab4j.api.GitLabApiException;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +20,12 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.sound.midi.Soundbank;
+import java.util.ArrayList;
 import java.util.List;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by alison on 17-10-29.
@@ -62,20 +67,20 @@ public class aController {
             User user = new User();
             password = new BCryptPasswordEncoder().encode(password);
 
-        user.setId(id);
-        user.setName(name);
-        user.setPassword(password);
-        user.setUsername(String.valueOf(id));
+            user.setId(id);
+            user.setName(name);
+            user.setPassword(password);
+            user.setUsername(String.valueOf(id));
 
-        userService.insertUser(user);
-        userService.insertSrole(id);
+            userService.insertUser(user);
+            userService.insertSrole(id);
 
      /*   org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
         String email = id + "@pop.zjgsu.edu.cn";
         gitUser.setEmail(email);
         gitUser.setName(name);
         gitUser.setUsername(String.valueOf(id));
-        
+
         GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "iUtVKCxSA2sSpDwsjtTE");
         try {
             gitLabApi.getUserApi().createUser(gitUser,"123456789",10);
@@ -123,7 +128,7 @@ public class aController {
      */
     @GetMapping("/areview")
     public String areview(@ModelAttribute PaperInfo paperInfo, Model model){
-        List<PaperInfo> list = paperInfoService.getAllkt();
+        List<PaperInfo> list = paperInfoService.getAll();
         model.addAttribute("initdata",list);
 
         List<Task> task = taskService.findTaskByTaskstate("已通过");
@@ -206,9 +211,6 @@ public class aController {
 
     }
 
-    /**
-     * 管理员查询论文记录
-     */
     @RequestMapping("/seltaskname")
     public String selTaskname(@RequestParam ("tasknameSelection") String taskname,
                               @RequestParam("ftype") String ftype,
@@ -286,6 +288,24 @@ public class aController {
         model.addAttribute("tasknameSelectionValue",taskname);
         return  "areview";
     }
+    /**
+     * 管理员课题操作
+     */
+    /**
+     *显示课题
+     */
+    @RequestMapping(value = {"/a_TaskShow"},method = {RequestMethod.POST,RequestMethod.GET})
+        public String a_TaskShow(@ModelAttribute Task task,Model model){
+        List<Task> list = taskService.getAll();
+        model.addAttribute("initdata",list);
+        return  "a_TaskShow";
+    }
+    @GetMapping("/taskdata")
+    public JsonResponse<Task> getTaskData(Model model){
+            List<Task> list = taskService.getAll();
+            JsonResponse<Task> response = new JsonResponse<Task>(list);
+            return response;
+    }
 
     @GetMapping("/crossproposal")
     public String crossproposal(Model model){
@@ -315,4 +335,56 @@ public class aController {
         return "redirect:/admin/crossproposal";
     }
 
+    /**
+     * 安排开题分组
+     */
+    @GetMapping("/ktgroup")
+    public String ktgroup(Model model){
+        List<PaperInfo> list = paperInfoService.getAllkt();
+        model.addAttribute("initdata",list);
+        List<Task> task = taskService.findTaskByTaskstate("已通过");
+        for(Task tasks:task){
+            System.out.println(tasks.getTaskname());
+        }
+        model.addAttribute("tasklist",task);
+
+        return "ktgroup";
+    }
+
+    @RequestMapping("/editktgroup")
+    public String editktgroup(@RequestParam("pid") String pid,
+                              @RequestParam("group") String group){
+        System.out.println("------------------------"+ pid);
+        System.out.println("---"+group+"---");
+        paperInfoService.editKtgroup(group,Integer.parseInt(pid));
+        return "redirect:/admin/ktgroup";
+    }
+
+
+    /***
+     * 删除课题记录
+     */
+    @PostMapping("/deltask")
+    public String delTaskData(@RequestParam("del_taskid")String taskid){
+        taskService.delTask(taskid);
+        System.out.println(taskid);
+        return "redirect:/admin/a_TaskShow";
+    }
+
+//    @ResponseBody
+//    @RequestMapping("/searchtaskdata")
+//    public JsonResponse<Task> getSearchTaskData(){
+//        HttpServletRequest request =((ServletRequestAttributes)RequestContextHolder
+//         .getRequestAttributes()).getRequest();
+//
+//    }
+    /**
+     * 查询课题详细
+     */
+    @PostMapping("/checktask")
+    public String checkTask(@RequestParam("edit_task")int  taskid){
+        taskService.findTaskByTaskid(taskid);
+        System.out.println(taskid);
+        return "redirect:/admin/a_TaskShow";
+    }
 }

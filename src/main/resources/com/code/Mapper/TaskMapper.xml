@@ -9,14 +9,15 @@
         <result property="tasktype" column="tasktype"/>
         <result property="taskrate" column="taskrate"/>
 
+
+
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
-        <!--<result column="rolename" property="rolename"/>-->
+            <!--<result column="rolename" property="rolename"/>-->
         <!--</collection>-->
     </resultMap>
 
-
     <select id="findByTaskname" parameterType="String" resultMap="TaskMap">
-        select t.*  from task t
+         select t.*  from task t
         where taskname= #{taskname}
     </select>
 
@@ -26,28 +27,32 @@
     </select>
 
     <select id="findByTaskid" parameterType="int" resultMap="TaskMap">
-        select t.*  from task t
+         select t.*  from task t
         where taskid= #{taskid}
     </select>
 
     <select id="findByTasktype" parameterType="String" resultMap="TaskMap">
-        select t.*  from task t
+         select t.*  from task t
         where tasktype= #{tasktype}
     </select>
 
     <select id="findByTaskrate" parameterType="String" resultMap="TaskMap">
-        select t.*  from task t
+         select t.*  from task t
         where taskrate= #{taskrate}
     </select>
 
     <!--<select id="findTaskidBysid" parameterType="int" resultMap="TaskMap">-->
-    <!--select taskid  from stu_task t-->
-    <!--where stuid= #{stu_id}-->
+          <!--select taskid  from stu_task t-->
+        <!--where stuid= #{stu_id}-->
     <!--</select>-->
 
+    <select id="findbystuid" parameterType="int" resultMap="TaskMap">
+        select t.*  from stu_task t
+        where stuid= #{stu_id}
+    </select>
 
     <select id="findByTutorname" parameterType="String" resultMap="TaskMap">
-        select t.*  from task t
+         select t.*  from task t
         where tutorname= #{tutorname}
     </select>
 
@@ -56,31 +61,22 @@
     </select>
 
     <!--<select id="findByTasknameAndstate" parameterType="String" resultMap="TaskMap">-->
-    <!--select .*  from task t-->
-    <!--where taskstate= #{taskstate} and taskname= #{taskname}-->
+        <!--select .*  from task t-->
+        <!--where taskstate= #{taskstate} and taskname= #{taskname}-->
     <!--</select>-->
 
     <insert id="insertTask" parameterType="com.code.Entity.Task">
         INSERT INTO
         task
-        (taskid,taskname,tasktype,taskrate,taskdescrib,tutorname,taskmaxchoose,taskstate,tutorid)
+        (taskid,taskname,tasktype,taskrate,taskdescrib,tutorname,taskmaxchoose,taskstate)
         VALUES
-        (#{taskid},#{taskname},#{tasktype},#{taskrate},#{taskdescrib},#{tutorname},#{taskmaxchoose},#{taskstate},#{tutorid})
-    </insert>
-
-    <insert id="chooseTask" parameterType="com.code.Entity.Task_s">
-        INSERT INTO
-        stu_task
-        (stuid,stuname,taskid,taskname)
-        VALUES
-        (#{stu_id},#{stu_name},#{task_id},#{task_name})
+        (#{taskid},#{taskname},#{tasktype},#{taskrate},#{taskdescrib},#{tutorname},#{taskmaxchoose},#{taskstate})
     </insert>
 
     <update id="updataTask" parameterType="com.code.Entity.Task">
         UPDATE
         task
         SET
-        tutorid=#{tutorid},
         taskname=#{taskname},
         tasktype=#{tasktype},
         taskrate=#{taskrate},
@@ -88,7 +84,6 @@
         tutorname=#{tutorname},
         taskmaxchoose=#{taskmaxchoose},
         taskstate=#{taskstate}
-
         WHERE
         taskid=#{taskid}
     </update>
@@ -98,72 +93,18 @@
         WHERE taskid =#{taskid}
     </delete>
 
-    <update id="updataTaskState" parameterType="String">
+    <update id="chooseTask" >
         UPDATE
-        task
+        stu_task
         SET
-        taskstate='已通过'
+        taskid=#{task_id},
+        stuname=#{stu_name},
+        taskname=#{task_name}
         WHERE
-        taskid=#{passtaskid}
+        stuid=#{stu_id}
+
+
     </update>
-
-    <!--<update id="chooseTask" >-->
-    <!--UPDATE-->
-    <!--stu_task-->
-    <!--SET-->
-    <!--taskid=#{task_id},-->
-    <!--stuname=#{stu_name},-->
-    <!--taskname=#{task_name}-->
-    <!--WHERE-->
-    <!--stuid=#{stu_id}-->
-    <!--</update>-->
-
-    <select id="findbystuid" parameterType="int" resultType="com.code.Entity.Task_s">
-        select t.*  from stu_task t
-        where stuid= #{stu_id}
-    </select>
-
-    <delete id="s_delMyTask" parameterType="String">
-        DELETE t.* FROM stu_task t
-        WHERE taskid=#{task_id}
-    </delete>
-
-    <select id="findTaskBytutorid" parameterType="int" resultMap="TaskMap">
-        SELECT  t.*  FROM  task t
-        WHERE
-        tutorid=#{tutor_id}
-    </select>
-
-    <select id="findTaskFor"  parameterType="com.code.Entity.Task" resultType="com.code.Entity.Task">
-        SELECT t.* FROM task t
-        WHERE
-        tutorid=#{tutor_id} AND tasktype=#{task_type} AND taskstate=#{task_state}
-    </select>
-
-    <select id="findtypeTaskFor" parameterType="com.code.Entity.Task" resultType="com.code.Entity.Task">
-        SELECT t.* FROM task t
-        WHERE
-        tutorid=#{tutor_id} AND tasktype=#{task_type}
-    </select>
-
-
-    <select id="findstateTaskFor" parameterType="com.code.Entity.Task" resultType="com.code.Entity.Task">
-        SELECT t.* FROM task t
-        WHERE
-        tutorid=#{tutor_id} AND taskstate=#{task_state}
-    </select>
-
-    <select id="findmyallTaskFor">
-        SELECT  t.* FROM task t
-        WHERE
-        tutorid=#{tutor_id}
-    </select>
-
-    <select id="s_findTask" parameterType="com.code.Entity.Task" resultType="com.code.Entity.Task">
-        SELECT t.* FROM  task t
-        WHERE
-        tasktype=#{task_type} AND taskstate='已通过'
-    </select>
 
 
 

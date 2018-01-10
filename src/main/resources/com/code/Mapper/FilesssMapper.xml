@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.Mapper.FilesssMapper">
+
+    <resultMap id="filesssMapper" type="com.code.Entity.Filesss">
+        <id property="id" column="id"/>
+        <result property="filename" column="filename"/>
+        <result property="astype" column="astype"/>
+        <result property="state" column="state"/>
+        <result property="taskname" column="taskname"/>
+    </resultMap>
+
+    <select id="findById" parameterType="Integer" resultMap="filesssMapper">
+        select f.*  from file f
+        where id= #{id}
+    </select>
+
+    <select id="findByFilename" parameterType="String" resultMap="filesssMapper">
+        select f.*  from file f
+        where filename= #{filename}
+    </select>
+
+    <select id="findByIdAndAstype" parameterType="com.code.Entity.Filesss" resultMap="filesssMapper">
+        select f.*  from file f
+        where astype= #{astype}
+        AND id= #{id}
+    </select>
+
+    <select id="findByAstype" parameterType="String" resultMap="filesssMapper">
+        select f.*  from file f
+        where astype= #{astype}
+    </select>
+    <select id="findByState" parameterType="String" resultMap="filesssMapper">
+        select f.*  from file f
+        where state= #{state}
+    </select>
+    <select id="findByTaskname" parameterType="String" resultMap="filesssMapper">
+        select f.*  from file f
+        where taskname= #{taskname}
+    </select>
+
+    <select id="findAll" parameterType="String" resultMap="filesssMapper">
+        select f.*  from file f
+    </select>
+
+    <!--<insert id="insert" parameterType="String" >-->
+        <!--INSERT INTO-->
+        <!--file-->
+        <!--(id,filename,astype,state,taskname)-->
+        <!--VALUES-->
+        <!--(1512190425,#{filename}, "mid","pass","wer")-->
+    <!--</insert>-->
+
+    <insert id="insert" parameterType="com.code.Entity.Filesss" >
+        INSERT INTO
+        file
+        (id,filename,astype,state,taskname)
+        VALUES
+        (#{id},#{filename}, #{astype},#{state},#{taskname})
+    </insert>
+
+</mapper>

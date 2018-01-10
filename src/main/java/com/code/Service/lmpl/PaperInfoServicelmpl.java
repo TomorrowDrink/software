@@ -21,6 +21,7 @@ public class PaperInfoServicelmpl implements PaperInfoService{
         return paperInfoMapper.getAll();
     }
 
+
     @Override
     public List<PaperInfo> findByCrosstutor(String crosstutor) {
         return paperInfoMapper.findByCrosstutor(crosstutor);
@@ -90,6 +91,11 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     }
 
     @Override
+    public List<PaperInfo> findPaperInfoByTutoridAndType(int tutorid, String type) {
+        return paperInfoMapper.findByTutoridAndType(tutorid,type);
+    }
+
+    @Override
     public List<PaperInfo> findPaperInfoByMaxId(){
         return paperInfoMapper.findByMaxId();
     }
@@ -114,5 +120,8 @@ public class PaperInfoServicelmpl implements PaperInfoService{
         paperInfoMapper.editCrosstutor(crosstutor,id);
     }
 
-
+    @Override
+    public void editKtgroup(String ktgroup, int id) {
+        paperInfoMapper.editKtgroup(ktgroup,id);
+    }
 }

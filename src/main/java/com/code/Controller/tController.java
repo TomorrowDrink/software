@@ -6,6 +6,7 @@ import com.code.Service.TaskService;
 import com.code.Service.UserService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -43,9 +44,10 @@ public class tController {
      */
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @GetMapping("/review")
-    public String literatureReview(Model model){
+    public String literatureReview(Model model,Principal principal){
 
-        List<PaperInfo> list = paperInfoService.getAllwx();
+        int tutorid = new Integer(principal.getName()).intValue();
+        List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"文献综述");
         model.addAttribute("initdata",list);
 
 //        List<Task> task = taskService.findTaskByTaskstate("已通过");
@@ -54,6 +56,26 @@ public class tController {
 //        }
 //        model.addAttribute("tasklist",task);
         return "literatureReview";
+    }
+
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @GetMapping("/ktreview")
+    public String ktreview(Model model,Principal principal){
+
+        int tutorid = new Integer(principal.getName()).intValue();
+        List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"开题报告");
+        model.addAttribute("initdata",list);
+        return "ktreview";
+    }
+
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @GetMapping("/lunwenreview")
+    public String lunwenreview(Model model,Principal principal){
+
+        int tutorid = new Integer(principal.getName()).intValue();
+        List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"论文");
+        model.addAttribute("initdata",list);
+        return "lunwenreview";
     }
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
@@ -68,6 +90,11 @@ public class tController {
         model.addAttribute("path","/static/file/sample.pdf");
         return "review";
     }
+    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    @RequestMapping("/test")
+    public String test(){
+        return "test";
+    }
 
     /**
      *教师评阅状态查询
@@ -75,10 +102,10 @@ public class tController {
 
     @RequestMapping("/selstate")
     public String selState(@RequestParam ("stateSelection") String state,
+                           @RequestParam ("type") String type,
                            Model model,Principal principal){
         System.out.println("selectstate"+state);
         List<PaperInfo> list ;
-        String type = "文献综述";
         int tutorid = new Integer(principal.getName()).intValue();
         list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
         model.addAttribute("initdata", list);

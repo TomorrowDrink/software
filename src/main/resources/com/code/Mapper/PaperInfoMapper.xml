@@ -11,6 +11,9 @@
         <result property="tutorid" column="tutorid"/>
         <result property="type" column="type"/>
         <result property="crosstutor" column="crosstutor"/>
+        <result property="ktgroup" column="ktgroup"/>
+        <result property="lwgroup" column="lwgroup"/>
+
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
             <!--<result column="rolename" property="rolename"/>-->
         <!--</collection>-->
@@ -78,6 +81,11 @@
         where tutorid = #{tutorid,jdbcType=INTEGER} and state= #{state,jdbcType=VARCHAR} and type = #{type,jdbcType=VARCHAR}
     </select>
 
+    <select id="findByTutoridAndType" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where tutorid = #{tutorid,jdbcType=INTEGER} and type = #{type,jdbcType=VARCHAR}
+    </select>
+
     <select id="findByTasknameAndType" parameterType="String" resultMap="paperInfoMap">
         select p.*  from paperinfo p
         where taskname= #{taskname} and type= #{type}
@@ -126,5 +134,13 @@
         id= #{id,jdbcType=INTEGER}
     </update>
 
+    <update id="editKtgroup">
+        UPDATE
+        paperinfo
+        SET
+        ktgroup = #{ktgroup,jdbcType=VARCHAR}
+        WHERE
+        id= #{id,jdbcType=INTEGER}
+    </update>
 
 </mapper>

@@ -22,12 +22,13 @@ public interface PaperInfoService {
     public List<PaperInfo> findPaperInfoByTasknameAndType(String taskname,String type);
     public List<PaperInfo> findPaperInfoByTutoridTypeState(int tutorid,String state,String type);
     public List<PaperInfo> findPaperInfoByStateAndType(String state,String type);
-
+    public List<PaperInfo> findPaperInfoByTutoridAndType(int tutorid,String type);
 
     public List<PaperInfo> findPaperInfoByMaxId();
     public void addRecord(PaperInfo paperInfo);
     public void delRecord(String stuname);
     public void editRecord(String state,String tutorname,int tutorid,String type,String stuname);
     public void editCrosstutor(String crosstutor,int id);
+    public void editKtgroup(String ktgroup,int id);
 
 }
