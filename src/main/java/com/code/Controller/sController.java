@@ -87,16 +87,16 @@ public class sController {
 
     @RequestMapping("")
     public String student(){
-              return "student";
+        return "student";
     }
 
-//    @PreAuthorize("hasRole('ROLE_STUDENT')")
+    //    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/password")
     public String password(){
         return "changepassword";
     }
 
-//    @PreAuthorize("hasRole('ROLE_STUDENT')")
+    //    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/password")
     public String uppassword(@RequestParam("pwd") String pwd,
                              @RequestParam("newpwd") String newpwd,
@@ -124,7 +124,7 @@ public class sController {
     @Autowired
     private  StorageService storageService;
     /**
-     *学生课题显示
+     *学生选题显示
      */
     @RequestMapping(value = {"/s_TaskShow"},method = {RequestMethod.POST,RequestMethod.GET})
     public String s_TaskShow(@ModelAttribute Task task, Model model){
@@ -138,8 +138,8 @@ public class sController {
     @GetMapping("/taskdata")
     public JsonResponse<Task> get_sTaskData(Model model){
 //        List<Task> list = taskService.getAll();已通过
-        String taskrate ="已通过";
-        List<Task> list = taskService.findTaskByTaskstate(taskrate);
+        String taskstate ="已通过";
+        List<Task> list = taskService.findTaskByTaskstate(taskstate);
         JsonResponse<Task> response = new JsonResponse<Task>(list);
         return response;
     }
@@ -217,7 +217,7 @@ public class sController {
 
 
     /**
-     * 选课
+     * 选题addtomy
      */
     @PostMapping("/addtomy")
     public String addtomyTask(@RequestParam("addtomy_taskid") String taskid,
@@ -287,9 +287,9 @@ public class sController {
     public String createproject(@RequestParam("pname") String pname,
                                 @RequestParam("pdes") String pdes,
                                 Principal principal){
-    /**
-     * 查询课题findtask
-     */
+        /**
+         * 查询课题findtask
+         */
 
 
         GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
@@ -308,7 +308,7 @@ public class sController {
                         .withPublic(true);
 
                 Project newProject = gitLabApi.getProjectApi().createProject(projectSpec);
-            gitLabApi.unsudo();
+                gitLabApi.unsudo();
             }
             else {
                 return "redirect:/student/newproject?error";
@@ -564,10 +564,14 @@ public class sController {
     @PostMapping("/renwushu")
     public String rhandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
-        storageService.store(file,principal);
+        storageService.storeAssignment(file,principal);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+        String dir = simpleDateFormat.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Filesss filesss1 = new Filesss();
         filesss1.setId(Integer.valueOf(principal.getName()));
-        filesss1.setFilename(file.getOriginalFilename());
+        filesss1.setFilename(dateFormat.format(date) + "_" + "assignment"+ principal.getName() + file.getOriginalFilename());
         filesss1.setAstype("Assignment");
         filesss1.setState("未审核");
         filesss1.setTaskname("rrr");

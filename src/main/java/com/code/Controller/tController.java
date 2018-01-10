@@ -44,7 +44,7 @@ public class tController {
      */
     @PreAuthorize("hasRole('ROLE_TEACHER')")
     @GetMapping("/review")
-    public String literatureReview(Model model,Principal principal){
+    public String literaturereview(Model model,Principal principal){
 
         int tutorid = new Integer(principal.getName()).intValue();
         List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"文献综述");
@@ -55,7 +55,7 @@ public class tController {
 //            System.out.println(tasks.getTaskname());
 //        }
 //        model.addAttribute("tasklist",task);
-        return "literatureReview";
+        return "literaturereview";
     }
 
     @PreAuthorize("hasRole('ROLE_TEACHER')")
@@ -121,7 +121,7 @@ public class tController {
         }else{
             model.addAttribute("stateSelectionValue4",type);
         }
-        return  "literatureReview";
+        return  "literaturereview";
     }
 
     /**

@@ -359,6 +359,17 @@ public class aController {
     }
 
 
+    /**
+     * 课题审查，显示待审查课题
+     * @return 待审查课题
+     */
+    @RequestMapping(value = {"/a_TaskReview"},method = {RequestMethod.POST,RequestMethod.GET})
+    public String a_TaskReview(@ModelAttribute Task task,Model model){
+        List<Task> list = taskService.findTaskByTaskstate("待审核");
+        model.addAttribute("initdata",list);
+        return  "a_TaskReview";
+    }
+
     /***
      * 删除课题记录
      */
