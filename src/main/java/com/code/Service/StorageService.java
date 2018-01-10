@@ -10,8 +10,13 @@ import java.util.stream.Stream;
 public interface StorageService {
 
     void init();
-
-    void store(MultipartFile file,Principal principal);
+    void storeAssignment(MultipartFile file,Principal principal);
+    void storeReview(MultipartFile file,Principal principal);
+    void storeLiterature(MultipartFile file,Principal principal);
+    void storeOpeningReport(MultipartFile file,Principal principal);
+    void storeMidterm(MultipartFile file,Principal principal);
+    void storeProcess(MultipartFile file,Principal principal);
+    void storePaper(MultipartFile file,Principal principal);
     Stream<Path> loadAllAssignment(Principal principal);
     Stream<Path> loadAllReview(Principal principal);
     Stream<Path> loadAllLiterature(Principal principal);

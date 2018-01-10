@@ -59,6 +59,8 @@ import java.io.IOException;
 import javax.net.ssl.SSLEngine;
 import javax.servlet.http.HttpSessionEvent;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -562,10 +564,14 @@ public class sController {
     @PostMapping("/renwushu")
     public String rhandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
-        storageService.store(file,principal);
+        storageService.storeAssignment(file,principal);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+        String dir = simpleDateFormat.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Filesss filesss1 = new Filesss();
         filesss1.setId(Integer.valueOf(principal.getName()));
-        filesss1.setFilename(file.getOriginalFilename());
+        filesss1.setFilename(dateFormat.format(date) + "_" + "assignment"+ principal.getName() + file.getOriginalFilename());
         filesss1.setAstype("Assignment");
         filesss1.setState("未审核");
         filesss1.setTaskname("rrr");
@@ -578,10 +584,14 @@ public class sController {
     @PostMapping("/wenxian")
     public String whandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
-        storageService.store(file,principal);
+        storageService.storeReview(file,principal);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+        String dir = simpleDateFormat.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Filesss filesss = new Filesss();
         filesss.setId(Integer.valueOf(principal.getName()));
-        filesss.setFilename(file.getOriginalFilename());
+        filesss.setFilename(dateFormat.format(date) + "_" + "review"+ principal.getName() + file.getOriginalFilename());
         filesss.setAstype("Review");
         filesss.setState("未审核");
         filesss.setTaskname("www");
@@ -594,10 +604,14 @@ public class sController {
     @PostMapping("/fanyi")
     public String fhandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
-        storageService.store(file,principal);
+        storageService.storeLiterature(file,principal);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+        String dir = simpleDateFormat.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Filesss filesss3 = new Filesss();
         filesss3.setId(Integer.valueOf(principal.getName()));
-        filesss3.setFilename(file.getOriginalFilename());
+        filesss3.setFilename(dateFormat.format(date) + "_" + "literature"+ principal.getName() + file.getOriginalFilename());
         filesss3.setAstype("Literature");
         filesss3.setState("未审核");
         filesss3.setTaskname("fff");
@@ -610,10 +624,14 @@ public class sController {
     @PostMapping("/kaiti")
     public String khandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
-        storageService.store(file,principal);
+        storageService.storeOpeningReport(file,principal);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+        String dir = simpleDateFormat.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Filesss filesss4 = new Filesss();
         filesss4.setId(Integer.valueOf(principal.getName()));
-        filesss4.setFilename(file.getOriginalFilename());
+        filesss4.setFilename(dateFormat.format(date) + "_" + "openingreport"+ principal.getName() + file.getOriginalFilename());
         filesss4.setAstype("OpeningReport");
         filesss4.setState("未审核");
         filesss4.setTaskname("kkk");
@@ -626,10 +644,14 @@ public class sController {
     @PostMapping("/zhongqi")
     public String zhandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
-        storageService.store(file,principal);
+        storageService.storeMidterm(file,principal);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+        String dir = simpleDateFormat.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Filesss filesss5 = new Filesss();
         filesss5.setId(Integer.valueOf(principal.getName()));
-        filesss5.setFilename(file.getOriginalFilename());
+        filesss5.setFilename(dateFormat.format(date) + "_" + "midterm"+ principal.getName() + file.getOriginalFilename());
         filesss5.setAstype("Midterm");
         filesss5.setState("未审核");
         filesss5.setTaskname("zzz");
@@ -642,10 +664,14 @@ public class sController {
     @PostMapping("/guocheng")
     public String ghandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
-        storageService.store(file,principal);
+        storageService.storeProcess(file,principal);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+        String dir = simpleDateFormat.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Filesss filesss6 = new Filesss();
         filesss6.setId(Integer.valueOf(principal.getName()));
-        filesss6.setFilename(file.getOriginalFilename());
+        filesss6.setFilename(dateFormat.format(date) + "_" + "process"+ principal.getName() + file.getOriginalFilename());
         filesss6.setAstype("Process");
         filesss6.setState("未审核");
         filesss6.setTaskname("ggg");
@@ -658,10 +684,14 @@ public class sController {
     @PostMapping("/lunwen")
     public String lhandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
-        storageService.store(file,principal);
+        storageService.storePaper(file,principal);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+        String dir = simpleDateFormat.format(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         Filesss filesss7 = new Filesss();
         filesss7.setId(Integer.valueOf(principal.getName()));
-        filesss7.setFilename(file.getOriginalFilename());
+        filesss7.setFilename(dateFormat.format(date) + "_" + "paper"+ principal.getName() + file.getOriginalFilename());
         filesss7.setAstype("Paper");
         filesss7.setState("未审核");
         filesss7.setTaskname("lll");

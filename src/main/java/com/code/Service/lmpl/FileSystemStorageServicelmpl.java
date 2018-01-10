@@ -57,9 +57,8 @@ public class FileSystemStorageServicelmpl implements StorageService {
             throw new StorageException("Could not initialize storage", e);
         }
     }
-
     @Override
-    public void store(MultipartFile file,Principal principal) {
+    public void storeAssignment(MultipartFile file,Principal principal) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
@@ -79,14 +78,188 @@ public class FileSystemStorageServicelmpl implements StorageService {
             String dir = simpleDateFormat.format(date);
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
-            if(filename.matches(".*assignment.*")){ filename ="a" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename() ; }
-            if(filename.matches(".*review.*")){ filename ="b" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
-            if(filename.matches(".*literature.*")){ filename ="c" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
-            if(filename.matches(".*openingReport.*")){ filename ="d" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
-            if(filename.matches(".*midterm.*")){ filename ="e" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
-            if(filename.matches(".*process.*")){ filename ="f" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
-            if(filename.matches(".*paper.*")){ filename ="g" + dateFormat.format(date) + "_" + principal.getName() + file.getOriginalFilename();}
+            filename = dateFormat.format(date) + "_" + "assignment"+ principal.getName() + file.getOriginalFilename();
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
+                    StandardCopyOption.REPLACE_EXISTING);
 
+        }
+        catch (IOException e) {
+            throw new StorageException("Failed to store file " + filename, e);
+        }
+    }
+    @Override
+    public void storeReview(MultipartFile file,Principal principal) {
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+            if (file.isEmpty()) {
+                throw new StorageException("Failed to store empty file " + filename);
+            }
+            if (filename.contains("..")) {
+                // This is a security check
+                throw new StorageException(
+                        "Cannot store file with relative path outside current directory "
+                                + filename);
+            }
+
+//重命名
+//            filename = filename + UUID.randomUUID();
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+            String dir = simpleDateFormat.format(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+            filename = dateFormat.format(date) + "_" + "review"+ principal.getName() + file.getOriginalFilename();
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+        }
+        catch (IOException e) {
+            throw new StorageException("Failed to store file " + filename, e);
+        }
+    }
+    @Override
+    public void storeLiterature(MultipartFile file,Principal principal) {
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+            if (file.isEmpty()) {
+                throw new StorageException("Failed to store empty file " + filename);
+            }
+            if (filename.contains("..")) {
+                // This is a security check
+                throw new StorageException(
+                        "Cannot store file with relative path outside current directory "
+                                + filename);
+            }
+
+//重命名
+//            filename = filename + UUID.randomUUID();
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+            String dir = simpleDateFormat.format(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+            filename = dateFormat.format(date) + "_" + "literature"+ principal.getName() + file.getOriginalFilename();
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+        }
+        catch (IOException e) {
+            throw new StorageException("Failed to store file " + filename, e);
+        }
+    }
+    @Override
+    public void storeOpeningReport(MultipartFile file,Principal principal) {
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+            if (file.isEmpty()) {
+                throw new StorageException("Failed to store empty file " + filename);
+            }
+            if (filename.contains("..")) {
+                // This is a security check
+                throw new StorageException(
+                        "Cannot store file with relative path outside current directory "
+                                + filename);
+            }
+
+//重命名
+//            filename = filename + UUID.randomUUID();
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+            String dir = simpleDateFormat.format(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+            filename = dateFormat.format(date) + "_" + "openingreport"+ principal.getName() + file.getOriginalFilename();
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+        }
+        catch (IOException e) {
+            throw new StorageException("Failed to store file " + filename, e);
+        }
+    }
+    @Override
+    public void storeMidterm(MultipartFile file,Principal principal) {
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+            if (file.isEmpty()) {
+                throw new StorageException("Failed to store empty file " + filename);
+            }
+            if (filename.contains("..")) {
+                // This is a security check
+                throw new StorageException(
+                        "Cannot store file with relative path outside current directory "
+                                + filename);
+            }
+
+//重命名
+//            filename = filename + UUID.randomUUID();
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+            String dir = simpleDateFormat.format(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+            filename = dateFormat.format(date) + "_" + "midterm"+ principal.getName() + file.getOriginalFilename();
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+        }
+        catch (IOException e) {
+            throw new StorageException("Failed to store file " + filename, e);
+        }
+    }
+    @Override
+    public void storeProcess(MultipartFile file,Principal principal) {
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+            if (file.isEmpty()) {
+                throw new StorageException("Failed to store empty file " + filename);
+            }
+            if (filename.contains("..")) {
+                // This is a security check
+                throw new StorageException(
+                        "Cannot store file with relative path outside current directory "
+                                + filename);
+            }
+
+//重命名
+//            filename = filename + UUID.randomUUID();
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+            String dir = simpleDateFormat.format(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+            filename = dateFormat.format(date) + "_" + "process"+ principal.getName() + file.getOriginalFilename();
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+        }
+        catch (IOException e) {
+            throw new StorageException("Failed to store file " + filename, e);
+        }
+    }
+
+    @Override
+    public void storePaper(MultipartFile file,Principal principal) {
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        try {
+            if (file.isEmpty()) {
+                throw new StorageException("Failed to store empty file " + filename);
+            }
+            if (filename.contains("..")) {
+                // This is a security check
+                throw new StorageException(
+                        "Cannot store file with relative path outside current directory "
+                                + filename);
+            }
+
+//重命名
+//            filename = filename + UUID.randomUUID();
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM");
+            String dir = simpleDateFormat.format(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+
+            filename = dateFormat.format(date) + "_" + "paper"+ principal.getName() + file.getOriginalFilename();
             Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
                     StandardCopyOption.REPLACE_EXISTING);
 
@@ -99,7 +272,7 @@ public class FileSystemStorageServicelmpl implements StorageService {
     @Override
     public Stream<Path> loadAllAssignment(Principal principal) {
         try {
-            String str = ".*"+principal.getName()+"assignment.*";
+            String str = ".*assignment"+principal.getName()+".*";
 //            System.out.println(str);
             return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
 //                    .filter(path -> !path.equals(this.rootLocation))
@@ -113,7 +286,7 @@ public class FileSystemStorageServicelmpl implements StorageService {
     @Override
     public Stream<Path> loadAllReview(Principal principal) {
         try {
-            String str = ".*"+principal.getName()+"review.*";
+            String str = ".*review"+principal.getName()+".*";
             return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
@@ -124,7 +297,7 @@ public class FileSystemStorageServicelmpl implements StorageService {
     @Override
     public Stream<Path> loadAllLiterature(Principal principal) {
         try {
-            String str = ".*"+principal.getName()+"literature.*";
+            String str = ".*literature"+principal.getName()+".*";
             return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
@@ -135,7 +308,7 @@ public class FileSystemStorageServicelmpl implements StorageService {
     @Override
     public Stream<Path> loadAllOpeningReport(Principal principal) {
         try {
-            String str = ".*"+principal.getName()+"openingreport.*";
+            String str = ".*openingreport"+principal.getName()+".*";
             return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
@@ -146,7 +319,7 @@ public class FileSystemStorageServicelmpl implements StorageService {
     @Override
     public Stream<Path> loadAllMidterm(Principal principal) {
         try {
-            String str = ".*"+principal.getName()+"midterm.*";
+            String str = ".*midterm"+principal.getName()+".*";
             return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
@@ -157,7 +330,7 @@ public class FileSystemStorageServicelmpl implements StorageService {
     @Override
     public Stream<Path> loadAllProcess(Principal principal) {
         try {
-            String str = ".*"+principal.getName()+"process.*";
+            String str = ".*process"+principal.getName()+".*";
             return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {
@@ -168,7 +341,7 @@ public class FileSystemStorageServicelmpl implements StorageService {
     @Override
     public Stream<Path> loadAllPaper(Principal principal) {
         try {
-            String str = ".*"+principal.getName()+"paper.*";
+            String str = ".*paper"+principal.getName()+".*";
             return Files.find(this.rootLocation, 1,(path, basicFileAttributes) -> path.toFile().getName().matches(str));
         }
         catch (IOException e) {

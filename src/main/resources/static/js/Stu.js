@@ -36,7 +36,8 @@ $(function(){
             $(obj).each(function (index){
                 var val=obj[index];
                 var tr=$('<tr></tr>');
-                tr.append('<td>'+ val.filename + '</td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
+                var fname = "http://localhost:8082/student/files/" + val.filename;
+                tr.append('<td><a href='+ fname +'>'+ val.filename + '</a></td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
                 tbody.append(tr);
             });
             $('#myRTable tbody').replaceWith(tbody);
@@ -53,7 +54,8 @@ $(function(){
             $(obj).each(function (index){
                 var val=obj[index];
                 var tr=$('<tr></tr>');
-                tr.append('<td>'+ val.filename + '</td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
+                var fname = "http://localhost:8082/student/files/" + val.filename;
+                tr.append('<td><a href='+ fname +'>'+ val.filename + '</a></td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
                 tbody.append(tr);
             });
             $('#myWTable tbody').replaceWith(tbody);
@@ -70,7 +72,8 @@ $(function(){
             $(obj).each(function (index){
                 var val=obj[index];
                 var tr=$('<tr></tr>');
-                tr.append('<td>'+ val.filename + '</td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
+                var fname = "http://localhost:8082/student/files/" + val.filename;
+                tr.append('<td><a href='+ fname +'>'+ val.filename + '</a></td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
                 tbody.append(tr);
             });
             $('#myFTable tbody').replaceWith(tbody);
@@ -87,7 +90,8 @@ $(function(){
             $(obj).each(function (index){
                 var val=obj[index];
                 var tr=$('<tr></tr>');
-                tr.append('<td>'+ val.filename + '</td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
+                var fname = "http://localhost:8082/student/files/" + val.filename;
+                tr.append('<td><a href='+ fname +'>'+ val.filename + '</a></td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
                 tbody.append(tr);
             });
             $('#myKTable tbody').replaceWith(tbody);
@@ -104,7 +108,8 @@ $(function(){
             $(obj).each(function (index){
                 var val=obj[index];
                 var tr=$('<tr></tr>');
-                tr.append('<td>'+ val.filename + '</td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
+                var fname = "http://localhost:8082/student/files/" + val.filename;
+                tr.append('<td><a href='+ fname +'>'+ val.filename + '</a></td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
                 tbody.append(tr);
             });
             $('#myZTable tbody').replaceWith(tbody);
@@ -121,7 +126,8 @@ $(function(){
             $(obj).each(function (index){
                 var val=obj[index];
                 var tr=$('<tr></tr>');
-                tr.append('<td>'+ val.filename + '</td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
+                var fname = "http://localhost:8082/student/files/" + val.filename;
+                tr.append('<td><a href='+ fname +'>'+ val.filename + '</a></td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
                 tbody.append(tr);
             });
             $('#myGTable tbody').replaceWith(tbody);
@@ -138,7 +144,9 @@ $(function(){
             $(obj).each(function (index){
                 var val=obj[index];
                 var tr=$('<tr></tr>');
-                tr.append('<td>'+ val.filename + '</td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>' +'<td>'+ val.taskname + '</td>');
+                // tr.append('<td>'+ val.filename + '</td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>'+'<td>'+ val.taskname + '</td>');
+                var fname = "http://localhost:8082/student/files/" + val.filename;
+                tr.append('<td><a href='+ fname +'>'+ val.filename + '</a></td>' + '<td>'+ val.astype + '</td>' +'<td>'+ val.state + '</td>'+'<td>'+ val.taskname +'</td>');
                 tbody.append(tr);
             });
             $('#myLTable tbody').replaceWith(tbody);
