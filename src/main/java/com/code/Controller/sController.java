@@ -100,9 +100,9 @@ public class sController {
                                 @RequestParam("pdes") String pdes,
                                 Principal principal){
 
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
             gitLabApi.sudo(principal.getName());
             List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
             if(projects.isEmpty()) {
@@ -123,6 +123,7 @@ public class sController {
             }
         } catch (GitLabApiException e) {
             e.printStackTrace();
+            return "giterror";
         }
 
 
@@ -132,9 +133,10 @@ public class sController {
     @GetMapping("/gitproject")
     public String gitproject(Principal principal,
                              Model model){
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
-
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+
+
             gitLabApi.sudo(principal.getName());
 
             List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
@@ -151,30 +153,36 @@ public class sController {
             }
         } catch (GitLabApiException e) {
             e.printStackTrace();
+            return "giterror";
+
         }
+
         return "gitproject";
     }
 
     @PostMapping("/gitproject")
     public String deleteproject(Principal principal){
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+
             gitLabApi.sudo(principal.getName());
             List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
             gitLabApi.getProjectApi().deleteProject(projects.get(0));
             gitLabApi.unsudo();
         } catch (GitLabApiException e) {
             e.printStackTrace();
+
         }
         return "redirect:/student/gitproject";
     }
 
     @GetMapping("/ssh")
     public String ssh(Model model,Principal principal){
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+
             gitLabApi.sudo(principal.getName());
             List<SshKey> sshKeys= gitLabApi.getUserApi().getSshKeys();
 
@@ -182,6 +190,8 @@ public class sController {
             gitLabApi.unsudo();
         } catch (GitLabApiException e) {
             e.printStackTrace();
+            return "giterror";
+
         }
         return "ssh";
     }
@@ -190,9 +200,10 @@ public class sController {
     public String addssh(@RequestParam("ssh") String ssh,
                          @RequestParam("sshname") String sshname,
                          Principal principal){
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+
             gitLabApi.sudo(principal.getName());
             gitLabApi.getUserApi().addSshKey(sshname,ssh);
             gitLabApi.unsudo();
@@ -208,9 +219,10 @@ public class sController {
     public String gitlog(Principal principal,
                          Model model){
 
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+
             gitLabApi.sudo(principal.getName());
 
             List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
@@ -269,6 +281,7 @@ public class sController {
                     }catch(Exception e)
                     {
                         e.printStackTrace();
+
                     }
 
                 }
@@ -306,11 +319,9 @@ public class sController {
             }
         } catch (GitLabApiException e) {
             e.printStackTrace();
+            return "giterror";
+
         }
-
-
-
-
 
 
         return "gitlog";
