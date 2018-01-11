@@ -23,13 +23,14 @@ import java.util.List;
  * Created by alison on 17-10-29.
  */
 @Controller
+@PreAuthorize("hasRole('ROLE_TEACHER')")
 @RequestMapping("/teacher")
 public class tController {
 
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    
     @RequestMapping("")
     public String teacher() {
         return "teacher";
@@ -42,7 +43,7 @@ public class tController {
     /**
      * 教师评阅界面
      */
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    
     @GetMapping("/review")
     public String literaturereview(Model model,Principal principal){
 
@@ -58,7 +59,7 @@ public class tController {
         return "literaturereview";
     }
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    
     @GetMapping("/ktreview")
     public String ktreview(Model model,Principal principal){
 
@@ -68,7 +69,7 @@ public class tController {
         return "ktreview";
     }
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    
     @GetMapping("/lunwenreview")
     public String lunwenreview(Model model,Principal principal){
 
@@ -78,7 +79,6 @@ public class tController {
         return "lunwenreview";
     }
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
     @RequestMapping("/reviewshow")
     public String review(@RequestParam("stuname") String stuname,
                          @RequestParam("taskname") String taskname,
@@ -92,7 +92,7 @@ public class tController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_TEACHER')")
+    
     @RequestMapping("/test")
     public String test(){
         return "test";
