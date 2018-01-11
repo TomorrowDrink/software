@@ -54,13 +54,11 @@ public class aController {
                return "admin";
     }
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/newstudent")
     public String newstudent(){
         return "newstudent";
     }
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/newstudent")
     public String addnewstudent(@RequestParam("id") Integer id,
                                 @RequestParam("name") String name,
@@ -97,13 +95,11 @@ public class aController {
         return "redirect:/admin";
     }
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/newteacher")
     public String newteacher(){
         return "newteacher";
     }
 
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/newteacher")
     public String addnewteacher(@RequestParam("id") Integer id,
                                 @RequestParam("name") String name,

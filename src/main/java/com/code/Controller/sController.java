@@ -84,13 +84,11 @@ public class sController {
         return "student";
     }
 
-    //    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/password")
     public String password(){
         return "changepassword";
     }
 
-    //    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/password")
     public String uppassword(@RequestParam("pwd") String pwd,
                              @RequestParam("newpwd") String newpwd,
@@ -142,7 +140,6 @@ public class sController {
     public String gitlab(){
         return "git";
     }
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/renwushu")
     public String rlistUploadedFiles(Model model,Principal principal) throws IOException {
         model.addAttribute("files", storageService.loadAllAssignment(principal).map(
@@ -197,7 +194,6 @@ public class sController {
     public String newproject(){
         return "newproject";
     }
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/wenxian")
     public String wlistUploadedFiles(Model model,Principal principal) throws IOException {
         model.addAttribute("files", storageService.loadAllReview(principal).map(
@@ -238,7 +234,6 @@ public class sController {
         return "redirect:/student/s_MyTask";
     }
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/fanyi")
     public String flistUploadedFiles(Model model,Principal principal) throws IOException {
         model.addAttribute("files", storageService.loadAllLiterature(principal).map(
@@ -516,7 +511,6 @@ public class sController {
         return "gitlog";
     }
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/kaiti")
     public String klistUploadedFiles(Model model,Principal principal) throws IOException {
         model.addAttribute("files", storageService.loadAllOpeningReport(principal).map(
@@ -526,7 +520,6 @@ public class sController {
         return "kaiti";
     }
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/zhongqi")
     public String zlistUploadedFiles(Model model,Principal principal) throws IOException {
         model.addAttribute("files", storageService.loadAllMidterm(principal).map(
@@ -536,7 +529,6 @@ public class sController {
         return "zhongqi";
     }
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/guocheng")
     public String glistUploadedFiles(Model model,Principal principal) throws IOException {
         model.addAttribute("files", storageService.loadAllProcess(principal).map(
@@ -546,7 +538,6 @@ public class sController {
         return "guocheng";
     }
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/lunwen")
     public String llistUploadedFiles(Model model,Principal principal) throws IOException {
         model.addAttribute("files", storageService.loadAllPaper(principal).map(
@@ -558,7 +549,6 @@ public class sController {
 
 
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
@@ -570,7 +560,6 @@ public class sController {
     @Autowired
     private FilesssService filesssService;
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/renwushu")
     public String rhandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
@@ -590,7 +579,6 @@ public class sController {
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/student/renwushu";
     }
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/wenxian")
     public String whandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
@@ -610,7 +598,6 @@ public class sController {
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/student/wenxian";
     }
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/fanyi")
     public String fhandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
@@ -630,7 +617,6 @@ public class sController {
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/student/fanyi";
     }
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/kaiti")
     public String khandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
@@ -650,7 +636,6 @@ public class sController {
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/student/kaiti";
     }
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/zhongqi")
     public String zhandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
@@ -670,7 +655,6 @@ public class sController {
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/student/zhongqi";
     }
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/guocheng")
     public String ghandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
@@ -690,7 +674,6 @@ public class sController {
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:/student/guocheng";
     }
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/lunwen")
     public String lhandleFileUpload(@RequestParam("file") MultipartFile file,
                                     RedirectAttributes redirectAttributes,Principal principal) {
@@ -711,49 +694,41 @@ public class sController {
         return "redirect:/student/lunwen";
     }
 
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @ExceptionHandler(StorageFileNotFoundException.class)
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();}
 
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping(value = "/rtest")
     public List<Filesss> findFileByIdAndFilenameAssignment(Principal principal) {
         return filesssService.findFileByidAndastype(Integer.valueOf(principal.getName()), "Assignment");
     }
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping(value = "/wtest")
     public List<Filesss> findFileByIdAndFilenameReview(Principal principal) {
         return filesssService.findFileByidAndastype(Integer.valueOf(principal.getName()),"Review");
     }
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping(value = "/ftest")
     public List<Filesss> findFileByIdAndFilenameLiterature(Principal principal) {
         return filesssService.findFileByidAndastype(Integer.valueOf(principal.getName()),"Literature");
     }
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping(value = "/ktest")
     public List<Filesss> findFileByIdAndFilenameOpeningReport(Principal principal) {
         return filesssService.findFileByidAndastype(Integer.valueOf(principal.getName()),"OpeningReport");
     }
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping(value = "/ztest")
     public List<Filesss> findFileByIdAndFilenameMidterm(Principal principal) {
         return filesssService.findFileByidAndastype(Integer.valueOf(principal.getName()),"Midterm");
     }
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping(value = "/gtest")
     public List<Filesss> findFileByIdAndFilenameProcess(Principal principal) {
         return filesssService.findFileByidAndastype(Integer.valueOf(principal.getName()),"Process");
     }
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping(value = "/ltest")
     public List<Filesss> findFileByIdAndFilenamePaper(Principal principal) {
         return filesssService.findFileByidAndastype(Integer.valueOf(principal.getName()), "Paper");
