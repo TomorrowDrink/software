@@ -1,11 +1,5 @@
 package com.code.Controller;
 
-import com.code.Config.StorageFileNotFoundException;
-import com.code.Entity.Filesss;
-import ch.qos.logback.core.net.SyslogOutputStream;
-import com.code.Entity.JsonResponse;
-import com.code.Entity.Task;
-import com.code.Entity.Task_s;
 import com.code.Entity.User;
 import com.code.Service.FilesssService;
 import com.code.Service.StorageService;
@@ -84,13 +78,13 @@ public class sController {
         return "student";
     }
 
-    //    @PreAuthorize("hasRole('ROLE_STUDENT')")
+//    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @GetMapping("/password")
     public String password(){
         return "changepassword";
     }
 
-    //    @PreAuthorize("hasRole('ROLE_STUDENT')")
+//    @PreAuthorize("hasRole('ROLE_STUDENT')")
     @PostMapping("/password")
     public String uppassword(@RequestParam("pwd") String pwd,
                              @RequestParam("newpwd") String newpwd,
@@ -281,14 +275,10 @@ public class sController {
     public String createproject(@RequestParam("pname") String pname,
                                 @RequestParam("pdes") String pdes,
                                 Principal principal){
-        /**
-         * 查询课题findtask
-         */
 
-
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
             gitLabApi.sudo(principal.getName());
             List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
             if(projects.isEmpty()) {
@@ -302,13 +292,14 @@ public class sController {
                         .withPublic(true);
 
                 Project newProject = gitLabApi.getProjectApi().createProject(projectSpec);
-                gitLabApi.unsudo();
+            gitLabApi.unsudo();
             }
             else {
                 return "redirect:/student/newproject?error";
             }
         } catch (GitLabApiException e) {
             e.printStackTrace();
+            return "giterror";
         }
 
 
@@ -318,9 +309,10 @@ public class sController {
     @GetMapping("/gitproject")
     public String gitproject(Principal principal,
                              Model model){
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
-
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+
+
             gitLabApi.sudo(principal.getName());
 
             List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
@@ -337,15 +329,18 @@ public class sController {
             }
         } catch (GitLabApiException e) {
             e.printStackTrace();
+            return "giterror";
+
         }
         return "gitproject";
     }
 
     @PostMapping("/gitproject")
     public String deleteproject(Principal principal){
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+
             gitLabApi.sudo(principal.getName());
             List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
             gitLabApi.getProjectApi().deleteProject(projects.get(0));
@@ -358,9 +353,10 @@ public class sController {
 
     @GetMapping("/ssh")
     public String ssh(Model model,Principal principal){
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+
             gitLabApi.sudo(principal.getName());
             List<SshKey> sshKeys= gitLabApi.getUserApi().getSshKeys();
 
@@ -368,6 +364,8 @@ public class sController {
             gitLabApi.unsudo();
         } catch (GitLabApiException e) {
             e.printStackTrace();
+            return "giterror";
+
         }
         return "ssh";
     }
@@ -376,9 +374,10 @@ public class sController {
     public String addssh(@RequestParam("ssh") String ssh,
                          @RequestParam("sshname") String sshname,
                          Principal principal){
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+
             gitLabApi.sudo(principal.getName());
             gitLabApi.getUserApi().addSshKey(sshname,ssh);
             gitLabApi.unsudo();
@@ -394,9 +393,10 @@ public class sController {
     public String gitlog(Principal principal,
                          Model model){
 
-        GitLabApi gitLabApi = new GitLabApi("http://gitlab.example.com:30080", "9NPRBbxVTFbjszzEncVM");
 
         try {
+            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+
             gitLabApi.sudo(principal.getName());
 
             List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
@@ -412,7 +412,7 @@ public class sController {
                 String url =  projects.get(0).getHttpUrlToRepo();/*http下载地址*/
                 gitLabApi.unsudo();
 
-                String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + projects.get(0).getName();
+                String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" +projects.get(0).getName();
 
                 File file = new File(localPath);
 
@@ -482,20 +482,8 @@ public class sController {
                     String error = errorStream.toString("utf-8");
 //                    System.out.println(error);
 
-//                    String results = "";
-//                    Reader reader = new InputStreamReader(new ByteArrayInputStream(outputStream.toByteArray()));
-//                    BufferedReader r = new BufferedReader(reader);
-//                    String tmp = null;
-//                    while ((tmp = r.readLine()) != null)
-//                    {
-//                        results += tmp+"\n";
-//                    }
-//
-//
-//                    System.out.println(results);
                     model.addAttribute("newLineChar", '\n');
                     model.addAttribute("out",out);
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -504,11 +492,9 @@ public class sController {
             }
         } catch (GitLabApiException e) {
             e.printStackTrace();
+            return "giterror";
+
         }
-
-
-
-
 
 
         return "gitlog";
