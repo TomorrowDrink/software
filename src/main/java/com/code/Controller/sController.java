@@ -2,7 +2,6 @@ package com.code.Controller;
 
 import com.code.Config.StorageFileNotFoundException;
 import com.code.Entity.Filesss;
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.code.Entity.JsonResponse;
 import com.code.Entity.Task;
 import com.code.Entity.Task_s;
@@ -19,23 +18,11 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-import org.gitlab4j.api.GitLabApi;
-import org.gitlab4j.api.GitLabApiException;
-import org.gitlab4j.api.models.Commit;
-import org.gitlab4j.api.models.Project;
-import org.gitlab4j.api.models.SshKey;
-import org.omg.CosNaming.BindingIteratorHelper;
-import org.apache.catalina.Session;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.TinyBitSet;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,25 +30,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
-import java.security.Key;
 import java.io.IOException;
-import javax.net.ssl.SSLEngine;
-import javax.servlet.http.HttpSessionEvent;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.List;
 
 /**
  * Created by alison on 17-10-29.
@@ -138,8 +118,9 @@ public class sController {
 
     @GetMapping("/gitlab")
     public String gitlab(){
-        return "git";
+        return "gitloginput";
     }
+
     @GetMapping("/renwushu")
     public String rlistUploadedFiles(Model model,Principal principal) throws IOException {
         model.addAttribute("files", storageService.loadAllAssignment(principal).map(
@@ -272,143 +253,25 @@ public class sController {
         return "s_TaskShow";
     }
 
-    @PostMapping("/newproject")
-    public String createproject(@RequestParam("pname") String pname,
-                                @RequestParam("pdes") String pdes,
-                                Principal principal){
-
-
-
-        try {
-            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
-            gitLabApi.sudo(principal.getName());
-            List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
-            if(projects.isEmpty()) {
-                Project projectSpec = new Project()
-                        .withName(pname)
-                        .withDescription(pdes)
-                        .withIssuesEnabled(true)
-                        .withMergeRequestsEnabled(true)
-                        .withWikiEnabled(true)
-                        .withSnippetsEnabled(true)
-                        .withPublic(true);
-
-                Project newProject = gitLabApi.getProjectApi().createProject(projectSpec);
-                gitLabApi.unsudo();
-            }
-            else {
-                return "redirect:/student/newproject?error";
-            }
-        } catch (GitLabApiException e) {
-            e.printStackTrace();
-            return "giterror";
-        }
-
-
-        return "redirect:/student/gitproject";
-    }
-
-    @GetMapping("/gitproject")
-    public String gitproject(Principal principal,
-                             Model model){
-
-        try {
-            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
-            gitLabApi.sudo(principal.getName());
-
-            List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
-            if(projects.isEmpty()) {
-                model.addAttribute("flag", "0");
-                gitLabApi.unsudo();
-            }
-            else {
-                List<Commit> commits= gitLabApi.getCommitsApi().getCommits(projects.get(0).getId());
-                model.addAttribute("pro", projects.get(0));
-                model.addAttribute("flag", "1");
-                model.addAttribute("commit", commits);
-                gitLabApi.unsudo();
-            }
-        } catch (GitLabApiException e) {
-            e.printStackTrace();
-            return "giterror";
-        }
-        return "gitproject";
-    }
-
-    @PostMapping("/gitproject")
-    public String deleteproject(Principal principal){
-
-        try {
-            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
-            gitLabApi.sudo(principal.getName());
-            List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
-            gitLabApi.getProjectApi().deleteProject(projects.get(0));
-            gitLabApi.unsudo();
-        } catch (GitLabApiException e) {
-            e.printStackTrace();
-            return "giterror";
-        }
-        return "redirect:/student/gitproject";
-    }
-
-    @GetMapping("/ssh")
-    public String ssh(Model model,Principal principal){
-
-        try {
-            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
-            gitLabApi.sudo(principal.getName());
-            List<SshKey> sshKeys= gitLabApi.getUserApi().getSshKeys();
-
-            model.addAttribute("keys",sshKeys);
-            gitLabApi.unsudo();
-        } catch (GitLabApiException e) {
-            e.printStackTrace();
-            return "giterror";
-        }
-        return "ssh";
-    }
-
-    @PostMapping("/ssh")
-    public String addssh(@RequestParam("ssh") String ssh,
-                         @RequestParam("sshname") String sshname,
-                         Principal principal){
-
-        try {
-            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
-            gitLabApi.sudo(principal.getName());
-            gitLabApi.getUserApi().addSshKey(sshname,ssh);
-            gitLabApi.unsudo();
-        } catch (GitLabApiException e) {
-            e.printStackTrace();
-            return "redirect:/student/ssh?error";
-        }
-        return "redirect:/student/ssh?success";
-    }
-
-
     @GetMapping("/gitlog")
+    public String gitloginput(){
+        return "gitloginput";
+    }
+
+
+    @PostMapping("/gitlog")
     public String gitlog(Principal principal,
-                         Model model){
+                         Model model,
+                         @RequestParam("address") String address,
+                         @RequestParam("name") String name){
 
+        System.out.println(address + name);
+//
+                String url =  address;/*http下载地址*/
+//                gitLabApi.unsudo();
 
-        try {
-            GitLabApi  gitLabApi = GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
-            gitLabApi.sudo(principal.getName());
-
-            List<Project> projects = gitLabApi.getProjectApi().getOwnedProjects();
-            /*判断有没有项目*/
-            /*没有项目*/
-            if(projects.isEmpty()) {
-                model.addAttribute("flag", "0");
-                gitLabApi.unsudo();
-            }
-            /*有项目*/
-            else {
-                model.addAttribute("flag", "1");
-                String url =  projects.get(0).getHttpUrlToRepo();/*http下载地址*/
-                gitLabApi.unsudo();
-
-                String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + projects.get(0).getName();
+                String localPath = "D:/mylz/allgit/"+ principal.getName() + "/" + name ;
+//                String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + "test" ;
 
                 File file = new File(localPath);
 
@@ -458,8 +321,10 @@ public class sController {
 
                 /*调用gitinspector*/
                 CommandLine cmdLine = new CommandLine("/home/alison/gitinspector/gitinspector.py");
+//                CommandLine cmdLine = new CommandLine("cmd.exe python D:/gitinspector/gitinspector.py");
                 Map map = new HashMap();
                 map.put("FILE", file);
+//                cmdLine.addArgument("");
                 cmdLine.addArgument("-wTHL");
                 cmdLine.addArgument("${FILE}");
                 cmdLine.setSubstitutionMap(map);
@@ -474,7 +339,7 @@ public class sController {
                 try {
                     executor.execute(cmdLine);
                     String out = outputStream.toString("utf-8");//获取程序外部程序执行结果
-//                    System.out.println(out);
+                    System.out.println(out);
                     String error = errorStream.toString("utf-8");
 //                    System.out.println(error);
 
@@ -495,18 +360,6 @@ public class sController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
-            }
-        } catch (GitLabApiException e) {
-            e.printStackTrace();
-            return "giterror";
-        }
-
-
-
-
-
 
         return "gitlog";
     }

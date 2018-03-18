@@ -78,18 +78,18 @@ public class aController {
             userService.insertUser(user);
             userService.insertSrole(id);
 
-            org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
-            String email = id + "@pop.zjgsu.edu.cn";
-            gitUser.setEmail(email);
-            gitUser.setName(name);
-            gitUser.setUsername(String.valueOf(id));
-
-            try {
-            GitLabApi gitLabApi =  GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
-                gitLabApi.getUserApi().createUser(gitUser, "123456789", 10);
-            } catch (GitLabApiException e) {
-                e.printStackTrace();
-            }
+//            org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
+//            String email = id + "@pop.zjgsu.edu.cn";
+//            gitUser.setEmail(email);
+//            gitUser.setName(name);
+//            gitUser.setUsername(String.valueOf(id));
+//
+//            try {
+//            GitLabApi gitLabApi =  GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
+//                gitLabApi.getUserApi().createUser(gitUser, "123456789", 10);
+//            } catch (GitLabApiException e) {
+//                e.printStackTrace();
+//            }
         }
 
         return "redirect:/admin";
