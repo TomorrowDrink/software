@@ -124,4 +124,9 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     public void editKtgroup(String ktgroup, int id) {
         paperInfoMapper.editKtgroup(ktgroup,id);
     }
+
+    @Override
+    public void editScoreAndComment(int score, String comment, int id) {
+        paperInfoMapper.editScoreAndComment(score,comment,id);
+    }
 }

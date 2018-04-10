@@ -50,12 +50,6 @@ public class tController {
         int tutorid = new Integer(principal.getName()).intValue();
         List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"文献综述");
         model.addAttribute("initdata",list);
-
-//        List<Task> task = taskService.findTaskByTaskstate("已通过");
-//        for(Task tasks:task){
-//            System.out.println(tasks.getTaskname());
-//        }
-//        model.addAttribute("tasklist",task);
         return "literaturereview";
     }
 
@@ -324,7 +318,36 @@ public class tController {
                 return "tcross";
     }
 
+    /**
+     * 教师评分评语提交
+     */
+    @GetMapping("/tcomment")
+    public String tcomment() {
+        return "test";
+    }
 
+    @PostMapping("/tcomment")
+    public String tcomment(
+            @RequestParam("score") Integer score,
+            @RequestParam("comment") String comment,
+            @RequestParam("id") Integer id,
+            Principal principal) {
+
+        User user =userService.findUserById(new Integer(principal.getName()));
+        String tutorname=user.getName();
+        PaperInfo paperInfo = new PaperInfo();
+        int tutorid =new Integer(principal.getName());
+        paperInfo.setScore(score);
+        paperInfo.setComment(comment);
+        paperInfo.setId(id);
+        System.out.println("-----------------------------------------");
+        System.out.println("id:"+id+"score:"+score+"comment:"+comment);
+        System.out.println("-----------------------------------------");
+
+        paperInfoService.editScoreAndComment(score,comment,id);
+
+        return "redirect:/teacher/test";
+    }
 
 
 

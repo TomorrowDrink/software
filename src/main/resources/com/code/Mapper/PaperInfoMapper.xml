@@ -13,6 +13,8 @@
         <result property="crosstutor" column="crosstutor"/>
         <result property="ktgroup" column="ktgroup"/>
         <result property="lwgroup" column="lwgroup"/>
+        <result property="score" column="score"/>
+        <result property="comment" column="comment"/>
 
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
             <!--<result column="rolename" property="rolename"/>-->
@@ -139,6 +141,16 @@
         paperinfo
         SET
         ktgroup = #{ktgroup,jdbcType=VARCHAR}
+        WHERE
+        id= #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="editScoreAndComment">
+        UPDATE
+        paperinfo
+        SET
+        score = #{score,jdbcType=INTEGER},
+        comment = #{comment,jdbcType=VARCHAR}
         WHERE
         id= #{id,jdbcType=INTEGER}
     </update>

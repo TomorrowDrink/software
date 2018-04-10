@@ -37,6 +37,7 @@ public interface PaperInfoMapper {
     void editRecord(@Param("state") String state, @Param("tutorname") String tutorname,@Param("tutorid") Integer tutorid,@Param("type") String type, @Param("stuname") String stuname);
     void editCrosstutor(@Param("crosstutor") String crosstutor, @Param("id") int id);
     void editKtgroup(@Param("ktgroup") String ktgroup, @Param("id") int id);
+    void editScoreAndComment(@Param("score") int score, @Param("comment") String comment,@Param("id") int id);
 
     List<PaperInfo> getAlllunwen();
     List<PaperInfo> getAllkt();
