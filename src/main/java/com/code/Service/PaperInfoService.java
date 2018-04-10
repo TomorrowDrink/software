@@ -30,5 +30,6 @@ public interface PaperInfoService {
     public void editRecord(String state,String tutorname,int tutorid,String type,String stuname);
     public void editCrosstutor(String crosstutor,int id);
     public void editKtgroup(String ktgroup,int id);
+    public void editScoreAndComment(int score,String comment,int id);
 
 }
