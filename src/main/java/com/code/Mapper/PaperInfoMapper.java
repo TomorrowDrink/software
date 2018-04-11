@@ -29,6 +29,8 @@ public interface PaperInfoMapper {
     List<PaperInfo> findByTutoridAndType(@Param("tutorid") Integer tutorid,@Param("type") String type);
     List<PaperInfo> findByStateAndType(@Param("state") String state,@Param("type") String type);
 
+    int findScores(@Param("stuid") int stuid);
+
     /*新增记录*/
     void addRecord(PaperInfo paperInfo);
     /*删除记录*/

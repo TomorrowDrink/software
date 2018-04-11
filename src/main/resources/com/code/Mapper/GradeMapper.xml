@@ -21,4 +21,23 @@
         select grade.*  from grade grade
         where tname= #{tname}
     </select>
+
+    <update id="editTscore" parameterType="int">
+        UPDATE
+        grade
+        SET
+        tscore = #{tscore}
+        WHERE
+        sno= #{sno,jdbcType=INTEGER}
+    </update>
+
+    <update id="editIsgreat" parameterType="int">
+        UPDATE
+        grade
+        SET
+        isgreat = 1
+        WHERE
+        tscore >= 90
+    </update>
+
 </mapper>

@@ -25,4 +25,14 @@ public class GradeServicelmpl implements GradeService {
     public List<Grade> findGradeByTname(String tname) {
         return gradeMapper.findByTname(tname);
     }
+
+    @Override
+    public void editTscore(int tscore, int sno) {
+        gradeMapper.editTscore(tscore,sno);
+    }
+
+    @Override
+    public void editIsgreat() {
+        gradeMapper.editIsgreat();
+    }
 }

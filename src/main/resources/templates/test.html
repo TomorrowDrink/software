@@ -1,43 +1,136 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="utf-8">
-    <title>Bootstrap 实例 - 模态框（Modal）插件</title>
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>文献综述评阅列表</title>
+    <link th:href="@{/css/ugly-table.css}" href="../static/css/ugly-table.css" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
+    <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+    <link th:href="@{/css/jquery-ui.min.css}" href="../static/css/jquery-ui.min.css" rel="stylesheet">
 </head>
-<body>
 
-<h2>创建模态框（Modal）</h2>
-<!-- 按钮触发模态框 -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-    开始演示模态框
-</button>
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
-                <h4 class="modal-title" id="myModalLabel">
-                    模态框（Modal）标题
-                </h4>
+<body th:inline="text">
+
+<style>
+    body {
+        min-height: 2000px;
+        padding-top: 70px;
+    }
+    .pageContent{
+        width: auto;
+        height: 800px;
+    }
+</style>
+<!--顶部导航栏-->
+<div th:include="t-head :: t-head"></div>
+<!--中间主体-->
+<div class="pageContainer">
+    <!--正文内容-->
+    <div class="pageContent">
+
+        <p sec:authentication="name"></p>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <!-- 增删改查 -->
+                <!--<div class="form-inline">
+                    <form th:action="@{/teacher/tcomment}" action="/teacher/tcomment" method="post">
+                        <label>id:</label>
+                        <input type="text"  id="id" name="id">
+                        <label>score:</label>
+                        <input type="text"  id="score" name="score">
+                        <label>comment:</label>
+                        <input type="text"  id="comment" name="comment">
+                        <button type="submit" class="btn btn-primary" >提交</button>
+                    </form>
+                </div>-->
+                <table id="mainTable" border="1" data-toggle="table" class="bordered">
+                    <tr>
+                        <!--<th>ID</th>-->
+                        <th>课题名称</th>
+                        <th>学号</th>
+                        <th>学生姓名</th>
+                        <th>导师id</th>
+                        <th>导师姓名</th>
+                        <th>分数</th>
+                        <th>是否推优</th>
+                    </tr>
+                    <tr th:each="grade,list:${initdata}">
+                        <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                        <td id="table_taskname" th:text="${grade.tname}"></td>
+                        <td id="table_stuname" th:text="${grade.sno}"></td>
+                        <td id="table_stuname" th:text="${grade.sname}"></td>
+                        <td id="table_state" th:text="${grade.tutorid}"></td>
+                        <td id="table_state" th:text="${grade.tutorname}"></td>
+                        <td id="table_state" th:text="${grade.tscore}"></td>
+                        <td id="table_state" th:text="${grade.isgreat}"></td>
+                        <!--<td id="table_tutorname" th:text="${paperinfo.crosstutor}">未安排</td>-->
+                        <!--<td><button id="download" class='btn btn-link' data-toggle='modal'data-target='#downModal'>下载</button></td>-->
+                        <!--<td><button id="delete" class='btn btn-link' data-toggle='modal' data-target='#delModal' onclick="del(this)">删除</button></td>-->
+                    </tr>
+                </table>
             </div>
-            <div class="modal-body">
-                在这里添加一些文本
+            <div class="panel-body">
+                <div class="form-inline">
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
-                </button>
-                <button type="button" class="btn btn-primary">
-                    提交更改
-                </button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
+
+        </div>
+    </div>
 </div>
+</div>
+<!--底部页脚部分 -->
+<div class="footer">
+    <!--<p class="text-center">
+    2017 &copy; 浙江工商大学
+    </p>-->
+</div>
+</div>
+
+<script type="text/javascript">
+    //    $(function () { $('#myModal').modal({
+    //        keyboard: true
+    //    })});
+    /*删除记录*/
+    function del(obj) {
+        var del_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        //alert(del_stuname);
+        document.getElementById("del_stuname").value= del_stuname;
+    }
+    /*更新记录*/
+    //    function edit(obj){
+    //        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+    //        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+    //        var be_state = $(obj).parents("tr").find("#table_state").text();
+    //        var be_filename = $(obj).parents("tr").find("#table_filename").text();
+    //        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+    //        document.getElementById("edit_taskname").innerHTML= be_taskname;
+    //        document.getElementById("edit_stuname").innerHTML= be_stuname;
+    //        document.getElementById("edit_stuname1").value= be_stuname;
+    //        document.getElementById("edit_state").value= be_state;
+    //        document.getElementById("edit_tutorname").value= be_tutorname;
+    //        document.getElementById("edit_filename").innerHTML= be_filename;
+    //    }
+
+    /*查询记录*/
+    //    function search(obj){
+    //        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+    //        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+    //        var be_state = $(obj).parents("tr").find("#table_state").text();
+    //        var be_filename = $(obj).parents("tr").find("#table_filename").text();
+    //        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+    //        document.getElementById("edit_taskname").innerHTML= be_taskname;
+    //        document.getElementById("edit_stuname").innerHTML= be_stuname;
+    //        document.getElementById("edit_stuname1").value= be_stuname;
+    //        document.getElementById("edit_state").value= be_state;
+    //        document.getElementById("edit_tutorname").value= be_tutorname;
+    //        document.getElementById("edit_filename").innerHTML= be_filename;
+    //    }
+</script>
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
 </body>
 </html>
+

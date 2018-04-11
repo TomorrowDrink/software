@@ -129,4 +129,9 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     public void editScoreAndComment(int score, String comment, int id) {
         paperInfoMapper.editScoreAndComment(score,comment,id);
     }
+
+    @Override
+    public int findScores(int stuid) {
+        return paperInfoMapper.findScores(stuid);
+    }
 }
