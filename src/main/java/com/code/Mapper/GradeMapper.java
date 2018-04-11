@@ -13,5 +13,9 @@ public interface GradeMapper {
     List<Grade> getAll();
     List<Grade> findByTname(@Param("tname") String tname);
 
+    void editTscore(@Param("tscore") int tscore, @Param("sno") int sno);
+    void editIsgreat();
+
+
 
 }

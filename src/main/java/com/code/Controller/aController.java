@@ -150,6 +150,12 @@ public class aController {
     @GetMapping("/test")
     public String test(@ModelAttribute Grade grade, Model model){
         List<Grade> list = gradeService.getAll();
+        int id = 1512190407;
+        System.out.println("paperinfo------------------------------");
+        System.out.println(paperInfoService.findScores(id));
+        System.out.println("paperinfo------------------------------");
+        gradeService.editTscore(paperInfoService.findScores(id),id);
+        gradeService.editIsgreat();
         model.addAttribute("initdata",list);
         return "test";
     }
