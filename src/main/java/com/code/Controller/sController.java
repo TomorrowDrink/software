@@ -12,6 +12,7 @@ import com.code.Service.TaskService;
 import com.code.Service.UserService;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.ExecuteWatchdog;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
@@ -265,16 +266,16 @@ public class sController {
 
     @PostMapping("/gitlog")
     public String gitlog(Principal principal,
-                         Model model,
+                        Model model,
                          @RequestParam("address") String address,
                          @RequestParam("name") String name){
 
-        System.out.println(address + name);
+                 System.out.println(address + name);
 //
                 String url =  address;/*http下载地址*/
 //                gitLabApi.unsudo();
 
-                String localPath = "D:/mylz/allgit/"+ principal.getName() + "/" + name ;
+                String localPath = "/home/alison/Document/allgit/"+ principal.getName() + "/" + name ;
 //                String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + "test" ;
 
                 File file = new File(localPath);
@@ -322,50 +323,43 @@ public class sController {
 
                 }
 
+//                String biaoji = ">";
 
                 /*调用gitinspector*/
-                CommandLine cmdLine = new CommandLine("/home/alison/gitinspector/gitinspector.py");
+                CommandLine cmdLine = new CommandLine("gitinspector");
 //                CommandLine cmdLine = new CommandLine("cmd.exe python D:/gitinspector/gitinspector.py");
                 Map map = new HashMap();
                 map.put("FILE", file);
-//                cmdLine.addArgument("");
-                cmdLine.addArgument("-wTHL");
+//                cmdLine.addArgument("--format=html --timeline --localize-output -w");
+//                cmdLine.addArgument("-wTHL");
                 cmdLine.addArgument("${FILE}");
                 cmdLine.setSubstitutionMap(map);
+//                cmdLine.addArgument(biaoji);
+//                cmdLine.addArgument("/home/alison/Document/html/"+principal.getName() + ".html");
+//              String cmd = "gitinspector -format=html --timeline --localize-output -w "+localPath+" > /home/alison/Document/html/"+principal.getName() + ".html";
 
                 DefaultExecutor executor = new DefaultExecutor();
 
 
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                ByteArrayOutputStream errorStream = new ByteArrayOutputStream();
-                PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream,errorStream);
-                executor.setStreamHandler(streamHandler);
-                try {
-                    executor.execute(cmdLine);
-                    String out = outputStream.toString("utf-8");//获取程序外部程序执行结果
-                    System.out.println(out);
-                    String error = errorStream.toString("utf-8");
-//                    System.out.println(error);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        ByteArrayOutputStream errorStream = new ByteArrayOutputStream();
+        PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream,outputStream);
+        executor.setStreamHandler(streamHandler);
+        try {
+            executor.execute(cmdLine);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String out = outputStream.toString();//获取程序外部程序执行结果
+//        System.out.println(out);
 
-//                    String results = "";
-//                    Reader reader = new InputStreamReader(new ByteArrayInputStream(outputStream.toByteArray()));
-//                    BufferedReader r = new BufferedReader(reader);
-//                    String tmp = null;
-//                    while ((tmp = r.readLine()) != null)
-//                    {
-//                        results += tmp+"\n";
-//                    }
-//
-//
-//                    System.out.println(results);
-                    model.addAttribute("newLineChar", '\n');
-                    model.addAttribute("out",out);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//
+        model.addAttribute("newLineChar", '\n');
+        model.addAttribute("out",out);
 
         return "gitlog";
+//        return "student";
     }
 
     @GetMapping("/kaiti")
