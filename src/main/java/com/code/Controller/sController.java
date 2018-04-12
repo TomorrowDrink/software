@@ -209,8 +209,12 @@ public class sController {
      *学生取消选题
      */
     @PostMapping("/del_MyTask")
-    public  String del_MyTaskData(@RequestParam("del_taskid")String task_id){
-        taskService.s_delMyTask(task_id);
+    public  String del_MyTaskData(@RequestParam("del_taskid")String task_id,
+                                  Principal principal){
+
+        String stuid= principal.getName();
+        int stu_id =new Integer(stuid);
+        taskService.s_delMyTask(task_id,stu_id);
         System.out.println("取消选课的课程标号"+task_id);
         return "redirect:/student/s_MyTask";
     }

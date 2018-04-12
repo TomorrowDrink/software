@@ -1,35 +1,18 @@
 package com.code.Controller;
 
-import com.code.Entity.JsonResponse;
-import com.code.Entity.PaperInfo;
-import com.code.Entity.Task;
-import com.code.Entity.User;
+import com.code.Entity.*;
 import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
-import org.apache.commons.exec.PumpStreamHandler;
-import org.gitlab4j.api.GitLabApi;
-import org.gitlab4j.api.GitLabApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.security.Principal;
 import java.util.List;
-
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by alison on 17-10-29.
@@ -47,6 +30,8 @@ public class aController {
 
     @Autowired
     private TaskService taskService;
+
+
 
 
     @RequestMapping("")
@@ -300,6 +285,46 @@ public class aController {
         model.addAttribute("initdata",list);
         return  "a_TaskShow";
     }
+
+    /**
+     * 管理员课题指定
+     */
+    @RequestMapping(value = {"/a_TaskAppoint"},method = {RequestMethod.POST,RequestMethod.GET})
+    public String a_StuShow(@ModelAttribute Task_s task_s ,
+                            @ModelAttribute Task task ,
+                            Model model){
+        List<Task_s> list =taskService.a_findAppointStuid(1512190424);
+        System.out.println(list);
+        model.addAttribute("initdata",list);
+
+        List<Task> list1 =taskService.findTaskByTaskstate("已通过");
+        model.addAttribute("initdata",list1);
+        System.out.println(list1);
+        return  "a_TaskAppoint";
+    }
+
+    @PostMapping("/addtoStu")
+    public String addtoStuTask(
+                               @RequestParam("addtomy_taskid") String taskid,
+                              @RequestParam("addtomy_taskname") String task_name,
+                              @RequestParam("student_id") String student_id
+    ){
+
+
+        int stu_id =new Integer(student_id).intValue();
+        int task_id=new Integer(taskid).intValue();
+        User user =userService.findUserById(stu_id);
+        String stu_name =user.getName();
+        System.out.println("学生:"+stu_id+"\n姓名:"+stu_name+"\n课题id:"+task_id+"\n课题名称:"+task_name);
+        taskService.chooseTask(stu_id,stu_name,task_id,task_name);
+
+        return "a_TaskAppoint";
+    }
+
+
+
+
+
 
     @GetMapping("/crossproposal")
     public String crossproposal(Model model){
