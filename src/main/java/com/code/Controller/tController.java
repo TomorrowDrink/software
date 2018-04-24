@@ -103,16 +103,24 @@ public class tController {
         System.out.println("selectstate"+state);
         List<PaperInfo> list ;
         int tutorid = new Integer(principal.getName()).intValue();
-        list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
-        model.addAttribute("initdata", list);
+//        list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
+//        model.addAttribute("initdata", list);
 
-//        if (state.equals("allstate")){
-//            model.addAttribute("stateSelectionValue1",type);
-        /*}else if*/ if(state.equals("待评阅")){
+        if (state.equals("allstate")){
+            list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,type);
+            model.addAttribute("initdata", list);
+            model.addAttribute("stateSelectionValue1",type);
+        }else if(state.equals("待评阅")){
+            list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
+            model.addAttribute("initdata", list);
             model.addAttribute("stateSelectionValue2",type);
         }else if (state.equals("已通过")){
+            list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
+            model.addAttribute("initdata", list);
             model.addAttribute("stateSelectionValue3",type);
-        }else{
+        }else if (state.equals("未通过")){
+            list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
+            model.addAttribute("initdata", list);
             model.addAttribute("stateSelectionValue4",type);
         }
         return  "literaturereview";

@@ -38,7 +38,7 @@
                     <form th:action="@{/teacher/selstate}" action="/teacher/selstate" method="post">
                         <label for="stateSelection">评阅状态：</label>
                         <select id="stateSelection" name="stateSelection"class="form-control">
-                            <!--<option value="allstate" th:selected="${stateSelectionValue1}">&#45;&#45;全部&#45;&#45;</option>-->
+                            <option value="allstate" th:selected="${stateSelectionValue1}">--全部--</option>
                             <option value="待评阅" th:selected="${stateSelectionValue2}">待评阅</option>
                             <option value="已通过" th:selected="${stateSelectionValue3}">已通过</option>
                             <option value="未通过" th:selected="${stateSelectionValue4}">未通过</option>
