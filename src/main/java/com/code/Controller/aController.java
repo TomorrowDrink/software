@@ -294,8 +294,10 @@ public class aController {
                             @ModelAttribute Task task ,
                             Model model){
         List<Task_s> list =taskService.a_findAppointStuid(1512190424);
-        System.out.println(list);
+//        for (int i = 0; i < list.size();i++)
+//            System.out.println(list.get(i).toString());
         model.addAttribute("initdata",list);
+        System.out.println(list);
 
         List<Task> list1 =taskService.findTaskByTaskstate("已通过");
         model.addAttribute("initdata",list1);

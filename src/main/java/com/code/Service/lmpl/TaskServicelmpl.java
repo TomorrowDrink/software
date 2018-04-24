@@ -56,7 +56,7 @@ public class TaskServicelmpl implements TaskService {
         taskMapper.delTask(taskid);
     }
     @Override
-    public void s_delMyTask(String task_id){taskMapper.s_delMyTask(task_id);}
+    public void s_delMyTask(String task_id ,int stu_id){taskMapper.s_delMyTask(task_id,stu_id);}
     public void chooseTask(int stu_id,String stu_name,int task_id,String task_name  ){taskMapper.chooseTask(stu_id,stu_name,task_id,task_name);}
 
 //    @Override
@@ -102,6 +102,11 @@ public class TaskServicelmpl implements TaskService {
     public List<Task> a_findTaskByState(String task_state){
         return taskMapper.a_findTaskByState(task_state);
     }
-
+    @Override
+    public  List<Task_s> a_findAppointStu(String task_id){return taskMapper.a_findAppointStu(task_id);}
+    @Override
+    public List<Task_s> a_findAppointStuid(int stu_id){return taskMapper.a_findAppointStuid(stu_id);}
+    @Override
+    public  List<Task_s> a_findAppointStuname(String stu_name){return taskMapper.a_findAppointStuname(stu_name);}
 }
 

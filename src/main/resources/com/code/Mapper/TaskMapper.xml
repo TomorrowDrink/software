@@ -13,6 +13,12 @@
             <!--<result column="rolename" property="rolename"/>-->
         <!--</collection>-->
     </resultMap>
+    <resultMap id="Task_sMap" type="com.code.Entity.Task_s">
+        <id property="stuid" column="stuid"/>
+        <result property="stuname" column="stuname"/>
+        <result property="taskid" column="taskid"/>
+        <result property="taskname" column="taskname"/>
+    </resultMap>
 
 
     <select id="findByTaskname" parameterType="String" resultMap="TaskMap">
