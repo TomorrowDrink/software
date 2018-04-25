@@ -1,29 +1,300 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!doctype html>
+<html lang= "en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+
 <head>
-    <meta charset="UTF-8">
-    <title>Student</title>
-    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
-    <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
-    <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>首页</title>
+    <meta name="description" content="这是一个 index 页面"/>
+    <meta name="keywords" content="index"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" th:href="@{/assets/i/favicon.png}" href="../static/assets/i/favicon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png" th:href="@{/assets/i/app-icon72x72@2x.png}"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="../static/assets/css/amazeui.min.css" th:href="@{/assets/css/amazeui.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/admin.css" th:href="@{/assets/css/admin.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/app.css" th:href="@{/assets/css/app.css}"/>
+    <script src="../static/assets/js/echarts.min.js" th:src="@{/assets/js/echarts.min.js}"></script>
 
-    <title>Student</title>
 </head>
-<body>
 
-<div th:include="s-head :: s-head"></div>
-
+<body  style="">
 
 
+<div th:replace="thead-top :: thead-top"></div>
 
 
-<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
+<div class="tpl-page-container tpl-page-header-fixed">
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            <font size="4">毕设管理系统</font>
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="index.php" class="nav-link active" th:href="@{/student}">
+                        <i class="am-icon-home"></i>
+                        <span>首页</span>
+                        <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                    </a>
+                </li>
+                <!--<li class="tpl-left-nav-item">-->
+                <!--<a href="course.php" class="nav-link tpl-left-nav-link-list">-->
+                <!--<i class="am-icon-book"></i>-->
+                <!--<span>论文审评</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>成果物管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="kadai.html" th:href="@{/student/renwushu}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>任务书管理</span>
+                            </a>
 
-<script th:src="@{/js/application.js}" src="../static/js/application.js"></script>
+                            <a href="newKadai.html" th:href="@{/student/wenxian}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>文献综述管理</span>
+                            </a>
 
+                            <a href="newKadai.html" th:href="@{/student/fanyi}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>文献翻译管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/kaiti}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>开题报告管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/zhongqi}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>中期检查结果管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/guocheng}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>过程记录管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/lunwen}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>毕业论文管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>源代码管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/gitlog}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>项目分析</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>课题选择</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/s_TaskShow}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>选择课题</span>
+                            </a>
+
+                            <a href="" th:href="@{/student/s_MyTask}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>我的课题</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title" id="course_name">
+
+        </div>
+        <div>
+            <div>
+                <ol class="am-breadcrumb">
+
+                </ol>
+
+                <div class="tpl-content-scope">
+                    <div class="note note-info" style="text-align: center;">
+                        <h3>毕设管理系统
+                            <span class="close" data-close="note"></span>
+                        </h3>
+                        <p> 相关功能或操作请从左侧菜单或首页下方进入——</p>
+                        <p><span class="label label-danger">注:</span> 本页面仅可由学生操作
+
+
+                    </div>
+                </div>
+
+                <div class="tpl-portlet-components">
+                    <div class="row">
+
+                        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                            <div class="dashboard-stat blue">
+                                <div class="visual">
+                                    <i class="am-icon-comments-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number"> </div>
+                                    <div class="desc"> </div>
+                                </div>
+                                <a class="more" href="course.php"> 查看更多
+                                    <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                            <div class="dashboard-stat red">
+                                <div class="visual">
+                                    <i class="am-icon-comments-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number"> </div>
+                                    <div class="desc">  </div>
+                                </div>
+                                <a class="more" href="edit_course.php"> 查看更多
+                                    <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                            <div class="dashboard-stat green">
+                                <div class="visual">
+                                    <i class="am-icon-comments-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number"> </div>
+                                    <div class="desc">  </div>
+                                </div>
+                                <a class="more" href="student.php"> 查看更多
+                                    <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                            <div class="dashboard-stat purple">
+                                <div class="visual">
+                                    <i class="am-icon-comments-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number"> </div>
+                                    <div class="desc">  </div>
+                                </div>
+                                <a class="more" href="newStu.php"> 查看更多
+                                    <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                            <div class="dashboard-stat purple">
+                                <div class="visual">
+                                    <i class="am-icon-comments-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number"> </div>
+                                    <div class="desc">  </div>
+                                </div>
+                                <a class="more" href="pushmess.php"> 查看更多
+                                    <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                            <div class="dashboard-stat green">
+                                <div class="visual">
+                                    <i class="am-icon-comments-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number"> </div>
+                                    <div class="desc">  </div>
+                                </div>
+                                <a class="more" href="pushmess.php"> 查看更多
+                                    <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                            <div class="dashboard-stat red">
+                                <div class="visual">
+                                    <i class="am-icon-comments-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number"> </div>
+                                    <div class="desc">  </div>
+                                </div>
+                                <a class="more" href="login.php"> 查看更多
+                                    <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="am-u-lg-3 am-u-md-6 am-u-sm-12">
+                            <div class="dashboard-stat blue">
+                                <div class="visual">
+                                    <i class="am-icon-comments-o"></i>
+                                </div>
+                                <div class="details">
+                                    <div class="number"> </div>
+                                    <div class="desc">  </div>
+                                </div>
+                                <a class="more" href="edit_pwd.php"> 查看更多
+                                    <i class="m-icon-swapright m-icon-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="../static/assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
+        <script src="../static/assets/js/amazeui.min.js" th:src="@{/assets/js/amazeui.min.js}"></script>
+        <script src="../static/assets/js/app.js" th:src="@{/assets/js/app.js}"></script>
+        <script type="../static/text/javascript" th:src="@{/assets/text/javascript}">
+        </script>
 </body>
+
 </html>
