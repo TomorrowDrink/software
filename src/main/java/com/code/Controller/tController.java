@@ -127,14 +127,14 @@ public class tController {
     /**
      * 教师课题显示
      */
-    @RequestMapping(value = {"/t_TaskShow"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = {"/kadai"}, method = {RequestMethod.POST, RequestMethod.GET})
     public String t_TaskShow(@ModelAttribute Task task, Model model,
                              Principal principle) {
         int tutor_id = new Integer(principle.getName()).intValue();
         System.out.println(tutor_id);
         List<Task> list = taskService.findTaskBytutorid(tutor_id);
         model.addAttribute("initdata", list);
-        return "t_TaskShow";
+        return "kadai";
     }
 
     /**
@@ -173,11 +173,11 @@ public class tController {
     /***
      * 删除课题记录deltask
      */
-    @PostMapping("/t_TaskDelete")
+    @PostMapping("/kadaiDelete")
     public String t_TaskDelete(@RequestParam("del_taskid") String taskid) {
         taskService.delTask(taskid);
         System.out.println(taskid);
-        return "redirect:/teacher/t_TaskShow";
+        return "redirect:/teacher/kadai";
     }
 
     /**
@@ -241,12 +241,12 @@ public class tController {
     /**
      * 教师新课题提交
      */
-    @GetMapping("/t_AddTask")
+    @GetMapping("/newKadai")
     public String t_AddTask() {
-        return "t_AddTask";
+        return "newKadai";
     }
 
-    @PostMapping("/t_AddTask")
+    @PostMapping("/newKadai")
     public String t_AddNewTask(
             @RequestParam("taskid") Integer taskid,
             @RequestParam("taskname") String taskname,
@@ -273,7 +273,7 @@ public class tController {
 
         taskService.insertTask(task);
 
-        return "redirect:/teacher/t_TaskShow";
+        return "redirect:/teacher/kadai";
     }
 
 
