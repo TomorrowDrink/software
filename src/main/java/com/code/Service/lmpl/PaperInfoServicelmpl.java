@@ -134,4 +134,14 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     public int findScores(int stuid) {
         return paperInfoMapper.findScores(stuid);
     }
+
+    @Override
+    public PaperInfo findScoreById(int id) {
+        return paperInfoMapper.findScoreById(id);
+    }
+
+    @Override
+    public PaperInfo findCommentById(int id) {
+        return paperInfoMapper.findCommentById(id);
+    }
 }

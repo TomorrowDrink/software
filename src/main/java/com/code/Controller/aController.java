@@ -154,7 +154,7 @@ public class aController {
         System.out.println("paperinfo------------------------------");
         System.out.println(paperInfoService.findScores(id));
         System.out.println("paperinfo------------------------------");
-        gradeService.editTscore(paperInfoService.findScores(id).getScore(),id);
+        gradeService.editTscore(paperInfoService.findScores(id),id);
         gradeService.editIsgreat();
         model.addAttribute("initdata",list);
         return "test";

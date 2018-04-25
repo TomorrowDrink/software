@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -100,14 +101,20 @@ public class tController {
                             @RequestParam("id") String stringid,
                             @RequestParam("score") String stringscore,
                             @RequestParam("comment") String comment,
+                            RedirectAttributes attr,
                             Model model){
         int score = Integer.parseInt(stringscore);
         int id = Integer.parseInt(stringid);
         paperInfoService.editScoreAndComment(score,comment,id);
+        attr.addAttribute("stuname",stuname);
+        attr.addAttribute("taskname",taskname);
+        attr.addAttribute("type",type);
+        attr.addAttribute("id",id);
+        attr.addAttribute("score",score);
+        attr.addAttribute("comment",comment);
 
-//        model.addAttribute("type",type);
-//        model.addAttribute("path","/static/file/sample.pdf");
-        return "redirect:/teacher/review";//show?stuname&taskname&type&id&score&comment
+        return "redirect:/teacher/reviewshow";//show?stuname&taskname&type&id&score&comment
+
     }
     
     @RequestMapping("/test")
