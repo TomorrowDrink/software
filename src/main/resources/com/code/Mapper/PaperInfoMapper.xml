@@ -98,6 +98,16 @@
         where state= #{state} and type= #{type}
     </select>
 
+    <select id="findScoreById" parameterType="Integer" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where id= #{id}
+    </select>
+
+    <select id="findCommentById" parameterType="Integer" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where id= #{id}
+    </select>
+
     <insert id="addRecord" parameterType="com.code.Entity.PaperInfo" >
         INSERT INTO
         paperinfo

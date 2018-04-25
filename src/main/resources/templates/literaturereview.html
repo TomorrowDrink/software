@@ -62,25 +62,32 @@
                 <center>
                     <table id="mainTable" border="1" data-toggle="table" class="bordered">
                         <tr>
-                            <!--<th>ID</th>-->
+                            <th th:if="false">ID</th>
                             <th>课题名称</th>
                             <th>学生姓名</th>
                             <th>状态</th>
                             <!--<th>交叉导师</th>-->
                             <th>编辑</th>
+                            <th th:if="false">score</th>
+                            <th th:if="false">comment</th>
                             <!--<th>下载</th>-->
                             <!--<th>删除</th>-->
                         </tr>
                         <tr th:each="paperinfo,list:${initdata}">
-                            <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                            <td th:if="false" id="table_id" th:text="${paperinfo.id}"></td>
                             <td id="table_taskname" th:text="${paperinfo.taskname}"></td>
                             <td id="table_stuname" th:text="${paperinfo.stuname}"></td>
                             <td id="table_state" th:text="${paperinfo.state}"></td>
+                            <td th:if="false" id="table_score" th:text="${paperinfo.score}"></td>
+                            <td th:if="false" id="table_comment" th:text="${paperinfo.comment}"></td>
                             <!--<td id="table_tutorname" th:text="${paperinfo.crosstutor}">未安排</td>-->
                             <td>
                                 <form action="" th:action="@{/teacher/reviewshow}">
+                                    <input type="hidden" th:value="${paperinfo.id}"  name="id">
                                     <input type="hidden" th:value="${paperinfo.stuname}"  name="stuname">
                                     <input type="hidden" th:value="${paperinfo.taskname}" name="taskname">
+                                    <input type="hidden" th:value="${paperinfo.score}"  name="score">
+                                    <input type="hidden" th:value="${paperinfo.comment}"  name="comment">
                                     <input type="hidden" th:value="文献综述" name="type">
                                     <button type="submit" class="btn btn-link" >编辑</button>
                                 </form>

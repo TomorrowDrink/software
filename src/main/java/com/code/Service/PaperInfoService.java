@@ -33,5 +33,7 @@ public interface PaperInfoService {
     public void editScoreAndComment(int score,String comment,int id);
 
 
-    public int findScores(int stuid);
+    public PaperInfo findScores(int stuid);
+    public PaperInfo findScoreById(int id);
+    public PaperInfo findCommentById(int id);
 }
