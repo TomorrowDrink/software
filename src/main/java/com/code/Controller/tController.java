@@ -42,7 +42,7 @@ public class tController {
     private PaperInfoService paperInfoService;
 
     /**
-     * 教师评阅界面
+     * 教师评阅列表界面
      */
     
     @GetMapping("/review")
@@ -74,6 +74,9 @@ public class tController {
         return "lunwenreview";
     }
 
+    /**
+     * 教师评阅界面
+     */
     @RequestMapping("/reviewshow")
     public String review(@RequestParam("stuname") String stuname,
                          @RequestParam("taskname") String taskname,
@@ -129,12 +132,12 @@ public class tController {
     @RequestMapping("/selstate")
     public String selState(@RequestParam ("stateSelection") String state,
                            @RequestParam ("type") String type,
+                           @RequestParam("flag") String flag,
+                           RedirectAttributes attr,
                            Model model,Principal principal){
         System.out.println("selectstate"+state);
         List<PaperInfo> list ;
         int tutorid = new Integer(principal.getName()).intValue();
-//        list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
-//        model.addAttribute("initdata", list);
 
         if (state.equals("allstate")){
             list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,type);
@@ -153,7 +156,17 @@ public class tController {
             model.addAttribute("initdata", list);
             model.addAttribute("stateSelectionValue4",type);
         }
-        return  "literaturereview";
+//        attr.addAttribute("flag",flag);
+        if(flag.equals("literaturereview")) {
+            return "literaturereview";
+        }else if(flag.equals("ktreview")){
+            return "ktreview";
+        }else if(flag.equals("lunwenreview")){
+            return "lunwenreview";
+        }
+        else{
+            return "literaturereview";
+        }
     }
 
     /**

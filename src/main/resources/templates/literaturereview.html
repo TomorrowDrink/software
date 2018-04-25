@@ -43,6 +43,7 @@
                             <option value="已通过" th:selected="${stateSelectionValue3}">已通过</option>
                             <option value="未通过" th:selected="${stateSelectionValue4}">未通过</option>
                             <input type="hidden" th:value="文献综述" name="type">
+                            <input type="hidden" th:value="literaturereview" name="flag">
                         </select>
                         <button type="submit" class="btn btn-primary" onclick="search_state(obj)">查询</button>
                     </form>

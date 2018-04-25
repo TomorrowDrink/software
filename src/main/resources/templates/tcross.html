@@ -11,41 +11,41 @@
 
 </head>
 <body>
-<div th:include="t-head :: t-head"></div>
+    <div th:include="t-head :: t-head"></div>
 <br><br>
-<div class="container">
-<center>
-<form action="" th:action="@{/admin/crossproposal}" method="post">
-<table  id="mainTable" border="1" data-toggle="table" class="bordered">
-    <tr>
-        <th>ID</th>
-        <th>课题名称</th>
-        <th>学生姓名</th>
-        <th>状态</th>
-        <th>文件类型</th>
-        <th>导师姓名</th>
-        <th>编辑</th>
+    <div class="container">
+        <center>
+            <form action="" th:action="@{/teacher/crossproposal}" method="post">
+                <table  id="mainTable" border="1" data-toggle="table" class="bordered">
+                    <tr>
+                        <th th:if="false">ID</th>
+                        <th>课题名称</th>
+                        <th>学生姓名</th>
+                        <th>状态</th>
+                        <th>文件类型</th>
+                        <th>导师姓名</th>
+                        <th>编辑</th>
 
 
-    </tr>
-    <tr th:each="paperinfo,list:${initdata}">
-        <!--<td id="table_id" th:text="${list.size+1}"></td>-->
-        <td  th:text="${paperinfo.id}" id="id"></td>
-        <td  th:text="${paperinfo.taskname}"></td>
-        <td  th:text="${paperinfo.stuname}"></td>
-        <td  th:text="${paperinfo.state}"></td>
-        <td  th:text="${paperinfo.type}"></td>
-        <td  th:text="${paperinfo.tutorname}" ></td>
-        <td  >
-            <button type="button" class="btn btn-primary" th:href="@{#}">编辑</button>
-        </td>
+                    </tr>
+                    <tr th:each="paperinfo,list:${initdata}">
+                        <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                        <td  th:text="${paperinfo.id}" th:if="false" id="id"></td>
+                        <td  th:text="${paperinfo.taskname}"></td>
+                        <td  th:text="${paperinfo.stuname}"></td>
+                        <td  th:text="${paperinfo.state}"></td>
+                        <td  th:text="${paperinfo.type}"></td>
+                        <td  th:text="${paperinfo.tutorname}" ></td>
+                        <td>
+                            <button type="button" class="btn btn-primary" th:href="@{#}">编辑</button>
+                        </td>
 
 
-    </tr>
-</table>
-</form>
-</center>
-</div>
+                    </tr>
+                </table>
+            </form>
+        </center>
+    </div>
 
 
 
