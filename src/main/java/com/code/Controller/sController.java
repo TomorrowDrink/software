@@ -65,34 +65,7 @@ public class sController {
         return "student";
     }
 
-    @GetMapping("/password")
-    public String password(){
-        return "changepassword";
-    }
 
-    @PostMapping("/password")
-    public String uppassword(@RequestParam("pwd") String pwd,
-                             @RequestParam("newpwd") String newpwd,
-                             @RequestParam("renewpwd") String renewpwd,
-                             Principal principal){
-        if(newpwd.equals(renewpwd)) {
-            String username = principal.getName();
-            User user = userService.findUserByUsername(username);
-            boolean flag = new BCryptPasswordEncoder().matches(pwd,user.getPassword());
-            System.out.println(flag);
-            if (flag) {
-
-                newpwd = new BCryptPasswordEncoder().encode(newpwd);
-                userService.updatePwd(user.getPassword(), newpwd);
-                return "redirect:/student";
-            } else {
-                return "redirect:/student/password?error1";
-            }
-        }
-        else {
-            return "redirect:/student/password?error2";
-        }
-    }
 
     @Autowired
     private  StorageService storageService;
