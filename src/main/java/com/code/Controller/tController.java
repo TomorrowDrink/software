@@ -77,15 +77,38 @@ public class tController {
     public String review(@RequestParam("stuname") String stuname,
                          @RequestParam("taskname") String taskname,
                          @RequestParam("type") String type,
+                         @RequestParam("id") int id,
+                         @RequestParam("score") int score,
+                         @RequestParam("comment") String comment,
                          Model model){
         model.addAttribute("stuname",stuname);
         model.addAttribute("taskname",taskname);
         model.addAttribute("type",type);
+        model.addAttribute("id",id);
+        score = paperInfoService.findScoreById(id).getScore();
+        comment = paperInfoService.findCommentById(id).getComment();
+        model.addAttribute("score",score);
+        model.addAttribute("comment",comment);
         model.addAttribute("path","/static/file/sample.pdf");
         return "review";
     }
 
+    @RequestMapping("/editScore")
+    public String editScore(@RequestParam("stuname") String stuname,
+                            @RequestParam("taskname") String taskname,
+                            @RequestParam("type") String type,
+                            @RequestParam("id") String stringid,
+                            @RequestParam("score") String stringscore,
+                            @RequestParam("comment") String comment,
+                            Model model){
+        int score = Integer.parseInt(stringscore);
+        int id = Integer.parseInt(stringid);
+        paperInfoService.editScoreAndComment(score,comment,id);
 
+//        model.addAttribute("type",type);
+//        model.addAttribute("path","/static/file/sample.pdf");
+        return "redirect:/teacher/review";//show?stuname&taskname&type&id&score&comment
+    }
     
     @RequestMapping("/test")
     public String test(){
