@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang= "en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>首页</title>
+    <meta name="description" content="这是一个 index 页面"/>
+    <meta name="keywords" content="index"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" th:href="@{/assets/i/favicon.png}" href="assets/i/favicon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png" th:href="@{/assets/i/app-icon72x72@2x.png}"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" th:href="@{/assets/css/amazeui.min.css}"/>
+    <link rel="stylesheet" href="assets/css/admin.css" th:href="@{/assets/css/admin.css}"/>
+    <link rel="stylesheet" href="assets/css/app.css" th:href="@{/assets/css/app.css}"/>
+    <script src="assets/js/echarts.min.js" th:src="@{/assets/js/echarts.min.js}"></script>
+
+</head>
+
+<body  style="">
+<header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <a href="index.php" class="tpl-logo">
+                <img src="assets/img/logo.png" alt="">
+            </a>
+        </div>
+    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+		
+        </div>
+        <!--
+        	<?php
+        	include("link.php");
+    		$teacher= getLoginInfo();
+        	foreach($teacher as $k=>$val){
+   			$teacher_name= "{$val['teacher_name']}"; 
+        	
+					}
+        ?>
+        -->
+    	
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+                
+               
+                
+    
+   				 <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li> 
+    
+                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                        <span class="tpl-header-list-user-nick"><?php echo $teacher_name; ?></span><span class="tpl-header-list-user-ico"> <img src="upload/f98c3ff316835fdd7f082a27eeeef369.jpeg"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="#"><span class="am-icon-bell-o"></span> 资料</a></li>
+                        <li><a href="#"><span class="am-icon-cog"></span> 修改密码</a></li>
+                        
+                    </ul>
+                </li>
+    
+    			
+    
+                 <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                    <a style="color: #999"  href="logout.php">
+                        <span class="am-icon-sign-out">退出登录 </span>
+                    </a>
+                </li>
+                
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </header>
+
+<div th:replace="thead-top :: thead-top"></div>
+
+
+<div class="tpl-page-container tpl-page-header-fixed">
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            <font size="4">毕设管理系统</font>
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="index.php" class="nav-link active" th:href="@{/student}">
+                        <i class="am-icon-home"></i>
+                        <span>首页</span>
+                        <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                    </a>
+                </li>
+                <!--<li class="tpl-left-nav-item">-->
+                <!--<a href="course.php" class="nav-link tpl-left-nav-link-list">-->
+                <!--<i class="am-icon-book"></i>-->
+                <!--<span>论文审评</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>成果物管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="kadai.html" th:href="@{/student/renwushu}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>任务书管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/wenxian}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>文献综述管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/fanyi}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>文献翻译管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/kaiti}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>开题报告管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/zhongqi}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>中期检查结果管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/guocheng}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>过程记录管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/lunwen}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>毕业论文管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>源代码管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/gitlog}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>项目分析</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>课题选择</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/s_TaskShow}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>选择课题</span>
+                            </a>
+
+                            <a href="" th:href="@{/student/s_MyTask}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>我的课题</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="tpl-content-wrapper">
+            <div class="tpl-content-page-title">
+                	我的课题
+            </div>
+            <ol class="am-breadcrumb">
+                <li><a href="#" class="am-icon-home">首页</a></li>
+                <li><a href="#">我的课题</a></li>
+                <li class="am-active">1512190232</li>
+            </ol>
+            <div class="tpl-portlet-components">
+                
+                <div class="tpl-block">
+                    <div class="am-g">
+                    
+                    </div>
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+                            <form class="am-form">
+                                <table class="am-table am-table-striped am-table-hover table-main">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+                                            <th class="table-id">ID</th>
+                                            <th class="table-title">课题名称</th>
+                                            <th class="table-type">类型</th>
+                                            <th class="table-author am-hide-sm-only">导师姓名</th>
+                                            <!--<th class="table-date am-hide-sm-only">修改日期</th>-->
+                                            <th class="table-set">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>1</td>
+                                            <td><a href="#">企业管理信息系统</a></td>
+                                            <td>软件开发</td>
+                                            <td class="am-hide-sm-only">吴云</td>
+                                            
+                                            <td>
+                                                <div class="am-btn-toolbar">
+                                                    <div class="am-btn-group am-btn-group-xs">
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-center"><span class="am-icon-angle-double-up"></span> 详情</button>
+                                                        <button id="delete" data-toggle='modal' data-target='#delModal' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick= "del(this)";><span class="am-icon-arrow-circle-o-down"></span> 退选</button> 
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>3</td>
+                                            <td><a href="#">教室借用系统</a></td>
+                                            <td>软件开发</td>
+                                            <td class="am-hide-sm-only">徐巍</td>
+                                            
+                                            <td>
+                                                <div class="am-btn-toolbar">
+                                                    <div class="am-btn-group am-btn-group-xs">
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-center"><span class="am-icon-angle-double-up"></span> 详情</button>
+                                                        <button id="delete" data-toggle='modal' data-target='#delModal' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick= "del(this)";><span class="am-icon-arrow-circle-o-down"></span> 退选</button> 
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        
+                                       
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                                
+                                <hr>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+        <script src="assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
+        <script src="assets/js/amazeui.min.js" th:src="@{/assets/js/amazeui.min.js}"></script>
+        <script src="assets/js/app.js" th:src="@{/assets/js/app.js}"></script>
+        <script type="javascript" th:src="@{/assets/text/javascript}">
+        </script>
+</body>
+
+</html>
