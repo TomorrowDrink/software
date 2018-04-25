@@ -22,6 +22,11 @@
         where tname= #{tname}
     </select>
 
+    <select id="findGradesByTutorid" parameterType="Integer" resultMap="gradeMap">
+        select grade.*  from grade grade
+        where tutorid= #{tutorid}
+    </select>
+
     <update id="editTscore" parameterType="int">
         UPDATE
         grade

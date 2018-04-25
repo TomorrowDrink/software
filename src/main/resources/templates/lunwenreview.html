@@ -68,9 +68,11 @@
                             <th>学生姓名</th>
                             <th>状态</th>
                             <!--<th>交叉导师</th>-->
-                            <th>编辑</th>
                             <th th:if="false">score</th>
                             <th th:if="false">comment</th>
+                            <th th:if="false">导师姓名</th>
+                            <th>编辑</th>
+
                             <th>下载</th>
                             <!--<th>删除</th>-->
                         </tr>
@@ -81,6 +83,7 @@
                             <td id="table_state" th:text="${paperinfo.state}"></td>
                             <td th:if="false" id="table_score" th:text="${paperinfo.score}"></td>
                             <td th:if="false" id="table_comment" th:text="${paperinfo.comment}"></td>
+                            <td th:if="false" id="table_tutorname" th:text="${paperinfo.tutorname}" ></td>
                             <!--<td id="table_tutorname" th:text="${paperinfo.crosstutor}">未安排</td>-->
                             <td>
                                 <form action="" th:action="@{/teacher/reviewshow}">
@@ -90,6 +93,7 @@
                                     <input type="hidden" th:value="${paperinfo.score}"  name="score">
                                     <input type="hidden" th:value="${paperinfo.comment}"  name="comment">
                                     <input type="hidden" th:value="论文" name="type">
+                                    <input type="hidden" th:value="${paperinfo.tutorname}"  name="tutorname">
                                     <button type="submit" class="btn btn-link" >编辑</button>
                                 </form>
                             </td>

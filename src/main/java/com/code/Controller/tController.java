@@ -1,6 +1,7 @@
 package com.code.Controller;
 
 import com.code.Entity.*;
+import com.code.Service.GradeService;
 import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
@@ -40,6 +41,9 @@ public class tController {
 
     @Autowired
     private PaperInfoService paperInfoService;
+
+    @Autowired
+    private GradeService gradeService;
 
     /**
      * 教师评阅列表界面
@@ -84,12 +88,18 @@ public class tController {
                          @RequestParam("id") int id,
                          @RequestParam("score") int score,
                          @RequestParam("comment") String comment,
+                         @RequestParam("tutorname") String tutorname,
                          Model model){
         model.addAttribute("stuname",stuname);
         model.addAttribute("taskname",taskname);
         model.addAttribute("type",type);
         model.addAttribute("id",id);
-        score = paperInfoService.findScoreById(id).getScore();
+        if(paperInfoService.findScoreById(id).getScore() == null){
+            score = 0;
+        }else
+        {
+            score = paperInfoService.findScoreById(id).getScore();
+        }
         comment = paperInfoService.findCommentById(id).getComment();
         model.addAttribute("score",score);
         model.addAttribute("comment",comment);
@@ -97,6 +107,9 @@ public class tController {
         return "review";
     }
 
+    /**
+     * 教师评分
+     */
     @RequestMapping("/editScore")
     public String editScore(@RequestParam("stuname") String stuname,
                             @RequestParam("taskname") String taskname,
@@ -105,18 +118,67 @@ public class tController {
                             @RequestParam("score") String stringscore,
                             @RequestParam("comment") String comment,
                             RedirectAttributes attr,
-                            Model model){
-        int score = Integer.parseInt(stringscore);
+                            Principal principal,
+                            Model model) {
+        PaperInfo paperInfo;
         int id = Integer.parseInt(stringid);
-        paperInfoService.editScoreAndComment(score,comment,id);
-        attr.addAttribute("stuname",stuname);
-        attr.addAttribute("taskname",taskname);
-        attr.addAttribute("type",type);
-        attr.addAttribute("id",id);
-        attr.addAttribute("score",score);
-        attr.addAttribute("comment",comment);
-
-        return "redirect:/teacher/reviewshow";//show?stuname&taskname&type&id&score&comment
+        String crosstutorname = paperInfoService.findPaperInfoById(id).getTutorname();
+        int tutorid = new Integer(principal.getName()).intValue();
+//        String flag = "crossproposal";
+            try {
+                int score = Integer.parseInt(stringscore);
+                if (score >= 0 && score <= 100) {
+                    paperInfoService.editScoreAndComment(score, comment, id);
+                    if (score >= 60) {
+                        paperInfoService.editState(id, "已通过");
+                    } else {
+                        paperInfoService.editState(id, "未通过");
+                    }
+                    attr.addAttribute("stuname", stuname);
+                    attr.addAttribute("taskname", taskname);
+                    attr.addAttribute("type", type);
+                    attr.addAttribute("id", id);
+                    attr.addAttribute("score", score);
+                    attr.addAttribute("comment", comment);
+                    attr.addAttribute("tutorname", crosstutorname);
+                    if (crosstutorname.equals(userService.findUserById(tutorid).getUsername())) {
+                        return "redirect:/teacher/reviewshow";//show?stuname&taskname&type&id&score&comment
+                    }else {
+                        return "redirect:/teacher/reviewshow?flag";//show?stuname&taskname&type&id&score&comment
+                    }
+                } else {
+                    score = 0;
+                    attr.addAttribute("stuname", stuname);
+                    attr.addAttribute("taskname", taskname);
+                    attr.addAttribute("type", type);
+                    attr.addAttribute("id", id);
+                    attr.addAttribute("score", score);
+                    attr.addAttribute("comment", comment);
+                    attr.addAttribute("tutorname", crosstutorname);
+                    if (crosstutorname.equals(userService.findUserById(tutorid).getUsername())) {
+                        return "redirect:/teacher/reviewshow?error";//show?stuname&taskname&type&id&score&comment
+                    }else {
+                        return "redirect:/teacher/reviewshow?error&&flag";//show?stuname&taskname&type&id&score&comment
+                    }
+                }
+            } catch (NumberFormatException e) {
+                int score = 0;
+                attr.addAttribute("stuname", stuname);
+                attr.addAttribute("taskname", taskname);
+                attr.addAttribute("type", type);
+                attr.addAttribute("id", id);
+                attr.addAttribute("score", score);
+                attr.addAttribute("comment", comment);
+                attr.addAttribute("tutorname", crosstutorname);
+                if (crosstutorname.equals(userService.findUserById(tutorid).getUsername())) {
+                    return "redirect:/teacher/reviewshow?error";//show?stuname&taskname&type&id&score&comment
+                }else {
+                    return "redirect:/teacher/reviewshow?error&&flag";//show?stuname&taskname&type&id&score&comment
+                }
+            }
+//        }else{
+//            return "redirect:/teacher/reviewshow?error";
+//        }
 
     }
     
@@ -400,8 +462,28 @@ public class tController {
         return "redirect:/teacher/test";
     }
 
+    /**
+     * 学生成绩查看
+     */
+    @GetMapping("/allgrades")
+    public String allgrades(Model model,Principal principal){
 
+        int tutorid = new Integer(principal.getName()).intValue();
+        List<Grade> list = gradeService.findGradesByTutorid(tutorid);
+        model.addAttribute("initdata",list);
+        return "allgrades";
+    }
 
+    /**
+     * 教师推优
+     */
+    @GetMapping("/ isgreat")
+    public String isgreat(Model model,Principal principal){
+
+        int tutorid = new Integer(principal.getName()).intValue();
+        gradeService.editIsgreat();
+        return "isgreat";
+    }
 
 
 }

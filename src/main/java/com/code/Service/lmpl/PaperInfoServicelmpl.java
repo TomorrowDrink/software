@@ -58,7 +58,7 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     }
 
     @Override
-    public List<PaperInfo> findPaperInfoById(String id) {
+    public PaperInfo findPaperInfoById(int id) {
         return paperInfoMapper.findById(id);
     }
 
@@ -128,6 +128,11 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     @Override
     public void editScoreAndComment(int score, String comment, int id) {
         paperInfoMapper.editScoreAndComment(score,comment,id);
+    }
+
+    @Override
+    public void editState(int id, String state) {
+        paperInfoMapper.editState(id,state);
     }
 
     @Override
