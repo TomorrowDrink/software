@@ -1,15 +1,23 @@
 package com.code.Controller;
 
 import com.code.Entity.*;
+import com.code.Service.GradeService;
 import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 
@@ -34,8 +42,11 @@ public class tController {
     @Autowired
     private PaperInfoService paperInfoService;
 
+    @Autowired
+    private GradeService gradeService;
+
     /**
-     * 教师评阅界面
+     * 教师评阅列表界面
      */
     
     @GetMapping("/review")
@@ -44,12 +55,6 @@ public class tController {
         int tutorid = new Integer(principal.getName()).intValue();
         List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"文献综述");
         model.addAttribute("initdata",list);
-
-//        List<Task> task = taskService.findTaskByTaskstate("已通过");
-//        for(Task tasks:task){
-//            System.out.println(tasks.getTaskname());
-//        }
-//        model.addAttribute("tasklist",task);
         return "literaturereview";
     }
 
@@ -73,20 +78,110 @@ public class tController {
         return "lunwenreview";
     }
 
+    /**
+     * 教师评阅界面
+     */
     @RequestMapping("/reviewshow")
     public String review(@RequestParam("stuname") String stuname,
                          @RequestParam("taskname") String taskname,
                          @RequestParam("type") String type,
+                         @RequestParam("id") int id,
+                         @RequestParam("score") int score,
+                         @RequestParam("comment") String comment,
+                         @RequestParam("tutorname") String tutorname,
                          Model model){
         model.addAttribute("stuname",stuname);
         model.addAttribute("taskname",taskname);
         model.addAttribute("type",type);
+        model.addAttribute("id",id);
+        if(paperInfoService.findScoreById(id).getScore() == null){
+            score = 0;
+        }else
+        {
+            score = paperInfoService.findScoreById(id).getScore();
+        }
+        comment = paperInfoService.findCommentById(id).getComment();
+        model.addAttribute("score",score);
+        model.addAttribute("comment",comment);
         model.addAttribute("path","/static/file/sample.pdf");
         return "review";
     }
 
+    /**
+     * 教师评分
+     */
+    @RequestMapping("/editScore")
+    public String editScore(@RequestParam("stuname") String stuname,
+                            @RequestParam("taskname") String taskname,
+                            @RequestParam("type") String type,
+                            @RequestParam("id") String stringid,
+                            @RequestParam("score") String stringscore,
+                            @RequestParam("comment") String comment,
+                            RedirectAttributes attr,
+                            Principal principal,
+                            Model model) {
+        PaperInfo paperInfo;
+        int id = Integer.parseInt(stringid);
+        String crosstutorname = paperInfoService.findPaperInfoById(id).getTutorname();
+        int tutorid = new Integer(principal.getName()).intValue();
+//        String flag = "crossproposal";
+            try {
+                int score = Integer.parseInt(stringscore);
+                if (score >= 0 && score <= 100) {
+                    paperInfoService.editScoreAndComment(score, comment, id);
+                    if (score >= 60) {
+                        paperInfoService.editState(id, "已通过");
+                    } else {
+                        paperInfoService.editState(id, "未通过");
+                    }
+                    attr.addAttribute("stuname", stuname);
+                    attr.addAttribute("taskname", taskname);
+                    attr.addAttribute("type", type);
+                    attr.addAttribute("id", id);
+                    attr.addAttribute("score", score);
+                    attr.addAttribute("comment", comment);
+                    attr.addAttribute("tutorname", crosstutorname);
+                    if (crosstutorname.equals(userService.findUserById(tutorid).getUsername())) {
+                        return "redirect:/teacher/reviewshow";//show?stuname&taskname&type&id&score&comment
+                    }else {
+                        return "redirect:/teacher/reviewshow?flag";//show?stuname&taskname&type&id&score&comment
+                    }
+                } else {
+                    score = 0;
+                    attr.addAttribute("stuname", stuname);
+                    attr.addAttribute("taskname", taskname);
+                    attr.addAttribute("type", type);
+                    attr.addAttribute("id", id);
+                    attr.addAttribute("score", score);
+                    attr.addAttribute("comment", comment);
+                    attr.addAttribute("tutorname", crosstutorname);
+                    if (crosstutorname.equals(userService.findUserById(tutorid).getUsername())) {
+                        return "redirect:/teacher/reviewshow?error";//show?stuname&taskname&type&id&score&comment
+                    }else {
+                        return "redirect:/teacher/reviewshow?error&&flag";//show?stuname&taskname&type&id&score&comment
+                    }
+                }
+            } catch (NumberFormatException e) {
+                int score = 0;
+                attr.addAttribute("stuname", stuname);
+                attr.addAttribute("taskname", taskname);
+                attr.addAttribute("type", type);
+                attr.addAttribute("id", id);
+                attr.addAttribute("score", score);
+                attr.addAttribute("comment", comment);
+                attr.addAttribute("tutorname", crosstutorname);
+                if (crosstutorname.equals(userService.findUserById(tutorid).getUsername())) {
+                    return "redirect:/teacher/reviewshow?error";//show?stuname&taskname&type&id&score&comment
+                }else {
+                    return "redirect:/teacher/reviewshow?error&&flag";//show?stuname&taskname&type&id&score&comment
+                }
+            }
+//        }else{
+//            return "redirect:/teacher/reviewshow?error";
+//        }
 
-    
+    }
+
     @RequestMapping("/test")
     public String test(){
         return "test";
@@ -99,23 +194,41 @@ public class tController {
     @RequestMapping("/selstate")
     public String selState(@RequestParam ("stateSelection") String state,
                            @RequestParam ("type") String type,
+                           @RequestParam("flag") String flag,
+                           RedirectAttributes attr,
                            Model model,Principal principal){
         System.out.println("selectstate"+state);
         List<PaperInfo> list ;
         int tutorid = new Integer(principal.getName()).intValue();
-        list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
-        model.addAttribute("initdata", list);
 
-//        if (state.equals("allstate")){
-//            model.addAttribute("stateSelectionValue1",type);
-        /*}else if*/ if(state.equals("待评阅")){
+        if (state.equals("allstate")){
+            list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,type);
+            model.addAttribute("initdata", list);
+            model.addAttribute("stateSelectionValue1",type);
+        }else if(state.equals("待评阅")){
+            list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
+            model.addAttribute("initdata", list);
             model.addAttribute("stateSelectionValue2",type);
         }else if (state.equals("已通过")){
+            list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
+            model.addAttribute("initdata", list);
             model.addAttribute("stateSelectionValue3",type);
-        }else{
+        }else if (state.equals("未通过")){
+            list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
+            model.addAttribute("initdata", list);
             model.addAttribute("stateSelectionValue4",type);
         }
-        return  "literaturereview";
+//        attr.addAttribute("flag",flag);
+        if(flag.equals("literaturereview")) {
+            return "literaturereview";
+        }else if(flag.equals("ktreview")){
+            return "ktreview";
+        }else if(flag.equals("lunwenreview")){
+            return "lunwenreview";
+        }
+        else{
+            return "literaturereview";
+        }
     }
 
     /**
@@ -318,10 +431,59 @@ public class tController {
                 return "tcross";
     }
 
+    /**
+     * 教师评分评语提交
+     */
+    @GetMapping("/tcomment")
+    public String tcomment() {
+        return "test";
+    }
 
+    @PostMapping("/tcomment")
+    public String tcomment(
+            @RequestParam("score") Integer score,
+            @RequestParam("comment") String comment,
+            @RequestParam("id") Integer id,
+            Principal principal) {
 
+        User user =userService.findUserById(new Integer(principal.getName()));
+        String tutorname=user.getName();
+        PaperInfo paperInfo = new PaperInfo();
+        int tutorid =new Integer(principal.getName());
+        paperInfo.setScore(score);
+        paperInfo.setComment(comment);
+        paperInfo.setId(id);
+        System.out.println("-----------------------------------------");
+        System.out.println("id:"+id+"score:"+score+"comment:"+comment);
+        System.out.println("-----------------------------------------");
 
+        paperInfoService.editScoreAndComment(score,comment,id);
 
+        return "redirect:/teacher/test";
+    }
+
+    /**
+     * 学生成绩查看
+     */
+    @GetMapping("/allgrades")
+    public String allgrades(Model model,Principal principal){
+
+        int tutorid = new Integer(principal.getName()).intValue();
+        List<Grade> list = gradeService.findGradesByTutorid(tutorid);
+        model.addAttribute("initdata",list);
+        return "allgrades";
+    }
+
+    /**
+     * 教师推优
+     */
+    @GetMapping("/ isgreat")
+    public String isgreat(Model model,Principal principal){
+
+        int tutorid = new Integer(principal.getName()).intValue();
+        gradeService.editIsgreat();
+        return "isgreat";
+    }
 
 
 }

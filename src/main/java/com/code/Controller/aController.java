@@ -1,9 +1,7 @@
 package com.code.Controller;
 
-import com.code.Entity.JsonResponse;
-import com.code.Entity.PaperInfo;
-import com.code.Entity.Task;
-import com.code.Entity.User;
+import com.code.Entity.*;
+import com.code.Service.GradeService;
 import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
@@ -47,6 +45,9 @@ public class aController {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private GradeService gradeService;
 
 
     @RequestMapping("")
@@ -138,6 +139,25 @@ public class aController {
         model.addAttribute("tasklist",task);
 
         return "areview";
+    }
+
+    /**
+     * 管理员成绩管理
+     */
+    @PostMapping("/test")
+    public String test(){return "redirect:/admin/test";}
+
+    @GetMapping("/test")
+    public String test(@ModelAttribute Grade grade, Model model){
+        List<Grade> list = gradeService.getAll();
+        int id = 1512190407;
+        System.out.println("paperinfo------------------------------");
+        System.out.println(paperInfoService.findScores(id));
+        System.out.println("paperinfo------------------------------");
+        gradeService.editTscore(paperInfoService.findScores(id),id);
+        gradeService.editIsgreat();
+        model.addAttribute("initdata",list);
+        return "test";
     }
 
     /**

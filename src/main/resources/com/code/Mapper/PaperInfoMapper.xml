@@ -13,6 +13,8 @@
         <result property="crosstutor" column="crosstutor"/>
         <result property="ktgroup" column="ktgroup"/>
         <result property="lwgroup" column="lwgroup"/>
+        <result property="score" column="score"/>
+        <result property="comment" column="comment"/>
 
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
             <!--<result column="rolename" property="rolename"/>-->
@@ -29,7 +31,7 @@
         where crosstutor= #{crosstutor}
     </select>
 
-    <select id="findById" parameterType="String" resultMap="paperInfoMap">
+    <select id="findById" parameterType="Integer" resultMap="paperInfoMap">
         select p.*  from paperinfo p
         where id= #{id}
     </select>
@@ -96,6 +98,16 @@
         where state= #{state} and type= #{type}
     </select>
 
+    <select id="findScoreById" parameterType="Integer" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where id= #{id}
+    </select>
+
+    <select id="findCommentById" parameterType="Integer" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where id= #{id}
+    </select>
+
     <insert id="addRecord" parameterType="com.code.Entity.PaperInfo" >
         INSERT INTO
         paperinfo
@@ -142,5 +154,28 @@
         WHERE
         id= #{id,jdbcType=INTEGER}
     </update>
+
+    <update id="editScoreAndComment">
+        UPDATE
+        paperinfo
+        SET
+        score = #{score,jdbcType=INTEGER},
+        comment = #{comment,jdbcType=VARCHAR}
+        WHERE
+        id= #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="editState">
+        UPDATE
+        paperinfo
+        SET
+        state = #{state,jdbcType=INTEGER}
+        WHERE
+        id= #{id,jdbcType=INTEGER}
+    </update>
+    <select id="findScores" parameterType="Integer" resultType="Integer">
+        select NULLIF(SUM(p.score)*1/3,0)  from paperinfo p
+        where p.stuid= #{stuid}
+    </select>
 
 </mapper>

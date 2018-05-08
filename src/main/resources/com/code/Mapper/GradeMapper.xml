@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.code.Mapper.GradeMapper">
+
+    <resultMap id="gradeMap" type="com.code.Entity.Grade">
+        <id property="gid" column="gid"/>
+        <result property="sno" column="sno"/>
+        <result property="sname" column="sname"/>
+        <result property="tname" column="tname"/>
+        <result property="tutorname" column="tutorname"/>
+        <result property="tutorid" column="tutorid"/>
+        <result property="tscore" column="tscore"/>
+        <result property="isgreat" column="isgreat"/>
+    </resultMap>
+
+    <select id="getAll" parameterType="String" resultMap="gradeMap">
+        select grade.*  from grade grade
+    </select>
+
+    <select id="findByTaskname" parameterType="String" resultMap="gradeMap">
+        select grade.*  from grade grade
+        where tname= #{tname}
+    </select>
+
+    <select id="findGradesByTutorid" parameterType="Integer" resultMap="gradeMap">
+        select grade.*  from grade grade
+        where tutorid= #{tutorid}
+    </select>
+
+    <update id="editTscore" parameterType="int">
+        UPDATE
+        grade
+        SET
+        tscore = #{tscore}
+        WHERE
+        sno= #{sno,jdbcType=INTEGER}
+    </update>
+
+    <update id="editIsgreat" parameterType="int">
+        UPDATE
+        grade
+        SET
+        isgreat = 1
+        WHERE
+        tscore >= 90
+    </update>
+
+</mapper>

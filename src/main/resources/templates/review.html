@@ -15,11 +15,30 @@
 <div th:include="t-head :: t-head"></div>
 <div class="container" >
     <br><br>
-    <p th:text="${stuname}"></p>
-    <p th:text="${taskname}"></p>
-    <p th:text="${type}"></p>
-
+    <p th:text="${id}" th:id="id"></p>
+    <p th:text="${stuname}" th:id="stuname"></p>
+    <p th:text="${taskname}" th:id="taskname"></p>
+    <p th:text="${type}" th:id="type"></p>
+    <div th:if="${param.flag}" style="color: red">
+        <p th:text="${tutorname}" th:id="tutorname"></p>
+    </div>
     <div id="example1"></div>
+    <br><br>
+    <form action="" th:action="@{/teacher/editScore}">
+        <input type="hidden" th:value="${id}"  id="id" name="id">
+        <input type="hidden" th:value="${stuname}"  id="stuname" name="stuname">
+        <input type="hidden" th:value="${taskname}"  id="taskname" name="taskname">
+        <input type="hidden" th:value="${type}"  id="type" name="type">
+        <label for="score">分数：</label>
+        <input type="text" th:value="${score}"  id="score" name="score">
+        <div th:if="${param.error}" style="color: red">
+            <p>请输入0-100的整数</p>
+        </div>
+        <label for="comment">评语：</label>
+        <input type="text" th:value="${comment}" id="comment" name="comment">
+        <!--<input type="hidden" th:value="文献综述" name="type">-->
+        <button type="submit" class="btn btn-primary" >编辑</button>
+    </form>
     <script th:inline="javascript">
         /*<![CDATA[*/
         var options = {

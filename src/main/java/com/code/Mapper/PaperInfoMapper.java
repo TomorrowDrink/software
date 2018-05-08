@@ -18,7 +18,7 @@ public interface PaperInfoMapper {
     List<PaperInfo> findByTaskname(@Param("taskname") String taskname);
     List<PaperInfo> findByTutorname(@Param("tutorname") String tutorname);
     List<PaperInfo> findByCrosstutor(@Param("crosstutor") String crosstutor);
-    List<PaperInfo> findById(@Param("id") String id);
+    PaperInfo findById(@Param("id") int id);
     List<PaperInfo> findByStuname(@Param("stuname") String stuname);
     List<PaperInfo> findByState(@Param("state") String state);
     List<PaperInfo> findByTaskAndState(@Param("taskname") String taskname,@Param("state") String state);
@@ -29,6 +29,10 @@ public interface PaperInfoMapper {
     List<PaperInfo> findByTutoridAndType(@Param("tutorid") Integer tutorid,@Param("type") String type);
     List<PaperInfo> findByStateAndType(@Param("state") String state,@Param("type") String type);
 
+    int findScores(@Param("stuid") int stuid);
+    PaperInfo findScoreById(@Param("id") int id);
+    PaperInfo findCommentById(@Param("id") int id);
+
     /*新增记录*/
     void addRecord(PaperInfo paperInfo);
     /*删除记录*/
@@ -37,6 +41,8 @@ public interface PaperInfoMapper {
     void editRecord(@Param("state") String state, @Param("tutorname") String tutorname,@Param("tutorid") Integer tutorid,@Param("type") String type, @Param("stuname") String stuname);
     void editCrosstutor(@Param("crosstutor") String crosstutor, @Param("id") int id);
     void editKtgroup(@Param("ktgroup") String ktgroup, @Param("id") int id);
+    void editScoreAndComment(@Param("score") int score, @Param("comment") String comment,@Param("id") int id);
+    void editState(@Param("id") int id, @Param("state") String state);
 
     List<PaperInfo> getAlllunwen();
     List<PaperInfo> getAllkt();
