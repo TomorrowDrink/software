@@ -1,7 +1,9 @@
 package com.code.Controller;
 
-import com.code.Entity.*;
-import com.code.Service.GradeService;
+import com.code.Entity.JsonResponse;
+import com.code.Entity.PaperInfo;
+import com.code.Entity.Task;
+import com.code.Entity.User;
 import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
@@ -320,6 +322,48 @@ public class aController {
         model.addAttribute("initdata",list);
         return  "a_TaskShow";
     }
+
+    /**
+     * 管理员课题指定
+     */
+    @RequestMapping(value = {"/a_TaskAppoint"},method = {RequestMethod.POST,RequestMethod.GET})
+    public String a_StuShow(@ModelAttribute Task_s task_s ,
+                            @ModelAttribute Task task ,
+                            Model model){
+        List<Task_s> list =taskService.a_findAppointStuid(1512190424);
+//        for (int i = 0; i < list.size();i++)
+//            System.out.println(list.get(i).toString());
+        model.addAttribute("initdata",list);
+        System.out.println(list);
+
+        List<Task> list1 =taskService.findTaskByTaskstate("已通过");
+        model.addAttribute("initdata",list1);
+        System.out.println(list1);
+        return  "a_TaskAppoint";
+    }
+
+    @PostMapping("/addtoStu")
+    public String addtoStuTask(
+                               @RequestParam("addtomy_taskid") String taskid,
+                              @RequestParam("addtomy_taskname") String task_name,
+                              @RequestParam("student_id") String student_id
+    ){
+
+
+        int stu_id =new Integer(student_id).intValue();
+        int task_id=new Integer(taskid).intValue();
+        User user =userService.findUserById(stu_id);
+        String stu_name =user.getName();
+        System.out.println("学生:"+stu_id+"\n姓名:"+stu_name+"\n课题id:"+task_id+"\n课题名称:"+task_name);
+        taskService.chooseTask(stu_id,stu_name,task_id,task_name);
+
+        return "a_TaskAppoint";
+    }
+
+
+
+
+
 
     @GetMapping("/crossproposal")
     public String crossproposal(Model model){

@@ -44,5 +44,17 @@ public class Task_s implements Serializable {
 
     public Task_s(){}
 
+    @Override
+    public String toString(){
+        return "Task_s{"+
+                "stuid='"+stuid+'\''+
+                ", stuname='"+stuname+'\''+
+                ", taskid='"+taskid+'\''+
+                ", taskname='"+taskname+'\''+
+                '}';
+    }
+
+
+
 
 }
