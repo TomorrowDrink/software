@@ -111,8 +111,8 @@ public class SController_srw {
 
         try {
                     Process p = Runtime.getRuntime().exec(
-//                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/Documents/allgit/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
-                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/IdeaProjects/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
+                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/Documents/allgit/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
+//                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/IdeaProjects/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
                     p.waitFor();
                 } catch (IOException e) {
                     e.printStackTrace();
