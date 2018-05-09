@@ -90,7 +90,31 @@ public class SController_srw {
 
 
     @GetMapping("/gitlog")
-    public String gitloginput(){
+    public String gitloginput(Principal principal,
+                              Model model){
+
+        int flag = 1;
+        ArrayList<String> files = new ArrayList<String>();
+        String path = "/home/alison/Documents/allgit/"+ principal.getName() ;
+        File file = new File(path);
+        File[] tempList = file.listFiles();
+
+        if(tempList != null) {
+            for (int i = 0; i < tempList.length; i++) {
+
+                if (tempList[i].isDirectory()) {
+//              System.out.println("文件夹：" + tempList[i]);
+                    files.add(tempList[i].getName());
+                }
+            }
+        }
+       else {
+             flag = 0;
+        }
+
+        model.addAttribute("files",files);
+        model.addAttribute("flag",flag);
+
         return "gitloginput";
     }
 
@@ -106,7 +130,7 @@ public class SController_srw {
                 String url =  address;/*http下载地址*/
 //                gitLabApi.unsudo();
 
-                String localPath = "/home/alison/Document/allgit/"+ principal.getName() + "/" + name ;
+                String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + name ;
 //                String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + "test" ;
 
                 File file = new File(localPath);
