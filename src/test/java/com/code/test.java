@@ -13,7 +13,14 @@ import java.util.Map;
 
 public class test {
 
-
+    public static void main(String[] args) {
+        File outfile = new File("test.txt");
+        try {
+            outfile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

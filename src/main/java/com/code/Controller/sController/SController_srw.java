@@ -106,16 +106,13 @@ public class SController_srw {
                         Model model,
                          @RequestParam("filename") String filename){
 
-                 String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + filename ;
-
-                 String outpath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + filename +"/" + filename+ ".html";
-                 File file = new File(localPath);
-                 File outfile = new File(outpath);
 
 
-                try {
+
+        try {
                     Process p = Runtime.getRuntime().exec(
-                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/Documents/allgit/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
+//                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/Documents/allgit/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
+                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/IdeaProjects/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
                     p.waitFor();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -124,7 +121,8 @@ public class SController_srw {
                 }
 
 
-        return "redirect:/student";
+        return "redirect:/student/gitlogcheck?success";
+//          return outpath;
     }
 
 

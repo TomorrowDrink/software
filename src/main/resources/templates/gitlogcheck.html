@@ -26,6 +26,10 @@
         <p>*添加项目失败</p>
         <!--th:text="${'*' + session.SPRING_SECURITY_LAST_EXCEPTION.message}"-->
     </div>
+    <div th:if="${param.success}" style="color: red">
+        <p>*分析项目成功</p>
+        <!--th:text="${'*' + session.SPRING_SECURITY_LAST_EXCEPTION.message}"-->
+    </div>
 
     <div class="jumbotron"  >
 
@@ -45,6 +49,9 @@
                     <button type="submit" class="btn btn-danger btn-lg btn-block">删除</button>
                     </form>
                 </td>
+                <!--<td>-->
+                    <!--<a href="" class="btn btn-info btn-lg btn-block" th:href="@{}">查看分析结果</a>-->
+                <!--</td>-->
             </tr>
         </table>
     </div>
