@@ -144,4 +144,9 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     public PaperInfo findCommentById(int id) {
         return paperInfoMapper.findCommentById(id);
     }
+
+    @Override
+    public List<PaperInfo> findByCrosstutorState(String crosstutor, String state) {
+        return paperInfoMapper.findByCrosstutorState(crosstutor,state);
+    }
 }

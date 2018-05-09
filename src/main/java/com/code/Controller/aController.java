@@ -144,7 +144,7 @@ public class aController {
     /**
      * 管理员成绩管理
      */
-    @PostMapping("/test")
+/*    @PostMapping("/test")
     public String test(){return "redirect:/admin/test";}
 
     @GetMapping("/test")
@@ -158,7 +158,7 @@ public class aController {
         gradeService.editIsgreat();
         model.addAttribute("initdata",list);
         return "test";
-    }
+    }*/
 
     /**
      * 管理员添加论文记录
