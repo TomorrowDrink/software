@@ -13,10 +13,11 @@ public interface GradeMapper {
     List<Grade> getAll();
     List<Grade> findByTname(@Param("tname") String tname);
     List<Grade> findGradesByTutorid(@Param("tutorid") int tutorid);
+    List<Grade> findGradesByTutoridIsgreat(@Param("tutorid") int tutorid,@Param("isgreat") int isgreat);
 
 
     void editTscore(@Param("tscore") int tscore, @Param("sno") int sno);
-    void editIsgreat();
+    void editIsgreat(@Param("sno") int sno,@Param("isgreat") int isgreat,@Param("advice") String advice);
 
 
 

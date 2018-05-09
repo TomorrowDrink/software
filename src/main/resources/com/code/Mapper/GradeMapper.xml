@@ -11,6 +11,7 @@
         <result property="tutorid" column="tutorid"/>
         <result property="tscore" column="tscore"/>
         <result property="isgreat" column="isgreat"/>
+        <result property="advice" column="advice"/>
     </resultMap>
 
     <select id="getAll" parameterType="String" resultMap="gradeMap">
@@ -27,6 +28,11 @@
         where tutorid= #{tutorid}
     </select>
 
+    <select id="findGradesByTutoridIsgreat" parameterType="Integer" resultMap="gradeMap">
+        select grade.*  from grade grade
+        where tutorid = #{tutorid} and isgreat= #{isgreat}
+    </select>
+
     <update id="editTscore" parameterType="int">
         UPDATE
         grade
@@ -40,9 +46,10 @@
         UPDATE
         grade
         SET
-        isgreat = 1
+        isgreat = #{isgreat},
+        advice = #{advice}
         WHERE
-        tscore >= 90
+        sno = #{sno,jdbcType=INTEGER}
     </update>
 
 </mapper>
