@@ -85,10 +85,16 @@ public class SController_srw {
 
 
 
+    /*输入项目*/
+    @GetMapping("/gitinput")
+    public String gitin(){
+        return "gitloginput";
+    }
 
 
 
 
+/*查看已有项目*/
     @GetMapping("/gitlog")
     public String gitloginput(Principal principal,
                               Model model){
@@ -115,7 +121,7 @@ public class SController_srw {
         model.addAttribute("files",files);
         model.addAttribute("flag",flag);
 
-        return "gitloginput";
+        return "gitlogcheck";
     }
 
 
@@ -219,5 +225,44 @@ public class SController_srw {
 
 
 
+    @PostMapping("/gitdelete")
+    public String gitdelete( @RequestParam("filename") String filename,
+                             Principal principal,
+                             Model model){
+
+        System.out.println(filename);
+        String path = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + filename ;
+
+        File file = new File(path);
+
+        boolean flag = deleteDir(file);
+
+
+        if(flag == true)
+            return "redirect:/student/gitlog";
+        else
+            return "redirect:/student/gitlog?fail";
+
+
+
+    }
+
+    /*删除文件夹的函数*/
+    private static boolean deleteDir(File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+
+            if (children != null) {
+                for (int i = 0; i < children.length; i++) {
+                    boolean success = deleteDir(new File(dir, children[i]));
+                    if (!success) {
+                        return false;
+                    }
+                }
+            }
+        }
+        // 目录此时为空，可以删除
+        return dir.delete();
+    }
 
 }
