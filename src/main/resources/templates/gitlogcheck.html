@@ -22,6 +22,11 @@
         <!--th:text="${'*' + session.SPRING_SECURITY_LAST_EXCEPTION.message}"-->
     </div>
 
+    <div th:if="${param.error}" style="color: red">
+        <p>*添加项目失败</p>
+        <!--th:text="${'*' + session.SPRING_SECURITY_LAST_EXCEPTION.message}"-->
+    </div>
+
     <div class="jumbotron"  >
 
         <table class="table table-bordered">
@@ -29,7 +34,10 @@
             <tr th:each="files,list:${files}">
                 <td th:text="${files}"></td>
                 <td>
-                    <a  class="btn btn-primary btn-lg btn-block">查看分析</a>
+                    <form action="/student/gitlog" method="post" th:action="@{/student/gitlog}">
+                        <input type="hidden" name="filename" th:value="${files}">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">分析项目</button>
+                    </form>
                 </td>
                 <td>
                     <form action="/student/gitdelete" method="post" th:action="@{/student/gitdelete}">

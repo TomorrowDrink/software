@@ -1,30 +1,19 @@
 package com.code;
 
+import org.apache.commons.exec.CommandLine;
+import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.PumpStreamHandler;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class test {
 
-    public static ArrayList<String> getFiles(String path) {
-        ArrayList<String> files = new ArrayList<String>();
-        File file = new File(path);
-        File[] tempList = file.listFiles();
 
-        for (int i = 0; i < tempList.length; i++) {
 
-            if (tempList[i].isDirectory()) {
-              System.out.println("文件夹：" + tempList[i]);
-                files.add(tempList[i].getName());
-
-            }
-        }
-        return files;
-    }
-
-    public static void main(String[] args) {
-        String path = "/home/alison/Documents/allgit/"+ "1512190232";
-
-        System.out.println(getFiles(path));
-    }
 
 }
