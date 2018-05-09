@@ -4,21 +4,22 @@
 
 
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>首页</title>
-    <meta name="description" content="这是一个 index 页面"/>
-    <meta name="keywords" content="index"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="renderer" content="webkit"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的课题</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" th:href="@{/assets/i/favicon.png}" href="assets/i/favicon.png"/>
-    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png" th:href="@{/assets/i/app-icon72x72@2x.png}"/>
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" th:href="@{/assets/css/amazeui.min.css}"/>
-    <link rel="stylesheet" href="assets/css/admin.css" th:href="@{/assets/css/admin.css}"/>
-    <link rel="stylesheet" href="assets/css/app.css" th:href="@{/assets/css/app.css}"/>
-    <script src="assets/js/echarts.min.js" th:src="@{/assets/js/echarts.min.js}"></script>
+    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/flat-ui.css">
 
 </head>
 
@@ -221,6 +222,90 @@
                         
                         
                     </div>
+                    
+                    <!--选课模态框-->
+                <div class="modal fade" id="addtomyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="margin-top: 100px;">
+                        <div class="modal-content" style="text-align:center;">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">×
+                                </button>
+                                <h7 class="modal-title" id="myModalLabel">选择</h7>
+                            </div>
+                            <div class="modal-body">
+                                <p style="font-size: smaller;">您要选择该课题吗？</p>
+                                <form th:action="@{/student/addtomy}" action="/student/addtomy"  method="post">
+                                    <input type="hidden" id="addtomy_taskid" name="addtomy_taskid" value="111"/>
+                                    <input type="hidden" id="addtomy_taskname" name="addtomy_taskname" value="222"/>
+                                    <input type="hidden" id="student_id" name="student_id" value="333"/>
+
+                                    <button type="button" class="am-btn am-btn-primary" data-dismiss="modal">取消</button>
+                                    <button type="submit" class="am-btn am-btn-primary" >确认</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+
+                <!--查看课题详情模态框-->
+                <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="margin-top: 100px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">×
+                                </button>
+                                <h9 class="modal-title" id="myModalLabel">课题详情</h9>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{/admin/checktask}" action="/admin/checktask"  method="post">
+                                    <input type="hidden" id="edit_task" name="edit_task" value="555"/>
+
+                                    <div class="form-group form-inline" style="margin-bottom: auto;">
+                                        <label for="show_taskid">课题编号</label>
+                                        <input type="text" id ="show_taskid" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline" style="margin-bottom: auto;">
+                                        <label for="show_taskname">课题名称</label>
+                                        <input type="text" id ="show_taskname" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline" style="margin-bottom: auto;">
+                                        <label for="show_tutorname">课题导师</label>
+                                        <input type="text" id ="show_tutorname" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline" style="margin-bottom: auto;">
+                                        <label for="show_tasktype">课题类型</label>
+                                        <input type="text" id ="show_tasktype" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline" style="margin-bottom: auto;">
+                                        <label for="show_taskrate">课题级别</label>
+                                        <input type="text" id ="show_taskrate" value="" readonly="readonly">
+                                    </div>
+
+                                    <div class="form-group form-inline">
+                                        <label for="show_taskdescrib">课题描述</label>
+                                        <input type="text" id ="show_taskdescrib" value="" readonly="readonly">
+                                    </div>
+
+                                    <button type="button" class="am-btn am-btn-primary" data-dismiss="modal">关闭</button>
+
+                                    <!--<button type="submit" class="btn btn-primary" >选课</button>-->
+                                    <!--<button type="button" id="addTask" class="btn btn-primary" data-toggle='modal' data-target='#addtomyModal'onclick="add(this)">选课</button>-->
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+                    
                     <div class="am-g">
                         <div class="am-u-sm-12">
                             <form class="am-form">
@@ -237,28 +322,29 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>1</td>
-                                            <td><a href="#">企业管理信息系统</a></td>
-                                            <td>软件开发</td>
-                                            <td class="am-hide-sm-only">吴云</td>
-                                            
-                                            <td>
-                                                <div class="am-btn-toolbar">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-center"><span class="am-icon-angle-double-up"></span> 详情</button>
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-adjust"></span> 选择</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        
                                         <tr>
                                             <td><input type="checkbox"></td>
                                             <td>3</td>
                                             <td><a href="#">教室借用系统</a></td>
                                             <td>软件开发</td>
                                             <td class="am-hide-sm-only">徐巍</td>
+                                            
+                                            <td>
+                                                <div class="am-btn-toolbar">
+                                                    <div class="am-btn-group am-btn-group-xs">
+                                                        <button id="" data-toggle='modal'  data-target='#showModal' onclick="show(this)" class="am-btn am-btn-default am-btn-xs am-text-center"><span class="am-icon-angle-double-up"></span> 详情</button>
+                                                        <button id="addtomy" data-toggle='modal' data-target='#addtomyModal' onclick="add(this)" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-adjust"></span> 选择</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>1</td>
+                                            <td><a href="#">企业管理信息系统</a></td>
+                                            <td>软件开发</td>
+                                            <td class="am-hide-sm-only">吴云</td>
                                             
                                             <td>
                                                 <div class="am-btn-toolbar">
@@ -316,11 +402,13 @@
                 </div>
                 
             </div>
-        <script src="assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
-        <script src="assets/js/amazeui.min.js" th:src="@{/assets/js/amazeui.min.js}"></script>
-        <script src="assets/js/app.js" th:src="@{/assets/js/app.js}"></script>
-        <script type="javascript" th:src="@{/assets/text/javascript}">
-        </script>
+        <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/amazeui.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/flat-ui.min.js"></script>
+    <script src="assets/js/flat-ui.js"></script>
+    <script src="assets/js/jquery-3.1.1.min.js"></script>
 </body>
 
 </html>
