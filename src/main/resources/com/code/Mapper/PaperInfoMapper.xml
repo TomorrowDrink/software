@@ -15,6 +15,8 @@
         <result property="lwgroup" column="lwgroup"/>
         <result property="score" column="score"/>
         <result property="comment" column="comment"/>
+        <result property="crossscore" column="crossscore"/>
+        <result property="crosscomment" column="crosscomment"/>
 
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
             <!--<result column="rolename" property="rolename"/>-->
@@ -29,6 +31,11 @@
     <select id="findByCrosstutor" parameterType="String" resultMap="paperInfoMap">
         select p.*  from paperinfo p
         where crosstutor= #{crosstutor}
+    </select>
+
+    <select id="findByCrosstutorState" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where crosstutor= #{crosstutor} and state= #{state}
     </select>
 
     <select id="findById" parameterType="Integer" resultMap="paperInfoMap">

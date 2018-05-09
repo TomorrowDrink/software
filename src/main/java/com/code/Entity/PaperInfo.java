@@ -16,6 +16,8 @@ public class PaperInfo implements Serializable {
     private String lwgroup;
     private Integer score;
     private String comment;
+    private Integer crossscore;
+    private  String crosscomment;
 
     public String getType() {
         return type;
@@ -121,5 +123,21 @@ public class PaperInfo implements Serializable {
 
     public void setLwgroup(String lwgroup) {
         this.lwgroup = lwgroup;
+    }
+
+    public Integer getCrossscore() {
+        return crossscore;
+    }
+
+    public void setCrossscore(Integer crossscore) {
+        this.crossscore = crossscore;
+    }
+
+    public String getCrosscomment() {
+        return crosscomment;
+    }
+
+    public void setCrosscomment(String crosscomment) {
+        this.crosscomment = crosscomment;
     }
 }
