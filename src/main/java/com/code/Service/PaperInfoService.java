@@ -18,6 +18,7 @@ public interface PaperInfoService {
     public List<PaperInfo> findPaperInfoByState(String state);
     public List<PaperInfo> findPaperInfoByTaskAndState(String taskname,String state);
     public List<PaperInfo> findByCrosstutor(String crosstutor);
+    public List<PaperInfo> findByCrosstutorState(String crosstutor,String state);
     public List<PaperInfo> findPaperInfoByStunameAndType(String stuname,String type);
     public List<PaperInfo> findPaperInfoByTasknameAndType(String taskname,String type);
     public List<PaperInfo> findPaperInfoByTutoridTypeState(int tutorid,String state,String type);

@@ -11,8 +11,9 @@ public class Grade implements Serializable{
     private String tname;
     private String tutorname;
     private int tutorid;
+    private String advice;
 
-    public Grade(int gid, int sno, String sname, int tscore, int isgreat, String tname, String tutorname, int tutorid) {
+    public Grade(int gid, int sno, String sname, int tscore, int isgreat, String tname, String tutorname, int tutorid,String advice) {
         this.gid = gid;
         this.sno = sno;
         this.sname = sname;
@@ -21,6 +22,7 @@ public class Grade implements Serializable{
         this.tname = tname;
         this.tutorname = tutorname;
         this.tutorid = tutorid;
+        this.advice = advice;
     }
 
     public Grade() {
@@ -81,4 +83,20 @@ public class Grade implements Serializable{
     public void setIsgreat(int isgreat) {
     this.isgreat = isgreat;
   }
+
+    public int getGid() {
+        return gid;
+    }
+
+    public void setGid(int gid) {
+        this.gid = gid;
+    }
+
+    public String getAdvice() {
+        return advice;
+    }
+
+    public void setAdvice(String advice) {
+        this.advice = advice;
+    }
 }

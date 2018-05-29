@@ -76,15 +76,11 @@
                                 <span>交叉评阅</span>
                             </a>
 
-                            <a href="newKadai.html" >
+                            <a href="newKadai.html" th:href="@{/teacher/allgrades}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>学生成绩</span>
                             </a>
 
-                            <a href="newKadai.html" >
-                                <i class="am-icon-angle-right"></i>
-                                <span>推优意见</span>
-                            </a>
                         </li>
                     </ul>
                 </li>
@@ -97,12 +93,12 @@
                     </a>
                     <ul class="tpl-left-nav-sub-menu" style="display: block;">
                         <li>
-                            <a href="kadai.html" th:href="@{/teacher/t_TaskShow}">
+                            <a href="kadai.html" th:href="@{/teacher/kadai}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>我的课题</span>
                             </a>
 
-                            <a href="newKadai.html" th:href="@{/teacher/t_AddTask}">
+                            <a href="newKadai.html" th:href="@{/teacher/newKadai}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>提交课题</span>
                             </a>

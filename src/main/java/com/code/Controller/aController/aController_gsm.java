@@ -36,12 +36,11 @@ public class aController_gsm {
     /**
      *显示课题
      */
-    @RequestMapping(value = {"/a_kadai" +
-            ""},method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value = {"/a_TaskShow"},method = {RequestMethod.POST,RequestMethod.GET})
     public String a_TaskShow(@ModelAttribute Task task, Model model){
         List<Task> list = taskService.getAll();
         model.addAttribute("initdata",list);
-        return  "a_kadai";
+        return  "a_TaskShow";
     }
 
     /**

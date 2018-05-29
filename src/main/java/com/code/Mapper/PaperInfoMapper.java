@@ -18,6 +18,7 @@ public interface PaperInfoMapper {
     List<PaperInfo> findByTaskname(@Param("taskname") String taskname);
     List<PaperInfo> findByTutorname(@Param("tutorname") String tutorname);
     List<PaperInfo> findByCrosstutor(@Param("crosstutor") String crosstutor);
+    List<PaperInfo> findByCrosstutorState(@Param("crosstutor") String crosstutor,@Param("state") String state);
     PaperInfo findById(@Param("id") int id);
     List<PaperInfo> findByStuname(@Param("stuname") String stuname);
     List<PaperInfo> findByState(@Param("state") String state);
