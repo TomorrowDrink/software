@@ -96,6 +96,8 @@ public class SController_srw {
 
         model.addAttribute("files",files);
         model.addAttribute("flag",flag);
+        model.addAttribute("principal",principal.getName());
+
 
         return "gitlogcheck";
     }
@@ -111,7 +113,7 @@ public class SController_srw {
 
         try {
                     Process p = Runtime.getRuntime().exec(
-                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/Documents/allgit/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
+                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/var/www/html/gitpage/"+principal.getName()+"/"+filename+".html"}, null, null);
 //                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/IdeaProjects/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
                     p.waitFor();
                 } catch (IOException e) {
