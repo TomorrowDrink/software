@@ -58,7 +58,7 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     }
 
     @Override
-    public List<PaperInfo> findPaperInfoById(String id) {
+    public PaperInfo findPaperInfoById(int id) {
         return paperInfoMapper.findById(id);
     }
 
@@ -123,5 +123,30 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     @Override
     public void editKtgroup(String ktgroup, int id) {
         paperInfoMapper.editKtgroup(ktgroup,id);
+    }
+
+    @Override
+    public void editScoreAndComment(int score, String comment, int id) {
+        paperInfoMapper.editScoreAndComment(score,comment,id);
+    }
+
+    @Override
+    public void editState(int id, String state) {
+        paperInfoMapper.editState(id,state);
+    }
+
+    @Override
+    public int findScores(int stuid) {
+        return paperInfoMapper.findScores(stuid);
+    }
+
+    @Override
+    public PaperInfo findScoreById(int id) {
+        return paperInfoMapper.findScoreById(id);
+    }
+
+    @Override
+    public PaperInfo findCommentById(int id) {
+        return paperInfoMapper.findCommentById(id);
     }
 }

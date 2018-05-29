@@ -11,7 +11,7 @@ public interface PaperInfoService {
     public List<PaperInfo> getAllkt();
     public List<PaperInfo> getAllwx();
 
-    public List<PaperInfo> findPaperInfoById(String id);
+    public PaperInfo findPaperInfoById(int id);
     public List<PaperInfo> findPaperInfoByTaskname(String taskname);
     public List<PaperInfo> findPaperInfoByStuname(String stuname);
     public List<PaperInfo> findPaperInfoByTutorname(String tutorname);
@@ -30,5 +30,11 @@ public interface PaperInfoService {
     public void editRecord(String state,String tutorname,int tutorid,String type,String stuname);
     public void editCrosstutor(String crosstutor,int id);
     public void editKtgroup(String ktgroup,int id);
+    public void editScoreAndComment(int score,String comment,int id);
+    public void editState(int id, String state);
 
+
+    public int findScores(int stuid);
+    public PaperInfo findScoreById(int id);
+    public PaperInfo findCommentById(int id);
 }

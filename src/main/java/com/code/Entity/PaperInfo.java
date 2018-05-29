@@ -14,6 +14,8 @@ public class PaperInfo implements Serializable {
     private String crosstutor;
     private String ktgroup;
     private String lwgroup;
+    private Integer score;
+    private String comment;
 
     public String getType() {
         return type;
@@ -39,6 +41,29 @@ public class PaperInfo implements Serializable {
         this.tutorname = tutorname;
     }
 
+    public String getKtgroup() {
+        return ktgroup;
+    }
+
+    public void setKtgroup(String ktgroup) {
+        this.ktgroup = ktgroup;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public PaperInfo() { }
 

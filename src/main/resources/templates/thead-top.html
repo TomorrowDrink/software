@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+
+
+<!-- Static navbar -->
+<header th:fragment="thead-top" class="am-topbar am-topbar-inverse admin-header">
+    <!-- Static navbar -->
+        <div class="am-topbar-brand">
+            <a href="index.php" class="tpl-logo">
+                <img src="../static/assets/img/logo.png" alt="" th:src="@{/assets/img/logo.png}"/>
+            </a>
+        </div>
+        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+        </div>
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+
+
+                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+
+                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                        <span class="tpl-header-list-user-nick"><?php echo $teacher_name; ?></span><span class="tpl-header-list-user-ico"> <img src="upload/ic.jpeg" th:src="@{/assets/upload/ic.jpeg}"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="#"><span class="am-icon-bell-o"></span> 资料</a></li>
+                        <li><a href="/password" th:action="@{/password}" ><span class="am-icon-cog"></span> 修改密码</a></li>
+                    </ul>
+                </li>
+
+
+
+                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                    <form action="/logout" method="post" name="form1" th:action="@{/logout}"></form>
+                    <a style="color: #999"  href="javascript:document.form1.submit();">
+                        <span class="am-icon-sign-out">退出登录</span>
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+</header>
+
+
+</body>
+</html>
