@@ -19,16 +19,16 @@
 
     <div th:if="${param.fail}" style="color: red">
         <p>*删除失败</p>
-        <!--th:text="${'*' + session.SPRING_SECURITY_LAST_EXCEPTION.message}"-->
     </div>
 
     <div th:if="${param.error}" style="color: red">
         <p>*添加项目失败</p>
-        <!--th:text="${'*' + session.SPRING_SECURITY_LAST_EXCEPTION.message}"-->
     </div>
     <div th:if="${param.success}" style="color: red">
         <p>*分析项目成功</p>
-        <!--th:text="${'*' + session.SPRING_SECURITY_LAST_EXCEPTION.message}"-->
+    </div>
+    <div th:if="${param.no}" style="color: red">
+        <p>*分析项目失败</p>
     </div>
 
     <div class="jumbotron"  >
