@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:c="http://www.w3.org/1999/XSL/Transform">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的课题</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link th:href="@{/assets/i/favicon.png}" rel="icon" type="image/png" href="../static/assets/i/favicon.png">
+    <link th:href="@{/assets/i/app-icon72x72@2x.png}"  rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link th:href="@{/assets/css/amazeui.min.css}" rel="stylesheet" href="../static/assets/css/amazeui.min.css" />
+    <link th:href="@{/assets/css/admin.css}" rel="stylesheet" href="../static/assets/css/admin.css">
+    <link th:href="@{/assets/css/app.css}" rel="stylesheet" href="../static/assets/css/app.css">
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body  style="">
+
+
+<div th:replace="thead-top :: thead-top"></div>
+
+
+<div class="tpl-page-container tpl-page-header-fixed">
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            <font size="4">毕设管理系统</font>
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="index.php" class="nav-link active" th:href="@{/student}">
+                        <i class="am-icon-home"></i>
+                        <span>首页</span>
+                        <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                    </a>
+                </li>
+                <!--<li class="tpl-left-nav-item">-->
+                <!--<a href="course.php" class="nav-link tpl-left-nav-link-list">-->
+                <!--<i class="am-icon-book"></i>-->
+                <!--<span>论文审评</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>成果物管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="kadai.html" th:href="@{/student/renwushu}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>任务书管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/wenxian}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>文献综述管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/fanyi}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>文献翻译管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/kaiti}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>开题报告管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/zhongqi}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>中期检查结果管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/guocheng}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>过程记录管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/lunwen}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>毕业论文管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>源代码管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/gitinput}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>添加项目</span>
+                            </a>
+                            <a href="" th:href="@{/student/gitlogcheck}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>已有项目</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>课题选择</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/stu_kadaiselect}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>选择课题</span>
+                            </a>
+
+                            <a href="" th:href="@{/student/stu_ownkadai}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>我的课题</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+            可选课题
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#" class="am-icon-home">首页</a></li>
+
+            <li class="am-active">选择课题</li>
+        </ol>
+        <div class="tpl-portlet-components">
+
+            <div class="tpl-block">
+                <div class="am-g">
+
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <form  th:action="@{/student/s_FindTask}" action="/student/s_FindTask"  method="post">
+                            <div class="am-form-group">
+                                <select id="tasktypeSelection" name="tasktypeSelection"class="form-control" >
+                                    <option value="全部"th:selected="${tasktypeSelection_D1}">--全部--</option>
+                                    <option value="系统设计"th:selected="${tasktypeSelection_D2}" >系统设计</option>
+                                    <option value="算法设计"th:selected="${tasktypeSelection_D3}" >算法设计</option>
+                                    <option value="软件开发"th:selected="${tasktypeSelection_D4}"　>软件开发</option>
+                                </select>
+                            </div>
+
+
+                            <div class="am-u-sm-12 am-u-md-3">
+                                   <span class="am-input-group-btn">
+                                       <div class="am-input-group am-input-group-sm">
+                                           <button class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search" type="submit"></button>
+                                       </div>
+                                   </span>
+                            </div>
+                        </form>
+                    </div>
+                    <!--<div class="am-u-sm-12 am-u-md-3">-->
+                        <!--<div class="input-icon right">-->
+                            <!--<i class="am-icon-search"></i>-->
+                            <!--<input type="text" class="form-control form-control-solid" placeholder="搜索..."> </div>-->
+                    <!--</div>-->
+
+
+                </div>
+
+
+                <div class="am-g">
+                    <div class="am-u-sm-12">
+                        <!--<form class="am-form">-->
+
+                        <!--选课模态框-->
+                        <div class="modal fade" id="addtomyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="margin-top: 100px;">
+                                <div class="modal-content" style="text-align:center;">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">×
+                                        </button>
+                                        <h7 class="modal-title" id="myModalLabel">选择</h7>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p style="font-size: smaller;">您要选择该课题吗？</p>
+                                        <form th:action="@{/student/addtomy}" action="/student/addtomy"  method="post">
+                                            <input type="hidden" id="addtomy_taskid" name="addtomy_taskid" value="111"/>
+                                            <input type="hidden" id="addtomy_taskname" name="addtomy_taskname" value="222"/>
+                                            <input type="hidden" id="student_id" name="student_id" value="333"/>
+
+                                            <button type="button" class="am-btn am-btn-primary" data-dismiss="modal">取消</button>
+                                            <button type="submit" class="am-btn am-btn-primary" >确认</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+
+                        <!--查看课题详情模态框-->
+                        <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="margin-top: 100px;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">×
+                                        </button>
+                                        <h9 class="modal-title" id="myModalLabel">课题详情</h9>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form th:action="@{/admin/checktask}" action="/admin/checktask"  method="post">
+                                            <input type="hidden" id="edit_task" name="edit_task" value="555"/>
+
+                                            <div class="form-group form-inline" style="margin-bottom: auto;">
+                                                <label for="show_taskid">课题编号</label>
+                                                <input type="text" id ="show_taskid" value="" readonly="readonly">
+                                            </div>
+
+                                            <div class="form-group form-inline" style="margin-bottom: auto;">
+                                                <label for="show_taskname">课题名称</label>
+                                                <input type="text" id ="show_taskname" value="" readonly="readonly">
+                                            </div>
+
+                                            <div class="form-group form-inline" style="margin-bottom: auto;">
+                                                <label for="show_tutorname">课题导师</label>
+                                                <input type="text" id ="show_tutorname" value="" readonly="readonly">
+                                            </div>
+
+                                            <div class="form-group form-inline" style="margin-bottom: auto;">
+                                                <label for="show_tasktype">课题类型</label>
+                                                <input type="text" id ="show_tasktype" value="" readonly="readonly">
+                                            </div>
+
+                                            <div class="form-group form-inline" style="margin-bottom: auto;">
+                                                <label for="show_taskrate">课题级别</label>
+                                                <input type="text" id ="show_taskrate" value="" readonly="readonly">
+                                            </div>
+
+                                            <div class="form-group form-inline">
+                                                <label for="show_taskdescrib">课题描述</label>
+                                                <input type="text" id ="show_taskdescrib" value="" readonly="readonly">
+                                            </div>
+
+                                            <button type="button" class="am-btn am-btn-primary" data-dismiss="modal">关闭</button>
+
+                                            <!--<button type="submit" class="btn btn-primary" >选课</button>-->
+                                            <!--<button type="button" id="addTask" class="btn btn-primary" data-toggle='modal' data-target='#addtomyModal'onclick="add(this)">选课</button>-->
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+
+                            <table id="mainTable" class="am-table am-table-striped am-table-hover table-main">
+                                <thead>
+                                <tr>
+                                    <!--<th>ID</th>-->
+                                    <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+                                    <th>课题编号</th>
+                                    <th>课题名称</th>
+                                    <!--           <th>学生姓名</th> -->
+                                    <th>导师姓名</th>
+                                    <!--<th>状态</th>-->
+                                    <th>查看详情</th>
+                                    <th>选题选择</th>
+                                    <!--<th>删除</th>-->
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+                                <tr id ="task_tr" th:each="task,list:${initdata}">
+                                    <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+                                    <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                                    <td id="table_taskid" th:text="${task.taskid}" class="table_taskid" ></td>
+                                    <td id="table_taskname" th:text="${task.taskname}"></td>
+                                    <td id="table_tutorname" th:text="${task.tutorname}"></td>
+                                    <!--<td id="table_taskstate" th:text="${task.taskstate}"></td>-->
+                                    <td style="display:none" id="table_tasktype" th:text="${task.tasktype}"></td>
+                                    <td style="display:none" id="table_taskrate" th:text="${task.taskrate}"></td>
+                                    <td style="display:none" id="table_taskdescrib" th:text="${task.taskdescrib}"></td>
+                                    <td style="display:none" id="table_taskmaxchoose" th:text="${task.taskmaxchoose}"></td>
+                                    <td><button id="show" class='btn btn-link' data-toggle='modal'  data-target='#showModal' onclick="show(this)">查看详情</button></td>
+                                    <td><button id="addtomy" class='btn btn-link' data-toggle='modal' data-target='#addtomyModal' onclick="add(this)">选题</button></td>                          <!--<td><button id="delete" class='btn btn-link'  data-toggle='modal' data-target='#delModal' >删除</button></td>-->
+                                    <!--<td><button id="delete" class='btn btn-link'  data-toggle='modal' data-target='#delModal' onclick="del(this)" >删除</button></td>-->
+                                </tr>
+
+
+
+                                </tbody>
+                            </table>
+
+                            <hr>
+
+                        </form>
+                    <!--</div>-->
+
+                </div>
+            </div>
+
+        </div>
+        <script th:src="@{/assets/js/jquery.min.js}" src="../static/assets/js/jquery.min.js"></script>
+        <script th:src="@{/assets/js/amazeui.min.js}" src="../static/assets/js/amazeui.min.js"></script>
+        <script th:src="@{/assets/js/app.js}" src="../static/assets/js/app.js"></script>
+
+        <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+        <script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+        <script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript">
+    /**
+     * 选题
+     */
+    function add(obj) {
+        document.getElementById("addtomy_taskid").value=$(obj).parents("tr").find("#table_taskid").text();
+        document.getElementById("addtomy_taskname").value=$(obj).parents("tr").find("#table_taskname").text();
+        document.getElementById("student_id").value =$("#author").name;
+
+    }
+
+    /**
+     * 查看课题详情
+     */
+    function show(obj) {
+        document.getElementById("edit_task").value=$(obj).parents("tr").find("#table_taskid").text();
+        document.getElementById("show_taskid").value=$(obj).parents("tr").find("#table_taskid").text();
+        document.getElementById("show_taskname").value=$(obj).parents("tr").find("#table_taskname").text();
+        document.getElementById("show_tasktype").value=$(obj).parents("tr").find("#table_tasktype").text();
+        document.getElementById("show_taskrate").value=$(obj).parents("tr").find("#table_taskrate").text();
+        document.getElementById("show_tutorname").value=$(obj).parents("tr").find("#table_tutorname").text();
+        document.getElementById("show_taskdescrib").value=$(obj).parents("tr").find("#table_taskdescrib").text();
+
+    }
+</script>
+
+</html>
+<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>
