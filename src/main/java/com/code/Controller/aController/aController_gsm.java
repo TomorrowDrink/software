@@ -92,11 +92,11 @@ public class aController_gsm {
      * 课题审查，显示待审查课题
      * @return 待审查课题
      */
-    @RequestMapping(value = {"/a_TaskReview"},method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value = {"/a_pending"},method = {RequestMethod.POST,RequestMethod.GET})
     public String a_TaskReview(@ModelAttribute Task task,Model model){
         List<Task> list = taskService.findTaskByTaskstate("待审核");
         model.addAttribute("initdata",list);
-        return  "a_TaskReview";
+        return  "a_pending";
     }
 
     /***
@@ -106,7 +106,7 @@ public class aController_gsm {
     public String a_TaskDelete(@RequestParam("del_taskid")String taskid){
         taskService.delTask(taskid);
         System.out.println(taskid);
-        return "redirect:/admin/a_TaskShow";
+        return "redirect:/admin/a_kadai";
     }
 
     /**
@@ -116,7 +116,7 @@ public class aController_gsm {
     public  String a_TaskPass(@RequestParam("pass_taskid") String passtaskid){
         taskService.updataTaskState(passtaskid);
         System.out.println(passtaskid);
-        return "redirect:/admin/a_TaskReview";
+        return "redirect:/admin/a_kadai";
     }
 //    @ResponseBody
 //    @RequestMapping("/searchtaskdata")
@@ -132,7 +132,7 @@ public class aController_gsm {
     public String a_ShowTaskDetail(@RequestParam("detail_task")int  taskid){
         taskService.findTaskByTaskid(taskid);
         System.out.println(taskid);
-        return "redirect:/admin/a_TaskShow";
+        return "redirect:/admin/a_kadai";
     }
 
     /**
@@ -160,7 +160,7 @@ public class aController_gsm {
             model.addAttribute("tasktypeSelection_D4",task_type);
         }
         model.addAttribute("initdata", list);
-        return "a_TaskReview";
+        return "a_pending";
     }
 
     /**
@@ -169,45 +169,49 @@ public class aController_gsm {
 
     @RequestMapping(value = {"/a_FindTask"}, method = {RequestMethod.POST, RequestMethod.GET})
     public String a_TaskFind(@ModelAttribute Task task, Model model,
-                             @RequestParam("tasktypeSelection") String task_type,
+//                             @RequestParam("tasktypeSelection") String task_type,
                              @RequestParam("taskstateSelection") String task_state
     ) {
 
-        System.out.println(task_type+task_state);
 
         List<Task> list1 = null;
-        if (task_type.equals("全部")&&task_state.equals("全部")){
-            list1 =taskService.getAll();
-        }else if (task_type.equals("全部")&&!task_state.equals("全部")){
-            list1 =taskService.a_findTaskByState(task_state);
-        }else if (!task_type.equals("全部")&&task_state.equals("全部")){
-            list1 =taskService.a_findTaskByType(task_type);
-        }else{
-            list1 =taskService.a_findTaskByTypeState(task_type,task_state);
-        }
-
-        if (task_type.equals("全部")){
-            model.addAttribute("tasktypeSelection_D1",task_type);
-        }else if (task_type.equals("系统设计")){
-            model.addAttribute("tasktypeSelection_D2",task_type);
-        }else if(task_type.equals("算法设计")){
-            model.addAttribute("tasktypeSelection_D3",task_type);
-        }else {
-            model.addAttribute("tasktypeSelection_D4",task_type);
-        }
+//        if (task_type.equals("全部")&&task_state.equals("全部")){
+//            list1 =taskService.getAll();
+//        }else if (task_type.equals("全部")&&!task_state.equals("全部")){
+//            list1 =taskService.a_findTaskByState(task_state);
+//        }else if (!task_type.equals("全部")&&task_state.equals("全部")){
+//            list1 =taskService.a_findTaskByType(task_type);
+//        }else{
+//            list1 =taskService.a_findTaskByTypeState(task_type,task_state);
+//        }
+//
+//        if (task_type.equals("全部")){
+//            model.addAttribute("tasktypeSelection_D1",task_type);
+//        }else if (task_type.equals("系统设计")){
+//            model.addAttribute("tasktypeSelection_D2",task_type);
+//        }else if(task_type.equals("算法设计")){
+//            model.addAttribute("tasktypeSelection_D3",task_type);
+//        }else {
+//            model.addAttribute("tasktypeSelection_D4",task_type);
+//        }
 
         if(task_state.equals("全部")){
             model.addAttribute("taskstateSelection_C1",task_state);
+            list1 =taskService.getAll();
         }else if (task_state.equals("待审核")){
             model.addAttribute("taskstateSelection_C2",task_state);
+            list1 =taskService.a_findTaskByState(task_state);
         }else if(task_state.equals("已通过")){
             model.addAttribute("taskstateSelection_C3",task_state);
+            list1 =taskService.a_findTaskByState(task_state);
         }else {
             model.addAttribute("taskstateSelection_C4",task_state);
+            list1 =taskService.a_findTaskByState(task_state);
         }
 
 
+
         model.addAttribute("initdata", list1);
-        return "a_TaskShow";
+        return "a_kadai";
     }
 }

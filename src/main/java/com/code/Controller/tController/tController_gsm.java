@@ -105,7 +105,7 @@ public class tController_gsm {
     /**
      * 筛选课题findtask
      */
-    @RequestMapping(value = {"/t_FindTask"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = {"/a_FindTask"}, method = {RequestMethod.POST, RequestMethod.GET})
     public String t_FindTask(@ModelAttribute Task task, Model model,
 //                             @RequestParam("tasktypeSelection") String task_type,
                              @RequestParam ("taskstateSelection") String task_state,
