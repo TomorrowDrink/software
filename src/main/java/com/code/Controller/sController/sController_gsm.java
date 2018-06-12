@@ -37,14 +37,14 @@ public class sController_gsm {
     /**
      *学生选题显示
      */
-    @RequestMapping(value = {"/s_TaskShow"},method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value = {"/stu_kadaiselect"},method = {RequestMethod.POST,RequestMethod.GET})
     public String s_TaskShow(@ModelAttribute Task task, Model model){
 //        List<Task> list = taskService.getAll();
         String taskrate ="已通过";
         List<Task> list = taskService.findTaskByTaskstate(taskrate);
         System.out.println("111");
         model.addAttribute("initdata",list);
-        return  "s_TaskShow";
+        return  "stu_kadaiselect";
     }
     @GetMapping("/taskdata")
     public JsonResponse<Task> get_sTaskData(Model model){
@@ -60,7 +60,7 @@ public class sController_gsm {
      */
 
     @PostMapping()
-    @RequestMapping(value = {"/s_MyTask"},method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value = {"/stu_ownkadai"},method = {RequestMethod.POST,RequestMethod.GET})
     public String s_TaskEdit(@ModelAttribute Task task, Model model,
                              Principal principal ){
         String stuid= principal.getName();
@@ -78,22 +78,22 @@ public class sController_gsm {
 
         List<Task> list = taskService.findTaskByTaskid(task_id);
         model.addAttribute("initdata",list);
-        return  "s_MyTask";
+        return  "stu_ownkadai";
     }
 
-    @GetMapping("/staskdata")
-    public JsonResponse<Task> get_mTaskData(Model model,Principal principal){
-
-        String stuid= principal.getName();
-
-        int stu_id =new Integer(stuid).intValue();
-        List<Task_s> s_list =taskService.findbystuid(stu_id);
-        int task_id =s_list.get(0).getTaskid();
-
-        List<Task> list = taskService.findTaskByTaskid(task_id);
-        JsonResponse<Task> response = new JsonResponse<Task>(list);
-        return response;
-    }
+//    @GetMapping("/staskdata")
+//    public JsonResponse<Task> get_mTaskData(Model model,Principal principal){
+//
+//        String stuid= principal.getName();
+//
+//        int stu_id =new Integer(stuid).intValue();
+//        List<Task_s> s_list =taskService.findbystuid(stu_id);
+//        int task_id =s_list.get(0).getTaskid();
+//
+//        List<Task> list = taskService.findTaskByTaskid(task_id);
+//        JsonResponse<Task> response = new JsonResponse<Task>(list);
+//        return response;
+//    }
 
     /**
      * 选题addtomy
@@ -110,7 +110,7 @@ public class sController_gsm {
         System.out.println("学生:"+stu_id+"\n姓名:"+stu_name+"\n课题id:"+task_id+"\n课题名称:"+task_name);
         taskService.chooseTask(stu_id,stu_name,task_id,task_name);
 
-        return "redirect:/student/s_MyTask";
+        return "redirect:/student/stu_ownkadai";
     }
 
     /**
@@ -124,17 +124,9 @@ public class sController_gsm {
         int stu_id =new Integer(stuid);
         taskService.s_delMyTask(task_id,stu_id);
         System.out.println("取消选课的课程标号"+task_id);
-        return "redirect:/student/s_MyTask";
+        return "redirect:/student/stu_ownkadai";
     }
 
-    @GetMapping("/fanyi")
-    public String flistUploadedFiles(Model model,Principal principal) throws IOException {
-        model.addAttribute("files", storageService.loadAllLiterature(principal).map(
-                path -> MvcUriComponentsBuilder.fromMethodName(SController_srw.class,
-                        "serveFile", path.getFileName().toString()).build().toString())
-                .collect(Collectors.toList()));
-        return "fanyi";
-    }
 
     /**
      * 查询课题findtask
@@ -162,7 +154,7 @@ public class sController_gsm {
             model.addAttribute("tasktypeSelection_D4",task_type);
         }
         model.addAttribute("initdata", list);
-        return "s_TaskShow";
+        return "stu_kadaiselect";
     }
 
 

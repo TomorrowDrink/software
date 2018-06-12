@@ -105,48 +105,61 @@ public class tController_gsm {
     /**
      * 筛选课题findtask
      */
-    @RequestMapping(value = {"/t_FindTask"}, method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = {"/a_FindTask"}, method = {RequestMethod.POST, RequestMethod.GET})
     public String t_FindTask(@ModelAttribute Task task, Model model,
-                             @RequestParam("tasktypeSelection") String task_type,
+//                             @RequestParam("tasktypeSelection") String task_type,
                              @RequestParam ("taskstateSelection") String task_state,
 //                             @PathVariable("tasktypeSelection") String searchtask_type,
                              Principal principle) {
         int tutor_id = new Integer(principle.getName()).intValue();
 
-        List<Task> list;
+        List<Task> list ;
 
-        if (task_type.equals("全部")&& !task_state.equals("全部")){
-            list =taskService.findstateTaskFor(tutor_id,task_state);
-        }else if (task_state.equals("全部")&&!task_type.equals("全部")){
-            list =taskService.findtypeTaskFor(tutor_id,task_type);
-        }else if(task_state.equals("全部")&& task_type.equals("全部")){
-            System.out.println("全部");
-            list = taskService.findTaskBytutorid(tutor_id);
-        }else{
-            list = taskService.findTaskFor(tutor_id,task_type,task_state);
-        }
-        if (task_type.equals("全部")){
-            model.addAttribute("tasktypeSelection_A1",task_type);
-        }else if (task_type.equals("系统设计")){
-            model.addAttribute("tasktypeSelection_A2",task_type);
-        }else if (task_type.equals("算法设计")){
-            model.addAttribute("tasktypeSelection_A3",task_type);
-        }else {
-            model.addAttribute("tasktypeSelection_A4",task_type);
-        }
-
-        if (task_state.equals("全部")){
-            model.addAttribute("taskstateSelection_B1",task_type);
+//        if (task_type.equals("全部")&& !task_state.equals("全部")){
+//            list =taskService.findstateTaskFor(tutor_id,task_state);
+//        }else if (task_state.equals("全部")&&!task_type.equals("全部")){
+//            list =taskService.findtypeTaskFor(tutor_id,task_type);
+//        }else if(task_state.equals("全部")&& task_type.equals("全部")){
+//            System.out.println("全部");
+//            list = taskService.findTaskBytutorid(tutor_id);
+//        }else{
+//            list = taskService.findTaskFor(tutor_id,task_type,task_state);
+//        }
+//        if (task_type.equals("全部")){
+//            model.addAttribute("tasktypeSelection_A1",task_type);
+//        }else if (task_type.equals("系统设计")){
+//            model.addAttribute("tasktypeSelection_A2",task_type);
+//        }else if (task_type.equals("算法设计")){
+//            model.addAttribute("tasktypeSelection_A3",task_type);
+//        }else {
+//            model.addAttribute("tasktypeSelection_A4",task_type);
+//        }
+//
+//        if (task_state.equals("全部")){
+//            model.addAttribute("taskstateSelection_B1",task_type);
+//        }else if (task_state.equals("待审核")){
+//            model.addAttribute("taskstateSelection_B2",task_type);
+//        }else if (task_state.equals("已通过")){
+//            model.addAttribute("taskstateSelection_B3",task_type);
+//        }else{
+//            model.addAttribute("taskstateSelection_B4",task_type);
+//        }
+        if(task_state.equals("全部")){
+            list =taskService.findTaskBytutorid(tutor_id);
+            model.addAttribute("taskstateSelection_B1",task_state );
         }else if (task_state.equals("待审核")){
-            model.addAttribute("taskstateSelection_B2",task_type);
-        }else if (task_state.equals("已通过")){
-            model.addAttribute("taskstateSelection_B3",task_type);
+            list =taskService.findstateTaskFor(tutor_id,task_state);
+            model.addAttribute("taskstateSelection_B2",task_state );
+        }else if ( task_state.equals("未通过")){
+            list =taskService.findstateTaskFor(tutor_id,task_state);
+            model.addAttribute("taskstateSelection_B4",task_state );
         }else{
-            model.addAttribute("taskstateSelection_B4",task_type);
+            list =taskService.findstateTaskFor(tutor_id,task_state);
+            model.addAttribute("taskstateSelection_B3",task_state);
         }
 
         model.addAttribute("initdata", list);
-        return "t_TaskShow";
+        return "kadai";
     }
 
 
@@ -192,18 +205,20 @@ public class tController_gsm {
     /**
      * 教师课题编辑
      */
-    @GetMapping("/edittask")
-    public String edittask(){return "EditTask";}
-    @PostMapping("/edittask")
+//    @GetMapping("/edittask")
+//    public String edittask(){return "editTask";}
+    @PostMapping("/editkadai")
     public String editoldtask(
-            @RequestParam("newtaskname")String newtaskname,
-            @RequestParam("newtasktype")String newtasktype,
-            @RequestParam("newtaskrate")String newtaskrate,
-            @RequestParam("newtaskmaxchoose")Integer newtaskmaxchoose,
-            @RequestParam("newtaskdescrib")String newtaskdescrib,
-            @RequestParam("newtutorname")String newtutorname,
-            @RequestParam("newtaskid")Integer newtaskid
+            @RequestParam("edit_taskname")String newtaskname,
+            @RequestParam("edit_tasktype")String newtasktype,
+            @RequestParam("edit_taskrate")String newtaskrate,
+            @RequestParam("edit_taskmaxchoose")Integer newtaskmaxchoose,
+            @RequestParam("edit_taskdescrib")String newtaskdescrib,
+            @RequestParam("edit_tutorname")String newtutorname,
+            @RequestParam("edit_taskid")Integer newtaskid,
+            Principal principal
     ){
+        int tutor_id = new Integer(principal.getName()).intValue();
         Task task =new Task();
         task.setTaskid(newtaskid);
         task.setTaskname(newtaskname);
@@ -213,9 +228,11 @@ public class tController_gsm {
         task.setTaskmaxchoose(newtaskmaxchoose);
         task.setTutorname(newtutorname);
         task.setTaskstate("待审核");
+        task.setTutorid(tutor_id);
+
 
         taskService.updataTask(task);
-        return "redirect:/teacher/show";
+        return "redirect:/teacher/kadai";
     }
 
 }

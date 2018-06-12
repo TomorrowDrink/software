@@ -70,7 +70,7 @@ public class SController_srw {
 
 
 
-/*查看已有项目*/
+    /*查看已有项目*/
     @GetMapping("/gitlogcheck")
     public String gitloginput(Principal principal,
                               Model model){
@@ -96,6 +96,8 @@ public class SController_srw {
 
         model.addAttribute("files",files);
         model.addAttribute("flag",flag);
+        model.addAttribute("principal",principal.getName());
+
 
         return "gitlogcheck";
     }
@@ -107,11 +109,18 @@ public class SController_srw {
                          @RequestParam("filename") String filename){
 
 
-
+        String Path = "/var/www/html/gitpage/" + principal.getName();
+        File myPath = new File(Path);
 
         try {
+
+            if ( !myPath.exists()){//若此目录不存在，则创建之
+                myPath.mkdir();
+                System.out.println("创建文件夹路径为："+ Path);
+            }
+
                     Process p = Runtime.getRuntime().exec(
-                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/Documents/allgit/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
+                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/var/www/html/gitpage/"+principal.getName()+"/"+filename+".html"}, null, null);
 //                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/IdeaProjects/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
                     p.waitFor();
                 } catch (IOException e) {
@@ -120,13 +129,18 @@ public class SController_srw {
                     e.printStackTrace();
                 }
 
+        File file=new File(Path + "/" + filename+".html");
+        if(file.exists())
+            return "redirect:/student/gitlogcheck?success";
+        else
+            return "redirect:/student/gitlogcheck?no";
 
-        return "redirect:/student/gitlogcheck?success";
 //          return outpath;
     }
 
 
 
+    /*删除项目*/
     @PostMapping("/gitdelete")
     public String gitdelete( @RequestParam("filename") String filename,
                              Principal principal,
@@ -183,12 +197,9 @@ public class SController_srw {
                             @RequestParam("name") String name){
 
         System.out.println(address + name);
-//
         String url =  address;/*http下载地址*/
-//                gitLabApi.unsudo();
 
         String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + name ;
-//                String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + "test" ;
 
         File file = new File(localPath);
 

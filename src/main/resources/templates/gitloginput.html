@@ -1,56 +1,201 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!doctype html>
+<html lang= "en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+
 <head>
-    <meta charset="UTF-8">
-    <title>Student</title>
-    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
-    <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
-    <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>首页</title>
+    <meta name="description" content="这是一个 index 页面"/>
+    <meta name="keywords" content="index"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" th:href="@{/assets/i/favicon.png}" href="../static/assets/i/favicon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png" th:href="@{/assets/i/app-icon72x72@2x.png}"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="../static/assets/css/amazeui.min.css" th:href="@{/assets/css/amazeui.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/admin.css" th:href="@{/assets/css/admin.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/app.css" th:href="@{/assets/css/app.css}"/>
+    <script src="../static/assets/js/echarts.min.js" th:src="@{/assets/js/echarts.min.js}"></script>
 
-    <title>Git</title>
 </head>
-<body>
-<div th:include="s-head :: s-head"></div>
 
-<br><br><br><br>
-<div class="container">
-    <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <form th:action="@{/student/gitproadd}"   method="post">
-            <div class="login-form">
-
-                <div class="form-group">
-                    <input type="text" class="form-control login-field" name="name" placeholder="项目名" id="login-pass" required/>
-                    <label class="login-field-icon fui-lock" for="login-pass"></label>
-                </div>
+<body  style="">
 
 
-                <div class="form-group">
-                    <input type="text" class="form-control login-field" name="address" placeholder="项目地址" id="login-name" required/>
-                    <label class="login-field-icon fui-user" for="login-name"></label>
-                </div>
+<div th:replace="thead-top :: thead-top"></div>
 
-                <button type="submit" class="btn btn-primary btn-lg btn-block">提交</button>
-            </div>
-        </form>
+
+<div class="tpl-page-container tpl-page-header-fixed">
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            <font size="4">毕设管理系统</font>
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="index.php" class="nav-link active" th:href="@{/student}">
+                        <i class="am-icon-home"></i>
+                        <span>首页</span>
+                        <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                    </a>
+                </li>
+                <!--<li class="tpl-left-nav-item">-->
+                <!--<a href="course.php" class="nav-link tpl-left-nav-link-list">-->
+                <!--<i class="am-icon-book"></i>-->
+                <!--<span>论文审评</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="tpl-left-nav-item">-->
+                    <!--<a href="javascript:;" class="nav-link tpl-left-nav-link-list">-->
+                        <!--<i class="am-icon-align-justify"></i>-->
+                        <!--<span>成果物管理</span>-->
+                        <!--<i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>-->
+                    <!--</a>-->
+                    <!--<ul class="tpl-left-nav-sub-menu" style="display: block;">-->
+                        <!--<li>-->
+                            <!--<a href="kadai.html" th:href="@{/student/renwushu}">-->
+                                <!--<i class="am-icon-angle-right"></i>-->
+                                <!--<span>任务书管理</span>-->
+                            <!--</a>-->
+
+                            <!--<a href="newKadai.html" th:href="@{/student/wenxian}">-->
+                                <!--<i class="am-icon-angle-right"></i>-->
+                                <!--<span>文献综述管理</span>-->
+                            <!--</a>-->
+
+                            <!--<a href="newKadai.html" th:href="@{/student/fanyi}">-->
+                                <!--<i class="am-icon-angle-right"></i>-->
+                                <!--<span>文献翻译管理</span>-->
+                            <!--</a>-->
+
+                            <!--<a href="newKadai.html" th:href="@{/student/kaiti}">-->
+                                <!--<i class="am-icon-angle-right"></i>-->
+                                <!--<span>开题报告管理</span>-->
+                            <!--</a>-->
+
+                            <!--<a href="newKadai.html" th:href="@{/student/zhongqi}">-->
+                                <!--<i class="am-icon-angle-right"></i>-->
+                                <!--<span>中期检查结果管理</span>-->
+                            <!--</a>-->
+
+                            <!--<a href="newKadai.html" th:href="@{/student/guocheng}">-->
+                                <!--<i class="am-icon-angle-right"></i>-->
+                                <!--<span>过程记录管理</span>-->
+                            <!--</a>-->
+
+                            <!--<a href="newKadai.html" th:href="@{/student/lunwen}">-->
+                                <!--<i class="am-icon-angle-right"></i>-->
+                                <!--<span>毕业论文管理</span>-->
+                            <!--</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>源代码管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/gitinput}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>添加项目</span>
+                            </a>
+                            <a href="" th:href="@{/student/gitlogcheck}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>已有项目</span>
+                            </a>
+
+
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>课题选择</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/s_TaskShow}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>选择课题</span>
+                            </a>
+
+                            <a href="" th:href="@{/student/s_MyTask}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>我的课题</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+
+            </ul>
+        </div>
     </div>
 
 
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+            添加项目
+        </div>
+        <div class="tpl-portlet-components">
+            <div class="tpl-block ">
+                <div class="am-g tpl-amazeui-form">
+                    <div class="am-u-sm-12 am-u-md-9">
+                        <form class="am-form am-form-horizontal" id="addstu" name="addstu" method="post" th:action="@{/student/gitproadd}" action="/student/gitproadd" >
+
+                            <div class="am-form-group">
+                                <label for="name" class="am-u-sm-3 am-form-label am-left-pos">项目名称</label>
+                                <div class="am-u-sm-9" id="name">
+                                    <input type="text" id="stu_id" name="name" required="required" cols=60 rows=10 placeholder="名称" style="width: 100%">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="Addresss" class="am-u-sm-3 am-form-label am-left-pos">项目地址</label>
+                                <div class="am-u-sm-9" id="Addresss">
+                                    <input type="text" id="stu_class" name="address" required="required" cols=60 rows=10 placeholder="地址" style="width: 100%">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+
+                                <div class="am-u-sm-9 am-u-sm-push-3">
+                                    <input type="submit" class="am-btn am-btn-primary" value="添加"/>
+                                </div>
+                            </div>
 
 
 
-</div> <!-- /container -->
 
+                        </form>
+                    </div>
+                </div>
 
+            </div>
+        </div>
+    </div>
+</div>
 
-
-<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
-
-<script th:src="@{/js/application.js}" src="../static/js/application.js"></script>
+<script src="../static/assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
+<script src="../static/assets/js/amazeui.min.js" th:src="@{/assets/js/amazeui.min.js}"></script>
+<script src="../static/assets/js/app.js" th:src="@{/assets/js/app.js}"></script>
+<script type="../static/text/javascript" th:src="@{/assets/text/javascript}">
+</script>
 
 </body>
+
 </html>
+
+
+
