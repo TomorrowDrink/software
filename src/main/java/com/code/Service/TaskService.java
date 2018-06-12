@@ -19,7 +19,7 @@ public interface TaskService {
     public void  insertTask(Task task);
     public void updataTask(Task task);
     public void delTask(String taskid);
-    public void s_delMyTask(String task_id);
+    public void s_delMyTask(String task_id ,int stu_id);
     public void chooseTask(int stu_id, String stu_name, int task_id, String task_name);
 //    public List<Task_s> findTaskidBysid(int stu_id);
 //    public int findTaskidBysid(int stu_id);
@@ -38,4 +38,12 @@ public interface TaskService {
     public List<Task> a_findTaskByTypeState(String task_type, String task_state);
     public List<Task> a_findTaskByType(String task_type);
     public List<Task> a_findTaskByState(String task_state);
+
+    /**
+     * 教师课题指定
+     */
+    public List<Task_s> a_findAppointStu(String task_id);
+    public List<Task_s> a_findAppointStuid(int stu_id);
+    public List<Task_s>  a_findAppointStuname(String stu_name);
 }
+

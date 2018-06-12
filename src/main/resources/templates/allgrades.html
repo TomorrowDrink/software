@@ -111,12 +111,12 @@
 
     <div class="tpl-content-wrapper">
         <div class="tpl-content-page-title">
-            论文交叉评阅列表
+            学生成绩查看
         </div>
         <ol class="am-breadcrumb">
             <li><a href="#" th:href="@{/teacher}"class="am-icon-home">首页</a></li>
-            <li><a href="#" th:href="@{/teacher/tcross}">论文评审</a></li>
-            <li class="am-active">交叉评阅</li>
+            <li><a href="#" th:href="@{/teacher/allgrades}">论文评审</a></li>
+            <li class="am-active">学生成绩查看</li>
         </ol>
         <div class="tpl-portlet-components">
 
@@ -124,15 +124,12 @@
                 <div class="am-g">
                     <div class="am-u-sm-12 am-u-md-6">
                         <div class="am-form-group">
-                            <form th:action="@{/teacher/selstate}" action="/teacher/selstate" method="post">
-                                <label for="stateSelection">评阅状态：</label>
+                            <form th:action="@{/teacher/selgreat}" action="/teacher/selgreat" method="post">
+                                <label for="stateSelection">推优状态：</label>
                                 <select id="stateSelection" name="stateSelection" data-am-selected="{btnSize: 'sm'}">
                                     <option value="allstate" th:selected="${stateSelectionValue1}">--全部--</option>
-                                    <option value="待评阅" th:selected="${stateSelectionValue2}">待评阅</option>
-                                    <option value="已通过" th:selected="${stateSelectionValue3}">已通过</option>
-                                    <option value="未通过" th:selected="${stateSelectionValue4}">未通过</option>
-                                    <input type="hidden" th:value="论文" name="type">
-                                    <input type="hidden" th:value="tcross" name="flag">
+                                    <option value="已推优" th:selected="${stateSelectionValue2}">推优</option>
+                                    <option value="未推优" th:selected="${stateSelectionValue3}">未推优</option>
                                 </select>
                                 <button type="submit" class="am-btn am-btn-default am-btn-xs am-text-secondary" >查询</button>
                             </form>
@@ -156,40 +153,34 @@
                                     <th th:if="false">ID</th>
                                     <th>课题名称</th>
                                     <th>学生姓名</th>
-                                    <th>状态</th>
-                                    <th>文件类型</th>
-                                    <th th:if="false">分数</th>
-                                    <th th:if="false">评语</th>
-                                    <th>导师姓名</th>
-                                    <th>编辑</th>
+                                    <th>分数</th>
+                                    <th>是否推优</th>
+                                    <th>操作</th>
                                     <!--<th>下载</th>-->
                                     <!--<th>删除</th>-->
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="paperinfo,list:${initdata}">
+                                <tr th:each="grade,list:${initdata}">
                                     <td><input type="checkbox"></td>
-                                    <td th:if="false" id="table_id" th:text="${paperinfo.id}"></td>
-                                    <td id="table_taskname" th:text="${paperinfo.taskname}"></td>
-                                    <td id="table_stuname" th:text="${paperinfo.stuname}"></td>
-                                    <td id="table_state" th:text="${paperinfo.state}"></td>
-                                    <td id="table_type" th:text="${paperinfo.type}"></td>
-                                    <td th:if="false" id="table_score" th:text="${paperinfo.score}"></td>
-                                    <td th:if="false" id="table_comment" th:text="${paperinfo.comment}"></td>
-                                    <td id="table_tutorname" th:text="${paperinfo.tutorname}" ></td>
+                                    <td th:if="false" id="table_id" th:text="${grade.gid}"></td>
+                                    <td id="table_taskname" th:text="${grade.tname}"></td>
+                                    <td id="table_stuname" th:text="${grade.sname}"></td>
+                                    <td id="table_score" th:text="${grade.tscore}"></td>
+                                    <td id="table_comment" th:text="${grade.isgreat}"></td>
                                     <td>
-                                        <form action="" th:action="@{/teacher/reviewshow}">
-                                            <input type="hidden" th:value="${paperinfo.id}"  name="id">
-                                            <input type="hidden" th:value="${paperinfo.stuname}"  name="stuname">
-                                            <input type="hidden" th:value="${paperinfo.taskname}" name="taskname">
-                                            <input type="hidden" th:value="${(paperinfo.score)?:(0)}"  name="score">
-                                            <input type="hidden" th:value="${paperinfo.comment}"  name="comment">
-                                            <input type="hidden" th:value="${paperinfo.tutorname}"  name="tutorname">
-                                            <input type="hidden" th:value="开题报告" name="type">
+                                        <form action="" th:action="@{/teacher/isgreat}">
+                                            <!--<input type="hidden" th:value="${paperinfo.id}"  name="id">-->
+                                            <!--<input type="hidden" th:value="${paperinfo.stuname}"  name="stuname">-->
+                                            <!--<input type="hidden" th:value="${paperinfo.taskname}" name="taskname">-->
+                                            <!--<input type="hidden" th:value="${(paperinfo.score)?:(0)}"  name="score">-->
+                                            <!--<input type="hidden" th:value="${paperinfo.comment}"  name="comment">-->
+                                            <!--<input type="hidden" th:value="${paperinfo.tutorname}"  name="tutorname">-->
+                                            <!--<input type="hidden" th:value="开题报告" name="type">-->
                                             <div class="am-btn-toolbar">
                                                 <div class="am-btn-group am-btn-group-xs">
-                                                    <button type="submit" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 评审</button>
-                                                    <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 下载</button>
+                                                    <button type="submit" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 修改</button>
+                                                    <!--<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 下载</button>-->
                                                 </div>
                                             </div>
                                         </form>

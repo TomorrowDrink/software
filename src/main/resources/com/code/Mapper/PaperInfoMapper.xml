@@ -15,6 +15,8 @@
         <result property="lwgroup" column="lwgroup"/>
         <result property="score" column="score"/>
         <result property="comment" column="comment"/>
+        <result property="crossscore" column="crossscore"/>
+        <result property="crosscomment" column="crosscomment"/>
 
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
             <!--<result column="rolename" property="rolename"/>-->
@@ -31,7 +33,12 @@
         where crosstutor= #{crosstutor}
     </select>
 
-    <select id="findById" parameterType="String" resultMap="paperInfoMap">
+    <select id="findByCrosstutorState" parameterType="String" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where crosstutor= #{crosstutor} and state= #{state}
+    </select>
+
+    <select id="findById" parameterType="Integer" resultMap="paperInfoMap">
         select p.*  from paperinfo p
         where id= #{id}
     </select>
@@ -165,6 +172,14 @@
         id= #{id,jdbcType=INTEGER}
     </update>
 
+    <update id="editState">
+        UPDATE
+        paperinfo
+        SET
+        state = #{state,jdbcType=INTEGER}
+        WHERE
+        id= #{id,jdbcType=INTEGER}
+    </update>
     <select id="findScores" parameterType="Integer" resultType="Integer">
         select NULLIF(SUM(p.score)*1/3,0)  from paperinfo p
         where p.stuid= #{stuid}

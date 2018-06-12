@@ -27,88 +27,8 @@ public class tController_gsm {
     @Autowired
     private PaperInfoService paperInfoService;
 
-<<<<<<< HEAD:src/main/java/com/code/Controller/tController.java
-    /**
-     * 教师评阅界面
-     */
-    
-    @GetMapping("/review")
-    public String literaturereview(Model model,Principal principal){
-
-        int tutorid = new Integer(principal.getName()).intValue();
-        List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"文献综述");
-        model.addAttribute("initdata",list);
-        return "literaturereview";
-    }
-
-    
-    @GetMapping("/ktreview")
-    public String ktreview(Model model,Principal principal){
-
-        int tutorid = new Integer(principal.getName()).intValue();
-        List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"开题报告");
-        model.addAttribute("initdata",list);
-        return "ktreview";
-    }
-
-    
-    @GetMapping("/lunwenreview")
-    public String lunwenreview(Model model,Principal principal){
-
-        int tutorid = new Integer(principal.getName()).intValue();
-        List<PaperInfo> list = paperInfoService.findPaperInfoByTutoridAndType(tutorid,"论文");
-        model.addAttribute("initdata",list);
-        return "lunwenreview";
-    }
-
-    @RequestMapping("/reviewshow")
-    public String review(@RequestParam("stuname") String stuname,
-                         @RequestParam("taskname") String taskname,
-                         @RequestParam("type") String type,
-                         Model model){
-        model.addAttribute("stuname",stuname);
-        model.addAttribute("taskname",taskname);
-        model.addAttribute("type",type);
-        model.addAttribute("path","/static/file/sample.pdf");
-        return "review";
-    }
-
-
-    
-    @RequestMapping("/test")
-    public String test(){
-        return "test";
-    }
-
-    /**
-     *教师评阅状态查询
-     */
-
-    @RequestMapping("/selstate")
-    public String selState(@RequestParam ("stateSelection") String state,
-                           @RequestParam ("type") String type,
-                           Model model,Principal principal){
-        System.out.println("selectstate"+state);
-        List<PaperInfo> list ;
-        int tutorid = new Integer(principal.getName()).intValue();
-        list = paperInfoService.findPaperInfoByTutoridTypeState(tutorid,state,type);
-        model.addAttribute("initdata", list);
-
-//        if (state.equals("allstate")){
-//            model.addAttribute("stateSelectionValue1",type);
-        /*}else if*/ if(state.equals("待评阅")){
-            model.addAttribute("stateSelectionValue2",type);
-        }else if (state.equals("已通过")){
-            model.addAttribute("stateSelectionValue3",type);
-        }else{
-            model.addAttribute("stateSelectionValue4",type);
-        }
-        return  "literaturereview";
-    }
-=======
     @Autowired
     private GradeService gradeService;
->>>>>>> 8f89dec3280af0a0d5735ebaa636015ae7229b82:src/main/java/com/code/Controller/tController/tController_gsm.java
 
     /**
      * 教师课题查询
@@ -297,55 +217,5 @@ public class tController_gsm {
         taskService.updataTask(task);
         return "redirect:/teacher/show";
     }
-<<<<<<< HEAD:src/main/java/com/code/Controller/tController.java
-    /**
-     *教师交叉评阅列表
-     */
-    @GetMapping("/tcross")
-    public String tcross(Principal principal,
-                         Model model) {
-                User user = userService.findUserByUsername(principal.getName());
-                List<PaperInfo> lunwen = paperInfoService.findByCrosstutor(user.getName());
-
-        model.addAttribute("initdata",lunwen);
-                return "tcross";
-    }
-
-    /**
-     * 教师评分评语提交
-     */
-    @GetMapping("/tcomment")
-    public String tcomment() {
-        return "test";
-    }
-
-    @PostMapping("/tcomment")
-    public String tcomment(
-            @RequestParam("score") Integer score,
-            @RequestParam("comment") String comment,
-            @RequestParam("id") Integer id,
-            Principal principal) {
-
-        User user =userService.findUserById(new Integer(principal.getName()));
-        String tutorname=user.getName();
-        PaperInfo paperInfo = new PaperInfo();
-        int tutorid =new Integer(principal.getName());
-        paperInfo.setScore(score);
-        paperInfo.setComment(comment);
-        paperInfo.setId(id);
-        System.out.println("-----------------------------------------");
-        System.out.println("id:"+id+"score:"+score+"comment:"+comment);
-        System.out.println("-----------------------------------------");
-
-        paperInfoService.editScoreAndComment(score,comment,id);
-
-        return "redirect:/teacher/test";
-    }
-
-
-
-
-=======
->>>>>>> 8f89dec3280af0a0d5735ebaa636015ae7229b82:src/main/java/com/code/Controller/tController/tController_gsm.java
 
 }

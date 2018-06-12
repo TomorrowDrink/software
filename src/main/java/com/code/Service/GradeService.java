@@ -10,8 +10,11 @@ public interface GradeService {
     /*查询记录*/
     public List<Grade> getAll();
     public List<Grade> findGradeByTname(String tname);
+    public List<Grade> findGradesByTutorid(int tutorid);
+    public List<Grade> findGradesByTutoridIsgreat(int tutorid,int isgreat);
+
     public void editTscore(int tscore,int sno);
-    public void editIsgreat();
+    public void editIsgreat(int sno,int isgreat,String advice);
 
 
 }

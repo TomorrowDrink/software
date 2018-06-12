@@ -13,6 +13,12 @@
             <!--<result column="rolename" property="rolename"/>-->
         <!--</collection>-->
     </resultMap>
+    <resultMap id="Task_sMap" type="com.code.Entity.Task_s">
+        <id property="stuid" column="stuid"/>
+        <result property="stuname" column="stuname"/>
+        <result property="taskid" column="taskid"/>
+        <result property="taskname" column="taskname"/>
+    </resultMap>
 
 
     <select id="findByTaskname" parameterType="String" resultMap="TaskMap">
@@ -68,13 +74,17 @@
         (#{taskid},#{taskname},#{tasktype},#{taskrate},#{taskdescrib},#{tutorname},#{taskmaxchoose},#{taskstate},#{tutorid})
     </insert>
 
-    <insert id="chooseTask" parameterType="com.code.Entity.Task_s">
-        INSERT INTO
+    <update id="chooseTask" parameterType="com.code.Entity.Task_s">
+        UPDATE
         stu_task
-        (stuid,stuname,taskid,taskname)
-        VALUES
-        (#{stu_id},#{stu_name},#{task_id},#{task_name})
-    </insert>
+        SET
+        stuname=#{stu_name},
+        taskid=#{task_id},
+        taskname=#{task_name}
+        WHERE
+        stuid=#{stu_id}
+
+    </update>
 
     <update id="updataTask" parameterType="com.code.Entity.Task">
         UPDATE
@@ -123,10 +133,16 @@
         where stuid= #{stu_id}
     </select>
 
-    <delete id="s_delMyTask" parameterType="String">
-        DELETE t.* FROM stu_task t
-        WHERE taskid=#{task_id}
-    </delete>
+    <update id="s_delMyTask" parameterType="com.code.Entity.Task_s" >
+       UPDATE
+        stu_task
+        SET
+        stuname=NULL,
+        taskid=NULL,
+        taskname=NULL
+        WHERE
+        stuid=#{stu_id}
+    </update>
 
     <select id="findTaskBytutorid" parameterType="int" resultMap="TaskMap">
         SELECT  t.*  FROM  task t
@@ -181,6 +197,24 @@
         SELECT t.* FROM  task t
         WHERE
         tasktype =#{task_type}
+    </select>
+
+    <select id ="a_findAppointStu"  resultType="com.code.Entity.Task_s" parameterType="com.code.Entity.Task_s">
+        SELECT t.* FROM stu_task t
+        WHERE
+        taskid=#{task_id}
+    </select>
+
+    <select id="a_findAppointStuid"  resultType="com.code.Entity.Task_s" parameterType="com.code.Entity.Task_s">
+        SELECT t.* FROM  stu_task t
+        WHERE
+        stuid =#{stu_id}
+    </select>
+
+    <select id="a_findAppointStuname" parameterType="com.code.Entity.Task_s" resultType="com.code.Entity.Task_s">
+        SELECT t.* FROM  stu_task t
+        WHERE
+        stuname=#{stu_name}
     </select>
 
 

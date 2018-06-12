@@ -27,12 +27,22 @@ public class GradeServicelmpl implements GradeService {
     }
 
     @Override
+    public List<Grade> findGradesByTutorid(int tutorid) {
+        return gradeMapper.findGradesByTutorid(tutorid);
+    }
+
+    @Override
+    public List<Grade> findGradesByTutoridIsgreat(int tutorid,int isgreat) {
+        return gradeMapper.findGradesByTutoridIsgreat(tutorid,isgreat);
+    }
+
+    @Override
     public void editTscore(int tscore, int sno) {
         gradeMapper.editTscore(tscore,sno);
     }
 
     @Override
-    public void editIsgreat() {
-        gradeMapper.editIsgreat();
+    public void editIsgreat(int sno,int isgreat,String advice) {
+        gradeMapper.editIsgreat(sno,isgreat,advice);
     }
 }

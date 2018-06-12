@@ -1,13 +1,9 @@
 package com.code.Controller.aController;
 
-<<<<<<< HEAD:src/main/java/com/code/Controller/aController.java
-import com.code.Entity.*;
-=======
 import com.code.Entity.Grade;
 import com.code.Entity.PaperInfo;
 import com.code.Entity.Task;
 import com.code.Entity.User;
->>>>>>> 8f89dec3280af0a0d5735ebaa636015ae7229b82:src/main/java/com/code/Controller/aController/aController_xzx.java
 import com.code.Service.GradeService;
 import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
@@ -36,84 +32,6 @@ public class aController_xzx {
 
     @Autowired
     private GradeService gradeService;
-<<<<<<< HEAD:src/main/java/com/code/Controller/aController.java
-
-
-    @RequestMapping("")
-    public String admin(){
-               return "admin";
-    }
-
-    @GetMapping("/newstudent")
-    public String newstudent(){
-        return "newstudent";
-    }
-
-    @PostMapping("/newstudent")
-    public String addnewstudent(@RequestParam("id") Integer id,
-                                @RequestParam("name") String name,
-                                @RequestParam("password") String password){
-        if(userService.findUserById(id) != null){
-            return "redirect:/admin/newstudent?error";
-        }
-        else {
-            User user = new User();
-            password = new BCryptPasswordEncoder().encode(password);
-
-            user.setId(id);
-            user.setName(name);
-            user.setPassword(password);
-            user.setUsername(String.valueOf(id));
-
-            userService.insertUser(user);
-            userService.insertSrole(id);
-
-//            org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
-//            String email = id + "@pop.zjgsu.edu.cn";
-//            gitUser.setEmail(email);
-//            gitUser.setName(name);
-//            gitUser.setUsername(String.valueOf(id));
-//
-//            try {
-//            GitLabApi gitLabApi =  GitLabApi.login("http://gitlab.example.com:30080", "root","wenwen917");
-//                gitLabApi.getUserApi().createUser(gitUser, "123456789", 10);
-//            } catch (GitLabApiException e) {
-//                e.printStackTrace();
-//            }
-        }
-
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/newteacher")
-    public String newteacher(){
-        return "newteacher";
-    }
-
-    @PostMapping("/newteacher")
-    public String addnewteacher(@RequestParam("id") Integer id,
-                                @RequestParam("name") String name,
-                                @RequestParam("password") String password,
-                                @RequestParam("isAdmin") String isAdmin){
-        User user = new User();
-        password = new BCryptPasswordEncoder().encode(password);
-
-        user.setId(id);
-        user.setName(name);
-        user.setPassword(password);
-        user.setUsername(String.valueOf(id));
-
-        userService.insertUser(user);
-        userService.insertTrole(id);
-
-        if (isAdmin.equals("1"))
-        {
-            userService.insertArole(id);
-        }
-        return "redirect:/admin";
-    }
-=======
->>>>>>> 8f89dec3280af0a0d5735ebaa636015ae7229b82:src/main/java/com/code/Controller/aController/aController_xzx.java
 
     /**
      * 管理员安排交叉评阅
@@ -135,11 +53,7 @@ public class aController_xzx {
     /**
      * 管理员成绩管理
      */
-<<<<<<< HEAD:src/main/java/com/code/Controller/aController.java
-    @PostMapping("/test")
-=======
 /*    @PostMapping("/test")
->>>>>>> 8f89dec3280af0a0d5735ebaa636015ae7229b82:src/main/java/com/code/Controller/aController/aController_xzx.java
     public String test(){return "redirect:/admin/test";}
 
     @GetMapping("/test")
@@ -153,11 +67,7 @@ public class aController_xzx {
         gradeService.editIsgreat();
         model.addAttribute("initdata",list);
         return "test";
-<<<<<<< HEAD:src/main/java/com/code/Controller/aController.java
-    }
-=======
     }*/
->>>>>>> 8f89dec3280af0a0d5735ebaa636015ae7229b82:src/main/java/com/code/Controller/aController/aController_xzx.java
 
     /**
      * 管理员添加论文记录

@@ -51,11 +51,19 @@ public interface TaskMapper {
     List<Task> a_findTaskByType(@Param("task_type") String task_type);
     List<Task> a_findTaskByState(@Param("task_state") String task_state);
 
+    /**
+     * 管理员课题指定
+     */
+    List<Task_s> a_findAppointStu(@Param("task_id") String task_id);
+    List<Task_s> a_findAppointStuid(@Param("stu_id") int stu_id);
+    List<Task_s> a_findAppointStuname(@Param("stu_name") String stu_name);
+
 
 
     void insertTask(Task task);
     void delTask(@Param("taskid") String taskid);
-    void s_delMyTask(@Param("task_id") String task_id);
+    void s_delMyTask(@Param("task_id") String task_id,
+                     @Param("stu_id") int stu_id);
     void chooseTask(@Param("stu_id") int stuid,
                     @Param("stu_name") String stuname,
                     @Param("task_id") int taskid,
