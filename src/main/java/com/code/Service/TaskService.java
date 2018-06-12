@@ -21,6 +21,7 @@ public interface TaskService {
     public void delTask(String taskid);
     public void s_delMyTask(String task_id ,int stu_id);
     public void chooseTask(int stu_id, String stu_name, int task_id, String task_name);
+    public void A_addStu(int stu_id, String stu_name);
 //    public List<Task_s> findTaskidBysid(int stu_id);
 //    public int findTaskidBysid(int stu_id);
     public List<Task_s> findbystuid(int stu_id);

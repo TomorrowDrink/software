@@ -75,9 +75,13 @@ public class AController_srw {
             user.setName(name);
             user.setPassword(password);
             user.setUsername(String.valueOf(id));
-
             userService.insertUser(user);
             userService.insertSrole(id);
+
+            int stu_id =new Integer(id).intValue();
+            String stu_name =name;
+//            taskService.chooseTask(stu_id,stu_name,task_id,task_name);
+            taskService.A_addStu(stu_id,stu_name);
 
 //            org.gitlab4j.api.models.User gitUser = new org.gitlab4j.api.models.User();
 //            String email = id + "@pop.zjgsu.edu.cn";
