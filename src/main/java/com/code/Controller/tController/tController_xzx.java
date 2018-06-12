@@ -253,6 +253,12 @@ public class tController_xzx {
         String tutorname = user.getName();
         PaperInfo paperInfo = new PaperInfo();
         int tutorid = new Integer(principal.getName());
+        if(score.equals("null")){
+            score = 0;
+        }
+        if(comment.equals(null)){
+            comment = "无";
+        }
         paperInfo.setScore(score);
         paperInfo.setComment(comment);
         paperInfo.setId(id);

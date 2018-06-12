@@ -1,103 +1,448 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta charset="UTF-8">
-    <title>crossproposal</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>评阅</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" th:href="@{/assets/i/favicon.png}" href="../static/assets/i/favicon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png" th:href="@{/assets/i/app-icon72x72@2x.png}"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link th:href="@{/assets/css/amazeui.min.css}" rel="stylesheet" href="../static/assets/css/amazeui.min.css" />
+    <link th:href="@{/assets/css/admin.css}" rel="stylesheet" href="../static/assets/css/admin.css">
+    <link th:href="@{/assets/css/app.css}" rel="stylesheet" href="../static/assets/css/app.css">
     <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
-    <link th:href="@{/css/flat-ui.css}" href="../static/css/flat-ui.css" rel="stylesheet">
-    <link th:href="@{/css/signin.css}" href="../static/css/signin.css" rel="stylesheet">
-    <link th:href="@{/css/ugly-table.css}" href="../static/css/ugly-table.css" rel="stylesheet">
+
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/assets/css/flat-ui.css"th:href="@{/assets/css/flat-ui.css}">
 
 
 </head>
-<body>
-<div th:include="a-head :: a-head"></div>
-<br><br>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <!-- 增删改查 -->
-        <div class="form-inline">
-            <!--<form th:action="@{/admin/seltype}" action="/admin/seltype" method="post">
-                <label for="typeSelection">文件类型：</label>
-                <select id="typeSelection" name="typeSelection"class="form-control">
-                    <option value="文献综述" th:selected="${typeSelectionValue1}">文献综述</option>
-                    <option value="开题报告" th:selected="${typeSelectionValue2}">开题报告</option>
-                    <option value="论文" th:selected="${typeSelectionValue3}">论文</option>
-                </select>
-                <button type="submit" class="btn btn-primary">查询</button>
-            </form>-->
-            <form th:action="@{/admin/seltaskname}" action="/admin/seltaskname" method="post">
-                <label>课题名称：</label>
-                <select id="tasknameSelection" class="form-control" name="tasknameSelection" >
-                    <div >
-                        <option th:each="task,list:${tasklist}" th:value="${task.taskname}"
-                                th:selected="${tasknameSelectionValue}" th:text="${task.taskname}"></option>
-                    </div>
-                </select>
-                <input id="ftype" type="hidden" value="论文" name="ftype"/>
-                <button type="submit"  class="btn btn-primary" >查询</button>
-            </form>
-            <form th:action="@{/admin/selstate}" action="/admin/selstate" method="post">
-                <label>评阅状态：</label>
-                <select id="stateSelection" name="stateSelection"class="form-control">
-                    <option value="待评阅"th:selected="${stateSelectionValue2}">待评阅</option>
-                    <option value="已通过"th:selected="${stateSelectionValue3}">已通过</option>
-                    <option value="未通过"th:selected="${stateSelectionValue4}">未通过</option>
-                </select>
-                <input id="ftype1" type="hidden" value="论文" name="ftype1"/>
-                <button type="submit" class="btn btn-primary" >查询</button>
-            </form>
+
+<body data-type="index" style="">
+<div th:replace="thead-top :: thead-top"></div>
+
+<div class="tpl-page-container tpl-page-header-fixed">
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            <font size="4">毕设管理系统</font>
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="index.php" class="nav-link active" th:href="@{/admin}">
+                        <i class="am-icon-home"></i>
+                        <span>首页</span>
+                        <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                    </a>
+                </li>
+                <!--<li class="tpl-left-nav-item">-->
+                <!--<a href="course.php" class="nav-link tpl-left-nav-link-list">-->
+                <!--<i class="am-icon-book"></i>-->
+                <!--<span>论文审评</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>课题管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="kadai.html" th:href="@{/admin/a_TaskReview}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>课题审核</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/admin/a_TaskShow}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>课题管理</span>
+                            </a>
+
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>选题管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="#" >
+                                <i class="am-icon-angle-right"></i>
+                                <span>设定选题轮数</span>
+                            </a>
+
+                            <a href="#" >
+                                <i class="am-icon-angle-right"></i>
+                                <span>指定课题</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>论文评审</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/admin/areview}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>安排开题交叉评阅</span>
+                            </a>
+
+                            <!--<a href="" th:href="@{/admin/ktgroup}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>开题论证分组</span>
+                            </a>-->
+
+                            <!--<a href="" th:href="@{/admin/lunwengroup}">-->
+                                <!--<i class="am-icon-angle-right"></i>-->
+                                <!--<span>论文答辩分组</span>-->
+                            <!--</a>-->
+
+                            <a href="" th:href="@{/admin/crossproposal}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>安排论文交叉评阅</span>
+                            </a>
+
+                            <a href="#" >
+                                <i class="am-icon-angle-right"></i>
+                                <span>确认推优名单</span>
+                            </a>
+
+                            <a href="#" >
+                                <i class="am-icon-angle-right"></i>
+                                <span>学生成绩</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>用户管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="#" th:href="@{/admin/newstudent}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>添加学生</span>
+                            </a>
+
+                            <a href="#" th:href="@{/admin/newteacher}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>添加老师</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
         </div>
     </div>
-    <div class="panel-body">
-    <center>
-        <table  id="mainTable" border="1" data-toggle="table" class="bordered">
-            <tr>
-                <th>ID</th>
-                <th>课题名称</th>
-                <th>学生姓名</th>
-                <th>状态</th>
-                <th>文件类型</th>
-                <th>导师姓名</th>
-                <th>评阅人</th>
-                <th>更改评阅人</th>
-            </tr>
-            <tr th:each="paperinfo,list:${initdata}">
-                <!--<td id="table_id" th:text="${list.size+1}"></td>-->
-                <td  th:text="${paperinfo.id}" id="id"></td>
-                <td  th:text="${paperinfo.taskname}"></td>
-                <td  th:text="${paperinfo.stuname}"></td>
-                <td  th:text="${paperinfo.state}"></td>
-                <td  th:text="${paperinfo.type}"></td>
-                <td  th:text="${paperinfo.tutorname}" ></td>
-                <td th:text="${paperinfo.crosstutor}">未安排</td>
-                <td>
-                    <div class="form-inline">
-                        <form action="" th:action="@{/admin/crossproposal}" method="post">
-                            <select id="tname" class="form-control" name="tname" >
-                                <option th:each="user,list:${teacher}" th:value="${user.username}" th:text="${user.name}"><!--<span ></span>-->
-                                </option>
-                            </select>
-                            <input type="hidden" name="pid" th:value="${paperinfo.id}">
-                            <button type="submit" class="btn btn-primary" >编辑</button>
-                        </form>
+
+    <!--新增模态框-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="margin-top: 100px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h9 class="modal-title" id="myModalLabel">新增记录</h9>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/admin/addrecord}" action="/admin/addrecord"  method="post">
+                        <div class="form-group form-inline">
+                            <label for="txt_taskname">课题名称</label>
+                            <input type="text" name="txt_taskname" class="form-control" id="txt_taskname" placeholder="课题名称">
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="txt_stuname">学生姓名</label>
+                            <input type="text" name="txt_stuname" class="form-control" id="txt_stuname" placeholder="学生姓名">
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="txt_tutorname">导师姓名</label>
+                            <input type="text" name="txt_tutorname" class="form-control" id="txt_tutorname" placeholder="导师姓名">
+                        </div>
+                        <div class="form-group form-inline">
+                            <label for="txt_tutorid">导师id</label>
+                            <input type="text" name="txt_tutorid" class="form-control" id="txt_tutorid" placeholder="导师id">
+                        </div>
+                        <div class="form-group form-inline">
+                            <input type="text" name="txt_filename" class="form-control" id="txt_filename" placeholder="文件命名">
+                            <button type="button" id="upload_btn" class="btn btn-primary" >文件上传</button>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-primary" >提交更改</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#" class="am-icon-home">首页</a></li>
+            <li><a href="#">论文评审</a></li>
+            <li class="am-active">安排论文交叉评阅</li>
+        </ol>
+        <div class="tpl-portlet-components">
+
+            <div class="tpl-block">
+                <div class="am-btn-toolbar">
+
+                </div>
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-md-6">
+                        <div class="am-form-group">
+                            <form th:action="@{/admin/seltaskname}" action="/admin/seltaskname" method="post">
+                                <label>课题名称：</label>
+                                <select id="tasknameSelection" data-toggle="select" class="form-control" name="tasknameSelection" >
+                                    <div >
+                                        <option th:each="task,list:${tasklist}" th:value="${task.taskname}"
+                                                th:selected="${tasknameSelectionValue}" th:text="${task.taskname}"></option>
+                                    </div>
+                                </select>
+                                <input id="ftype" type="hidden" value="论文" name="ftype"/>
+                                <button type="submit"  class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search" onclick="searchtaskname(obj)">查询</button>
+                            </form>
+                            <form th:action="@{/admin/selstate}" action="/admin/selstate" method="post">
+                                <label>评阅状态：</label>
+                                <select id="stateSelection" name="stateSelection"class="form-control">
+                                    <option value="allstate" th:selected="${stateSelectionValue1}">--全部--</option>
+                                    <option value="待评阅"th:selected="${stateSelectionValue2}">待评阅</option>
+                                    <option value="已通过"th:selected="${stateSelectionValue3}">已通过</option>
+                                    <option value="未通过"th:selected="${stateSelectionValue4}">未通过</option>
+                                </select>
+                                <input type="hidden" th:value="crossproposal" name="flag">
+                                <input id="ftype1" type="hidden" value="论文" name="ftype1"/>
+                                <button type="submit" class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search" >查询</button>
+                            </form>
+                        </div>
                     </div>
-                </td>
-            </tr>
-        </table>
-    </center>
+                    <div class="am-btn-group am-btn-group-xs">
+                        <div class="am-btn-group am-btn-group-xs">
+                            <button type="button" data-toggle="modal" data-target="#myModal"class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                            <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 批量删除</button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="am-u-sm-12 am-u-md-3">
+                    <div class="input-icon right">
+                        <i class="am-icon-search"></i>
+                        <input type="text" class="form-control form-control-solid" placeholder="搜索..."> </div>
+                </div>
+
+
+
+            </div>
+            <div class="am-g">
+                <div class="am-u-sm-12">
+                    <form class="am-form">
+                        <table class="am-table am-table-striped am-table-hover table-main">
+                            <thead>
+                            <tr>
+                                <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
+                                <!--<th>ID</th>-->
+                                <th>课题名称</th>
+                                <th>学生姓名</th>
+                                <th>状态</th>
+                                <th>导师姓名</th>
+                                <th>编辑</th>
+                                <!--<th>下载</th>-->
+                                <th>删除</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="paperinfo,list:${initdata}">
+                                <td><input type="checkbox"></td>
+                                <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                                <td id="table_taskname" th:text="${paperinfo.taskname}"></td>
+                                <td id="table_stuname" th:text="${paperinfo.stuname}"></td>
+                                <td id="table_state" th:text="${paperinfo.state}"></td>
+                                <td id="table_tutorname" th:text="${paperinfo.tutorname}"></td>
+                                <td><button id="edit"  class="am-btn am-btn-default am-btn-xs am-text-secondary" data-toggle='modal' data-target='#editModal' onclick="edit(this)"><span class="am-icon-pencil-square-o"></span> 编辑</button></td>
+                                <!--编辑模态框-->
+                                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" style="margin-top: 100px;">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">×
+                                                </button>
+                                                <h9 class="modal-title" id="myModalLabel"> 修改</h9>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form th:action="@{/admin/editrecord}" action="/admin/editrecord"  method="post">
+                                                    <div class="form-group form-inline">
+                                                        <label for="edit_taskname">课题名称</label>
+                                                        <label id="edit_taskname"></label>
+                                                        <input type="text" name="edit_taskname"id ="edit_taskname" value="" readonly="readonly">
+                                                    </div>
+                                                    <div class="form-group form-inline">
+                                                        <label for="edit_stuname">学生姓名</label>
+                                                        <label id="edit_stuname"></label>
+                                                        <input type="text" name="edit_stuname"id ="edit_stuname" value="" readonly="readonly">
+                                                        <!--<input type="hidden" id="edit_stuname1" name="edit_stuname1"/>-->
+                                                    </div>
+                                                    <div class="form-group form-inline">
+                                                        <label for="edit_tutorname">导师姓名</label>
+                                                        <input type="text" name="edit_tutorname" class="form-control" id="edit_tutorname" placeholder="导师姓名">
+                                                        <!--<input type="hidden" id="edit_tutorname1" name="edit_tutorname1"/>-->
+                                                    </div>
+                                                    <div class="form-group form-inline">
+                                                        <label for="edit_state">状态</label>
+                                                        <input type="text" name="edit_state" class="form-control" id="edit_state" placeholder="状态">
+                                                        <!--<input type="hidden" id="edit_state1" name="edit_state1"/>-->
+                                                    </div>
+                                                    <div class="form-group form-inline">
+                                                        <input type="text" name="edit_filename" class="form-control" id="edit_filename" placeholder="文件命名">
+                                                        <button type="button" id="upload_btn1" class="btn btn-primary" >文件上传</button>
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                                    <button type="submit" class="btn btn-primary" >提交更改</button>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                            </div>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+
+                                <td><button id="delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"  data-toggle='modal' data-target='#delModal' onclick="del(this)"> <span class="am-icon-trash-o"></span>删除</button></td>
+                                <!--删除模态框-->
+                                <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" style="margin-top: 100px;">
+                                        <div class="modal-content" style="text-align:center;">
+                                            <div class="modal-header">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                    </button>
+                                                    <h9 class="modal-title" id="myModalLabel">删除报告</h9>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h7>确认删除？</h7>
+                                                    <form th:action="@{/admin/delrecord}" action="/admin/delrecord"  method="post">
+                                                        <input type="hidden" id="del_stuname" name="del_stuname"/>
+                                                        <button type="button" class="am-btn am-btn-primary" data-dismiss="modal">取消</button>
+                                                        <button type="submit" class="am-btn am-btn-primary" >确认</button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!--<form class="am-form">-->
+
+
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="am-cf">
+
+                            <div class="am-fr">
+                                <ul class="am-pagination tpl-pagination">
+                                    <li class="am-disabled"><a href="#">«</a></li>
+                                    <li class="am-active"><a href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">»</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <hr>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="tpl-alert"></div>
+    </div>
+
+
+
 </div>
-</div>
 
+<script type="text/javascript">
+    //    $(function () { $('#myModal').modal({
+    //        keyboard: true
+    //    })});
+    /*删除记录*/
+    function del(obj) {
+        var del_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        //alert(del_stuname);
+        document.getElementById("del_stuname").value= del_stuname;
+    }
+    /*更新记录*/
+    function edit(obj){
+        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        var be_state = $(obj).parents("tr").find("#table_state").text();
+        var be_filename = $(obj).parents("tr").find("#table_filename").text();
+        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+        document.getElementById("edit_taskname").innerHTML= be_taskname;
+        document.getElementById("edit_stuname").innerHTML= be_stuname;
+        document.getElementById("edit_stuname1").value= be_stuname;
+        document.getElementById("edit_state").value= be_state;
+        document.getElementById("edit_tutorname").value= be_tutorname;
+        document.getElementById("edit_filename").innerHTML= be_filename;
+    }
 
-
-
+    /*查询记录*/
+    function search(obj){
+        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        var be_state = $(obj).parents("tr").find("#table_state").text();
+        var be_filename = $(obj).parents("tr").find("#table_filename").text();
+        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+        document.getElementById("edit_taskname").innerHTML= be_taskname;
+        document.getElementById("edit_stuname").innerHTML= be_stuname;
+        document.getElementById("edit_stuname1").value= be_stuname;
+        document.getElementById("edit_state").value= be_state;
+        document.getElementById("edit_tutorname").value= be_tutorname;
+        document.getElementById("edit_filename").innerHTML= be_filename;
+    }
+</script>
 <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
-
-<script th:src="@{/js/application.js}" src="../static/js/application.js"></script>
+<script th:src="@{/assets/js/jquery.min.js}"src="assets/js/jquery.min.js"></script>
+<script th:src="@{/assets/js/app.min.js}" src="assets/js/app.min.js"></script>
+<script th:src="@{/assets/js/appjs}" src="assets/js/app.js"></script>
+<script th:src="@{/assets/js/flat.ui.js}" src="assets/js/flat-ui.js"></script>
 </body>
 </html>
+<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+
+

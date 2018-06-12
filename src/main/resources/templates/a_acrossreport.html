@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
-	
-	<head>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>评阅</title>
@@ -10,16 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" th:href="@{/assets/i/favicon.png}" href="../static/assets/i/favicon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png" th:href="@{/assets/i/app-icon72x72@2x.png}"/>
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="assets/css/admin.css">
-    <link rel="stylesheet" href="assets/css/app.css">
-    <script src="assets/js/echarts.min.js"></script>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/flat-ui.css">
-	</head>
+    <link th:href="@{/assets/css/amazeui.min.css}" rel="stylesheet" href="../static/assets/css/amazeui.min.css" />
+    <link th:href="@{/assets/css/admin.css}" rel="stylesheet" href="../static/assets/css/admin.css">
+    <link th:href="@{/assets/css/app.css}" rel="stylesheet" href="../static/assets/css/app.css">
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/assets/css/flat-ui.css">
+
+
+</head>
 	
 	<body data-type="index" style="">
      <header class="am-topbar am-topbar-inverse admin-header">
@@ -273,45 +276,34 @@
                                 <h9 class="modal-title" id="myModalLabel"> 修改</h9>
                             </div>
                             <div class="modal-body">
-                                <form th:action="@{/teacher/edittask}" action="/teacher/edittask"  method="post">
-                                    <!--<input type="hidden" id="taskid" name="taskid" value="111"/>-->
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label for="edit_taskid">课题编号</label>
-                                        <input type="text" id ="edit_taskid" name ="edit_taskid"value="" readonly="readonly" >
-                                    </div>
-
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label for="edit_taskname">课题名称</label>
-                                        <input type="text" id ="edit_taskname" name ="edit_taskname"  value="" >
-                                    </div>
-
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label style="display: none" for="edit_tutorname">课题导师</label>
-                                        <input style="display: none" type="text" id ="edit_tutorname" name="edit_tutorname" value="" readonly="readonly" >
-                                    </div>
-
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label for="edit_tasktype">课题类型</label>
-                                        <input type="text" id ="edit_tasktype" name="edit_tasktype" value="" >
-                                    </div>
-
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label for="edit_taskrate">课题级别</label>
-                                        <input type="text" id ="edit_taskrate" name="edit_taskrate" value="" >
-                                    </div>
-
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label for="edit_taskrate">可选人数</label>
-                                        <input type="text" id ="edit_taskmaxchoose" name="edit_taskmaxchoose" value="">
-                                    </div>
-
+                                <form th:action="@{/admin/editrecord}" action="/admin/editrecord"  method="post">
                                     <div class="form-group form-inline">
-                                        <label for="edit_taskdescrib">课题描述</label>
-                                        <input type="text" id ="edit_taskdescrib" name ="edit_taskdescrib" value="">
+                                        <label for="edit_taskname">课题名称</label>
+                                        <label id="edit_taskname"></label>
+                                        <!--<input type="text" name="edit_taskname"id ="edit_taskname" value="" readonly="readonly">-->
                                     </div>
-
-                                    <button type="button" class="am-btn am-btn-primary" data-dismiss="modal">关闭</button>
-                                    <button type="submit" class="am-btn am-btn-primary" >确认</button>
+                                    <div class="form-group form-inline">
+                                        <label for="edit_stuname">学生姓名</label>
+                                        <label id="edit_stuname"></label>
+                                        <!--<input type="text" name="edit_stuname"id ="edit_stuname" value="" readonly="readonly">-->
+                                        <input type="hidden" id="edit_stuname1" name="edit_stuname1"/>
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="edit_tutorname">导师姓名</label>
+                                        <input type="text" name="edit_tutorname" class="form-control" id="edit_tutorname" placeholder="导师姓名">
+                                        <!--<input type="hidden" id="edit_tutorname1" name="edit_tutorname1"/>-->
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="edit_state">状态</label>
+                                        <input type="text" name="edit_state" class="form-control" id="edit_state" placeholder="状态">
+                                        <!--<input type="hidden" id="edit_state1" name="edit_state1"/>-->
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <input type="text" name="edit_filename" class="form-control" id="edit_filename" placeholder="文件命名">
+                                        <button type="button" id="upload_btn1" class="btn btn-primary" >文件上传</button>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                    <button type="submit" class="btn btn-primary" >提交更改</button>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -320,55 +312,39 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
 		<!--新增模态框-->
-                <div class="modal fade" id="neweditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" style="margin-top: 100px;">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"
                                         aria-hidden="true">×
                                 </button>
-                                <h9 class="modal-title" id="myModalLabel"> 修改</h9>
+                                <h9 class="modal-title" id="myModalLabel">新增记录</h9>
                             </div>
                             <div class="modal-body">
-                                <form th:action="@{/teacher/edittask}" action="/teacher/edittask"  method="post">
-                                    <!--<input type="hidden" id="taskid" name="taskid" value="111"/>-->
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label for="edit_taskid">课题编号</label>
-                                        <input type="text" id ="edit_taskid" name ="edit_taskid"value="" readonly="readonly" >
-                                    </div>
-
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label for="edit_taskname">课题名称</label>
-                                        <input type="text" id ="edit_taskname" name ="edit_taskname"  value="" >
-                                    </div>
-
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label style="display: none" for="edit_tutorname">课题导师</label>
-                                        <input style="display: none" type="text" id ="edit_tutorname" name="edit_tutorname" value="" readonly="readonly" >
-                                    </div>
-
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label for="edit_tasktype">课题类型</label>
-                                        <input type="text" id ="edit_tasktype" name="edit_tasktype" value="" >
-                                    </div>
-
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label for="edit_taskrate">课题级别</label>
-                                        <input type="text" id ="edit_taskrate" name="edit_taskrate" value="" >
-                                    </div>
-
-                                    <div class="form-group form-inline" style="margin-bottom: auto;">
-                                        <label for="edit_taskrate">可选人数</label>
-                                        <input type="text" id ="edit_taskmaxchoose" name="edit_taskmaxchoose" value="">
-                                    </div>
-
+                                <form th:action="@{/admin/addrecord}" action="/admin/addrecord"  method="post">
                                     <div class="form-group form-inline">
-                                        <label for="edit_taskdescrib">课题描述</label>
-                                        <input type="text" id ="edit_taskdescrib" name ="edit_taskdescrib" value="">
+                                        <label for="txt_taskname">课题名称</label>
+                                        <input type="text" name="txt_taskname" class="form-control" id="txt_taskname" placeholder="课题名称">
                                     </div>
-
-                                    <button type="button" class="am-btn am-btn-primary" data-dismiss="modal">关闭</button>
-                                    <button type="submit" class="am-btn am-btn-primary" >确认</button>
+                                    <div class="form-group form-inline">
+                                        <label for="txt_stuname">学生姓名</label>
+                                        <input type="text" name="txt_stuname" class="form-control" id="txt_stuname" placeholder="学生姓名">
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="txt_tutorname">导师姓名</label>
+                                        <input type="text" name="txt_tutorname" class="form-control" id="txt_tutorname" placeholder="导师姓名">
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="txt_tutorid">导师id</label>
+                                        <input type="text" name="txt_tutorid" class="form-control" id="txt_tutorid" placeholder="导师id">
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <input type="text" name="txt_filename" class="form-control" id="txt_filename" placeholder="文件命名">
+                                        <button type="button" id="upload_btn" class="btn btn-primary" >文件上传</button>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                    <button type="submit" class="btn btn-primary" >提交更改</button>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -376,7 +352,7 @@
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
-                <!--删除模态框-->
+        <!--删除模态框-->
                 <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" style="margin-top: 100px;">
                         <div class="modal-content" style="text-align:center;">
@@ -387,11 +363,11 @@
                                 <h9 class="modal-title" id="myModalLabel">删除</h9>
                             </div>
                             <div class="modal-body">
-                                <p style="font-size: smaller;">确定删除该报告吗？</p>
-                                <form th:action="@{/teacher/t_TaskDelete}" action="/teacher/t_TaskDelete"  method="post">
-                                    <input type="hidden" id="del_taskid" name="del_taskid" value="del_taskid"/>
-                                    <button type="button" class="am-btn am-btn-primary" data-dismiss="modal">取消</button>
-                                    <button type="submit" class="am-btn am-btn-primary" >确认</button>
+                                <h7>确认删除？</h7>
+                                <form th:action="@{/admin/delrecord}" action="/admin/delrecord"  method="post">
+                                    <input type="hidden" id="del_stuname" name="del_stuname"/>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary" >确认</button>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -416,17 +392,35 @@
                             </div>
                     <div class="am-g">
                         <div class="am-u-sm-12 am-u-md-6">
-                            <div class="am-form-group">
-                                <select data-am-selected="{btnSize: 'sm'}">
-              <option value="option1">全部</option>
-              <option value="option2">已通过</option>
-              <option value="option3">未审核</option>
-              
-            </select>
+                                <form th:action="@{/admin/seltaskname}" action="/admin/seltaskname" method="post">
+                                    <div class="am-form-group">
+                                        <label>课题名称：</label>
+                                        <select id="tasknameSelection" data-toggle="select" class="form-control" name="tasknameSelection" >
+                                            <div >
+                                                <option th:each="task,list:${tasklist}" th:value="${task.taskname}"
+                                                        th:selected="${tasknameSelectionValue}" th:text="${task.taskname}"></option>
+                                            </div>
+                                        </select>
+                                        <input id="ftype" type="hidden" value="开题报告" name="ftype"/>
+                                        <button type="submit"  class="btn btn-primary" onclick="searchtaskname(obj)">查询</button>
+                                    </div>
+                                </form>
+                                <form th:action="@{/admin/selstate}" action="/admin/selstate" method="post">
+                                    <div class="am-form-group">
+                                        <label>评阅状态：</label>
+                                        <select id="stateSelection" name="stateSelection"class="form-control">
+                                            <option value="待评阅"th:selected="${stateSelectionValue2}">待评阅</option>
+                                            <option value="已通过"th:selected="${stateSelectionValue3}">已通过</option>
+                                            <option value="未通过"th:selected="${stateSelectionValue4}">未通过</option>
+                                        </select>
+                                        <input id="ftype1" type="hidden" value="开题报告" name="ftype1"/>
+                                        <button type="submit" class="btn btn-primary" >查询</button>
+                                    </div>
+                                </form>
                             </div>
                             <div class="am-btn-group am-btn-group-xs">
                                    <div class="am-btn-group am-btn-group-xs">
-                                    <button type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
+                                    <button type="button" data-toggle="modal" data-target="#myModal"class="am-btn am-btn-default am-btn-success"><span class="am-icon-plus"></span> 新增</button>
                                     <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 批量删除</button>
                                 </div> 
                                 </div>
@@ -450,108 +444,28 @@
                                     <thead>
                                         <tr>
                                             <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
-                                            <th class="table-id">ID</th>
-                                            <th class="table-title">课题名称</th>
-                                            <th class="table-author am-hide-sm-only">导师</th>
-                                            <th class="table-type">状态</th>
-                                            <th class="table-author am-hide-sm-only">学生姓名</th>
-                                            <!--<th class="table-date am-hide-sm-only">修改日期</th>-->
-                                            <th class="table-set">操作</th>
+                                            <!--<th>ID</th>-->
+                                            <th>课题名称</th>
+                                            <th>学生姓名</th>
+                                            <th>状态</th>
+                                            <th>导师姓名</th>
+                                            <th>编辑</th>
+                                            <th>下载</th>
+                                            <th>删除</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr th:each="paperinfo,list:${initdata}">
                                             <td><input type="checkbox"></td>
-                                            <td>1</td>
-                                            <td><a href="#">企业管理信息系统</a></td>
-                                            <td>陈歌</td>
-                                            <td>已通过</td>
-                                            <td class="am-hide-sm-only">李四</td>
-                                            
-                                            <td>
-                                                <div class="am-btn-toolbar">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary" id="edit" data-toggle='modal' data-target='#editModal' onclick="edit(this)";><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 下载</button>
-                                                        <button id="delete" data-toggle='modal' data-target='#delModal' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick= "del(this)";><span class="am-icon-trash-o"></span> 删除</button> 
-                                                    </div>
-                                                </div>
-                                            </td>
+                                            <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                                            <td id="table_taskname" th:text="${paperinfo.taskname}"></td>
+                                            <td id="table_stuname" th:text="${paperinfo.stuname}"></td>
+                                            <td id="table_state" th:text="${paperinfo.state}"></td>
+                                            <td id="table_tutorname" th:text="${paperinfo.tutorname}"></td>
+                                            <td><button id="edit" class='btn btn-link' data-toggle='modal' data-target='#editModal' onclick="edit(this)">编辑</button></td>
+                                            <td><button id="download" class='btn btn-link' data-toggle='modal'data-target='#downModal'>下载</button></td>
+                                            <td><button id="delete" class='btn btn-link' data-toggle='modal' data-target='#delModal' onclick="del(this)">删除</button></td>
                                         </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>3</td>
-                                            <td><a href="#">企业管理信息系统</a></td>
-                                            <td>陈歌</td>
-                                            <td>未审核</td>
-                                            <td class="am-hide-sm-only">王樱</td>
-                                            
-                                            <td>
-                                                <div class="am-btn-toolbar">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 下载</button>
-                                                        <button id="delete" data-toggle='modal' data-target='#delModal' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick= "del(this)";><span class="am-icon-trash-o"></span> 删除</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>4</td>
-                                            <td><a href="#">毕业设计管理系统</a></td>
-                                            <td>陈歌</td>
-                                            <td>已通过</td>
-                                            <td class="am-hide-sm-only">张三</td>
-                                            
-                                            <td>
-                                                <div class="am-btn-toolbar">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 下载</button>
-                                                        <button id="delete" data-toggle='modal' data-target='#delModal' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick= "del(this)";><span class="am-icon-trash-o"></span> 删除</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>8</td>
-                                            <td><a href="#">机关办公自动化</a></td>
-                                            <td>陈歌</td>
-                                            <td>已通过</td>
-                                            <td class="am-hide-sm-only">李莉</td>
-                                            
-                                            <td>
-                                                <div class="am-btn-toolbar">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 下载</button>
-                                                        <button id="delete" data-toggle='modal' data-target='#delModal' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick= "del(this)";><span class="am-icon-trash-o"></span> 删除</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td>10</td>
-                                            <td><a href="#">交通管理系统</a></td>
-                                            <td>陈歌</td>
-                                            <td>未审核</td>
-                                            <td class="am-hide-sm-only">徐圆圆</td>
-                                            
-                                            <td>
-                                                <div class="am-btn-toolbar">
-                                                    <div class="am-btn-group am-btn-group-xs">
-                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
-                                                        <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 下载</button>
-                                                        <button id="delete" data-toggle='modal' data-target='#delModal' class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" onclick= "del(this)";><span class="am-icon-trash-o"></span> 删除</button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        
-                                        
                                     </tbody>
                                 </table>
                                 <div class="am-cf">
@@ -580,19 +494,55 @@
 
 
 
-
-
-	 <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/amazeui.min.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/flat-ui.min.js"></script>
-    <script src="assets/js/flat-ui.js"></script>
-    <script src="assets/js/jquery-3.1.1.min.js"></script>
-
-
-
-
         </div>
+
+     <script type="text/javascript">
+         //    $(function () { $('#myModal').modal({
+         //        keyboard: true
+         //    })});
+         /*删除记录*/
+         function del(obj) {
+             var del_stuname = $(obj).parents("tr").find("#table_stuname").text();
+             //alert(del_stuname);
+             document.getElementById("del_stuname").value= del_stuname;
+         }
+         /*更新记录*/
+         function edit(obj){
+             var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+             var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+             var be_state = $(obj).parents("tr").find("#table_state").text();
+             var be_filename = $(obj).parents("tr").find("#table_filename").text();
+             var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+             document.getElementById("edit_taskname").innerHTML= be_taskname;
+             document.getElementById("edit_stuname").innerHTML= be_stuname;
+             document.getElementById("edit_stuname1").value= be_stuname;
+             document.getElementById("edit_state").value= be_state;
+             document.getElementById("edit_tutorname").value= be_tutorname;
+             document.getElementById("edit_filename").innerHTML= be_filename;
+         }
+
+         /*查询记录*/
+         function search(obj){
+             var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+             var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+             var be_state = $(obj).parents("tr").find("#table_state").text();
+             var be_filename = $(obj).parents("tr").find("#table_filename").text();
+             var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+             document.getElementById("edit_taskname").innerHTML= be_taskname;
+             document.getElementById("edit_stuname").innerHTML= be_stuname;
+             document.getElementById("edit_stuname1").value= be_stuname;
+             document.getElementById("edit_state").value= be_state;
+             document.getElementById("edit_tutorname").value= be_tutorname;
+             document.getElementById("edit_filename").innerHTML= be_filename;
+         }
+     </script>
+     <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+     <script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+     <script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
+     <script th:src="@{/js/jquery.min.js}"src="assets/js/jquery.min.js"></script>
+     <script th:src="@{/js/app.min.js}" src="assets/js/app.min.js"></script>
+     <script th:src="@{/js/appjs}" src="assets/js/app.js"></script>
+     <script th:src="@{/js/flat.ui.js}" src="assets/js/flat-ui.js"></script>
 	</body>
 </html>
+

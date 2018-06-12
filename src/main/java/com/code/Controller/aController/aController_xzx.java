@@ -100,6 +100,7 @@ public class aController_xzx {
     @PostMapping("/delrecord")
     public String delData(@RequestParam("del_stuname") String stuname){
         paperInfoService.delRecord(stuname);
+        System.out.println("del_stuname:----"+stuname);
         return "redirect:/admin/areview";
 
     }
@@ -147,9 +148,6 @@ public class aController_xzx {
         System.out.println("selectstate"+taskname);
         List<PaperInfo> list ;
         String type = ftype;
-        list = paperInfoService.findPaperInfoByTasknameAndType(taskname,type);
-        model.addAttribute("initdata", list);
-
         List<Task> task = taskService.findTaskByTaskstate("已通过");
         for(Task tasks:task){
             System.out.println(tasks.getTaskname());
@@ -161,6 +159,9 @@ public class aController_xzx {
         model.addAttribute("teacher",user);
         model.addAttribute("tasklist",task);
         model.addAttribute("tasknameSelectionValue",taskname);
+
+        list = paperInfoService.findPaperInfoByTasknameAndType(taskname,type);
+        model.addAttribute("initdata", list);
         if(ftype.equals("开题报告")){        return  "areview";
         }else{
             return "crossproposal";
@@ -170,6 +171,7 @@ public class aController_xzx {
     @RequestMapping("/selstate")
     public String selState(@RequestParam ("stateSelection") String state,
                            @RequestParam("ftype1") String ftype1,
+                           @RequestParam("flag") String flag,
                            Model model){
         System.out.println("selectstate"+state);
         List<PaperInfo> list ;
@@ -191,6 +193,8 @@ public class aController_xzx {
             model.addAttribute("stateSelectionValue2",state);
         }else if (state.equals("已通过")){
             model.addAttribute("stateSelectionValue3",state);
+        }else if (state.equals("allstate")){
+            model.addAttribute("stateSelectionValue1",state);
         }else{
             model.addAttribute("stateSelectionValue4",state);
         }
@@ -269,5 +273,11 @@ public class aController_xzx {
         System.out.println("---"+group+"---");
         paperInfoService.editKtgroup(group,Integer.parseInt(pid));
         return "redirect:/admin/ktgroup";
+    }
+
+
+    @GetMapping("/test1")
+    public String test1(Model model){
+        return "test1";
     }
 }
