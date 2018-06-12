@@ -59,6 +59,9 @@ public class TaskServicelmpl implements TaskService {
     public void s_delMyTask(String task_id ,int stu_id){taskMapper.s_delMyTask(task_id,stu_id);}
     public void chooseTask(int stu_id,String stu_name,int task_id,String task_name  ){taskMapper.chooseTask(stu_id,stu_name,task_id,task_name);}
 
+    @Override
+    public void A_addStu(int stu_id,String stu_name){taskMapper.A_addStu(stu_id,stu_name);}
+
 //    @Override
 //    public List<Task_s> findTaskidBysid(int stu_id){return taskMapper.findTaskidBysid(stu_id);}
 

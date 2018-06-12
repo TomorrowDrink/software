@@ -68,6 +68,9 @@ public interface TaskMapper {
                     @Param("stu_name") String stuname,
                     @Param("task_id") int taskid,
                     @Param("task_name") String taskname);
+
+    void A_addStu(@Param("stu_id")int stuid,
+                  @Param("stu_name") String stuname);
     void updataTask(Task task);
     void updataTaskState(@Param("passtaskid") String passtaskid);
 

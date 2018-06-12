@@ -73,10 +73,10 @@ public class sController_gsm {
         }
         else {
             task_id = s_list.get(0).getTaskid();
-            System.out.println("课题id" + task_id);
         }
 
         List<Task> list = taskService.findTaskByTaskid(task_id);
+
         model.addAttribute("initdata",list);
         return  "stu_ownkadai";
     }

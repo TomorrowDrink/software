@@ -217,5 +217,12 @@
         stuname=#{stu_name}
     </select>
 
+    <insert id="A_addStu" parameterType="com.code.Entity.Task_s">
+        INSERT INTO
+        stu_task
+        (stuid,stuname,taskid,taskname)
+        VALUES
+        (#{stu_id},#{stu_name},NULL ,NULL )
+    </insert>
 
 </mapper>
