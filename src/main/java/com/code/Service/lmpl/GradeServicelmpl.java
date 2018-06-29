@@ -32,8 +32,18 @@ public class GradeServicelmpl implements GradeService {
     }
 
     @Override
+    public int findGradesBySno(int sno) {
+        return gradeMapper.findGradesBySno(sno);
+    }
+
+    @Override
     public List<Grade> findGradesByTutoridIsgreat(int tutorid,int isgreat) {
         return gradeMapper.findGradesByTutoridIsgreat(tutorid,isgreat);
+    }
+
+    @Override
+    public List<Grade> findGradesByIsgreat(int isgreat) {
+        return gradeMapper.findGradesByIsgreat(isgreat);
     }
 
     @Override

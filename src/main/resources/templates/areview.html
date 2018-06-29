@@ -120,12 +120,7 @@
                                 <span>安排论文交叉评阅</span>
                             </a>
 
-                            <a href="#" >
-                                <i class="am-icon-angle-right"></i>
-                                <span>确认推优名单</span>
-                            </a>
-
-                            <a href="#" >
+                            <a href="#" th:href="@{/admin/allgrades}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>学生成绩</span>
                             </a>
@@ -211,15 +206,11 @@
                     </div>
                 </div>
 
-
-
                 <div class="am-u-sm-12 am-u-md-3">
                     <div class="input-icon right">
                         <i class="am-icon-search"></i>
                         <input type="text" class="form-control form-control-solid" placeholder="搜索..."> </div>
                 </div>
-
-
 
             </div>
             <div class="am-g">
@@ -266,7 +257,7 @@
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
 
-                    <form class="am-form">
+                    <div class="am-form">
                         <!--编辑模态框-->
                         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog" style="margin-top: 100px;">
@@ -278,7 +269,7 @@
                                         <h9 class="modal-title" id="myModalLabel"> 修改信息</h9>
                                     </div>
                                     <div class="modal-body">
-                                        <form th:action="@{/admin/editrecord}" action="/admin/editrecord"  method="post">
+                                        <form th:action="@{/admin/editcrosstutor}" action="/admin/editcrosstutor"  method="post">
                                             <div class="form-group form-inline">
                                                 <label for="edit_taskname">课题名称</label>
                                                 <label id="edit_taskname"></label>
@@ -292,20 +283,29 @@
                                             </div>
                                             <div class="form-group form-inline">
                                                 <label for="edit_tutorname">导师姓名</label>
-                                                <input type="text" name="edit_tutorname" class="form-control" id="edit_tutorname" placeholder="导师姓名">
+                                                <label id="edit_tutorname"></label>
+
+                                                <!--<input type="text" name="edit_tutorname" class="form-control" id="edit_tutorname" placeholder="导师姓名">-->
                                                 <!--<input type="hidden" id="edit_tutorname1" name="edit_tutorname1"/>-->
                                             </div>
                                             <div class="form-group form-inline">
-                                                <label for="edit_state">状态</label>
-                                                <input type="text" name="edit_state" class="form-control" id="edit_state" placeholder="状态">
-                                                <!--<input type="hidden" id="edit_state1" name="edit_state1"/>-->
+                                                <label for="edit_crosstutor">交叉导师</label>
+                                                <input type="text" name="edit_crosstutor" class="form-control" id="edit_crosstutor" placeholder="未分配">
+                                                <input type="hidden" id="edit_id" name="edit_id">
                                             </div>
                                             <div class="form-group form-inline">
-                                                <input type="text" name="edit_filename" class="form-control" id="edit_filename" placeholder="文件命名">
-                                                <button type="button" id="upload_btn1" class="btn btn-primary" >文件上传</button>
+                                                <label for="edit_state">状态</label>
+                                                <label id="edit_state"></label>
+                                                <!--<input type="text" name="edit_state" class="form-control" id="edit_state" placeholder="状态">-->
+                                                <!--<input type="hidden" id="edit_state1" name="edit_state1"/>-->
                                             </div>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                            <!--<div class="form-group form-inline">-->
+                                                <!--<input type="text" name="edit_filename" class="form-control" id="edit_filename" placeholder="文件命名">-->
+                                                <!--<button type="button" id="upload_btn1" class="btn btn-primary" >文件上传</button>-->
+                                            <!--</div>-->
+                                            <input type="hidden" name="edit_type" class="form-control" id="edit_type" th:value="开题报告">
                                             <button type="submit" class="btn btn-primary" >提交更改</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
                                         </form>
                                     </div>
                                     <div class="modal-footer">
@@ -342,11 +342,12 @@
                             <thead>
                             <tr>
                                 <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
-                                <!--<th>ID</th>-->
+                                <th style="display:none;">ID</th>
                                 <th>课题名称</th>
                                 <th>学生姓名</th>
                                 <th>状态</th>
                                 <th>导师姓名</th>
+                                <th>交叉导师</th>
                                 <th>编辑</th>
                                 <!--<th>下载</th>-->
                                 <th>删除</th>
@@ -355,11 +356,12 @@
                             <tbody>
                             <tr th:each="paperinfo,list:${initdata}">
                                 <td><input type="checkbox"></td>
-                                <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                                <td style="display:none;" id="table_id" th:text="${paperinfo.id}"></td>
                                 <td id="table_taskname" th:text="${paperinfo.taskname}"></td>
                                 <td id="table_stuname" th:text="${paperinfo.stuname}"></td>
                                 <td id="table_state" th:text="${paperinfo.state}"></td>
                                 <td id="table_tutorname" th:text="${paperinfo.tutorname}"></td>
+                                <td id="table_crosstutor" th:text="${paperinfo.crosstutor}"></td>
                                 <td><button id="edit"  class="am-btn am-btn-default am-btn-xs am-text-secondary" data-toggle='modal' data-target='#editModal' onclick="edit(this)"><span class="am-icon-pencil-square-o"></span> 编辑</button></td>
                                 <td><button id="delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"  data-toggle='modal' data-target='#delModal' onclick="del(this)"> <span class="am-icon-trash-o"></span>删除</button></td>
                             </tr>
@@ -381,7 +383,7 @@
                         </div>
                         <hr>
 
-                    </form>
+                    </div>
                 </div>
 
             </div>
@@ -401,21 +403,21 @@
     function del(obj) {
         var del_stuname = $(obj).parents("tr").find("#table_stuname").text();
         //alert(del_stuname);
-        document.getElementById("del_stuname").value= del_stuname;
+        document.getElementById("del_stuname").innerHTML= del_stuname;
     }
     /*更新记录*/
     function edit(obj){
+        var be_id = $(obj).parents("tr").find("#table_id").text();
         var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
         var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
         var be_state = $(obj).parents("tr").find("#table_state").text();
-        var be_filename = $(obj).parents("tr").find("#table_filename").text();
         var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+        document.getElementById("edit_id").innerHTML= be_id;
         document.getElementById("edit_taskname").innerHTML= be_taskname;
         document.getElementById("edit_stuname").innerHTML= be_stuname;
-//        document.getElementById("edit_stuname").value= be_stuname;
-        document.getElementById("edit_state").value= be_state;
-        document.getElementById("edit_tutorname").value= be_tutorname;
-        document.getElementById("edit_filename").innerHTML= be_filename;
+        document.getElementById("edit_state").innerHTML= be_state;
+        document.getElementById("edit_tutorname").innerHTML= be_tutorname;
+        $("#edit_id").val(be_id);
     }
 
     /*查询记录*/
@@ -427,9 +429,9 @@
         var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
         document.getElementById("edit_taskname").innerHTML= be_taskname;
         document.getElementById("edit_stuname").innerHTML= be_stuname;
-        document.getElementById("edit_stuname1").value= be_stuname;
-        document.getElementById("edit_state").value= be_state;
-        document.getElementById("edit_tutorname").value= be_tutorname;
+        document.getElementById("edit_stuname1").innerHTML= be_stuname;
+        document.getElementById("edit_state").innerHTML= be_state;
+        document.getElementById("edit_tutorname").innerHTML= be_tutorname;
         document.getElementById("edit_filename").innerHTML= be_filename;
     }
 </script>

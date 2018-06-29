@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>评阅</title>
+    <title>安排论文交叉评阅</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +19,7 @@
     <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
 
     <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../static/assets/css/flat-ui.css"th:href="@{/assets/css/flat-ui.css}">
+    <link rel="stylesheet" href="../static/css/flat-ui.css"th:href="@{/css/flat-ui.css}">
 
 
 </head>
@@ -105,14 +105,14 @@
                                 <span>安排开题交叉评阅</span>
                             </a>
 
-                            <!--<a href="" th:href="@{/admin/ktgroup}">
-                                <i class="am-icon-angle-right"></i>
-                                <span>开题论证分组</span>
-                            </a>-->
+                            <!--<a href="" th:href="@{/admin/ktgroup}">-->
+                            <!--<i class="am-icon-angle-right"></i>-->
+                            <!--<span>开题论证分组</span>-->
+                            <!--</a>-->
 
                             <!--<a href="" th:href="@{/admin/lunwengroup}">-->
-                                <!--<i class="am-icon-angle-right"></i>-->
-                                <!--<span>论文答辩分组</span>-->
+                            <!--<i class="am-icon-angle-right"></i>-->
+                            <!--<span>论文答辩分组</span>-->
                             <!--</a>-->
 
                             <a href="" th:href="@{/admin/crossproposal}">
@@ -160,54 +160,13 @@
         </div>
     </div>
 
-    <!--新增模态框-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="margin-top: 100px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"
-                            aria-hidden="true">×
-                    </button>
-                    <h9 class="modal-title" id="myModalLabel">新增记录</h9>
-                </div>
-                <div class="modal-body">
-                    <form th:action="@{/admin/addrecord}" action="/admin/addrecord"  method="post">
-                        <div class="form-group form-inline">
-                            <label for="txt_taskname">课题名称</label>
-                            <input type="text" name="txt_taskname" class="form-control" id="txt_taskname" placeholder="课题名称">
-                        </div>
-                        <div class="form-group form-inline">
-                            <label for="txt_stuname">学生姓名</label>
-                            <input type="text" name="txt_stuname" class="form-control" id="txt_stuname" placeholder="学生姓名">
-                        </div>
-                        <div class="form-group form-inline">
-                            <label for="txt_tutorname">导师姓名</label>
-                            <input type="text" name="txt_tutorname" class="form-control" id="txt_tutorname" placeholder="导师姓名">
-                        </div>
-                        <div class="form-group form-inline">
-                            <label for="txt_tutorid">导师id</label>
-                            <input type="text" name="txt_tutorid" class="form-control" id="txt_tutorid" placeholder="导师id">
-                        </div>
-                        <div class="form-group form-inline">
-                            <input type="text" name="txt_filename" class="form-control" id="txt_filename" placeholder="文件命名">
-                            <button type="button" id="upload_btn" class="btn btn-primary" >文件上传</button>
-                        </div>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary" >提交更改</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
     <div class="tpl-content-wrapper">
         <div class="tpl-content-page-title">
 
         </div>
         <ol class="am-breadcrumb">
-            <li><a href="#" class="am-icon-home">首页</a></li>
-            <li><a href="#">论文评审</a></li>
+            <li><a href="#" th:href="@{/admin}" class="am-icon-home">首页</a></li>
+            <!--<li><a href="#">论文评审</a></li>-->
             <li class="am-active">安排论文交叉评阅</li>
         </ol>
         <div class="tpl-portlet-components">
@@ -238,7 +197,7 @@
                                     <option value="已通过"th:selected="${stateSelectionValue3}">已通过</option>
                                     <option value="未通过"th:selected="${stateSelectionValue4}">未通过</option>
                                 </select>
-                                <input type="hidden" th:value="crossproposal" name="flag">
+                                <input type="hidden" th:value="areview" name="flag">
                                 <input id="ftype1" type="hidden" value="论文" name="ftype1"/>
                                 <button type="submit" class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search" >查询</button>
                             </form>
@@ -252,29 +211,148 @@
                     </div>
                 </div>
 
-
-
                 <div class="am-u-sm-12 am-u-md-3">
                     <div class="input-icon right">
                         <i class="am-icon-search"></i>
                         <input type="text" class="form-control form-control-solid" placeholder="搜索..."> </div>
                 </div>
 
-
-
             </div>
             <div class="am-g">
                 <div class="am-u-sm-12">
-                    <form class="am-form">
+                    <!--新增模态框-->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" style="margin-top: 100px;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">×
+                                    </button>
+                                    <h9 class="modal-title" id="myModalLabel">新增记录</h9>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/admin/addrecord}" action="/admin/addrecord"  method="post">
+                                        <div class="form-group form-inline">
+                                            <label for="txt_taskname">课题名称</label>
+                                            <input type="text" name="txt_taskname" class="form-control" id="txt_taskname" placeholder="课题名称">
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <label for="txt_stuname">学生姓名</label>
+                                            <input type="text" name="txt_stuname" class="form-control" id="txt_stuname" placeholder="学生姓名">
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <label for="txt_tutorname">导师姓名</label>
+                                            <input type="text" name="txt_tutorname" class="form-control" id="txt_tutorname" placeholder="导师姓名">
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <label for="txt_tutorid">导师id</label>
+                                            <input type="text" name="txt_tutorid" class="form-control" id="txt_tutorid" placeholder="导师id">
+                                        </div>
+                                        <div class="form-group form-inline">
+                                            <input type="text" name="txt_filename" class="form-control" id="txt_filename" placeholder="文件命名">
+                                            <button type="button" id="upload_btn" class="btn btn-primary" >文件上传</button>
+                                        </div>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                        <button type="submit" class="btn btn-primary" >提交更改</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+
+                    <div class="am-form">
+                        <!--编辑模态框-->
+                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="margin-top: 100px;">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">×
+                                        </button>
+                                        <h9 class="modal-title" id="myModalLabel"> 修改信息</h9>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form th:action="@{/admin/editcrosstutor}" action="/admin/editcrosstutor"  method="post">
+                                            <div class="form-group form-inline">
+                                                <label for="edit_taskname">课题名称</label>
+                                                <label id="edit_taskname"></label>
+                                                <!--<input type="text" name="edit_taskname"id ="edit_taskname" value="" readonly="readonly">-->
+                                            </div>
+                                            <div class="form-group form-inline">
+                                                <label for="edit_stuname">学生姓名</label>
+                                                <label id="edit_stuname"></label>
+                                                <!--<input type="text" name="edit_stuname"id ="edit_stuname" value="" readonly="readonly">-->
+                                                <!--<input type="hidden" id="edit_stuname1" name="edit_stuname1"/>-->
+                                            </div>
+                                            <div class="form-group form-inline">
+                                                <label for="edit_tutorname">导师姓名</label>
+                                                <label id="edit_tutorname"></label>
+
+                                                <!--<input type="text" name="edit_tutorname" class="form-control" id="edit_tutorname" placeholder="导师姓名">-->
+                                                <!--<input type="hidden" id="edit_tutorname1" name="edit_tutorname1"/>-->
+                                            </div>
+                                            <div class="form-group form-inline">
+                                                <label for="edit_crosstutor">交叉导师</label>
+                                                <input type="text" name="edit_crosstutor" class="form-control" id="edit_crosstutor" placeholder="未分配">
+                                                <input type="hidden" id="edit_id" name="edit_id">
+                                            </div>
+                                            <div class="form-group form-inline">
+                                                <label for="edit_state">状态</label>
+                                                <label id="edit_state"></label>
+                                                <!--<input type="text" name="edit_state" class="form-control" id="edit_state" placeholder="状态">-->
+                                                <!--<input type="hidden" id="edit_state1" name="edit_state1"/>-->
+                                            </div>
+                                            <!--<div class="form-group form-inline">-->
+                                            <!--<input type="text" name="edit_filename" class="form-control" id="edit_filename" placeholder="文件命名">-->
+                                            <!--<button type="button" id="upload_btn1" class="btn btn-primary" >文件上传</button>-->
+                                            <!--</div>-->
+                                            <input type="hidden" name="edit_type" class="form-control" id="edit_type" th:value="论文">
+                                            <button type="submit" class="btn btn-primary" >提交更改</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                        <!--删除模态框-->
+                        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="margin-top: 100px;">
+                                <div class="modal-content" style="text-align:center;">
+                                    <div class="modal-header">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                            </button>
+                                            <h9 class="modal-title" id="myModalLabel">删除报告</h9>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h7>确认删除？</h7>
+                                            <form th:action="@{/admin/delrecord}" action="/admin/delrecord"  method="post">
+                                                <input type="hidden" id="del_stuname" name="del_stuname"/>
+                                                <button type="button" class="am-btn am-btn-primary" data-dismiss="modal">取消</button>
+                                                <button type="submit" class="am-btn am-btn-primary" >确认</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!--<form class="am-form">-->
+
                         <table class="am-table am-table-striped am-table-hover table-main">
                             <thead>
                             <tr>
                                 <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
-                                <!--<th>ID</th>-->
+                                <th style="display:none;">ID</th>
                                 <th>课题名称</th>
                                 <th>学生姓名</th>
                                 <th>状态</th>
                                 <th>导师姓名</th>
+                                <th>交叉导师</th>
                                 <th>编辑</th>
                                 <!--<th>下载</th>-->
                                 <th>删除</th>
@@ -283,86 +361,14 @@
                             <tbody>
                             <tr th:each="paperinfo,list:${initdata}">
                                 <td><input type="checkbox"></td>
-                                <!--<td id="table_id" th:text="${list.size+1}"></td>-->
+                                <td style="display:none;" id="table_id" th:text="${paperinfo.id}"></td>
                                 <td id="table_taskname" th:text="${paperinfo.taskname}"></td>
                                 <td id="table_stuname" th:text="${paperinfo.stuname}"></td>
                                 <td id="table_state" th:text="${paperinfo.state}"></td>
                                 <td id="table_tutorname" th:text="${paperinfo.tutorname}"></td>
+                                <td id="table_crosstutor" th:text="${paperinfo.crosstutor}"></td>
                                 <td><button id="edit"  class="am-btn am-btn-default am-btn-xs am-text-secondary" data-toggle='modal' data-target='#editModal' onclick="edit(this)"><span class="am-icon-pencil-square-o"></span> 编辑</button></td>
-                                <!--编辑模态框-->
-                                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" style="margin-top: 100px;">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-hidden="true">×
-                                                </button>
-                                                <h9 class="modal-title" id="myModalLabel"> 修改</h9>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form th:action="@{/admin/editrecord}" action="/admin/editrecord"  method="post">
-                                                    <div class="form-group form-inline">
-                                                        <label for="edit_taskname">课题名称</label>
-                                                        <label id="edit_taskname"></label>
-                                                        <input type="text" name="edit_taskname"id ="edit_taskname" value="" readonly="readonly">
-                                                    </div>
-                                                    <div class="form-group form-inline">
-                                                        <label for="edit_stuname">学生姓名</label>
-                                                        <label id="edit_stuname"></label>
-                                                        <input type="text" name="edit_stuname"id ="edit_stuname" value="" readonly="readonly">
-                                                        <!--<input type="hidden" id="edit_stuname1" name="edit_stuname1"/>-->
-                                                    </div>
-                                                    <div class="form-group form-inline">
-                                                        <label for="edit_tutorname">导师姓名</label>
-                                                        <input type="text" name="edit_tutorname" class="form-control" id="edit_tutorname" placeholder="导师姓名">
-                                                        <!--<input type="hidden" id="edit_tutorname1" name="edit_tutorname1"/>-->
-                                                    </div>
-                                                    <div class="form-group form-inline">
-                                                        <label for="edit_state">状态</label>
-                                                        <input type="text" name="edit_state" class="form-control" id="edit_state" placeholder="状态">
-                                                        <!--<input type="hidden" id="edit_state1" name="edit_state1"/>-->
-                                                    </div>
-                                                    <div class="form-group form-inline">
-                                                        <input type="text" name="edit_filename" class="form-control" id="edit_filename" placeholder="文件命名">
-                                                        <button type="button" id="upload_btn1" class="btn btn-primary" >文件上传</button>
-                                                    </div>
-                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
-                                                    <button type="submit" class="btn btn-primary" >提交更改</button>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                            </div>
-                                        </div>
-                                    </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
-
                                 <td><button id="delete" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"  data-toggle='modal' data-target='#delModal' onclick="del(this)"> <span class="am-icon-trash-o"></span>删除</button></td>
-                                <!--删除模态框-->
-                                <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" style="margin-top: 100px;">
-                                        <div class="modal-content" style="text-align:center;">
-                                            <div class="modal-header">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                                    </button>
-                                                    <h9 class="modal-title" id="myModalLabel">删除报告</h9>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <h7>确认删除？</h7>
-                                                    <form th:action="@{/admin/delrecord}" action="/admin/delrecord"  method="post">
-                                                        <input type="hidden" id="del_stuname" name="del_stuname"/>
-                                                        <button type="button" class="am-btn am-btn-primary" data-dismiss="modal">取消</button>
-                                                        <button type="submit" class="am-btn am-btn-primary" >确认</button>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                </div>
-                                            </div>
-                                        </div><!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                </div><!--<form class="am-form">-->
-
-
                             </tr>
                             </tbody>
                         </table>
@@ -382,7 +388,7 @@
                         </div>
                         <hr>
 
-                    </form>
+                    </div>
                 </div>
 
             </div>
@@ -402,21 +408,21 @@
     function del(obj) {
         var del_stuname = $(obj).parents("tr").find("#table_stuname").text();
         //alert(del_stuname);
-        document.getElementById("del_stuname").value= del_stuname;
+        document.getElementById("del_stuname").innerHTML= del_stuname;
     }
     /*更新记录*/
     function edit(obj){
+        var be_id = $(obj).parents("tr").find("#table_id").text();
         var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
         var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
         var be_state = $(obj).parents("tr").find("#table_state").text();
-        var be_filename = $(obj).parents("tr").find("#table_filename").text();
         var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+        document.getElementById("edit_id").innerHTML= be_id;
         document.getElementById("edit_taskname").innerHTML= be_taskname;
         document.getElementById("edit_stuname").innerHTML= be_stuname;
-        document.getElementById("edit_stuname1").value= be_stuname;
-        document.getElementById("edit_state").value= be_state;
-        document.getElementById("edit_tutorname").value= be_tutorname;
-        document.getElementById("edit_filename").innerHTML= be_filename;
+        document.getElementById("edit_state").innerHTML= be_state;
+        document.getElementById("edit_tutorname").innerHTML= be_tutorname;
+        $("#edit_id").val(be_id);
     }
 
     /*查询记录*/
@@ -428,9 +434,9 @@
         var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
         document.getElementById("edit_taskname").innerHTML= be_taskname;
         document.getElementById("edit_stuname").innerHTML= be_stuname;
-        document.getElementById("edit_stuname1").value= be_stuname;
-        document.getElementById("edit_state").value= be_state;
-        document.getElementById("edit_tutorname").value= be_tutorname;
+        document.getElementById("edit_stuname1").innerHTML= be_stuname;
+        document.getElementById("edit_state").innerHTML= be_state;
+        document.getElementById("edit_tutorname").innerHTML= be_tutorname;
         document.getElementById("edit_filename").innerHTML= be_filename;
     }
 </script>
@@ -438,11 +444,9 @@
 <script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
 <script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
 <script th:src="@{/assets/js/jquery.min.js}"src="assets/js/jquery.min.js"></script>
-<script th:src="@{/assets/js/app.min.js}" src="assets/js/app.min.js"></script>
 <script th:src="@{/assets/js/appjs}" src="assets/js/app.js"></script>
-<script th:src="@{/assets/js/flat.ui.js}" src="assets/js/flat-ui.js"></script>
+<script th:src="@{/js/flat.ui.js}" src="../static/js/flat-ui.js"></script>
 </body>
 </html>
+
 <script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
-
-

@@ -28,7 +28,6 @@ public class tController_xzx {
     @Autowired
     private UserService userService;
 
-
     @Autowired
     private PaperInfoService paperInfoService;
 
@@ -274,26 +273,27 @@ public class tController_xzx {
     /**
      * 学生成绩查看
      */
-    @GetMapping("/allgrades")
-    public String allgrades(Model model, Principal principal) {
+    @GetMapping("/grades")
+    public String grades(Model model, Principal principal) {
         int tutorid = new Integer(principal.getName()).intValue();
         List<Grade> list = gradeService.findGradesByTutorid(tutorid);
         model.addAttribute("initdata", list);
-        return "allgrades";
+        return "grades";
     }
 
     /**
      * 教师推优
      */
-    @GetMapping("/isgreat")
+    @RequestMapping("/isgreat")
     public String isgreat(Model model, Principal principal,
-                          @RequestParam("sno") int sno,
-                          @RequestParam("isgreat") int isgreat,
-                          @RequestParam("advice") String advice) {
+                          @RequestParam("edit_sno") String sno,
+                          @RequestParam("edit_isgreat") String isgreat,
+                          @RequestParam("edit_advice") String advice) {
 
         int tutorid = new Integer(principal.getName()).intValue();
-        gradeService.editIsgreat(sno,isgreat,advice);
-        return "allgrades";
+        gradeService.editIsgreat(Integer.parseInt(sno),Integer.parseInt(isgreat),advice);
+
+        return "redirect:/teacher/grades";
     }
 
     /**
@@ -322,7 +322,7 @@ public class tController_xzx {
             model.addAttribute("initdata", list);
 //            model.addAttribute("stateSelectionValue3", type);
         }
-        return "allgrades";
+        return "grades";
     }
 
 }

@@ -111,8 +111,8 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     }
 
     @Override
-    public void editRecord(String state, String tutorname, int tutorid, String type, String stuname) {
-        paperInfoMapper.editRecord(state,tutorname,tutorid,type,stuname);
+    public void editRecord(String state, String tutorname, String crosstutor,int tutorid, String type, String stuname) {
+        paperInfoMapper.editRecord(state,tutorname,crosstutor,tutorid,type,stuname);
     }
 
     @Override
@@ -136,6 +136,11 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     }
 
     @Override
+    public void updateTutor() {
+        paperInfoMapper.updateTutor();
+    }
+
+    @Override
     public int findScores(int stuid) {
         return paperInfoMapper.findScores(stuid);
     }
@@ -143,6 +148,11 @@ public class PaperInfoServicelmpl implements PaperInfoService{
     @Override
     public PaperInfo findScoreById(int id) {
         return paperInfoMapper.findScoreById(id);
+    }
+
+    @Override
+    public PaperInfo findScoreByStuidAndType(int stuid,String type){
+        return paperInfoMapper.findScoreByStuidAndType(stuid,type);
     }
 
     @Override

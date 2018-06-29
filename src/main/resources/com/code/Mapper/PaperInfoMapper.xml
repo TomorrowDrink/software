@@ -6,6 +6,7 @@
         <id property="id" column="id"/>
         <result property="taskname" column="taskname"/>
         <result property="stuname" column="stuname"/>
+        <result property="stuid" column="stuid"/>
         <result property="state" column="state"/>
         <result property="tutorname" column="tutorname"/>
         <result property="tutorid" column="tutorid"/>
@@ -17,6 +18,7 @@
         <result property="comment" column="comment"/>
         <result property="crossscore" column="crossscore"/>
         <result property="crosscomment" column="crosscomment"/>
+        <result property="taskid" column="taskid"/>
 
         <!--<collection column="id" property="roles"  ofType="com.code.Entity.Role" javaType="java.util.ArrayList">-->
             <!--<result column="rolename" property="rolename"/>-->
@@ -110,6 +112,11 @@
         where id= #{id}
     </select>
 
+    <select id="findScoreByStuidAndType" resultMap="paperInfoMap">
+        select p.*  from paperinfo p
+        where stuid= #{stuid,jdbcType=INTEGER} and type = #{type,jdbcType=VARCHAR}
+    </select>
+
     <select id="findCommentById" parameterType="Integer" resultMap="paperInfoMap">
         select p.*  from paperinfo p
         where id= #{id}
@@ -139,6 +146,7 @@
         SET
         state = #{state,jdbcType=VARCHAR},
         tutorname = #{tutorname,jdbcType=VARCHAR},
+        crosstutor = #{crosstutor,jdbcType=VARCHAR},
         tutorid = #{tutorid,jdbcType=INTEGER}
         WHERE
         stuname = #{stuname,jdbcType=VARCHAR} and type=#{type,jdbcType=VARCHAR}
@@ -180,6 +188,7 @@
         WHERE
         id= #{id,jdbcType=INTEGER}
     </update>
+
     <select id="findScores" parameterType="Integer" resultType="Integer">
         select NULLIF(SUM(p.score)*1/3,0)  from paperinfo p
         where p.stuid= #{stuid}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的成绩</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" th:href="@{/assets/i/favicon.png}" href="../static/assets/i/favicon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png" th:href="@{/assets/i/app-icon72x72@2x.png}"/>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="../static/assets/css/amazeui.min.css" th:href="@{/assets/css/amazeui.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/admin.css" th:href="@{/assets/css/admin.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/app.css" th:href="@{/assets/css/app.css}"/>
+    <script src="../static/assets/js/echarts.min.js" th:src="@{/assets/js/echarts.min.js}"></script>
+
+</head>
+
+<body data-type="index" style="">
+
+<div th:replace="thead-top :: thead-top"></div>
+
+<div class="tpl-page-container tpl-page-header-fixed">
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            <font size="4">毕设管理系统</font>
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="index.php" class="nav-link active" th:href="@{/student}">
+                        <i class="am-icon-home"></i>
+                        <span>首页</span>
+                        <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                    </a>
+                </li>
+                <!--<li class="tpl-left-nav-item">-->
+                <!--<a href="course.php" class="nav-link tpl-left-nav-link-list">-->
+                <!--<i class="am-icon-book"></i>-->
+                <!--<span>论文审评</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="tpl-left-nav-item">-->
+                <!--<a href="javascript:;" class="nav-link tpl-left-nav-link-list">-->
+                <!--<i class="am-icon-align-justify"></i>-->
+                <!--<span>成果物管理</span>-->
+                <!--<i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>-->
+                <!--</a>-->
+                <!--<ul class="tpl-left-nav-sub-menu" style="display: block;">-->
+                <!--<li>-->
+                <!--<a href="kadai.html" th:href="@{/student/renwushu}">-->
+                <!--<i class="am-icon-angle-right"></i>-->
+                <!--<span>任务书管理</span>-->
+                <!--</a>-->
+
+                <!--<a href="newKadai.html" th:href="@{/student/wenxian}">-->
+                <!--<i class="am-icon-angle-right"></i>-->
+                <!--<span>文献综述管理</span>-->
+                <!--</a>-->
+
+                <!--<a href="newKadai.html" th:href="@{/student/fanyi}">-->
+                <!--<i class="am-icon-angle-right"></i>-->
+                <!--<span>文献翻译管理</span>-->
+                <!--</a>-->
+
+                <!--<a href="newKadai.html" th:href="@{/student/kaiti}">-->
+                <!--<i class="am-icon-angle-right"></i>-->
+                <!--<span>开题报告管理</span>-->
+                <!--</a>-->
+
+                <!--<a href="newKadai.html" th:href="@{/student/zhongqi}">-->
+                <!--<i class="am-icon-angle-right"></i>-->
+                <!--<span>中期检查结果管理</span>-->
+                <!--</a>-->
+
+                <!--<a href="newKadai.html" th:href="@{/student/guocheng}">-->
+                <!--<i class="am-icon-angle-right"></i>-->
+                <!--<span>过程记录管理</span>-->
+                <!--</a>-->
+
+                <!--<a href="newKadai.html" th:href="@{/student/lunwen}">-->
+                <!--<i class="am-icon-angle-right"></i>-->
+                <!--<span>毕业论文管理</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--</ul>-->
+                <!--</li>-->
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>源代码管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/gitinput}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>添加项目</span>
+                            </a>
+                            <a href="" th:href="@{/student/gitlogcheck}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>已有项目</span>
+                            </a>
+
+
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>课题选择</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/stu_kadaiselect}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>选择课题</span>
+                            </a>
+
+                            <a href="" th:href="@{/student/stu_ownkadai}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>我的课题</span>
+                            </a>
+
+                            <a href="" th:href="@{/student/mygrades}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>我的成绩</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title">
+            学生成绩查看
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#" th:href="@{/teacher}"class="am-icon-home">首页</a></li>
+            <!--<li><a href="#" th:href="@{/admin/allgrades}">论文评审</a></li>-->
+            <li class="am-active">学生成绩查看</li>
+        </ol>
+        <div class="tpl-portlet-components">
+
+            <div class="tpl-block">
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <div class="input-icon right">
+                            <i class="am-icon-search"></i>
+                            <input type="text" class="form-control form-control-solid" placeholder="搜索..."> </div>
+                    </div>
+
+
+                </div>
+
+                <div class="am-g">
+                    <div class="am-u-sm-12">
+                        <div class="am-form">
+                            <table class="am-table am-table-striped am-table-hover table-main">
+                                <caption>我的成绩</caption>
+                                    <tr>
+                                        <td>论文名称</td>
+                                        <td colspan="2" id="mypaper"></td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">文献综述</td>
+                                        <td>分数</td>
+                                        <td id="wx_score">[[${wx_score}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>评语</td>
+                                        <td id="wx_comment">[[${wx_comment}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">开题报告</td>
+                                        <td>分数</td>
+                                        <td id="kt_score">[[${kt_score}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>评语</td>
+                                        <td id="kt_comment">[[${kt_comment}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">论文</td>
+                                        <td>分数</td>
+                                        <td id="lw_score">[[${lw_score}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>评语</td>
+                                        <td id="lw_comment">[[${lw_comment}]]</td>
+                                    </tr>
+                                    <tr>
+                                        <td>总分</td>
+                                        <td colspan="2" id="table_score">[[${table_score}]]</td>
+                                    </tr>
+
+                            </table>
+                            <div class="am-cf">
+
+                                <div class="am-fr">
+                                    <ul class="am-pagination tpl-pagination">
+                                        <li class="am-disabled"><a href="#">«</a></li>
+                                        <li class="am-active"><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                        <li><a href="#">5</a></li>
+                                        <li><a href="#">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <hr>
+                        </div><!--<form class="am-form">-->
+                    </div>
+                </div>
+            </div>
+            <div class="tpl-alert"></div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    /*更新记录*/
+    function edit(obj){
+        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        var be_sno = $(obj).parents("tr").find("#table_sno").text();
+        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+        var be_isgreat = $(obj).parents("tr").find("#table_isgreat").text();
+        var be_score = $(obj).parents("tr").find("#table_score").text();
+        var be_advice = $(obj).parents("tr").find("#table_advice").text();
+        document.getElementById("edit_taskname").innerHTML= be_taskname;
+        document.getElementById("edit_stuname").innerHTML= be_stuname;
+        document.getElementById("edit_sno").innerHTML= be_sno;
+        document.getElementById("edit_score").innerHTML= be_score;
+        document.getElementById("edit_tutorname").innerHTML= be_tutorname;
+        document.getElementById("edit_advice").innerHTML= be_advice;
+        document.getElementById("edit_isgreat").innerHTML= be_isgreat;
+
+        $("#edit_sno").val(be_sno);
+        $("#edit_score").val(be_score);
+        $("#edit_isgreat").val(be_isgreat);
+        $("#edit_advice").val(be_advice);
+
+    }
+
+</script>
+<script src="../static/assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
+<script src="../static/assets/js/amazeui.min.js" th:src="@{/assets/js/amazeui.min.js}"></script>
+<script src="../static/assets/js/app.js" th:src="@{/assets/js/app.js}"></script>
+<script type="../static/text/javascript" th:src="@{/assets/text/javascript}"></script>
+
+</body>
+</html>

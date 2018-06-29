@@ -24,15 +24,18 @@ public interface PaperInfoService {
     public List<PaperInfo> findPaperInfoByTutoridTypeState(int tutorid,String state,String type);
     public List<PaperInfo> findPaperInfoByStateAndType(String state,String type);
     public List<PaperInfo> findPaperInfoByTutoridAndType(int tutorid,String type);
+    public PaperInfo findScoreByStuidAndType(int stuid,String type);
+
 
     public List<PaperInfo> findPaperInfoByMaxId();
     public void addRecord(PaperInfo paperInfo);
     public void delRecord(String stuname);
-    public void editRecord(String state,String tutorname,int tutorid,String type,String stuname);
+    public void editRecord(String state,String tutorname,String crosstutor,int tutorid,String type,String stuname);
     public void editCrosstutor(String crosstutor,int id);
     public void editKtgroup(String ktgroup,int id);
     public void editScoreAndComment(int score,String comment,int id);
     public void editState(int id, String state);
+    public void updateTutor();
 
 
     public int findScores(int stuid);

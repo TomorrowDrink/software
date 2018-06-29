@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>文献综述评阅</title>
+    <title>学生成绩查看</title>
     <meta name="description" content="这是一个 index 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,7 +34,7 @@
         <div class="tpl-left-nav-list">
             <ul class="tpl-left-nav-menu">
                 <li class="tpl-left-nav-item">
-                    <a href="index.php" class="nav-link active" th:href="@{/teacher}">
+                    <a href="index.php" class="nav-link active" th:href="@{/admin}">
                         <i class="am-icon-home"></i>
                         <span>首页</span>
                         <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
@@ -49,32 +49,77 @@
                 <li class="tpl-left-nav-item">
                     <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
                         <i class="am-icon-align-justify"></i>
-                        <span>论文审评</span>
+                        <span>课题管理</span>
                         <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                     </a>
                     <ul class="tpl-left-nav-sub-menu" style="display: block;">
                         <li>
-                            <a href="kadai.html" th:href="@{/teacher/review}">
+                            <a href="kadai.html" th:href="@{/admin/a_TaskReview}">
                                 <i class="am-icon-angle-right"></i>
-                                <span>文献综述评阅</span>
+                                <span>课题审核</span>
                             </a>
 
-                            <a href="newKadai.html" th:href="@{/teacher/ktreview}">
+                            <a href="newKadai.html" th:href="@{/admin/a_TaskShow}">
                                 <i class="am-icon-angle-right"></i>
-                                <span>开题报告评阅</span>
+                                <span>课题管理</span>
                             </a>
 
-                            <a href="newKadai.html" th:href="@{/teacher/lunwenreview}">
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>选题管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="#" >
                                 <i class="am-icon-angle-right"></i>
-                                <span>毕业论文评阅</span>
+                                <span>设定选题轮数</span>
                             </a>
 
-                            <a href="newKadai.html" th:href="@{/teacher/tcross}">
+                            <a href="#" >
                                 <i class="am-icon-angle-right"></i>
-                                <span>交叉评阅</span>
+                                <span>指定课题</span>
                             </a>
 
-                            <a href="newKadai.html" th:href="@{/teacher/allgrades}">
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>论文评审</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/admin/areview}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>安排开题交叉评阅</span>
+                            </a>
+
+                            <!--<a href="" th:href="@{/admin/ktgroup}">-->
+                            <!--<i class="am-icon-angle-right"></i>-->
+                            <!--<span>开题论证分组</span>-->
+                            <!--</a>-->
+
+                            <!--<a href="" th:href="@{/admin/lunwengroup}">-->
+                            <!--<i class="am-icon-angle-right"></i>-->
+                            <!--<span>论文答辩分组</span>-->
+                            <!--</a>-->
+
+                            <a href="" th:href="@{/admin/crossproposal}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>安排论文交叉评阅</span>
+                            </a>
+
+                            <a href="#" th:href="@{/admin/allgrades}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>学生成绩</span>
                             </a>
@@ -86,36 +131,35 @@
                 <li class="tpl-left-nav-item">
                     <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
                         <i class="am-icon-align-justify"></i>
-                        <span>课题管理</span>
+                        <span>用户管理</span>
                         <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                     </a>
                     <ul class="tpl-left-nav-sub-menu" style="display: block;">
                         <li>
-                            <a href="kadai.html" th:href="@{/teacher/t_TaskShow}">
+                            <a href="#" th:href="@{/admin/newstudent}">
                                 <i class="am-icon-angle-right"></i>
-                                <span>我的课题</span>
+                                <span>添加学生</span>
                             </a>
 
-                            <a href="newKadai.html" th:href="@{/teacher/t_AddTask}">
+                            <a href="#" th:href="@{/admin/newteacher}">
                                 <i class="am-icon-angle-right"></i>
-                                <span>提交课题</span>
+                                <span>添加老师</span>
                             </a>
+
                         </li>
                     </ul>
                 </li>
 
-
             </ul>
         </div>
     </div>
-
     <div class="tpl-content-wrapper">
         <div class="tpl-content-page-title">
             学生成绩查看
         </div>
         <ol class="am-breadcrumb">
-            <li><a href="#" th:href="@{/teacher}"class="am-icon-home">首页</a></li>
-            <li><a href="#" th:href="@{/teacher/allgrades}">论文评审</a></li>
+            <li><a href="#" th:href="@{/admin}"class="am-icon-home">首页</a></li>
+            <!--<li><a href="#" th:href="@{/admin/allgrades}">论文评审</a></li>-->
             <li class="am-active">学生成绩查看</li>
         </ol>
         <div class="tpl-portlet-components">
@@ -124,7 +168,7 @@
                 <div class="am-g">
                     <div class="am-u-sm-12 am-u-md-6">
                         <div class="am-form-group">
-                            <form th:action="@{/teacher/selgreat}" action="/teacher/selgreat" method="post">
+                            <form th:action="@{/admin/selgreat}" action="/admin/selgreat" method="post">
                                 <label for="stateSelection">推优状态：</label>
                                 <select id="stateSelection" name="stateSelection" data-am-selected="{btnSize: 'sm'}">
                                     <option value="allstate" th:selected="${stateSelectionValue1}">--全部--</option>
@@ -143,18 +187,77 @@
 
 
                 </div>
+                <!--编辑模态框-->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="margin-top: 100px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-hidden="true">×
+                                </button>
+                                <h9 class="modal-title" id="myModalLabel"> 修改信息</h9>
+                            </div>
+                            <div class="modal-body">
+                                <form th:action="@{/admin/isgreat}" action="/admin/isgreat"  method="post">
+                                    <div class="form-group form-inline">
+                                        <label for="edit_taskname">课题名称</label>
+                                        <label id="edit_taskname"></label>
+                                        <!--<input type="text" name="edit_taskname"id ="edit_taskname" value="" readonly="readonly">-->
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="edit_stuname">学生姓名</label>
+                                        <label id="edit_stuname"></label>
+                                        <!--<input type="text" name="edit_stuname"id ="edit_stuname" value="" readonly="readonly">-->
+                                        <!--<input type="hidden" id="edit_stuname1" name="edit_stuname1"/>-->
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="edit_tutorname">导师姓名</label>
+                                        <label id="edit_tutorname"></label>
+
+                                        <!--<input type="text" name="edit_tutorname" class="form-control" id="edit_tutorname" placeholder="导师姓名">-->
+                                        <!--<input type="hidden" id="edit_tutorname1" name="edit_tutorname1"/>-->
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="edit_score">分数</label>
+                                        <label id="edit_score"></label>
+
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="edit_isgreat">是否推优</label>
+                                        <input type="text" name="edit_isgreat" class="form-control" id="edit_isgreat" placeholder="是：1/否：0">
+                                    </div>
+                                    <div class="form-group form-inline">
+                                        <label for="edit_advice">建议</label>
+                                        <input type="text" name="edit_advice" class="form-control" id="edit_advice" placeholder="建议">
+                                    </div>
+                                    <input type="hidden" id="edit_sno" name="edit_sno">
+                                    <button type="submit" class="btn btn-primary" >提交更改</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+
+
                 <div class="am-g">
                     <div class="am-u-sm-12">
-                        <form class="am-form">
-                            <table class="am-table am-table-striped am-table-hover table-main">
-                                <thead>
+                        <div class="am-form">
+                        <table class="am-table am-table-striped am-table-hover table-main">
+
+                        <thead>
                                 <tr>
                                     <th class="table-check"><input type="checkbox" class="tpl-table-fz-check"></th>
                                     <th th:if="false">ID</th>
                                     <th>课题名称</th>
-                                    <th>学生姓名</th>
+                                    <th style="display: none">学号</th>
+                                    <th style="display: none">导师姓名</th>
+                                    <th>论文</th>
                                     <th>分数</th>
                                     <th>是否推优</th>
+                                    <th style="display: none">建议</th>
                                     <th>操作</th>
                                     <!--<th>下载</th>-->
                                     <!--<th>删除</th>-->
@@ -164,27 +267,14 @@
                                 <tr th:each="grade,list:${initdata}">
                                     <td><input type="checkbox"></td>
                                     <td th:if="false" id="table_id" th:text="${grade.gid}"></td>
+                                    <td style="display: none" id="table_sno" th:text="${grade.sno}"></td>
+                                    <td style="display: none" id="table_tutorname" th:text="${grade.tutorname}"></td>
                                     <td id="table_taskname" th:text="${grade.tname}"></td>
                                     <td id="table_stuname" th:text="${grade.sname}"></td>
                                     <td id="table_score" th:text="${grade.tscore}"></td>
-                                    <td id="table_comment" th:text="${grade.isgreat}"></td>
-                                    <td>
-                                        <form action="" th:action="@{/teacher/isgreat}">
-                                            <!--<input type="hidden" th:value="${paperinfo.id}"  name="id">-->
-                                            <!--<input type="hidden" th:value="${paperinfo.stuname}"  name="stuname">-->
-                                            <!--<input type="hidden" th:value="${paperinfo.taskname}" name="taskname">-->
-                                            <!--<input type="hidden" th:value="${(paperinfo.score)?:(0)}"  name="score">-->
-                                            <!--<input type="hidden" th:value="${paperinfo.comment}"  name="comment">-->
-                                            <!--<input type="hidden" th:value="${paperinfo.tutorname}"  name="tutorname">-->
-                                            <!--<input type="hidden" th:value="开题报告" name="type">-->
-                                            <div class="am-btn-toolbar">
-                                                <div class="am-btn-group am-btn-group-xs">
-                                                    <button type="submit" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 修改</button>
-                                                    <!--<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 下载</button>-->
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </td>
+                                    <td id="table_isgreat" th:text="${grade.isgreat}"></td>
+                                    <td style="display: none" id="table_advice" th:text="${grade.advice}"></td>
+                                    <td><button id="edit"  class="am-btn am-btn-default am-btn-xs am-text-secondary" data-toggle='modal' data-target='#editModal' onclick="edit(this)"><span class="am-icon-pencil-square-o"></span> 编辑</button></td>
                                     <!--<td><button id="download" class='btn btn-link' data-toggle='modal'data-target='#downModal'>下载</button></td>-->
                                     <!--<td><button id="delete" class='btn btn-link' data-toggle='modal' data-target='#delModal' onclick="del(this)">删除</button></td>-->
                                 </tr>
@@ -205,10 +295,8 @@
                                 </div>
                             </div>
                             <hr>
-
-                        </form>
+                        </div><!--<form class="am-form">-->
                     </div>
-
                 </div>
             </div>
             <div class="tpl-alert"></div>
@@ -216,6 +304,33 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+    /*更新记录*/
+    function edit(obj){
+        var be_taskname = $(obj).parents("tr").find("#table_taskname").text();
+        var be_stuname = $(obj).parents("tr").find("#table_stuname").text();
+        var be_sno = $(obj).parents("tr").find("#table_sno").text();
+        var be_tutorname = $(obj).parents("tr").find("#table_tutorname").text();
+        var be_isgreat = $(obj).parents("tr").find("#table_isgreat").text();
+        var be_score = $(obj).parents("tr").find("#table_score").text();
+        var be_advice = $(obj).parents("tr").find("#table_advice").text();
+        document.getElementById("edit_taskname").innerHTML= be_taskname;
+        document.getElementById("edit_stuname").innerHTML= be_stuname;
+        document.getElementById("edit_sno").innerHTML= be_sno;
+        document.getElementById("edit_score").innerHTML= be_score;
+        document.getElementById("edit_tutorname").innerHTML= be_tutorname;
+        document.getElementById("edit_advice").innerHTML= be_advice;
+        document.getElementById("edit_isgreat").innerHTML= be_isgreat;
+
+        $("#edit_sno").val(be_sno);
+        $("#edit_score").val(be_score);
+        $("#edit_isgreat").val(be_isgreat);
+        $("#edit_advice").val(be_advice);
+
+    }
+
+</script>
 <script src="../static/assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
 <script src="../static/assets/js/amazeui.min.js" th:src="@{/assets/js/amazeui.min.js}"></script>
 <script src="../static/assets/js/app.js" th:src="@{/assets/js/app.js}"></script>

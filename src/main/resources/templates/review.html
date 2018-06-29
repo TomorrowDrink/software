@@ -113,7 +113,7 @@
                                 <span>交叉评阅</span>
                             </a>
 
-                            <a href="newKadai.html" th:href="@{/teacher/allgrades}">
+                            <a href="newKadai.html" th:href="@{/teacher/grades}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>学生成绩</span>
                             </a>
@@ -231,11 +231,18 @@
                                         <!--<textarea id="reference_material" name="reference_material" required="required" cols=60 rows=10 placeholder="" style="width: 160%"></textarea>-->
                                         <p>[[${comment}]]</p>
                                     </div>
-                                    <input type="hidden" id="commentvalue" th:value="#{commentvalue}"/>
+                                    <button id = "edit_save" type="button" class="am-btn am-btn-primary" >暂存</button>
+                                    <!--<script>-->
+                                        <!--function cue() {-->
+                                            <!--document.write("<div style='color: red'>"+"<p>暂存成功！</p>"+"</div>");-->
+
+                                        <!--}-->
+                                    <!--</script>-->
+                                    <input type="hidden" id="comment" name="comment"/><!--th:value="#{comment}"-->
                                 </div>
                                 <div class="am-form-group">
                                     <div class="am-u-sm-9 am-u-sm-push-3">
-                                        <button id = "edit_save" type="submit" class="am-btn am-btn-primary" >保存</button>
+                                        <button id = "save" type="submit" class="am-btn am-btn-primary" >保存</button>
                                     </div>
                                 </div>
                             </form>
@@ -265,7 +272,8 @@
 
     document.getElementById('edit_save').addEventListener('click', function () {
         // 读取 text
-        var commentvalue = editor.txt.text()//评语内容读取
+        var tmpcomment = editor.txt.text()//评语内容读取
+        $("#comment").val(tmpcomment);
     }, false)
 
 </script>

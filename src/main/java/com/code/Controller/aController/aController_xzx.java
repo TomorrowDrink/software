@@ -13,7 +13,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -38,7 +40,7 @@ public class aController_xzx {
      */
     @GetMapping("/areview")
     public String areview(@ModelAttribute PaperInfo paperInfo, Model model){
-        List<PaperInfo> list = paperInfoService.getAll();
+        List<PaperInfo> list = paperInfoService.getAllkt();
         model.addAttribute("initdata",list);
 
         List<Task> task = taskService.findTaskByTaskstate("已通过");
@@ -111,19 +113,40 @@ public class aController_xzx {
     @PostMapping("/editrecord")
     public String editData(@RequestParam("edit_stuname1") String stuname,
                            @RequestParam("edit_tutorname") String newtutorname,
+                           @RequestParam("edit_crosstutor") String newcrosstutor,
+                           @RequestParam("edit_type") String edit_type,
                            @RequestParam("edit_state") String newstate){
 
         User user = userService.findUserByName(newtutorname);
         int tutorid = user.getId();
 //        System.out.println("tutorid"+tutorid);
-        String type = "开题报告";
-        paperInfoService.editRecord(newstate,newtutorname,tutorid,type,stuname);
+        String type = edit_type;
+        paperInfoService.editRecord(newstate,newtutorname,newcrosstutor,tutorid,type,stuname);
 //        List<PaperInfo> list = paperInfoService.findPaperInfoByStunameAndType(stuname,"开题报告");
 //        for(PaperInfo paperInfo: list){
 //            paperInfo.setTutorname(newtutorname);
 //            paperInfo.setState(newstate);
 //        }
         return "redirect:/admin/areview";
+    }
+
+    @PostMapping("/editcrosstutor")
+    public String editCrosstutor(@RequestParam("edit_id") String edit_id,
+//                           @RequestParam("edit_tutorname") String newtutorname,
+                           @RequestParam("edit_crosstutor") String newcrosstutor,
+                           @RequestParam("edit_type") String edit_type
+//                           @RequestParam("edit_state") String newstate
+    ){
+        System.out.println("newcrosstutor------"+newcrosstutor);
+        System.out.println("edit_id------"+edit_id);
+        int id = Integer.parseInt(edit_id);
+        System.out.println("id------"+id);
+        paperInfoService.editCrosstutor(newcrosstutor,id);
+        if(edit_type.equals("开题报告")){
+            return "redirect:/admin/areview";
+        }else{
+            return "redirect:/admin/crossproposal";
+        }
     }
     /**
      * 管理员查询论文记录
@@ -240,16 +263,6 @@ public class aController_xzx {
         return "crossproposal";
     }
 
-    @RequestMapping("/crossproposal")
-    public String crosstutor(@RequestParam("tname") String tname,
-                             @RequestParam("pid") String pid){
-        System.out.println(tname +"------------------------"+ pid);
-        User user = userService.findUserByUsername(tname);
-        String crosstutor = user.getName();
-        paperInfoService.editCrosstutor(crosstutor,Integer.parseInt(pid));
-        return "redirect:/admin/crossproposal";
-    }
-
     /**
      * 安排开题分组
      */
@@ -275,6 +288,66 @@ public class aController_xzx {
         return "redirect:/admin/ktgroup";
     }
 
+    /**
+     * 管理员查看成绩
+     */
+    @GetMapping("/allgrades")
+    public String allgrades(@ModelAttribute PaperInfo paperInfo, Model model){
+        List<Grade> list = gradeService.getAll();
+        model.addAttribute("initdata",list);
+
+//        List<Task> task = taskService.findTaskByTaskstate("已通过");
+//        for(Task tasks:task){
+//            System.out.println(tasks.getTaskname());
+//        }
+//        model.addAttribute("tasklist",task);
+
+        return "allgrades";
+    }
+
+    /**
+     * 管理员推优状态查询
+     */
+
+    @RequestMapping("/selgreat")
+    public String selGreat(@RequestParam("stateSelection") String great,
+//                           @RequestParam("flag") String flag,
+                           RedirectAttributes attr,
+                           Model model, Principal principal) {
+        System.out.println("selectgreat" + great);
+        List<Grade> list;
+//        int tutorid = new Integer(principal.getName()).intValue();
+
+        if (great.equals("allstate")) {
+            list = gradeService.getAll();
+            model.addAttribute("initdata", list);
+//            model.addAttribute("stateSelectionValue1", type);
+        } else if (great.equals("已推优")) {
+            list = gradeService.findGradesByIsgreat(1);
+            model.addAttribute("initdata", list);
+//            model.addAttribute("stateSelectionValue2", type);
+        } else if (great.equals("未推优")) {
+            list = gradeService.findGradesByIsgreat(0);
+            model.addAttribute("initdata", list);
+//            model.addAttribute("stateSelectionValue3", type);
+        }
+        return "allgrades";
+
+    }
+
+    /**
+     * 管理员推优
+     */
+    @RequestMapping("/isgreat")
+    public String isgreat(Model model, Principal principal,
+                          @RequestParam("edit_sno") String sno,
+                          @RequestParam("edit_isgreat") String isgreat,
+                          @RequestParam("edit_advice") String advice) {
+
+        int tutorid = new Integer(principal.getName()).intValue();
+        gradeService.editIsgreat(Integer.parseInt(sno),Integer.parseInt(isgreat),advice);
+        return "redirect:/admin/allgrades";
+    }
 
     @GetMapping("/test1")
     public String test1(Model model){

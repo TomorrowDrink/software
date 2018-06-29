@@ -18,6 +18,27 @@ public class PaperInfo implements Serializable {
     private String comment;
     private Integer crossscore;
     private  String crosscomment;
+    private Integer taskid;
+    private Integer stuid;
+
+    public PaperInfo(Integer id, String taskname, String stuname, String state, String tutorname, Integer tutorid, String type, String crosstutor, String ktgroup, String lwgroup, Integer score, String comment, Integer crossscore, String crosscomment, Integer taskid, Integer stuid) {
+        this.id = id;
+        this.taskname = taskname;
+        this.stuname = stuname;
+        this.state = state;
+        this.tutorname = tutorname;
+        this.tutorid = tutorid;
+        this.type = type;
+        this.crosstutor = crosstutor;
+        this.ktgroup = ktgroup;
+        this.lwgroup = lwgroup;
+        this.score = score;
+        this.comment = comment;
+        this.crossscore = crossscore;
+        this.crosscomment = crosscomment;
+        this.taskid = taskid;
+        this.stuid = stuid;
+    }
 
     public String getType() {
         return type;
@@ -139,5 +160,21 @@ public class PaperInfo implements Serializable {
 
     public void setCrosscomment(String crosscomment) {
         this.crosscomment = crosscomment;
+    }
+
+    public Integer getTaskid() {
+        return taskid;
+    }
+
+    public void setTaskid(Integer taskid) {
+        this.taskid = taskid;
+    }
+
+    public Integer getStuid() {
+        return stuid;
+    }
+
+    public void setStuid(Integer stuid) {
+        this.stuid = stuid;
     }
 }

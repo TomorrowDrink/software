@@ -29,6 +29,7 @@ public interface PaperInfoMapper {
     List<PaperInfo> findByTutoridStateType(@Param("tutorid") Integer tutorid,@Param("state") String state,@Param("type") String type);
     List<PaperInfo> findByTutoridAndType(@Param("tutorid") Integer tutorid,@Param("type") String type);
     List<PaperInfo> findByStateAndType(@Param("state") String state,@Param("type") String type);
+    PaperInfo findScoreByStuidAndType(@Param("stuid") int stuid,@Param("type") String type);
 
     int findScores(@Param("stuid") int stuid);
     PaperInfo findScoreById(@Param("id") int id);
@@ -39,11 +40,12 @@ public interface PaperInfoMapper {
     /*删除记录*/
     void delRecord(@Param("stuname") String stuname);
     /*更新记录*/
-    void editRecord(@Param("state") String state, @Param("tutorname") String tutorname,@Param("tutorid") Integer tutorid,@Param("type") String type, @Param("stuname") String stuname);
+    void editRecord(@Param("state") String state, @Param("tutorname") String tutorname,@Param("crosstutor") String crosstutor,@Param("tutorid") Integer tutorid,@Param("type") String type, @Param("stuname") String stuname);
     void editCrosstutor(@Param("crosstutor") String crosstutor, @Param("id") int id);
     void editKtgroup(@Param("ktgroup") String ktgroup, @Param("id") int id);
     void editScoreAndComment(@Param("score") int score, @Param("comment") String comment,@Param("id") int id);
     void editState(@Param("id") int id, @Param("state") String state);
+    void updateTutor();
 
     List<PaperInfo> getAlllunwen();
     List<PaperInfo> getAllkt();
