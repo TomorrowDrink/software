@@ -5,29 +5,11 @@ import com.code.Service.GradeService;
 import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
-import org.apache.commons.exec.PumpStreamHandler;
-import org.gitlab4j.api.GitLabApi;
-import org.gitlab4j.api.GitLabApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.security.Principal;
-import java.util.List;
-
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by alison on 17-10-29.
@@ -110,22 +92,30 @@ public class AController_srw {
                                 @RequestParam("name") String name,
                                 @RequestParam("password") String password,
                                 @RequestParam("isAdmin") String isAdmin){
-        User user = new User();
-        password = new BCryptPasswordEncoder().encode(password);
 
-        user.setId(id);
-        user.setName(name);
-        user.setPassword(password);
-        user.setUsername(String.valueOf(id));
+        System.out.println(isAdmin);
 
-        userService.insertUser(user);
-        userService.insertTrole(id);
 
-        if (isAdmin.equals("1"))
-        {
-            userService.insertArole(id);
+        if(userService.findUserById(id) != null){
+            return "redirect:/admin/newteacher?error";
         }
-        return "redirect:/admin";
+        else {
+            User user = new User();
+            password = new BCryptPasswordEncoder().encode(password);
+
+            user.setId(id);
+            user.setName(name);
+            user.setPassword(password);
+            user.setUsername(String.valueOf(id));
+
+            userService.insertUser(user);
+            userService.insertTrole(id);
+
+            if (isAdmin .equals("1")) {
+                userService.insertArole(id);
+            }
+            return "redirect:/admin";
+        }
     }
 
 
