@@ -5,29 +5,11 @@ import com.code.Service.GradeService;
 import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
-import org.apache.commons.exec.PumpStreamHandler;
-import org.gitlab4j.api.GitLabApi;
-import org.gitlab4j.api.GitLabApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.security.Principal;
-import java.util.List;
-
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by alison on 17-10-29.
@@ -65,7 +47,7 @@ public class AController_srw {
                                 @RequestParam("name") String name,
                                 @RequestParam("password") String password){
         if(userService.findUserById(id) != null){
-            return "redirect:/admin/newstudent?error";
+            return "redirect:/admin/newStudent?error";
         }
         else {
             User user = new User();
@@ -98,7 +80,7 @@ public class AController_srw {
 
     @GetMapping("/newteacher")
     public String newteacher(){
-        return "newteacher";
+        return "newteacherr";
     }
 
     @PostMapping("/newteacher")
