@@ -37,7 +37,7 @@
         <div class="tpl-left-nav-list">
             <ul class="tpl-left-nav-menu">
                 <li class="tpl-left-nav-item">
-                    <a href="index.php" class="nav-link active" th:href="@{/admin}">
+                    <a href="index.php" class="nav-link active" th:href="@{/student}">
                         <i class="am-icon-home"></i>
                         <span>首页</span>
                         <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
@@ -52,20 +52,66 @@
                 <li class="tpl-left-nav-item">
                     <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
                         <i class="am-icon-align-justify"></i>
-                        <span>课题管理</span>
+                        <span>成果物管理</span>
                         <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                     </a>
                     <ul class="tpl-left-nav-sub-menu" style="display: block;">
                         <li>
-                            <a href="kadai.html" th:href="@{/admin/a_pending}">
+                            <a href="kadai.html" th:href="@{/student/renwushu}">
                                 <i class="am-icon-angle-right"></i>
-                                <span>课题审核</span>
+                                <span>任务书管理</span>
                             </a>
 
-                            <a href="newKadai.html" th:href="@{/admin/a_kadai}">
+                            <a href="newKadai.html" th:href="@{/student/wenxian}">
                                 <i class="am-icon-angle-right"></i>
-                                <span>课题管理</span>
+                                <span>文献综述管理</span>
                             </a>
+
+                            <a href="newKadai.html" th:href="@{/student/fanyi}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>文献翻译管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/kaiti}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>开题报告管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/zhongqi}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>中期检查结果管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/guocheng}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>过程记录管理</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/student/lunwen}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>毕业论文管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>源代码管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/student/gitinput}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>添加项目</span>
+                            </a>
+                            <a href="" th:href="@{/student/gitlogcheck}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>已有项目</span>
+                            </a>
+
 
 
                         </li>
@@ -75,90 +121,25 @@
                 <li class="tpl-left-nav-item">
                     <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
                         <i class="am-icon-align-justify"></i>
-                        <span>选题管理</span>
+                        <span>课题选择</span>
                         <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
                     </a>
                     <ul class="tpl-left-nav-sub-menu" style="display: block;">
                         <li>
-
-                            <a href="a_kadaiOpenAndClose.html" th:href="@{/admin/a_kadaiOpenAndClose}" >
+                            <a href="" th:href="@{/student/stu_kadaiselect}">
                                 <i class="am-icon-angle-right"></i>
-                                <span>开启/关闭选题</span>
+                                <span>选择课题</span>
                             </a>
 
-                            <a href="a_kadaiorder.html" th:href="@{/admin/a_kadaiorder}" >
+                            <a href="" th:href="@{/student/stu_ownkadai}">
                                 <i class="am-icon-angle-right"></i>
-                                <span>指定课题</span>
-                            </a>
-
-
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="tpl-left-nav-item">
-                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-align-justify"></i>
-                        <span>论文评审</span>
-                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
-                    </a>
-                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
-                        <li>
-                            <a href="" th:href="@{/admin/areview}">
-                                <i class="am-icon-angle-right"></i>
-                                <span>安排开题交叉评阅</span>
-                            </a>
-
-                            <a href="" th:href="@{/admin/ktgroup}">
-                                <i class="am-icon-angle-right"></i>
-                                <span>开题论证分组</span>
-                            </a>
-
-                            <a href="" th:href="@{/admin/lunwengroup}">
-                                <i class="am-icon-angle-right"></i>
-                                <span>论文答辩分组</span>
-                            </a>
-
-                            <a href="" th:href="@{/admin/crossproposal}">
-                                <i class="am-icon-angle-right"></i>
-                                <span>安排论文交叉评阅</span>
-                            </a>
-
-                            <a href="#" >
-                                <i class="am-icon-angle-right"></i>
-                                <span>确认推优名单</span>
-                            </a>
-
-                            <a href="#" >
-                                <i class="am-icon-angle-right"></i>
-                                <span>学生成绩</span>
+                                <span>我的课题</span>
                             </a>
 
                         </li>
                     </ul>
                 </li>
 
-                <li class="tpl-left-nav-item">
-                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
-                        <i class="am-icon-align-justify"></i>
-                        <span>用户管理</span>
-                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
-                    </a>
-                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
-                        <li>
-                            <a href="#" th:href="@{/admin/newstudent}">
-                                <i class="am-icon-angle-right"></i>
-                                <span>添加学生</span>
-                            </a>
-
-                            <a href="#" th:href="@{/admin/newteacher}">
-                                <i class="am-icon-angle-right"></i>
-                                <span>添加老师</span>
-                            </a>
-
-                        </li>
-                    </ul>
-                </li>
 
             </ul>
         </div>
@@ -176,11 +157,10 @@
 
                 <div class="tpl-content-scope">
                     <div class="note note-info" style="text-align: center;">
-                        <h3>毕设管理系统
-                            <span class="close" data-close="note"></span>
-                        </h3>
-                        <p> 相关功能或操作请从左侧菜单或首页下方进入——</p>
-                        <p><span class="label label-danger">注:</span> 本页面仅可由管理员操作
+
+                        <p><span class="label label-danger">注:</span>
+                        <h3>当前非选题时间，若要选题请联系管理员</h3></p>
+
 
 
                     </div>

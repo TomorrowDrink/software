@@ -8,6 +8,7 @@ import com.code.Service.PaperInfoService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,39 @@ public class aController_gsm {
     /**
      * 管理员课题操作
      */
+
+    /**
+     * 开启关闭选题
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = {"/a_kadaiOpenAndClose"},method = {RequestMethod.POST,RequestMethod.GET})
+    public String openAndclose(Model model){
+        int choseState =new Integer(taskService.choseState()).intValue();
+        String state1="当前开放";
+        String state2="当前关闭";
+        if (choseState == 1)
+            model.addAttribute("state",state1);
+        if (choseState == 0)
+            model.addAttribute("state",state2);
+//        return "redirect:/admin/a_kadaiOpenAndClose";
+        return "a_kadaiOpenAndClose";
+    }
+
+    @RequestMapping(value = {"/changeState"},method = {RequestMethod.POST,RequestMethod.GET})
+    public String changeState(@RequestParam("state") String  changeState){
+        System.out.println(changeState);
+
+        if (changeState.equals("1"))
+            taskService.changeState(changeState);
+        if (changeState.equals("0"))
+            taskService.changeState(changeState);
+        return "redirect:/admin/a_kadaiOpenAndClose";
+    }
+
+
+
+
     /**
      *显示课题
      */
@@ -46,20 +80,27 @@ public class aController_gsm {
     /**
      * 管理员课题指定
      */
-    @RequestMapping(value = {"/a_TaskAppoint"},method = {RequestMethod.POST,RequestMethod.GET})
-    public String a_StuShow(@ModelAttribute Task_s task_s ,
-                            @ModelAttribute Task task ,
-                            Model model){
-        List<Task_s> list =taskService.a_findAppointStuid(1512190424);
-//        for (int i = 0; i < list.size();i++)
-//            System.out.println(list.get(i).toString());
-        model.addAttribute("initdata",list);
-        System.out.println(list);
+    @RequestMapping(value = {"/a_kadaiorder"},method = {RequestMethod.POST,RequestMethod.GET})
+    public String a_kadaiorder(@ModelAttribute Task_s task_s ,
+                                @ModelAttribute Task task ,
+                                Model model){
+        return  "a_kadaiorder";
+    }
 
-        List<Task> list1 =taskService.findTaskByTaskstate("已通过");
-        model.addAttribute("initdata",list1);
+    @PostMapping("/a_TaskAppoint")
+    public String a_TaskAppoint(@ModelAttribute Task_s task_s ,
+                            @ModelAttribute Task task ,
+                            @RequestParam("stu_id") String stuid,
+                            Model model){
+        int stu_id =new Integer(stuid).intValue();
+        List<Task_s> list1 =taskService.a_findAppointStuid(stu_id);
+        model.addAttribute("initdata1",list1);
         System.out.println(list1);
-        return  "a_TaskAppoint";
+
+        List<Task> list2 =taskService.findTaskByTaskstate("已通过");
+        model.addAttribute("initdata2",list2);
+        System.out.println(list2);
+        return  "a_kadaiorder";
     }
 
     @PostMapping("/addtoStu")
@@ -78,6 +119,42 @@ public class aController_gsm {
         taskService.chooseTask(stu_id,stu_name,task_id,task_name);
 
         return "a_TaskAppoint";
+    }
+
+    @PostMapping("/a_SkadaiDel")
+    public  String a_SkadaiDel(@RequestParam("stu_idDel") String stu_idDel,Model model){
+        int stu_id =new Integer(stu_idDel).intValue();
+        taskService.a_skadaiDel(stu_id);
+        List<Task_s> list1 =taskService.a_findAppointStuid(stu_id);
+        model.addAttribute("initdata1",list1);
+        System.out.println(list1);
+
+        List<Task> list2 =taskService.findTaskByTaskstate("已通过");
+        model.addAttribute("initdata2",list2);
+        System.out.println(list2);
+        return  "a_kadaiorder";
+    }
+
+    @PostMapping("/addKadaiToStu")
+    public String admin_addKadaiToStu(@RequestParam("add_taskid") String taskid,
+                                      @RequestParam("add_taskname") String task_name,
+                                      @RequestParam("add_stuid") String stuid,
+                                      Model model){
+        System.out.println(stuid);
+        int task_id= new Integer(taskid).intValue();
+        int stu_id =new Integer(stuid).intValue();
+        User user =userService.findUserById(stu_id);
+        String stu_name =user.getName();
+        taskService.chooseTask(stu_id,stu_name,task_id,task_name);
+
+        List<Task_s> list1 =taskService.a_findAppointStuid(stu_id);
+        model.addAttribute("initdata1",list1);
+        System.out.println(list1);
+
+        List<Task> list2 =taskService.findTaskByTaskstate("已通过");
+        model.addAttribute("initdata2",list2);
+        System.out.println(list2);
+        return  "a_kadaiorder";
     }
 
 
@@ -134,6 +211,8 @@ public class aController_gsm {
         System.out.println(taskid);
         return "redirect:/admin/a_kadai";
     }
+
+
 
     /**
      * 审核界面筛选课题findtask

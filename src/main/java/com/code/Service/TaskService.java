@@ -46,5 +46,10 @@ public interface TaskService {
     public List<Task_s> a_findAppointStu(String task_id);
     public List<Task_s> a_findAppointStuid(int stu_id);
     public List<Task_s>  a_findAppointStuname(String stu_name);
+
+    public void a_skadaiDel(int stu_id);
+
+    public String choseState();
+    public void changeState(String changeState);
 }
 

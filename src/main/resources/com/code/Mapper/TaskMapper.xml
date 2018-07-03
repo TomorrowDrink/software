@@ -225,4 +225,25 @@
         (#{stu_id},#{stu_name},NULL ,NULL )
     </insert>
 
+    <update id="a_skadaiDel" parameterType="com.code.Entity.Task_s" >
+        UPDATE
+        stu_task
+        SET
+        taskid=NULL,
+        taskname=NULL
+        WHERE
+        stuid=#{stu_id}
+    </update>
+    <select id="choseState" parameterType="String" resultType="String">
+        SELECT choseState FROM  chosestate
+        WHERE
+        flag=1
+    </select>
+    <update id="changeState" parameterType="String"  >
+        UPDATE
+        chosestate
+        SET
+        choseState=#{changeState}
+    </update>
+
 </mapper>

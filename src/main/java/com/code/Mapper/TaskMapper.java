@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -73,6 +74,12 @@ public interface TaskMapper {
                   @Param("stu_name") String stuname);
     void updataTask(Task task);
     void updataTaskState(@Param("passtaskid") String passtaskid);
+
+    void a_skadaiDel(@Param("stu_id") int stu_id);
+
+    String choseState();
+
+    void changeState(@RequestParam("changeState") String changeState);
 
 
 
