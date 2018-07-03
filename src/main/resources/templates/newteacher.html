@@ -1,137 +1,35 @@
 <!doctype html>
-<html>
+<html lang= "en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>提交课题</title>
-    <meta name="description" content="这是一个 index 页面">
-    <meta name="keywords" content="index">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="renderer" content="webkit">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>首页</title>
+    <meta name="description" content="这是一个 index 页面"/>
+    <meta name="keywords" content="index"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit"/>
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+    <link rel="icon" type="image/png" th:href="@{/assets/i/favicon.png}" href="../static/assets/i/favicon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png" th:href="@{/assets/i/app-icon72x72@2x.png}"/>
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="assets/css/admin.css">
-    <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/flat-ui.css">
-    <script src="assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" href="../static/assets/css/amazeui.min.css" th:href="@{/assets/css/amazeui.min.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/admin.css" th:href="@{/assets/css/admin.css}"/>
+    <link rel="stylesheet" href="../static/assets/css/app.css" th:href="@{/assets/css/app.css}"/>
+    <script src="../static/assets/js/echarts.min.js" th:src="@{/assets/js/echarts.min.js}"></script>
+
 </head>
 
-<body data-type="index" style="">
-   <header class="am-topbar am-topbar-inverse admin-header">
-        <div class="am-topbar-brand">
-            <a href="index.php" class="tpl-logo">
-                <img src="assets/img/logo.png" alt="">
-            </a>
-        </div>
-    <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
-		
-        </div>
-        <!--
-        	<?php
-        	include("link.php");
-    		$teacher= getLoginInfo();
-        	foreach($teacher as $k=>$val){
-   			$teacher_name= "{$val['teacher_name']}"; 
-        	
-					}
-        ?>
-        -->
-    	
-        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
-        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
-                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                        <span class="am-icon-calendar"></span> 我的课程
-                    </a>
-                    <ul class="am-dropdown-content tpl-dropdown-content">
-                        
-                        <li>
-                            <a href="javascript:;" class="tpl-dropdown-content-progress">
-                                <span class="task">
-                        <span class="desc"><h3>计算机网络 </h3></span>
-                                <span class="percent"></span>
-                                </span>
-                                <span class="progress">
-                    </span>
-                            </a>
-                        </li>
-                       <li>
-                            <a href="javascript:;" class="tpl-dropdown-content-progress">
-                                <span class="task">
-                        <span class="desc"><h3>数据库原理 </h3></span>
-                                <span class="percent"></span>
-                                </span>
-                                <span class="progress">
-                    </span>
-                            </a>
-                        </li>
-                       
+<body  style="">
 
-                    </ul>
-                </li>
-               
-                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                        <span class="am-icon-bell-o"></span> 我的提醒 <span class="am-badge tpl-badge-success am-round">5</span></span>
-                    </a>
-                    <ul class="am-dropdown-content tpl-dropdown-content">
-                        <li class="tpl-dropdown-content-external">
-                            <h3>你有 <span class="tpl-color-success">5</span> 条提醒</h3><a href="###">全部</a></li>
-                        <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span class="am-icon-btn am-icon-plus tpl-dropdown-ico-btn-size tpl-badge-success"></span> 【新课程】 您可以切换自己的课程了</a>
-                            <span class="tpl-dropdown-list-fr">3小时前</span>
-                        </li>
-                        <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span class="am-icon-btn am-icon-check tpl-dropdown-ico-btn-size tpl-badge-danger"></span> 成功添加一名学生，查看详情</a>
-                            <span class="tpl-dropdown-list-fr">15分钟前</span>
-                        </li>
-                        <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span class="am-icon-btn am-icon-bell-o tpl-dropdown-ico-btn-size tpl-badge-warning"></span> 新的学期，新的规划</a>
-                            <span class="tpl-dropdown-list-fr">2天前</span>
-                        </li>
-                    </ul>
-                </li>
-    
-   				 <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li> 
-    
-                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                        <span class="tpl-header-list-user-nick"><?php echo $teacher_name; ?></span><span class="tpl-header-list-user-ico"> <img src="upload/f98c3ff316835fdd7f082a27eeeef369.jpeg"></span>
-                    </a>
-                    <ul class="am-dropdown-content">
-                        <li><a href="#"><span class="am-icon-bell-o"></span> 资料</a></li>
-                        <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
-                        <li><a href="login.php"><span class="am-icon-power-off"></span> 退出</a></li>
-                    </ul>
-                </li>
-    
-    			
-    
-                 <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                    <a style="color: #999"  href="logout.php">
-                        <span class="am-icon-sign-out">注销 </span>
-                    </a>
-                </li>
-                <script>
-                                        function logout() {
-                                            //alert(stu_id);
-            								if (confirm("确定要删除么？")) {
-                									window.location = 'logout.php';
-              												}
-         											}
-                </script>
-            </ul>
-            </li>
-            </ul>
-        </div>
-    </header>
-    
-    
-    <div class="tpl-page-container tpl-page-header-fixed">
-        <div class="tpl-left-nav tpl-left-nav-hover">
+
+<div th:replace="thead-top :: thead-top"></div>
+
+
+<div class="tpl-page-container tpl-page-header-fixed">
+    <div class="tpl-left-nav tpl-left-nav-hover">
         <div class="tpl-left-nav-title">
             <font size="4">毕设管理系统</font>
         </div>
@@ -262,76 +160,86 @@
             </ul>
         </div>
     </div>
-        <div class="tpl-content-wrapper">
-            <div class="tpl-content-page-title" id="course_name">
-               <!-- <?php 
-                	
-                	$course = getCourseInfo();
-             		foreach($course as $k=>$val){
-   						echo "{$val['course_name']}"; 
-					}
-                    
-                ?>-->
-            </div>
-            <ol class="am-breadcrumb">
-                <li><a href="#" class="am-icon-home">管理员</a></li>
-                <li><a href="#">用户管理</a></li>
-                <li class="am-active">添加教师</li>
-            </ol>
-            <div class="tpl-portlet-components">
-                <div class="tpl-block ">
-                    <div class="am-g tpl-amazeui-form">
-                        <div class="am-u-sm-12 am-u-md-9">
-                            <form class="am-form am-form-horizontal" id="addstu" name="addstu" method="post" th:action="@{/teacher/newKadai}" action="/teacher/t_AddTask" >
-                                <div class="am-form-group">
-                                    <label for="class-name" class="am-u-sm-3 am-form-label am-left-pos">教师工号</label>
-                                    <div class="am-u-sm-9">
-                                        <input type="text" id="stu_name" name="stu_name" required="required" cols=60 rows=10 placeholder="工号" style="width: 100%">
-                                    </div>
+
+    <div class="tpl-content-wrapper">
+        <div class="tpl-content-page-title" id="course_name">
+            <!-- <?php
+
+                 $course = getCourseInfo();
+                  foreach($course as $k=>$val){
+                        echo "{$val['course_name']}";
+                 }
+
+             ?>-->
+        </div>
+        <ol class="am-breadcrumb">
+            <li><a href="#" class="am-icon-home">管理员</a></li>
+            <li><a href="#">用户管理</a></li>
+            <li class="am-active">添加教师</li>
+        </ol>
+        <div class="tpl-portlet-components">
+            <div class="tpl-block ">
+                <div class="am-g tpl-amazeui-form">
+                    <div class="am-u-sm-12 am-u-md-9">
+                        <form class="am-form am-form-horizontal"  method="post" th:action="@{/admin/newteacher}" action="/admin/newteacher" >
+                            <div class="am-form-group">
+                                <label for="class-name" class="am-u-sm-3 am-form-label am-left-pos">教师工号</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="stu_name" name="id" required="required" cols=60 rows=10 placeholder="工号" style="width: 100%">
                                 </div>
-                                <div class="am-form-group">
-                                    <label for="class-name" class="am-u-sm-3 am-form-label am-left-pos">设置账号</label>
-                                    <div class="am-u-sm-9" id="picAddresss">
-                                        <input type="text" id="stu_id" name="stu_id" required="required" cols=60 rows=10 placeholder="账号" style="width: 100%">
-                                    </div>
+                                <div th:if="${param.error}" style="color: red">
+                                    <p>*用户已存在</p>
                                 </div>
-                                
-                                <div class="am-form-group">
-                                    <label for="class-name" class="am-u-sm-3 am-form-label am-left-pos">设置密码</label>
-                                    <div class="am-u-sm-9" id="picAddresss">
-                                        <input type="text" id="stu_class" name="stu_class" required="required" cols=60 rows=10 placeholder="密码" style="width: 100%">
-                                    </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="class-name" class="am-u-sm-3 am-form-label am-left-pos">姓名</label>
+                                <div class="am-u-sm-9" >
+                                    <input type="text" id="stu_id" name="name" required="required" cols=60 rows=10 placeholder="账号" style="width: 100%">
                                 </div>
-                               <div class="am-form-group">
-                                    <label class="checkbox" for="checkbox1">
-                <input type="checkbox" data-toggle="checkbox" name="isAdmin" value="1" id="checkbox1" required>
-                						添加为管理员
-            						</label>
-            						<div class="am-u-sm-9 am-u-sm-push-3">
-                                        <input type="submit" class="am-btn am-btn-primary" value="添加"/>
-                                    </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="class-name" class="am-u-sm-3 am-form-label am-left-pos">设置密码</label>
+                                <div class="am-u-sm-9" >
+                                    <input type="text" id="stu_class" name="password" required="required" cols=60 rows=10 placeholder="密码" style="width: 100%">
                                 </div>
-                                
-                                
-                                
-                                
-                            </form>
-                        </div>
+                            </div>
+
+                            <div class="am-form-group" >
+                                <label class="checkbox" for="checkbox1">
+                                    <!--<input type="hidden" name="isAdmin" value= "0" >-->
+                                    <input type="radio" name="isAdmin" value="1" id="checkbox1" checked="checked">
+                                    添加为管理员
+                                </label>
+                                <label class="checkbox" for="checkbox2">
+                                    <!--<input type="hidden" name="isAdmin" value= "0" >-->
+                                    <input type="radio" name="isAdmin" value="0" id="checkbox2" >
+                                    不添加为管理员
+                                </label>
+
+                            </div>
+                            <div class="am-form-group">
+                                <div class="am-u-sm-9 am-u-sm-push-3">
+                                    <input type="submit" class="am-btn am-btn-primary" value="添加"/>
+                                </div>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/amazeui.min.js"></script>
-        <!-- <script src="assets/js/iscroll.js"></script> -->
-        <script src="assets/js/jqueryupload.js"></script>
-        <script src="assets/js/app.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/flat-ui.min.js"></script>
-    <script src="assets/js/flat-ui.js"></script>
-    <script src="assets/js/jquery-3.1.1.min.js"></script>
-        
+    </div>
+
+    <script src="../static/assets/js/jquery.min.js" th:src="@{/assets/js/jquery.min.js}"></script>
+    <script src="../static/assets/js/amazeui.min.js" th:src="@{/assets/js/amazeui.min.js}"></script>
+    <script src="../static/assets/js/app.js" th:src="@{/assets/js/app.js}"></script>
+    <script type="../static/text/javascript" th:src="@{/assets/text/javascript}">
+    </script>
 </body>
 
 </html>
+
+
+
 

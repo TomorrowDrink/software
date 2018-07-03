@@ -47,7 +47,7 @@ public class AController_srw {
                                 @RequestParam("name") String name,
                                 @RequestParam("password") String password){
         if(userService.findUserById(id) != null){
-            return "redirect:/admin/newStudent?error";
+            return "redirect:/admin/newstudent?error";
         }
         else {
             User user = new User();
@@ -80,7 +80,7 @@ public class AController_srw {
 
     @GetMapping("/newteacher")
     public String newteacher(){
-        return "newteacherr";
+        return "newteacher";
     }
 
     @PostMapping("/newteacher")
@@ -88,22 +88,30 @@ public class AController_srw {
                                 @RequestParam("name") String name,
                                 @RequestParam("password") String password,
                                 @RequestParam("isAdmin") String isAdmin){
-        User user = new User();
-        password = new BCryptPasswordEncoder().encode(password);
 
-        user.setId(id);
-        user.setName(name);
-        user.setPassword(password);
-        user.setUsername(String.valueOf(id));
+        System.out.println(isAdmin);
 
-        userService.insertUser(user);
-        userService.insertTrole(id);
 
-        if (isAdmin.equals("1"))
-        {
-            userService.insertArole(id);
+        if(userService.findUserById(id) != null){
+            return "redirect:/admin/newteacher?error";
         }
-        return "redirect:/admin";
+        else {
+            User user = new User();
+            password = new BCryptPasswordEncoder().encode(password);
+
+            user.setId(id);
+            user.setName(name);
+            user.setPassword(password);
+            user.setUsername(String.valueOf(id));
+
+            userService.insertUser(user);
+            userService.insertTrole(id);
+
+            if (isAdmin .equals("1")) {
+                userService.insertArole(id);
+            }
+            return "redirect:/admin";
+        }
     }
 
 

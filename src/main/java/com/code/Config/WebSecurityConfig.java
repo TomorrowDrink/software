@@ -1,6 +1,5 @@
 package com.code.Config;
 
-import com.code.Auth.AuthenticationSuccessHandler;
 import com.code.Service.CustomUserSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
@@ -37,10 +36,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserSevice customUserService;
 
-    @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler(){
-        return new AuthenticationSuccessHandler();
-    }
+//    @Bean
+//    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+//        return new AuthenticationSuccessHandler();
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
