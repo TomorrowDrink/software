@@ -77,7 +77,7 @@ public class SController_srw {
 
         int flag = 1;
         ArrayList<String> files = new ArrayList<String>();
-        String path = "/home/class/Documents/allgit/"+ principal.getName() ;
+        String path = "/home/alison/Documents/allgit/"+ principal.getName() ;
         File file = new File(path);
         File[] tempList = file.listFiles();
 
@@ -120,7 +120,7 @@ public class SController_srw {
             }
 
                     Process p = Runtime.getRuntime().exec(
-                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/class/Documents/allgit/"+principal.getName()+"/"+filename+" >/var/www/html/gitpage/"+principal.getName()+"/"+filename+".html"}, null, null);
+                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/var/www/html/gitpage/"+principal.getName()+"/"+filename+".html"}, null, null);
 //                            new String[] { "/bin/sh", "-c", "gitinspector --format=html /home/alison/Documents/allgit/"+principal.getName()+"/"+filename+" >/home/alison/IdeaProjects/"+principal.getName()+"/"+filename+"/"+filename+".html"}, null, null);
                     p.waitFor();
                 } catch (IOException e) {
@@ -147,7 +147,7 @@ public class SController_srw {
                              Model model){
 
         System.out.println(filename);
-        String path = "/home/class/Documents/allgit/"+ principal.getName() + "/" + filename ;
+        String path = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + filename ;
 
         File file = new File(path);
 
@@ -199,7 +199,7 @@ public class SController_srw {
         System.out.println(address + name);
         String url =  address;/*http下载地址*/
 
-        String localPath = "/home/class/Documents/allgit/"+ principal.getName() + "/" + name ;
+        String localPath = "/home/alison/Documents/allgit/"+ principal.getName() + "/" + name ;
 
         File file = new File(localPath);
 
