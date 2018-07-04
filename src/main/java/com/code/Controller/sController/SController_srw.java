@@ -1,27 +1,17 @@
 package com.code.Controller.sController;
 
-import com.code.Config.StorageFileNotFoundException;
-import com.code.Entity.Filesss;
-import com.code.Entity.JsonResponse;
-import com.code.Entity.Task;
-import com.code.Entity.Task_s;
-import com.code.Entity.User;
-import com.code.Service.FilesssService;
+
 import com.code.Service.StorageService;
 import com.code.Service.TaskService;
 import com.code.Service.UserService;
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
-import org.apache.commons.exec.PumpStreamHandler;
+
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,18 +19,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import java.io.*;
 import java.io.IOException;
 import java.security.Principal;
-import java.text.SimpleDateFormat;
+
 import java.util.*;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 /**
  * Created by alison on 17-10-29.
