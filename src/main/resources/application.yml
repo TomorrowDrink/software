@@ -1,11 +1,12 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://35.185.146.34:3306/user?useUnicode=true&characterEncoding=UTF-8&useSSL=true
+    url: jdbc:mysql://114.215.239.84:3306/1718proj05db?useUnicode=true&characterEncoding=UTF-8&useSSL=true
 #    url: jdbc:mysql://localhost:3306/user?useUnicode=true&characterEncoding=UTF-8
-    username: alison
+#    username: alison
+    username: 1718proj05db
 #    username: root
-    password: 123456
+    password: JbFWCjGsrFtf9LGj
   http:
     multipart:
       max-request-size: 256KB
