@@ -103,23 +103,23 @@ public class aController_gsm {
         return  "a_kadaiorder";
     }
 
-    @PostMapping("/addtoStu")
-    public String addtoStuTask(
-            @RequestParam("addtomy_taskid") String taskid,
-            @RequestParam("addtomy_taskname") String task_name,
-            @RequestParam("student_id") String student_id
-    ){
-
-
-        int stu_id =new Integer(student_id).intValue();
-        int task_id=new Integer(taskid).intValue();
-        User user =userService.findUserById(stu_id);
-        String stu_name =user.getName();
-        System.out.println("学生:"+stu_id+"\n姓名:"+stu_name+"\n课题id:"+task_id+"\n课题名称:"+task_name);
-        taskService.chooseTask(stu_id,stu_name,task_id,task_name);
-
-        return "a_TaskAppoint";
-    }
+//    @PostMapping("/addtoStu")
+//    public String addtoStuTask(
+//            @RequestParam("addtomy_taskid") String taskid,
+//            @RequestParam("addtomy_taskname") String task_name,
+//            @RequestParam("student_id") String student_id
+//    ){
+//
+//
+//        int stu_id =new Integer(student_id).intValue();
+//        int task_id=new Integer(taskid).intValue();
+//        User user =userService.findUserById(stu_id);
+//        String stu_name =user.getName();
+//        System.out.println("学生:"+stu_id+"\n姓名:"+stu_name+"\n课题id:"+task_id+"\n课题名称:"+task_name);
+//        taskService.chooseTask(stu_id,stu_name,task_id,task_name);
+//
+//        return "a_TaskAppoint";
+//    }
 
     @PostMapping("/a_SkadaiDel")
     public  String a_SkadaiDel(@RequestParam("stu_idDel") String stu_idDel,Model model){

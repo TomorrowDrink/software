@@ -263,21 +263,7 @@ public class aController_xzx {
         return "crossproposal";
     }
 
-    /**
-     * 安排开题分组
-     */
-    @GetMapping("/ktgroup")
-    public String ktgroup(Model model){
-        List<PaperInfo> list = paperInfoService.getAllkt();
-        model.addAttribute("initdata",list);
-        List<Task> task = taskService.findTaskByTaskstate("已通过");
-        for(Task tasks:task){
-            System.out.println(tasks.getTaskname());
-        }
-        model.addAttribute("tasklist",task);
 
-        return "ktgroup";
-    }
 
     @RequestMapping("/editktgroup")
     public String editktgroup(@RequestParam("pid") String pid,

@@ -171,10 +171,10 @@ public class tController_xzx {
 
     }
 
-    @RequestMapping("/test")
-    public String test() {
-        return "test";
-    }
+//    @RequestMapping("/test")
+//    public String test() {
+//        return "test";
+//    }
 
     /**
      * 教师评阅状态查询
@@ -233,13 +233,6 @@ public class tController_xzx {
         return "tcross";
     }
 
-    /**
-     * 教师评分评语提交
-     */
-    @GetMapping("/tcomment")
-    public String tcomment() {
-        return "test";
-    }
 
     @PostMapping("/tcomment")
     public String tcomment(
