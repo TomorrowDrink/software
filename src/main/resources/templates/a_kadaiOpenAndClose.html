@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang= "en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的课题</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link th:href="@{/assets/i/favicon.png}" rel="icon" type="image/png" href="../static/assets/i/favicon.png">
+    <link th:href="@{/assets/i/app-icon72x72@2x.png}"  rel="apple-touch-icon-precomposed" href="../static/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link th:href="@{/assets/css/amazeui.min.css}" rel="stylesheet" href="../static/assets/css/amazeui.min.css" />
+    <link th:href="@{/assets/css/admin.css}" rel="stylesheet" href="../static/assets/css/admin.css">
+    <link th:href="@{/assets/css/app.css}" rel="stylesheet" href="../static/assets/css/app.css">
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <link th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body  style="">
+
+
+<div th:replace="thead-top :: thead-top"></div>
+
+
+<div class="tpl-page-container tpl-page-header-fixed">
+    <div class="tpl-left-nav tpl-left-nav-hover">
+        <div class="tpl-left-nav-title">
+            <font size="4">毕设管理系统</font>
+        </div>
+        <div class="tpl-left-nav-list">
+            <ul class="tpl-left-nav-menu">
+                <li class="tpl-left-nav-item">
+                    <a href="index.php" class="nav-link active" th:href="@{/admin}">
+                        <i class="am-icon-home"></i>
+                        <span>首页</span>
+                        <i class="am-icon-star tpl-left-nav-content-ico am-fr am-margin-right"></i>
+                    </a>
+                </li>
+                <!--<li class="tpl-left-nav-item">-->
+                <!--<a href="course.php" class="nav-link tpl-left-nav-link-list">-->
+                <!--<i class="am-icon-book"></i>-->
+                <!--<span>论文审评</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>课题管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="kadai.html" th:href="@{/admin/a_pending}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>课题审核</span>
+                            </a>
+
+                            <a href="newKadai.html" th:href="@{/admin/a_kadai}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>课题管理</span>
+                            </a>
+
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>选题管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+
+                            <a href="a_kadaiOpenAndClose.html" th:href="@{/admin/a_kadaiOpenAndClose}" >
+                                <i class="am-icon-angle-right"></i>
+                                <span>开启/关闭选题</span>
+                            </a>
+
+                            <a href="a_kadaiorder.html" th:href="@{/admin/a_kadaiorder}" >
+                                <i class="am-icon-angle-right"></i>
+                                <span>指定课题</span>
+                            </a>
+
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>论文评审</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="" th:href="@{/admin/areview}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>安排开题交叉评阅</span>
+                            </a>
+
+                            <a href="" th:href="@{/admin/ktgroup}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>开题论证分组</span>
+                            </a>
+
+                            <a href="" th:href="@{/admin/lunwengroup}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>论文答辩分组</span>
+                            </a>
+
+                            <a href="" th:href="@{/admin/crossproposal}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>安排论文交叉评阅</span>
+                            </a>
+
+                            <a href="#" >
+                                <i class="am-icon-angle-right"></i>
+                                <span>确认推优名单</span>
+                            </a>
+
+                            <a href="#" >
+                                <i class="am-icon-angle-right"></i>
+                                <span>学生成绩</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="tpl-left-nav-item">
+                    <a href="javascript:;" class="nav-link tpl-left-nav-link-list">
+                        <i class="am-icon-align-justify"></i>
+                        <span>用户管理</span>
+                        <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right tpl-left-nav-more-ico-rotate"></i>
+                    </a>
+                    <ul class="tpl-left-nav-sub-menu" style="display: block;">
+                        <li>
+                            <a href="#" th:href="@{/admin/newstudent}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>添加学生</span>
+                            </a>
+
+                            <a href="#" th:href="@{/admin/newteacher}">
+                                <i class="am-icon-angle-right"></i>
+                                <span>添加老师</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+        <div class="tpl-content-wrapper">
+            <div class="tpl-content-page-title">
+              <!--<?php 
+                	
+                	$course = getCourseInfo();
+             		foreach($course as $k=>$val){
+   						echo "{$val['course_name']}"; 
+					}
+                    
+                ?>
+                -->
+            </div>
+            <ol class="am-breadcrumb">
+                <li><a href="#" class="am-icon-home">管理员</a></li>
+                <li><a href="#">课题管理</a></li>
+                <li class="am-active">当前课题开放状态</li>
+            </ol>
+            <div class="tpl-portlet-components">
+               
+                <div class="tpl-block" >
+                    <div class="am-g">
+
+                        
+                                <div class="" style="text-align:center;">
+                                    
+                                        <div class="modal-header">
+
+                                            <p><input type="text" id="openstate" th:value="${state}" readonly="readonly" /></p>
+                                        </div>
+                                    
+                                        <p style="font-size: smaller;">*可在此开启/关闭选题</p>
+                                        <form th:action="@{/admin/changeState}" action="/admin/changeState"  method="post">
+                                            <input type="hidden" id="state" name="state" value="0"/>
+                                            <button type="submit" class="am-btn am-btn-primary" id="close" onclick="close()">关闭</button>
+
+                                        </form>
+                                        <form th:action="@{/admin/changeState}" action="/admin/changeState"  method="post">
+                                            <input type="hidden" id="state" name="state" value="1"/>
+                                            <button type="submit" class="am-btn am-btn-primary" id="open"onclick="open()">开启</button>
+                                        </form>
+
+                                    <!--<script type="text/javascript">-->
+                                        <!--function open() {-->
+                                            <!--var flag =1-->
+                                            <!--document.etElementById("state").value=flag;-->
+                                        <!--}-->
+                                        <!--function close() {-->
+                                            <!--var flag =0-->
+                                            <!--document.getElementById("state").value=flag;-->
+
+                                        <!--}-->
+                                    <!--</script>-->
+
+
+                                    <div class="modal-footer">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tpl-alert"></div>
+            </div>
+
+        </div>
+
+    </div>
+<script type="text/javascript">
+    function open() {
+        var flag =1
+        document.getElementById("state").value=flag;
+    }
+    function close() {
+        var flag =0
+        document.getElementById("state").value=flag;
+
+    }
+</script>
+
+
+<script th:src="@{/assets/js/jquery.min.js}" src="../static/assets/js/jquery.min.js"></script>
+<script th:src="@{/assets/js/amazeui.min.js}" src="../static/assets/js/amazeui.min.js"></script>
+<script th:src="@{/assets/js/app.js}" src="../static/assets/js/app.js"></script>
+
+<script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+<script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
+</body>
+
+</html>
+<script src="//cdn.bootcss.com/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/i18n/grid.locale-en.js"></script>
+<script src="//cdn.bootcss.com/jqgrid/4.6.0/js/jquery.jqGrid.min.js"></script>

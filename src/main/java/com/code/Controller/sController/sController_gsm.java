@@ -42,10 +42,21 @@ public class sController_gsm {
 //        List<Task> list = taskService.getAll();
         String taskrate ="已通过";
         List<Task> list = taskService.findTaskByTaskstate(taskrate);
-        System.out.println("111");
+        System.out.println(taskService.choseState());
+        String chosestate=taskService.choseState();
+        int choseState= new Integer(chosestate).intValue();
+        if (choseState==0)
+            return "redirect:/student/kadaiSelectWarning";
+        else {
+        model.addAttribute("flag",choseState);
         model.addAttribute("initdata",list);
-        return  "stu_kadaiselect";
+        return  "stu_kadaiselect";}
     }
+    @RequestMapping(value = {"/kadaiSelectWarning"},method = {RequestMethod.POST,RequestMethod.GET})
+    public String kadaiSelectWarning(){
+        return "kadaiSelectWarning";
+    }
+
     @GetMapping("/taskdata")
     public JsonResponse<Task> get_sTaskData(Model model){
 //        List<Task> list = taskService.getAll();已通过
@@ -76,7 +87,10 @@ public class sController_gsm {
         }
 
         List<Task> list = taskService.findTaskByTaskid(task_id);
-
+        String chosestate=taskService.choseState();
+        int choseState= new Integer(chosestate).intValue();
+        model.addAttribute("flag",choseState);
+        System.out.println(choseState);
         model.addAttribute("initdata",list);
         return  "stu_ownkadai";
     }

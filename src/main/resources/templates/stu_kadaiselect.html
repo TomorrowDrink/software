@@ -113,6 +113,8 @@
                                 <span>已有项目</span>
                             </a>
 
+
+
                         </li>
                     </ul>
                 </li>
@@ -306,7 +308,10 @@
                                     <td style="display:none" id="table_taskdescrib" th:text="${task.taskdescrib}"></td>
                                     <td style="display:none" id="table_taskmaxchoose" th:text="${task.taskmaxchoose}"></td>
                                     <td><button id="show" class='btn btn-link' data-toggle='modal'  data-target='#showModal' onclick="show(this)">查看详情</button></td>
-                                    <td><button id="addtomy" class='btn btn-link' data-toggle='modal' data-target='#addtomyModal' onclick="add(this)">选题</button></td>                          <!--<td><button id="delete" class='btn btn-link'  data-toggle='modal' data-target='#delModal' >删除</button></td>-->
+                                    <!--<td><button id="addtomy" class='btn btn-link' data-toggle='modal' data-target='#addtomyModal' onclick="add(this)">选题</button></td>-->
+                                    <td><button  id="addtomy" onclick="On(this)" data-toggle='modal' data-target='#addtomyModal' class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-adjust"></span> 选择</button>
+
+                                    <!--<td><button id="delete" class='btn btn-link'  data-toggle='modal' data-target='#delModal' >删除</button></td>-->
                                     <!--<td><button id="delete" class='btn btn-link'  data-toggle='modal' data-target='#delModal' onclick="del(this)" >删除</button></td>-->
                                 </tr>
 
@@ -319,7 +324,7 @@
 
                         </form>
                     <!--</div>-->
-
+                        <input type="hidden" id="flag" th:value="${flag}" >
                 </div>
             </div>
 
@@ -335,6 +340,21 @@
 </div>
 
 </body>
+
+<script type="text/javascript">
+
+
+    //document.getElementById('addtomy').disabled=false;
+    function On(obj)
+    {
+            document.getElementById("addtomy_taskid").value=$(obj).parents("tr").find("#table_taskid").text();
+            document.getElementById("addtomy_taskname").value=$(obj).parents("tr").find("#table_taskname").text();
+            document.getElementById("student_id").value =$("#author").name;
+            // document.getElementById('addtomy').disabled=false;
+
+    }
+
+</script>
 <script type="text/javascript">
     /**
      * 选题

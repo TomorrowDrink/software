@@ -114,6 +114,8 @@
                                 <span>已有项目</span>
                             </a>
 
+
+
                         </li>
                     </ul>
                 </li>
@@ -285,7 +287,7 @@
 
                             </tbody>
                         </table>
-
+                        <input type="hidden" id="flag" th:value="${flag}" >
                         <hr>
 
 
@@ -303,11 +305,26 @@
         <script th:src="@{/js/flat-ui.min.js}" src="../static/js/flat-ui.min.js"></script>
     </div>
 </div>
+
+
 <script type="text/javascript">
     function del(obj) {
-        task = $(obj).parents("tr").find("#table_taskid").text();
-        document.getElementById("del_taskid").value= task;
+        var flag = document.getElementById("flag").value;
+        if(flag==0){
+
+            document.getElementById('delete').disabled=true;
+            alert("选题已结束，若要退选请联系管理员！");
+        }
+
+        if(flag==1) {
+            task = $(obj).parents("tr").find("#table_taskid").text();
+            document.getElementById("del_taskid").value = task;
+        }
     }
+</script>
+
+
+<script type="text/javascript">
 
     function show(obj) {
         document.getElementById("edit_task").value=$(obj).parents("tr").find("#table_taskid").text();

@@ -111,5 +111,14 @@ public class TaskServicelmpl implements TaskService {
     public List<Task_s> a_findAppointStuid(int stu_id){return taskMapper.a_findAppointStuid(stu_id);}
     @Override
     public  List<Task_s> a_findAppointStuname(String stu_name){return taskMapper.a_findAppointStuname(stu_name);}
+
+    @Override
+    public void a_skadaiDel(int stu_id){ taskMapper.a_skadaiDel(stu_id);}
+
+    @Override
+    public String  choseState(){return taskMapper.choseState();}
+
+    @Override
+    public void changeState(String changeState){taskMapper.changeState(changeState);}
 }
 
