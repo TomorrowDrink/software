@@ -55,12 +55,12 @@
                     </a>
                     <ul class="tpl-left-nav-sub-menu" style="display: block;">
                         <li>
-                            <a href="kadai.html" th:href="@{/admin/a_TaskReview}">
+                            <a href="kadai.html" th:href="@{/admin/a_pending}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>课题审核</span>
                             </a>
 
-                            <a href="newKadai.html" th:href="@{/admin/a_TaskShow}">
+                            <a href="newKadai.html" th:href="@{/admin/a_kadai}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>课题管理</span>
                             </a>
@@ -78,15 +78,17 @@
                     </a>
                     <ul class="tpl-left-nav-sub-menu" style="display: block;">
                         <li>
-                            <a href="#" >
+
+                            <a href="a_kadaiOpenAndClose.html" th:href="@{/admin/a_kadaiOpenAndClose}" >
                                 <i class="am-icon-angle-right"></i>
-                                <span>设定选题轮数</span>
+                                <span>开启/关闭选题</span>
                             </a>
 
-                            <a href="#" >
+                            <a href="a_kadaiorder.html" th:href="@{/admin/a_kadaiorder}" >
                                 <i class="am-icon-angle-right"></i>
                                 <span>指定课题</span>
                             </a>
+
 
                         </li>
                     </ul>
@@ -105,20 +107,13 @@
                                 <span>安排开题交叉评阅</span>
                             </a>
 
-                            <!--<a href="" th:href="@{/admin/ktgroup}">-->
-                                <!--<i class="am-icon-angle-right"></i>-->
-                                <!--<span>开题论证分组</span>-->
-                            <!--</a>-->
 
-                            <!--<a href="" th:href="@{/admin/lunwengroup}">-->
-                                <!--<i class="am-icon-angle-right"></i>-->
-                                <!--<span>论文答辩分组</span>-->
-                            <!--</a>-->
 
                             <a href="" th:href="@{/admin/crossproposal}">
                                 <i class="am-icon-angle-right"></i>
                                 <span>安排论文交叉评阅</span>
                             </a>
+
 
                             <a href="#" th:href="@{/admin/allgrades}">
                                 <i class="am-icon-angle-right"></i>
